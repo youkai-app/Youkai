@@ -6,7 +6,7 @@
 
 <p align="center"><i>Cool new unofficial client app for <a href="https://kitsu.io">Kitsu.io</a></i></p>
 
-![](https://cloud.githubusercontent.com/assets/2550945/23096386/bed84290-f61b-11e6-897a-cd31db3397c8.png)
+![](https://cloud.githubusercontent.com/assets/2550945/23096411/509b6522-f61c-11e6-846f-42ac9b28a337.png)
 
 <p align="right">
 <a href='https://play.google.com/store/apps/details?id=app.youkai'><img height="48" alt='Get it on Google Play' src='https://cloud.githubusercontent.com/assets/2550945/21590908/dd7857a8-d0ff-11e6-9d0c-a8ce8ba883d4.png'/></a>
