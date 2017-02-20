@@ -32,8 +32,8 @@ class LoginState : RestorableViewState<LoginView> {
 
     override fun saveInstanceState(bundle: Bundle) {
         bundle.putString(KEY_ERROR, error)
-        bundle.putBoolean(KEY_BUTTON_ENABLED, usernameEnabled)
-        bundle.putBoolean(KEY_BUTTON_ENABLED, passwordEnabled)
+        bundle.putBoolean(KEY_USERNAME_ENABLED, usernameEnabled)
+        bundle.putBoolean(KEY_PASSWORD_ENABLED, passwordEnabled)
         bundle.putBoolean(KEY_BUTTON_ENABLED, buttonEnabled)
         bundle.putBoolean(KEY_PROGRESS_VISIBLE, progressVisible)
     }
