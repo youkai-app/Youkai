@@ -15,6 +15,14 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginView {
 
+    override fun createPresenter(): LoginPresenter = LoginPresenter()
+
+    override fun createViewState(): ViewState<LoginView> = LoginState()
+
+    override fun onNewViewStateInstance() {
+        /* do nothing */
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -35,18 +43,6 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         getState().progressVisible = progress.visibility == VISIBLE
 
         super.onSaveInstanceState(outState)
-    }
-
-    override fun createPresenter(): LoginPresenter {
-        return LoginPresenter()
-    }
-
-    override fun createViewState(): ViewState<LoginView> {
-        return LoginState()
-    }
-
-    override fun onNewViewStateInstance() {
-        /* do nothing */
     }
 
     override fun showUsernameRequired(show: Boolean) {
