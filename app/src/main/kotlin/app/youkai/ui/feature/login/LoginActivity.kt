@@ -43,22 +43,6 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         super.onSaveInstanceState(outState)
     }
 
-    override fun showUsernameRequired(show: Boolean) {
-        if (show) {
-            usernameLayout.error = getString(R.string.error_username_required)
-        } else {
-            usernameLayout.error = null
-        }
-    }
-
-    override fun showPasswordRequired(show: Boolean) {
-        if (show) {
-            passwordLayout.error = getString(R.string.error_password_required)
-        } else {
-            passwordLayout.error = null
-        }
-    }
-
     override fun enableUsername(enable: Boolean) {
         username.isEnabled = enable
     }

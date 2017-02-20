@@ -4,16 +4,6 @@ import com.hannesdorfmann.mosby.mvp.MvpView
 
 interface LoginView : MvpView {
     /**
-     * Shows or hides the "Username is required" error message
-     */
-    fun showUsernameRequired(show: Boolean = true)
-
-    /**
-     * Shows or hides the "Password is required" error message
-     */
-    fun showPasswordRequired(show: Boolean = true)
-
-    /**
      * Enables or disables the username input field
      */
     fun enableUsername(enable: Boolean = true)
