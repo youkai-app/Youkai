@@ -21,7 +21,7 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
     var tryTimes = 0
 
     fun doLogin(username: String, password: String) {
-        if (!validateInput(username, password)) return
+        if (username.trim().isEmpty() || password.trim().isEmpty()) return
 
         view?.enableUsername(false)
         view?.enablePassword(false)
@@ -60,29 +60,5 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
                     }
 
                 })
-    }
-
-    /**
-     * Checks for the validity of inputs and displays errors in the View if necessary
-     */
-    private fun validateInput(username: String, password: String): Boolean {
-        var usernamePass = true
-        var passwordPass = true
-
-        if (username.trim().isEmpty()) {
-            view?.showUsernameRequired()
-            usernamePass = false
-        } else {
-            view?.showUsernameRequired(false)
-        }
-
-        if (password.trim().isEmpty()) {
-            view?.showPasswordRequired()
-            passwordPass = false
-        } else {
-            view?.showPasswordRequired(false)
-        }
-
-        return usernamePass && passwordPass
     }
 }
