@@ -52,6 +52,7 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:hint="@string/content_password"
         android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
