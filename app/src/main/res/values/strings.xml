@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Youkai</string>
+
+    <string name="content_username">Username</string>
+    <string name="content_password">Password</string>
+    <string name="content_forgot_password_signup">Forgot your password? <a href="https://kitsu.io/password-reset">Reset</a>\nNew here? <a href="https://kitsu.io">Sign up</a></string>
+
+    <string name="error_username_required">Username is required</string>
+    <string name="error_password_required">Password is required</string>
 </resources>
