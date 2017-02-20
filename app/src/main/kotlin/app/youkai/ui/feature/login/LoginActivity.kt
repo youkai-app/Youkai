@@ -35,8 +35,6 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        getState().usernameRequired = usernameLayout.error != null
-        getState().passwordRequired = passwordLayout.error != null
         getState().usernameEnabled = username.isEnabled
         getState().passwordEnabled = password.isEnabled
         getState().buttonEnabled = go.isEnabled
