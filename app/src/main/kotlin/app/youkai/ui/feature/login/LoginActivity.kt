@@ -55,6 +55,7 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
 
         super.onSaveInstanceState(outState)
     }
+
     override fun enableUsername(enable: Boolean) {
         username.isEnabled = enable
     }
