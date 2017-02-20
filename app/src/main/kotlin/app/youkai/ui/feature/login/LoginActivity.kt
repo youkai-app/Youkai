@@ -11,6 +11,9 @@ import app.youkai.R
 import app.youkai.util.ext.snackbar
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
+import com.jakewharton.rxbinding.widget.afterTextChangeEvents
+import com.jakewharton.rxbinding.widget.textChangeEvents
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginView {
@@ -32,6 +35,16 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         }
 
         bottomLinks.movementMethod = LinkMovementMethod()
+
+        username.afterTextChangeEvents()
+                .subscribe { tvChangeEvent ->
+                    presenter.updateLoginButtonWithInputFields(username.text.toString(), password.text.toString())
+        }
+
+        password.afterTextChangeEvents()
+                .subscribe { tvChangeEvent ->
+                    presenter.updateLoginButtonWithInputFields(username.text.toString(), password.text.toString())
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -42,7 +55,6 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
 
         super.onSaveInstanceState(outState)
     }
-
     override fun enableUsername(enable: Boolean) {
         username.isEnabled = enable
     }

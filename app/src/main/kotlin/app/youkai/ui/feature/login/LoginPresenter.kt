@@ -61,4 +61,8 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
 
                 })
     }
+
+    fun updateLoginButtonWithInputFields(username: String, password: String) {
+        view?.enableButton(!username.trim().isEmpty() && !password.trim().isEmpty())
+    }
 }
