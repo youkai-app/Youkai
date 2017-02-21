@@ -45,7 +45,7 @@ class Anime : BaseJsonModel() {
 
     var episodeCount: Int? = null
 
-    val subtype: String? = null
+    var subtype: String? = null
 
     var episodeLength: Int? = null
 
