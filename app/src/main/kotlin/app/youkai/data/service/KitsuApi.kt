@@ -7,7 +7,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
 import retrofit2.Retrofit
 
-class KitsuApi {
+object KitsuApi {
 
     private val BASE: String = "https://kitsu.io/api/edge/"
 
