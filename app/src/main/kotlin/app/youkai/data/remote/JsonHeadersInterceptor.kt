@@ -13,11 +13,12 @@ class JsonHeadersInterceptor : Interceptor {
 
         val request = chain.request()
                 .newBuilder()
-                .addHeader("Accept", "application/vnd.api+json")
                 .addHeader("Content-Type", "application/vnd.api+json")
-                .build()
 
-        return chain.proceed(request);
+        // some requests require different Accept headers (E.G. login)
+        if (chain.request().header("Accept").isNullOrEmpty()) request.addHeader("Accept", "application/vnd.api+json")
+
+        return chain.proceed(request.build());
 
     }
 

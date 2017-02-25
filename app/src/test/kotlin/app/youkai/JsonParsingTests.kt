@@ -1,6 +1,8 @@
 package app.youkai
 
 import app.youkai.data.models.Anime
+import app.youkai.data.models.Credentials
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.jasminb.jsonapi.ResourceConverter
 import org.junit.Test
 
@@ -55,6 +57,22 @@ class JsonParsingTests {
         assertEquals("LHtdKWJdif4", anime.youtubeVideoId)
         assertEquals("TV", anime.showType)
         assertEquals(false, anime.nsfw)
+
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun credentialsTest () {
+        val loginResponse = "{\"access_token\":\"46576873443657hg53667684m474hb34t34v232352543g64j64554y467edb551\",\"token_type\":\"bearer\",\"expires_in\":1373259,\"refresh_token\":\"fdsf34324325kl25l32k523n5235kkkkk42c02fca93966322222d03a4459df88\",\"scope\":\"public\",\"created_at\":1486761182}"
+
+        val credentials = ObjectMapper().readValue(loginResponse, Credentials::class.java)
+
+        assertEquals("46576873443657hg53667684m474hb34t34v232352543g64j64554y467edb551", credentials.accessToken)
+        assertEquals("bearer", credentials.tokenType)
+        assertEquals("1373259", credentials.expriesIn)
+        assertEquals("fdsf34324325kl25l32k523n5235kkkkk42c02fca93966322222d03a4459df88", credentials.refreshToken)
+        assertEquals("public", credentials.scope)
+        assertEquals("1486761182", credentials.createdAt)
 
     }
 

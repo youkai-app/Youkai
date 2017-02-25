@@ -6,10 +6,11 @@ import com.github.jasminb.jsonapi.retrofit.JSONAPIConverterFactory
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
 import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 
 object KitsuApi {
 
-    private val BASE: String = "https://kitsu.io/api/edge/"
+    private val BASE: String = "https://kitsu.io/api/"
 
     private var service: KitsuService
 
@@ -24,10 +25,20 @@ object KitsuApi {
         service = retrofit.create(KitsuService::class.java)
     }
 
-    fun getAnime(id: String) : Observable<Anime> {
+    val loginService: KitsuService by lazy {
 
-        return service.getAnime(id)
+        val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(JacksonConverterFactory.create())
+            .build()
+
+        retrofit.create(KitsuService::class.java)
 
     }
+
+    fun getAnime(id: String) : Observable<Anime> = service.getAnime(id)
+
+    fun login (username: String, password: String) = loginService.login(username, password, "password")
 
 }
