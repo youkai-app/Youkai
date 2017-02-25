@@ -11,29 +11,31 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 object KitsuApi {
 
     private val BASE: String = "https://kitsu.io/api/"
+    private val VERSION: String = "edge/"
 
     private var service: KitsuService
 
     init {
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl(BASE)
+                .baseUrl(BASE + VERSION)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(JSONAPIConverterFactory(ObjectMapper(), Anime::class.java))
                 .build()
 
         service = retrofit.create(KitsuService::class.java)
+
     }
 
-    val loginService: KitsuService by lazy {
+    val loginService: LoginService by lazy {
 
         val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(JacksonConverterFactory.create())
-            .build()
+                .baseUrl(BASE)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build()
 
-        retrofit.create(KitsuService::class.java)
+        retrofit.create(LoginService::class.java)
 
     }
 
