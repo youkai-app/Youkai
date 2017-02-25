@@ -78,10 +78,11 @@ dependencies {
     compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
 
     /* Retrofit and JSON */
-    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile 'com.squareup.retrofit2:converter-jackson:2.2.0'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'com.fasterxml.jackson.core:jackson-core:2.8.6'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     compile 'com.github.jasminb:jsonapi-converter:0.6'
