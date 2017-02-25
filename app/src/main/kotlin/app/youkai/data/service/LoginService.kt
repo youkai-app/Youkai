@@ -12,6 +12,8 @@ interface LoginService {
     @POST("oauth/token")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
-    fun  login(@Field("username") username: String, @Field("password") password: String, @Field("grant_type") grantType: String) : Observable<Credentials>
+    fun  login(@Field("username") username: String,
+               @Field("password") password: String,
+               @Field("grant_type") grantType: String) : Observable<Credentials>
 
 }
