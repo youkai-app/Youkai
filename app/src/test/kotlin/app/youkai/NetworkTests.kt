@@ -2,13 +2,12 @@ package app.youkai
 
 import app.youkai.data.remote.Client
 import okhttp3.Request
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
 import org.junit.Test
-import java.util.logging.Logger
 import kotlin.test.assertEquals
 
 class NetworkTests {
-
-    val logger = Logger.getAnonymousLogger()
 
     /*
      * Checks that the interceptors in Client.kt are correctly adding the required headers to requests.
@@ -16,9 +15,17 @@ class NetworkTests {
     @Test
     @Throws(Exception::class)
     fun networkInterceptorsTest () {
+
+        val server = MockWebServer()
+
+        server.enqueue(MockResponse())
+        server.enqueue(MockResponse())
+
+        server.start()
+
         var response = Client.newCall(
                 Request.Builder()
-                .url("http://xiprox.me")
+                .url(server.url("how/can/youkai/be/real"))
                 .addHeader("not_a_header", "---").build()).execute()
 
         assertEquals("application/vnd.api+json", response.request().header("Accept"))
@@ -26,7 +33,7 @@ class NetworkTests {
 
         response = Client.newCall(
                 Request.Builder()
-                        .url("http://xiprox.me")
+                        .url(server.url("if/kitsu/isnt/real"))
                         .addHeader("not_a_header", "---")
                         .addHeader("Accept", "Don'TACCEPTS").build()).execute()
 
@@ -36,6 +43,9 @@ class NetworkTests {
          */
         assertEquals("Don'TACCEPTS", response.request().header("Accept"))
         assertEquals("application/vnd.api+json", response.request().header("Content-Type"))
+
+        server.shutdown()
+
     }
 
 }
