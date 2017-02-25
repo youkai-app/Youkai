@@ -8,14 +8,16 @@ import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
-object KitsuApi {
+object Api {
 
     private val BASE: String = "https://kitsu.io/api/"
     private val VERSION: String = "edge/"
 
-    private var service: KitsuService
-
-    init {
+    /*
+     * Lazy modifier only instantiates when the value is first used.
+     * See: https://kotlinlang.org/docs/reference/delegated-properties.html
+     */
+    val service: Service by lazy {
 
         val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(BASE + VERSION)
@@ -23,7 +25,7 @@ object KitsuApi {
                 .addConverterFactory(JSONAPIConverterFactory(ObjectMapper(), Anime::class.java))
                 .build()
 
-        service = retrofit.create(KitsuService::class.java)
+        retrofit.create(Service::class.java)
 
     }
 
