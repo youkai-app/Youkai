@@ -2,9 +2,8 @@ package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.github.jasminb.jsonapi.annotations.Links
-import com.github.jasminb.jsonapi.annotations.Relationship
-import com.github.jasminb.jsonapi.annotations.Type
+import com.github.jasminb.jsonapi.annotations.*
+import com.github.jasminb.jsonapi.annotations.Meta
 
 @Type("anime") @JsonIgnoreProperties(ignoreUnknown = true) //TODO: REMOVE @JsonIgnoreProperties
 class Anime : BaseJsonModel() {
@@ -56,5 +55,12 @@ class Anime : BaseJsonModel() {
     var nsfw: Boolean? = null
 
     //TODO: relationships stuff
+
+    @Relationship("castings")
+    var castings: Array<Castings>? = null
+
+    @RelationshipLinks("castings")
+    var castingLinks: com.github.jasminb.jsonapi.Links? = null
+
 
 }
