@@ -18,7 +18,7 @@ class Casting : BaseJsonModel() {
     var language: String? = null
 
     @Meta
-    var meta: CastingsMeta? = null
+    var meta: CountMeta? = null
 
     @Links
     var links: com.github.jasminb.jsonapi.Links? = null
