@@ -1,6 +1,7 @@
 package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.annotations.*
 
 @Type("anime") @JsonIgnoreProperties(ignoreUnknown = true) //TODO: REMOVE @JsonIgnoreProperties
@@ -53,7 +54,8 @@ class Anime : BaseJsonModel() {
 
     var youtubeVideoId: String? = null
 
-    var nsfw: Boolean? = null
+    @JsonProperty("nsfw")
+    var isNsfw: Boolean? = null
 
     //TODO: relationships stuff
 
