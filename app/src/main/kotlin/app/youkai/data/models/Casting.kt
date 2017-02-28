@@ -6,7 +6,7 @@ import com.github.jasminb.jsonapi.annotations.Meta
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("castings")
-class Castings : BaseJsonModel() {
+class Casting : BaseJsonModel() {
 
     var role: String? = null
 
@@ -22,5 +22,7 @@ class Castings : BaseJsonModel() {
 
     @Links
     var links: com.github.jasminb.jsonapi.Links? = null
+
+    //TODO: relationships, character, person
 
 }

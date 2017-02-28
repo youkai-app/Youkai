@@ -22,8 +22,7 @@ class JsonParsingTests {
         val anime = animeJsonDoc.get()
 
         assertEquals("7442", anime.id)
-        //assertEquals("anime", animeJsonDoc.meta["type"])
-        //assertEquals("https://kitsu.io/api/edge/anime/7442", animeJsonDoc.links.getLink("self"))
+        assertEquals("https://kitsu.io/api/edge/anime/7442", anime.links!!.getLink("self")!!.href) // remember to use ?? in production code
 
         assertEquals("attack-on-titan", anime.slug)
         assertEquals("Centuries ago, manki...defeating them before the last walls are breached.\r\n[Written by MAL Rewrite]", anime.synopsis)
@@ -59,6 +58,10 @@ class JsonParsingTests {
         assertEquals("LHtdKWJdif4", anime.youtubeVideoId)
         assertEquals("TV", anime.showType)
         assertEquals(false, anime.nsfw)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/castings", anime.castingLinks!!.getLink("self")!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/castings", anime.castingLinks!!.getLink("related")!!.href)
+        assertEquals(null, anime.castings)
     }
 
     @Test
@@ -74,17 +77,16 @@ class JsonParsingTests {
         assertEquals("fdsf34324325kl25l32k523n5235kkkkk42c02fca93966322222d03a4459df88", credentials.refreshToken)
         assertEquals("public", credentials.scope)
         assertEquals("1486761182", credentials.createdAt)
-
     }
 
 
     @Test
     @Throws(Exception::class)
     fun castingsTest () {
-        val resourceConverter = ResourceConverter(Castings::class.java)
+        val resourceConverter = ResourceConverter(Casting::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("castings_json")
-        val castingsJsonDoc = resourceConverter.readDocumentCollection(testJson, Castings::class.java)
+        val castingsJsonDoc = resourceConverter.readDocumentCollection(testJson, Casting::class.java)
         val castings = castingsJsonDoc.get()
 
         assertEquals("121206", castings[0].id)
@@ -93,9 +95,9 @@ class JsonParsingTests {
         assertEquals(false, castings[0]!!.featured)
         assertEquals(null, castings[0]!!.language)
         assertEquals(64, castingsJsonDoc.meta["count"])
-        assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=10", castingsJsonDoc.links.links["next"]!!.href)
-        assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=54", castingsJsonDoc.links.links["last"]!!.href)
-        assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=0", castingsJsonDoc.links.links["first"]!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=10", castingsJsonDoc.links.getLink("next")!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=54", castingsJsonDoc.links.getLink("last")!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=0", castingsJsonDoc.links.getLink("first")!!.href)
     }
 
 
@@ -107,6 +109,16 @@ class JsonParsingTests {
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_castings_json")
         val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
         val anime = animeJsonDoc.get()
+
+        assertEquals("https://kitsu.io/api/edge/anime/3936/relationships/castings", anime.castingLinks!!.getLink("self")!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/3936/castings", anime.castingLinks!!.getLink("related")!!.href)
+
+        assertEquals("86935", anime.castings!!.first().id)
+        assertEquals("Script", anime.castings!!.first().role)
+        assertEquals(false, anime.castings!!.first().isVoiceActor)
+        assertEquals(false, anime.castings!!.first().featured)
+        assertEquals(null, anime.castings!!.first().language)
+        assertEquals("https://kitsu.io/api/edge/castings/86935", anime.castings!!.first().links!!.getLink("self")!!.href)
 
     }
 
