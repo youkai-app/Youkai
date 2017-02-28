@@ -1,6 +1,6 @@
 package app.youkai.data.models
 
-class CastingsMeta {
+class CountMeta {
 
     var count: Int? = null
 
