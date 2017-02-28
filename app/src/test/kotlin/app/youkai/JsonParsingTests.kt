@@ -57,7 +57,7 @@ class JsonParsingTests {
         assertEquals("TV" , anime.subtype)
         assertEquals("LHtdKWJdif4", anime.youtubeVideoId)
         assertEquals("TV", anime.showType)
-        assertEquals(false, anime.nsfw)
+        assertEquals(false, anime.isNsfw)
 
         assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/castings", anime.castingLinks!!.getLink("self")!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/castings", anime.castingLinks!!.getLink("related")!!.href)
