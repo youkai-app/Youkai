@@ -15,7 +15,6 @@ class NetworkTests {
     @Test
     @Throws(Exception::class)
     fun networkInterceptorsTest () {
-
         val server = MockWebServer()
 
         server.enqueue(MockResponse())
@@ -45,7 +44,6 @@ class NetworkTests {
         assertEquals("application/vnd.api+json", response.request().header("Content-Type"))
 
         server.shutdown()
-
     }
 
 }
