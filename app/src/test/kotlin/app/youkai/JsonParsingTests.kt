@@ -175,7 +175,6 @@ class JsonParsingTests {
         assertEquals("adventure", first.slug)
         assertEquals(null, first.description)
         assertEquals("https://kitsu.io/api/edge/genres/2", first.links!!.getLink("self").href)
-
     }
 
 
