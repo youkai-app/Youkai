@@ -33,9 +33,9 @@ class JsonParsingTests {
         assertEquals("Shingeki no Kyojin", anime.canonicalTitle)
         assertEquals(4.23691079690624, anime.averageRating)
         anime.abbreviatedTitles?.forEach { title -> assertEquals("AoT", title) }
-        assertEquals("141", anime.ratingFrequencies!!.get("0.5")) //Don't check all because long.
-        assertEquals("2526", anime.ratingFrequencies!!.get("3.0"))
-        assertEquals("13299", anime.ratingFrequencies!!.get("5.0"))
+        assertEquals("141", anime.ratingFrequencies!!["0.5"]) //Don't check all ratingFreq's because lazy.
+        assertEquals("2526", anime.ratingFrequencies!!["3.0"])
+        assertEquals("13299", anime.ratingFrequencies!!["5.0"])
         assertEquals(4024, anime.favoritesCount)
         assertEquals("2013-04-07", anime.startDate)
         assertEquals("2013-09-29", anime.endDate)
@@ -86,14 +86,16 @@ class JsonParsingTests {
         val resourceConverter = ResourceConverter(Casting::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("castings_json")
-        val castingsJsonDoc = resourceConverter.readDocumentCollection(testJson, Casting::class.java)
+        val castingsJsonDoc = resourceConverter.readDocumentCollection(testJson, Casting::class.java)  // notice different call (readDocumentCollectioN)
         val castings = castingsJsonDoc.get()
 
-        assertEquals("121206", castings[0].id)
-        assertEquals("Director", castings[0]!!.role)
-        assertEquals(false, castings[0]!!.isVoiceActor)
-        assertEquals(false, castings[0]!!.featured)
-        assertEquals(null, castings[0]!!.language)
+        val first = castings[0]!!
+
+        assertEquals("121206", first.id)
+        assertEquals("Director", first.role)
+        assertEquals(false, first.isVoiceActor)
+        assertEquals(false, first.featured)
+        assertEquals(null, first.language)
         assertEquals(64, castingsJsonDoc.meta["count"])
         assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=10", castingsJsonDoc.links.getLink("next")!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=54", castingsJsonDoc.links.getLink("last")!!.href)
@@ -113,12 +115,66 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/3936/relationships/castings", anime.castingLinks!!.getLink("self")!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/3936/castings", anime.castingLinks!!.getLink("related")!!.href)
 
-        assertEquals("86935", anime.castings!!.first().id)
-        assertEquals("Script", anime.castings!!.first().role)
-        assertEquals(false, anime.castings!!.first().isVoiceActor)
-        assertEquals(false, anime.castings!!.first().featured)
-        assertEquals(null, anime.castings!!.first().language)
-        assertEquals("https://kitsu.io/api/edge/castings/86935", anime.castings!!.first().links!!.getLink("self")!!.href)
+        val first = anime.castings!!.first()
+
+        assertEquals("86935", first.id)
+        assertEquals("Script", first.role)
+        assertEquals(false, first.isVoiceActor)
+        assertEquals(false, first.featured)
+        assertEquals(null, first.language)
+        assertEquals("https://kitsu.io/api/edge/castings/86935", first.links!!.getLink("self")!!.href)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun genresTest () {
+        val resourceConverter = ResourceConverter(Genre::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("genres_json")
+        val genresJsonDoc = resourceConverter.readDocumentCollection(testJson, Genre::class.java)
+        val genres = genresJsonDoc.get()
+
+        val first = genres.first()
+
+        assertEquals(6, genresJsonDoc.meta["count"])
+        assertEquals("https://kitsu.io/api/edge/anime/3936/genres?page%5Blimit%5D=10&page%5Boffset%5D=0", genresJsonDoc.links.getLink("first")!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/3936/genres?page%5Blimit%5D=10&page%5Boffset%5D=0", genresJsonDoc.links.getLink("last")!!.href)
+
+        assertEquals("2", first.id)
+        assertEquals("Adventure", first.name)
+        assertEquals("adventure", first.slug)
+        assertEquals(null, first.description)
+        assertEquals("https://kitsu.io/api/edge/genres/2", first.links!!.getLink("self").href)
+
+        val second = genres[1]
+
+        assertEquals("8", second.id)
+        assertEquals("Magic", second.name)
+        assertEquals("magic", second.slug)
+        assertEquals("fake description that isn't empty... xiprox; DROP TABLE example_table; –#", second.description)
+        assertEquals("https://kitsu.io/api/edge/genres/8", second.links!!.getLink("self").href)
+    }
+
+
+    @Test
+    @Throws(Exception::class)
+    fun animeWithGenresTest () {
+        val resourceConverter = ResourceConverter(Anime::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_genres_json")
+        val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
+        val anime = animeJsonDoc.get()
+
+        assertEquals("https://kitsu.io/api/edge/anime/3936/relationships/genres", anime.genreLinks!!.getLink("self")!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/3936/genres", anime.genreLinks!!.getLink("related")!!.href)
+
+        val first = anime.genres!!.first()
+
+        assertEquals("2", first.id)
+        assertEquals("Adventure", first.name)
+        assertEquals("adventure", first.slug)
+        assertEquals(null, first.description)
+        assertEquals("https://kitsu.io/api/edge/genres/2", first.links!!.getLink("self").href)
 
     }
 
