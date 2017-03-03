@@ -1,0 +1,302 @@
+{
+  "data":[
+    {
+      "id":"66105",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66105"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"Bite of the Ant"
+        },
+        "canonicalTitle":"Bite of the Ant",
+        "seasonNumber":1,
+        "number":43,
+        "synopsis":"something something Envy, Greed, spoilers, Rosé and Hohenheim.",
+        "airdate":"2010-02-07",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66105/original.jpg?1416321163"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66105/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66105/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66103",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66103"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"The Abyss"
+        },
+        "canonicalTitle":"The Abyss",
+        "seasonNumber":1,
+        "number":41,
+        "synopsis":"Miles and his men set off with the intent of killing Kimblee and his henchmen, something Ed objects to. As Scar's group exits the mine, they find Al, who warns them about Central infiltrating Briggs, so Scar decides to take them towards an Ishbalan slum. Miles' group attempts to snipe Kimblee, but Kimblee has already figured out their intent and uses a cover of snow to enter the mines. Ed tries to follow, but is attacked by two more chimeras. Ed disables them by using the ammonia in dynamite to make a stink bomb to overwhelm their high sense of smell. Ed then knocks the Philosopher's Stone out of Kimblee's hand, but Kimblee uses another Stone hidden inside his mouth, sending Ed and the chimeras down a mine shaft and leaving Ed impaled by a steel bar. At the same time, Al starts to drift out of consciousness, saying his soul is being drawn back to his body. Determined not to die, Ed gets the chimeras to remove the bar while he sacrifices some of his life span to temporarily fix the wound and to stop the bleeding. The chimeras find the Philosopher's Stone that Kimblee dropped, and, thankful for their rescue, decide to take Ed to a doctor. ",
+        "airdate":"2010-01-24",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66103/original.jpg?1416321160"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66103/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66103/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66102",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66102"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"Homunculus (The Dwarf in the Flask)"
+        },
+        "canonicalTitle":"Homunculus (The Dwarf in the Flask)",
+        "seasonNumber":1,
+        "number":40,
+        "synopsis":"Olivier goes to Central, where she admits to killing Raven and convinces Bradley to let her take his place. Riza uses a coded message to tell Roy that Selim is a homunculus. Meanwhile, 'Father' dreams of ancient Xerxes, where Hohenheim was raised as a nameless slave. There, Hohenheim met Homunculus, a being in a flask who was created from his blood, which gave Hohenheim his current name and taught him the basics of alchemy. One night, Homunculus was summoned by the King of Xerxes, who asked Homunculus to tell him the secret for immortality. Homunculus tricked the king into making a gigantic transmutation circle, using the whole country as a sacrifice, while it and Hohenheim stood at the center of the circle. When Hohenheim awoke, everyone else in Xerxes was dead, except for Homunculus. It created a body shaped like Hohenheim for itself, becoming 'Father.' Back in the present, after Hohenheim awakes from this shared dream, he runs into Izumi and Sig. When Hohenheim notices Izumi's sin, he rearranges her organs so that her blood can flow better. After this, Hohenheim tells Izumi and Sig that he is a Philosopher's Stone in human form. ",
+        "airdate":"2010-01-17",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66102/original.jpg?1416321159"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66102/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66102/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66101",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66101"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"Daydream"
+        },
+        "canonicalTitle":"Daydream",
+        "seasonNumber":1,
+        "number":39,
+        "synopsis":"When faced with the option of judging her parents' killer, Winry decides to heal Scar's wounds, knowing it would be something her parents would do. Miles explains to Scar that he joined the military to gradually change the way people think of Ishbalans. Since Marcoh and May need Scar to decipher his brother's research, Miles offers to hide everyone at Fort Briggs, with Al insisting on sparing the two chimera. While Marcoh and company head for Briggs via tunnels in the mines, Winry comes up with rouse to make it look like Scar has kidnapped her to elude Kimblee just before a blizzard sets in. However, as Marcoh's group heads for the fort, Miles gets word that Olivier is no longer at Briggs and the fort is being manned by Central people. Al goes into the blizzard to find Marcoh's group and warn them. While in the blizzard, Al briefly sees his body, and wonders if it is trying to get its soul back. Meanwhile, Father makes plans involving Ed, Al, Hohenheim, Izumi, and one more candidate. ",
+        "airdate":"2010-01-10",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66101/original.jpg?1416321156"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66101/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66101/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66100",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66100"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"Conflict at Baschool"
+        },
+        "canonicalTitle":"Conflict at Baschool",
+        "seasonNumber":1,
+        "number":38,
+        "synopsis":"Riza gets a call from Roy, but is unable to say anything in fear of being watched by Pride. In the town of Baschool, Ed and Al, along with Winry, lose the guards that were assigned to them and end up running into May and Marcoh. Meanwhile, Scar encounters a couple of Kimblee's men, a pair of chimeras, and runs into trouble with them. Scar gets pinned, but Ed and Al arrive and beat the chimeras, before restraining Scar themselves. Winry and Miles arrive, and Winry confronts Scar face-to-face about her parents' deaths. Explosions then take place and it appears that Scar has taken Winry hostage. Meanwhile, as Olivier's squad retrieve the survivors from the tunnels, Briggs is approached by some people. ",
+        "airdate":"2009-12-27",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66100/original.jpg?1416321154"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66100/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66100/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66098",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66098"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"Family Portrait"
+        },
+        "canonicalTitle":"Family Portrait",
+        "seasonNumber":1,
+        "number":36,
+        "synopsis":"Hoenheim recalls when he left the Elric's house, lamenting that his body would outlast his family's. Meanwhile, soldiers investigating the tunnels under Briggs find themselves killed by a mysterious shadow. Lt General Raven tells Olivier to put Sloth into the tunnel and seal it off. Whilst Miles stalls Kimblee for time, Olivier kills Raven. As Olivier enters the tunnel via a separate entrance, Kimblee brings Winry over to see Ed and Al, reminding them of their place. Meanwhile, Scar reunites with Marcoh and Mei, and Roy gets information and a message from Olivier from his intel sources. ",
+        "airdate":"2009-12-13",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66098/original.jpg?1416321150"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66098/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66098/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66097",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66097"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"The Shape of This Country"
+        },
+        "canonicalTitle":"The Shape of This Country",
+        "seasonNumber":1,
+        "number":35,
+        "synopsis":"After Olivier comes up with a plan to stop Sloth, Buccaneer forcefully recruits the Elrics and Falman for the plan. With everything in place, Olivier and her trio of tanks ram Sloth into the elevator which is sent down to the level with the exposed walkway. The confused Sloth walks out of the elevator and immediately gets fuel spilled onto him by Buccaneer's group and is pushed over the railings with a combined effort from Olivier's tank, Falman, and the Elrics. The fuel spilled onto Sloth is cold weather fuel that evaporates even in the middle of winter, and with blizzard conditions outside Sloth is quickly frozen. After freezing Sloth, Olivier orders Buccaneer to put the Elrics into the fort's holding cells so she can question them later. The next morning, the Elrics are thanked by several soldiers for helping during Sloth's invasion, but the soldiers still wouldn't let the Elrics out of their cell.",
+        "airdate":"2009-12-06",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66097/original.jpg?1416321148"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66097/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66097/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66095",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66095"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"The Northern Wall of Briggs"
+        },
+        "canonicalTitle":"The Northern Wall of Briggs",
+        "seasonNumber":1,
+        "number":33,
+        "synopsis":"Still on Scar’s trail, Kimblee figures out that he headed north and follows him there. When Kimblee gets word that Scar and Marcoh are on a train, he boards it by having another train run alongside it, but instead of finding Marcoh, he finds Yoki there. Kimblee is then attacked by Scar, and the two recognize each other from their previous encounter years ago. Before Kimblee can really do anything, Scar impales him with a metal pipe, and this leaves Kimblee no choice but to use his alchemy to separate the two parts of the train, with Scar on the other part. Realizing that something happened, the train’s operators stop it and find the injured Kimblee, but he orders them to keep going. Unbeknownst to Kimblee, the real Marcoh is heading north on foot with May Chang. The two eventually reach the shack where Scar’s brother’s research is located, and they find it intact.\n\n",
+        "airdate":"2009-11-22",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66095/original.jpg?1416321143"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66095/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66095/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66094",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66094"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"The Führer's Son"
+        },
+        "canonicalTitle":"The Führer's Son",
+        "seasonNumber":1,
+        "number":32,
+        "synopsis":"As May heads off towards the North with one hooded person, Scar escapes with another to the West. General Grummon, disguised as a woman, meets up with Roy to discuss current matters. Upon hearing that Grumman saw May at the train station, Roy asks Armstrong to pass the message onto Ed, who had decided to look in the library for information on alkahestry. Upon passing on the message, Armstrong also gives Ed a letter of introduction to pass onto General Major Armstrong, his sister. Later on, Ed and Al meet Bradley's adopted son, Selim, and are invited to his house where they also meet Bradley's wife and are later joined by Bradley himself. After the meeting, Ed and Al head off towards the North. Meanwhile, Scar and his accomplice escape from the train heading West, and Kimblee tries to predict his next move. ",
+        "airdate":"2009-11-15",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66094/original.jpg?1416321140"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66094/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66094/media"
+          }
+        }
+      }
+    },
+    {
+      "id":"66093",
+      "type":"episodes",
+      "links":{
+        "self":"https://kitsu.io/api/edge/episodes/66093"
+      },
+      "attributes":{
+        "titles":{
+          "en_jp":"The 520 Cenz Promise"
+        },
+        "canonicalTitle":"The 520 Cenz Promise",
+        "seasonNumber":1,
+        "number":31,
+        "synopsis":"Ed passes on what Riza told him to Al, and the two contemplate about what to do after they complete their objectives, and as to why Scar and May's alchemy worked when their's was blocked. However, May had run off, so they go and look for her. Meanwhile, Riza, Breda, Fuery and Halman say their goodbyes as they are sent to different HQs, with Roy finding a hidden message inside a chess set Halman gave him. Roy later reminds Ed that he owes him 520 cenz, but Ed decides to keep ahold of it until he becomes Fuhrer. Roy uses the note he got from Falman to make contact with Grumman. Meanwhile, Fu is shocked to find Lan Fan had lost her arm, and declines Ed's help to find an automail mechanic, since it would involve his acquaintances in their troubles. Afterwards, Knox gets a visit from his children, who are pleased to hear he's been able to successfully treat patients. Realising that Marcoh had escaped along with Scar, Envy releases Kimbley from prison, giving him to the task to retrieve Marcoh and kill Scar. Wanting to find out more about Kimbley and the secrets behind his brother's alchemy, Scar destroys Marcoh's face so it won't be recognised, before heading off to the North to recover his brother's notes. ",
+        "airdate":"2009-11-08",
+        "length":null,
+        "thumbnail":{
+          "original":"https://media.kitsu.io/episodes/thumbnails/66093/original.jpg?1416321135"
+        }
+      },
+      "relationships":{
+        "media":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/episodes/66093/relationships/media",
+            "related":"https://kitsu.io/api/edge/episodes/66093/media"
+          }
+        }
+      }
+    }
+  ],
+  "meta":{
+    "count":64
+  },
+  "links":{
+    "first":"https://kitsu.io/api/edge/anime/3936/episodes?page%5Blimit%5D=10&page%5Boffset%5D=0",
+    "next":"https://kitsu.io/api/edge/anime/3936/episodes?page%5Blimit%5D=10&page%5Boffset%5D=10",
+    "last":"https://kitsu.io/api/edge/anime/3936/episodes?page%5Blimit%5D=10&page%5Boffset%5D=54"
+  }
+}
