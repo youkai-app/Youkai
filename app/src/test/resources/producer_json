@@ -1,0 +1,21 @@
+{
+  "data":{
+    "id":"532",
+    "type":"producers",
+    "links":{
+      "self":"https://kitsu.io/api/edge/producers/532"
+    },
+    "attributes":{
+      "slug":"mad-box",
+      "name":"Mad Box"
+    },
+    "relationships":{
+      "animeProductions":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/producers/532/relationships/anime-productions",
+          "related":"https://kitsu.io/api/edge/producers/532/anime-productions"
+        }
+      }
+    }
+  }
+}
