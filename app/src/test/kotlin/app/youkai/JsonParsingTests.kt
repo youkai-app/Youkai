@@ -59,9 +59,17 @@ class JsonParsingTests {
         assertEquals("TV", anime.showType)
         assertEquals(false, anime.isNsfw)
 
-        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/castings", anime.castingLinks!!.self!!.href)
-        assertEquals("https://kitsu.io/api/edge/anime/7442/castings", anime.castingLinks!!.related!!.href)
-        assertEquals(null, anime.castings)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/genres", anime.genreLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/genres", anime.genreLinks!!.related.href)
+        assertNull(anime.genres)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/castings", anime.castingLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/castings", anime.castingLinks!!.related.href)
+        assertNull(anime.castings)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/episodes", anime.episodeLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/episodes", anime.episodeLinks!!.related.href)
+        assertNull(anime.episodes)
     }
 
     @Test
@@ -96,12 +104,15 @@ class JsonParsingTests {
         assertEquals(false, first.isVoiceActor)
         assertEquals(false, first.featured)
         assertEquals(null, first.language)
+
+        assertEquals("https://kitsu.io/api/edge/castings/121206/relationships/media", first.animeLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/castings/121206/media", first.animeLinks!!.related.href)
+
         assertEquals(64, castingsJsonDoc.meta["count"])
+
         assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=10", castingsJsonDoc.links.next!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=54", castingsJsonDoc.links.last!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/castings?page%5Blimit%5D=10&page%5Boffset%5D=0", castingsJsonDoc.links.first!!.href)
-        assertEquals("https://kitsu.io/api/edge/castings/121206/relationships/media", first.animeLinks!!.self.href)
-        assertEquals("https://kitsu.io/api/edge/castings/121206/media", first.animeLinks!!.related.href)
     }
 
 
@@ -138,15 +149,15 @@ class JsonParsingTests {
 
         val first = genres.first()
 
-        assertEquals(6, genresJsonDoc.meta["count"])
-        assertEquals("https://kitsu.io/api/edge/anime/3936/genres?page%5Blimit%5D=10&page%5Boffset%5D=0", genresJsonDoc.links.first!!.href)
-        assertEquals("https://kitsu.io/api/edge/anime/3936/genres?page%5Blimit%5D=10&page%5Boffset%5D=0", genresJsonDoc.links.last!!.href)
-
         assertEquals("2", first.id)
         assertEquals("Adventure", first.name)
         assertEquals("adventure", first.slug)
         assertEquals(null, first.description)
         assertEquals("https://kitsu.io/api/edge/genres/2", first.links!!.self.href)
+
+        assertEquals(6, genresJsonDoc.meta["count"])
+        assertEquals("https://kitsu.io/api/edge/anime/3936/genres?page%5Blimit%5D=10&page%5Boffset%5D=0", genresJsonDoc.links.first!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/3936/genres?page%5Blimit%5D=10&page%5Boffset%5D=0", genresJsonDoc.links.last!!.href)
 
         val second = genres[1]
 
@@ -167,7 +178,7 @@ class JsonParsingTests {
         val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
         val anime = animeJsonDoc.get()
 
-        assertEquals("https://kitsu.io/api/edge/anime/3936/relationships/genres", anime.genreLinks!!.getLink("self")!!.href)
+        assertEquals("https://kitsu.io/api/edge/anime/3936/relationships/genres", anime.genreLinks!!.self!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/3936/genres", anime.genreLinks!!.related!!.href)
 
         val first = anime.genres!!.first()
@@ -183,6 +194,7 @@ class JsonParsingTests {
      * From here on, extra properties will not get their own animeWith... tests.
      * TODO: animWithEverythingTest()
      */
+
     @Test
     @Throws(Exception::class)
     fun episodesTest () {
@@ -202,14 +214,43 @@ class JsonParsingTests {
         assertEquals("2010-02-07", first.airdate)
         assertEquals(null, first.length)
         assertEquals("https://media.kitsu.io/episodes/thumbnails/66105/original.jpg?1416321163", first.thumbnail)
-        assertEquals(64, episodesJsonDoc.meta["count"])
-        
+        assertEquals("https://kitsu.io/api/edge/episodes/66105", first.links!!.self.href)
+
         assertEquals("https://kitsu.io/api/edge/episodes/66105/relationships/media", first.animeLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/episodes/66105/media", first.animeLinks!!.related.href)
+
+        assertEquals(64, episodesJsonDoc.meta["count"])
 
         assertEquals("https://kitsu.io/api/edge/anime/3936/episodes?page%5Blimit%5D=10&page%5Boffset%5D=10", episodesJsonDoc.links.next!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/3936/episodes?page%5Blimit%5D=10&page%5Boffset%5D=54", episodesJsonDoc.links.last!!.href)
         assertEquals("https://kitsu.io/api/edge/anime/3936/episodes?page%5Blimit%5D=10&page%5Boffset%5D=0", episodesJsonDoc.links.first!!.href)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun MappingsTest () {
+        val resourceConverter = ResourceConverter(Mapping::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("mappings_json")
+        val mappingsJsonDoc = resourceConverter.readDocumentCollection(testJson, Mapping::class.java)
+        val mappings = mappingsJsonDoc.get()
+
+        val first = mappings[0]!!
+
+        assertEquals("5686", first.id)
+        assertEquals("myanimelist/anime", first.externalSite)
+        assertEquals("16498", first.externalId)
+        assertEquals("https://kitsu.io/api/edge/mappings/5686", first.links!!.self.href)
+
+        assertEquals("https://kitsu.io/api/edge/mappings/5686/relationships/media", first.animeLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/mappings/5686/media", first.animeLinks!!.related.href)
+
+        assertEquals(3, mappingsJsonDoc.meta["count"])
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/mappings?page%5Blimit%5D=10&page%5Boffset%5D=0", mappingsJsonDoc.links.first.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/mappings?page%5Blimit%5D=10&page%5Boffset%5D=0", mappingsJsonDoc.links.last.href)
+    }
+
+    
 
 }
