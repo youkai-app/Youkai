@@ -251,6 +251,6 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/mappings?page%5Blimit%5D=10&page%5Boffset%5D=0", mappingsJsonDoc.links.last.href)
     }
 
-    
+
 
 }
