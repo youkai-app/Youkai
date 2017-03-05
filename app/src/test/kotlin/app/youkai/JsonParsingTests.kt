@@ -70,6 +70,18 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/episodes", anime.episodeLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/episodes", anime.episodeLinks!!.related.href)
         assertNull(anime.episodes)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/mappings", anime.mappingLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/mappings", anime.mappingLinks!!.related.href)
+        assertNull(anime.mappings)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/anime-productions", anime.productionLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-productions", anime.productionLinks!!.related.href)
+        assertNull(anime.productions)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/anime-characters", anime.animeCharacterLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-characters", anime.animeCharacterLinks!!.related.href)
+        assertNull(anime.animeCharacters)
     }
 
     @Test
@@ -244,6 +256,7 @@ class JsonParsingTests {
 
         assertEquals("https://kitsu.io/api/edge/mappings/5686/relationships/media", first.animeLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/mappings/5686/media", first.animeLinks!!.related.href)
+        assertNull(first.anime)
 
         assertEquals(3, mappingsJsonDoc.meta["count"])
 
@@ -251,6 +264,60 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/mappings?page%5Blimit%5D=10&page%5Boffset%5D=0", mappingsJsonDoc.links.last.href)
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun AnimeCharactersTest () {
+        val resourceConverter = ResourceConverter(AnimeCharacter::class.java)
 
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("characters_anime_json")
+        val animeCharactersJsonDoc = resourceConverter.readDocumentCollection(testJson, AnimeCharacter::class.java)
+        val animeCharacters = animeCharactersJsonDoc.get()
+
+        val first = animeCharacters[0]!!
+
+        assertEquals("7508", first.id)
+        assertEquals("main", first.role)
+        assertEquals("https://kitsu.io/api/edge/anime-characters/7508", first.links!!.self.href)
+
+        assertEquals("https://kitsu.io/api/edge/anime-characters/7508/relationships/anime", first.animeLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime-characters/7508/anime", first.animeLinks!!.related.href)
+        assertNull(first.anime)
+
+        assertEquals("https://kitsu.io/api/edge/anime-characters/7508/relationships/character", first.characterLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime-characters/7508/character", first.characterLinks!!.related.href)
+        assertNull(first.character)
+
+        assertEquals("https://kitsu.io/api/edge/anime-characters/7508/relationships/castings", first.castingLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime-characters/7508/castings", first.castingLinks!!.related.href)
+        assertNull(first.casting)
+
+        assertEquals(72, animeCharactersJsonDoc.meta["count"])
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-characters?page%5Blimit%5D=10&page%5Boffset%5D=0", animeCharactersJsonDoc.links.first.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-characters?page%5Blimit%5D=10&page%5Boffset%5D=10", animeCharactersJsonDoc.links.next.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-characters?page%5Blimit%5D=10&page%5Boffset%5D=62", animeCharactersJsonDoc.links.last.href)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun CharacterTest () {
+        val resourceConverter = ResourceConverter(Character::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("character_json")
+        val characterJsonDoc = resourceConverter.readDocument(testJson, Character::class.java)
+        val character = characterJsonDoc.get()
+
+        assertEquals("38505", character.id)
+        assertEquals("mikasa-ackerman", character.slug)
+        assertEquals("Mikasa Ackerman", character.name)
+        assertEquals(40881, character.malId)
+        assertEquals("Age: 15<br/>BirthHeight: 17 metres! WOW! WHAT A TALL GIRL...are inseparable.</span>", character.description)
+        assertEquals("https://media.kitsu.io/characters/images/38505/original.jpg?1483096805", character.image)
+        assertEquals("https://kitsu.io/api/edge/characters/38505", character.links!!.self.href)
+
+        assertEquals("https://kitsu.io/api/edge/characters/38505/relationships/castings", character.castingLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/characters/38505/castings", character.castingLinks!!.related.href)
+        assertNull(character.casting)
+    }
 
 }

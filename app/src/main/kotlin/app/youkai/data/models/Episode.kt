@@ -22,7 +22,7 @@ class Episode : BaseJsonModel() {
     var length: Int? = null
 
     /*
-     * Thumnail is an object with a single field ("original") in the api.
+     * Thumbnail is an object with a single field ("original") in the api.
      * This method prevents the need for creating a new object for this one property.
      * If the thumbnail object one day includes new properties (pretty much guaranteed to be strings)
      * this method should still work as expected.

@@ -1,0 +1,32 @@
+{
+  "data":{
+    "id":"38505",
+    "type":"characters",
+    "links":{
+      "self":"https://kitsu.io/api/edge/characters/38505"
+    },
+    "attributes":{
+      "slug":"mikasa-ackerman",
+      "name":"Mikasa Ackerman",
+      "malId":40881,
+      "description":"Age: 15<br/>BirthHeight: 17 metres! WOW! WHAT A TALL GIRL...are inseparable.</span>",
+      "image":{
+        "original":"https://media.kitsu.io/characters/images/38505/original.jpg?1483096805"
+      }
+    },
+    "relationships":{
+      "primaryMedia":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/characters/38505/relationships/primary-media",
+          "related":"https://kitsu.io/api/edge/characters/38505/primary-media"
+        }
+      },
+      "castings":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/characters/38505/relationships/castings",
+          "related":"https://kitsu.io/api/edge/characters/38505/castings"
+        }
+      }
+    }
+  }
+}

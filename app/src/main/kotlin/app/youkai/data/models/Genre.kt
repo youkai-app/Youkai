@@ -7,8 +7,6 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("genres")
 class Genre : BaseJsonModel() {
 
-    // TODO: enums for genres names
-
     var name: String? = null
 
     var slug: String? = null
