@@ -7,10 +7,10 @@ class AnimeProduction : BaseJsonModel() {
 
     var role: String? = null
 
-    @Relationship("media")
+    @Relationship("anime")
     var anime: Anime? = null
 
-    @RelationshipLinks("media")
+    @RelationshipLinks("anime")
     var animeLinks: com.github.jasminb.jsonapi.Links? = null
 
     @Relationship("producer")

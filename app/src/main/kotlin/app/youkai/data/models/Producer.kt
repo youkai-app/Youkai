@@ -2,7 +2,7 @@ package app.youkai.data.models
 
 import com.github.jasminb.jsonapi.annotations.*
 
-@Type("animeProductions")
+@Type("producers")
 class Producer : BaseJsonModel() {
 
     var slug: String? = null
@@ -10,12 +10,9 @@ class Producer : BaseJsonModel() {
     var name: String? = null
 
     @Relationship("animeProductions")
-    var anime: Anime? = null
+    var productions: Anime? = null
 
     @RelationshipLinks("animeProductions")
-    var animeLinks: com.github.jasminb.jsonapi.Links? = null
+    var productionLinks: com.github.jasminb.jsonapi.Links? = null
 
 }
-
-
-
