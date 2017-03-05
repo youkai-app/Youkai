@@ -4,7 +4,7 @@ import com.github.jasminb.jsonapi.annotations.*
 import com.github.jasminb.jsonapi.annotations.Meta
 
 @Type("animeProductions")
-class Production : BaseJsonModel() {
+class AnimeProduction : BaseJsonModel() {
 
     var role: String? = null
 
@@ -27,6 +27,4 @@ class Production : BaseJsonModel() {
     var links: com.github.jasminb.jsonapi.Links? = null
 
 }
-
-
 

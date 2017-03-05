@@ -77,4 +77,23 @@ class Anime : BaseJsonModel() {
     @RelationshipLinks("episodes")
     var episodeLinks: com.github.jasminb.jsonapi.Links? = null
 
+    @Relationship("mappings")
+    var mappings: List<Mapping>? = null
+
+    @RelationshipLinks("mappings")
+    var mappingLinks: com.github.jasminb.jsonapi.Links? = null
+
+    @Relationship("animeProductions")
+    var productions: List<AnimeProduction>? = null
+
+    @RelationshipLinks("animeProductions")
+    var productionLinks: com.github.jasminb.jsonapi.Links? = null
+
+    @Relationship("animeCharacters")
+    var animeCharacters: List<AnimeCharacter>? = null
+
+    @RelationshipLinks("animeCharacters")
+    var animeCharacterLinks: com.github.jasminb.jsonapi.Links? = null
+
+
 }
