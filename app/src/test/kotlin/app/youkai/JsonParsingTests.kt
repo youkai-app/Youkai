@@ -320,4 +320,52 @@ class JsonParsingTests {
         assertNull(character.casting)
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun AnimeProductionsTest () {
+        val resourceConverter = ResourceConverter(AnimeProduction::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("productions_anime_json")
+        val animeProductionsJsonDoc = resourceConverter.readDocumentCollection(testJson, AnimeProduction::class.java)
+        val animeProductions = animeProductionsJsonDoc.get()
+
+        val first = animeProductions[0]
+
+        assertEquals("18636", first.id)
+        assertEquals("producer", first.role)
+        assertEquals("https://kitsu.io/api/edge/anime-productions/18636", first.links!!.self.href)
+
+        assertEquals("https://kitsu.io/api/edge/anime-productions/18636/relationships/anime", first.animeLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime-productions/18636/anime", first.animeLinks!!.related.href)
+        assertNull(first.anime)
+
+        assertEquals("https://kitsu.io/api/edge/anime-productions/18636/relationships/producer", first.producerLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime-productions/18636/producer", first.producerLinks!!.related.href)
+        assertNull(first.producer)
+
+        assertEquals(9, animeProductionsJsonDoc.meta["count"])
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-productions?page%5Blimit%5D=10&page%5Boffset%5D=0", animeProductionsJsonDoc.links.first.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-productions?page%5Blimit%5D=10&page%5Boffset%5D=0", animeProductionsJsonDoc.links.last.href)
+    }
+
+
+    @Test
+    @Throws(Exception::class)
+    fun ProducerTest () {
+        val resourceConverter = ResourceConverter(Producer::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("producer_json")
+        val producerJsonDoc = resourceConverter.readDocument(testJson, Producer::class.java)
+        val producer = producerJsonDoc.get()
+
+        assertEquals("532", producer.id)
+        assertEquals("mad-box", producer.slug)
+        assertEquals("Mad Box", producer.name)
+        assertEquals("https://kitsu.io/api/edge/producers/532", producer.links!!.self.href)
+
+        assertEquals("https://kitsu.io/api/edge/producers/532/relationships/anime-productions", producer.productionLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/producers/532/anime-productions", producer.productionLinks!!.related.href)
+        assertNull(producer.productions)
+    }
+
 }
