@@ -2,7 +2,6 @@ package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.annotations.*
-import com.github.jasminb.jsonapi.annotations.Meta
 
 @Type("castings")
 class Casting : BaseJsonModel() {
@@ -16,18 +15,18 @@ class Casting : BaseJsonModel() {
 
     var language: String? = null
 
-    @Meta
-    var meta: CountMeta? = null
-
-    @Links
-    var links: com.github.jasminb.jsonapi.Links? = null
-
-    //TODO: relationships, character, person
+    //TODO: relationships: person
 
     @Relationship("media")
     var anime: Anime? = null
 
     @RelationshipLinks("media")
     var animeLinks: com.github.jasminb.jsonapi.Links? = null
+
+    @Relationship("character")
+    var character: Character? = null
+
+    @RelationshipLinks("chacacter")
+    var characterLinks: com.github.jasminb.jsonapi.Links? = null
 
 }
