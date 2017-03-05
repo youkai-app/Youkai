@@ -54,7 +54,7 @@ class Anime : BaseJsonModel() {
     @JsonProperty("nsfw")
     var isNsfw: Boolean? = null
 
-    //TODO: relationships stuff
+    //TODO: relationships: installments, reviews, mediaRelationships
 
     @Relationship("genres")
     var genres: List<Genre>? = null
@@ -91,5 +91,11 @@ class Anime : BaseJsonModel() {
 
     @RelationshipLinks("animeCharacters")
     var animeCharacterLinks: com.github.jasminb.jsonapi.Links? = null
+
+    @Relationship("animeStaff")
+    var animeStaff: List<AnimeStaff>? = null
+
+    @RelationshipLinks("animeStaff")
+    var animeStaffLinks: com.github.jasminb.jsonapi.Links? = null
 
 }

@@ -82,6 +82,10 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/anime-characters", anime.animeCharacterLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/anime-characters", anime.animeCharacterLinks!!.related.href)
         assertNull(anime.animeCharacters)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/anime-staff", anime.animeStaffLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff", anime.animeStaffLinks!!.related.href)
+        assertNull(anime.animeStaff)
     }
 
     @Test
@@ -348,7 +352,6 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/anime-productions?page%5Blimit%5D=10&page%5Boffset%5D=0", animeProductionsJsonDoc.links.last.href)
     }
 
-
     @Test
     @Throws(Exception::class)
     fun ProducerTest () {
@@ -366,6 +369,35 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/producers/532/relationships/anime-productions", producer.productionLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/producers/532/anime-productions", producer.productionLinks!!.related.href)
         assertNull(producer.productions)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun AnimeStaffTest () {
+        val resourceConverter = ResourceConverter(AnimeStaff::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("staff_anime_json")
+        val animeStaffJsonDoc = resourceConverter.readDocumentCollection(testJson, AnimeStaff::class.java)
+        val animeStaff = animeStaffJsonDoc.get()
+
+        val first = animeStaff[0]
+
+        assertEquals("5526", first.id)
+        assertEquals("Producer", first.role)
+        assertEquals("https://kitsu.io/api/edge/anime-staff/5526", first.links!!.self.href)
+
+        assertEquals("https://kitsu.io/api/edge/anime-staff/5526/relationships/anime", first.animeLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime-staff/5526/anime", first.animeLinks!!.related.href)
+        assertNull(first.anime)
+
+        assertEquals("https://kitsu.io/api/edge/anime-staff/5526/relationships/person", first.personLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime-staff/5526/person", first.personLinks!!.related.href)
+        assertNull(first.person)
+
+        assertEquals(58, animeStaffJsonDoc.meta["count"])
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff?page%5Blimit%5D=10&page%5Boffset%5D=0", animeStaffJsonDoc.links.first.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff?page%5Blimit%5D=10&page%5Boffset%5D=10", animeStaffJsonDoc.links.next.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff?page%5Blimit%5D=10&page%5Boffset%5D=48", animeStaffJsonDoc.links.last.href)
     }
 
 }
