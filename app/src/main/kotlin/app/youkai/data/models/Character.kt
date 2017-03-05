@@ -45,7 +45,4 @@ class Character : BaseJsonModel() {
     @RelationshipLinks("castings")
     var castingLinks: com.github.jasminb.jsonapi.Links? = null
 
-    @Links
-    var links: com.github.jasminb.jsonapi.Links? = null
-
 }

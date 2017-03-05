@@ -7,9 +7,6 @@ import com.github.jasminb.jsonapi.annotations.*
 @Type("anime") @JsonIgnoreProperties(ignoreUnknown = true) //TODO: REMOVE @JsonIgnoreProperties
 class Anime : BaseJsonModel() {
 
-    @Links
-    var links: com.github.jasminb.jsonapi.Links? = null
-
     var slug: String? = null
 
     var synopsis: String? = null
@@ -94,6 +91,5 @@ class Anime : BaseJsonModel() {
 
     @RelationshipLinks("animeCharacters")
     var animeCharacterLinks: com.github.jasminb.jsonapi.Links? = null
-
 
 }

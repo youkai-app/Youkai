@@ -1,8 +1,6 @@
 package app.youkai.data.models
 
 import com.github.jasminb.jsonapi.annotations.*
-import com.github.jasminb.jsonapi.annotations.Meta
-
 
 @Type("animeCharacters")
 class AnimeCharacter : BaseJsonModel() {
@@ -26,11 +24,5 @@ class AnimeCharacter : BaseJsonModel() {
 
     @RelationshipLinks("castings")
     var castingLinks: com.github.jasminb.jsonapi.Links? = null
-
-    @Meta
-    var meta: CountMeta? = null
-
-    @Links
-    var links: com.github.jasminb.jsonapi.Links? = null
 
 }

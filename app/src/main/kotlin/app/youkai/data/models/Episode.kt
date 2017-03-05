@@ -2,7 +2,6 @@ package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.annotations.*
-import com.github.jasminb.jsonapi.annotations.Meta
 
 @Type("episodes")
 class Episode : BaseJsonModel() {
@@ -40,11 +39,4 @@ class Episode : BaseJsonModel() {
     @RelationshipLinks("media")
     var animeLinks: com.github.jasminb.jsonapi.Links? = null
 
-    @Meta
-    var meta: CountMeta? = null
-
-    @Links
-    var links: com.github.jasminb.jsonapi.Links? = null
-
 }
-
