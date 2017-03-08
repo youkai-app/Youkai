@@ -9,6 +9,8 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("anime")
 class Anime : Media() {
 
+    var episodeCount: Int? = null
+
     var episodeLength: Int? = null
 
     var showType: String? = null
