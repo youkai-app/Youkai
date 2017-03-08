@@ -3,7 +3,9 @@ package app.youkai.data.models
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.Links
-import com.github.jasminb.jsonapi.annotations.*
+import com.github.jasminb.jsonapi.annotations.Relationship
+import com.github.jasminb.jsonapi.annotations.RelationshipLinks
+import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("anime") @JsonIgnoreProperties(ignoreUnknown = true) //TODO: REMOVE @JsonIgnoreProperties
 class Anime : BaseJsonModel() {
@@ -59,43 +61,43 @@ class Anime : BaseJsonModel() {
     var genres: List<Genre>? = null
 
     @RelationshipLinks("genres")
-    var genreLinks: com.github.jasminb.jsonapi.Links? = null
+    var genreLinks: Links? = null
 
     @Relationship("castings")
     var castings: List<Casting>? = null
 
     @RelationshipLinks("castings")
-    var castingLinks: com.github.jasminb.jsonapi.Links? = null
+    var castingLinks: Links? = null
 
     @Relationship("episodes")
     var episodes: List<Episode>? = null
 
     @RelationshipLinks("episodes")
-    var episodeLinks: com.github.jasminb.jsonapi.Links? = null
+    var episodeLinks: Links? = null
 
     @Relationship("mappings")
     var mappings: List<Mapping>? = null
 
     @RelationshipLinks("mappings")
-    var mappingLinks: com.github.jasminb.jsonapi.Links? = null
+    var mappingLinks: Links? = null
 
     @Relationship("animeProductions")
     var productions: List<AnimeProduction>? = null
 
     @RelationshipLinks("animeProductions")
-    var productionLinks: com.github.jasminb.jsonapi.Links? = null
+    var productionLinks: Links? = null
 
     @Relationship("animeCharacters")
     var animeCharacters: List<AnimeCharacter>? = null
 
     @RelationshipLinks("animeCharacters")
-    var animeCharacterLinks: com.github.jasminb.jsonapi.Links? = null
+    var animeCharacterLinks: Links? = null
 
     @Relationship("animeStaff")
     var animeStaff: List<AnimeStaff>? = null
 
     @RelationshipLinks("animeStaff")
-    var animeStaffLinks: com.github.jasminb.jsonapi.Links? = null
+    var animeStaffLinks: Links? = null
 
     //TODO: relationships: reviews, mediaRelationships
 

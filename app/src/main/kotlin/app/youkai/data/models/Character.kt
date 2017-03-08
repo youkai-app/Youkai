@@ -1,7 +1,10 @@
 package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.github.jasminb.jsonapi.annotations.*
+import com.github.jasminb.jsonapi.Links
+import com.github.jasminb.jsonapi.annotations.Relationship
+import com.github.jasminb.jsonapi.annotations.RelationshipLinks
+import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("characters")
 class Character : BaseJsonModel() {
@@ -35,7 +38,7 @@ class Character : BaseJsonModel() {
     var anime: Anime? = null
 
     @RelationshipLinks("primaryMedia")
-    var animeLinks: com.github.jasminb.jsonapi.Links? = null
+    var animeLinks: Links? = null
      *
      */
 
@@ -43,6 +46,6 @@ class Character : BaseJsonModel() {
     var casting: Casting? = null
 
     @RelationshipLinks("castings")
-    var castingLinks: com.github.jasminb.jsonapi.Links? = null
+    var castingLinks: Links? = null
 
 }

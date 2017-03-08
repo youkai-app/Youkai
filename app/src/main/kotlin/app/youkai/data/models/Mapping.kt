@@ -1,6 +1,9 @@
 package app.youkai.data.models
 
-import com.github.jasminb.jsonapi.annotations.*
+import com.github.jasminb.jsonapi.Links
+import com.github.jasminb.jsonapi.annotations.Relationship
+import com.github.jasminb.jsonapi.annotations.RelationshipLinks
+import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("mappings")
 class Mapping : BaseJsonModel() {
@@ -13,6 +16,6 @@ class Mapping : BaseJsonModel() {
     var anime: Anime? = null
 
     @RelationshipLinks("media")
-    var animeLinks: com.github.jasminb.jsonapi.Links? = null
+    var animeLinks: Links? = null
 
 }
