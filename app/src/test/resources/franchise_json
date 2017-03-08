@@ -1,0 +1,24 @@
+{
+  "data": {
+    "id": "400",
+    "type": "franchises",
+    "links": {
+      "self": "https://kitsu.io/api/edge/franchises/400"
+    },
+    "attributes": {
+      "titles": {
+        "en": "JoJo's Bizarre Adventure",
+        "en_jp": ""
+      },
+      "canonicalTitle": ""
+    },
+    "relationships": {
+      "installments": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/franchises/400/relationships/installments",
+          "related": "https://kitsu.io/api/edge/franchises/400/installments"
+        }
+      }
+    }
+  }
+}
