@@ -11,9 +11,7 @@ import app.youkai.R
 import app.youkai.util.ext.snackbar
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
-import com.jakewharton.rxbinding.widget.afterTextChangeEvents
-import com.jakewharton.rxbinding.widget.textChangeEvents
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.jakewharton.rxbinding2.widget.afterTextChangeEvents
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginView {
@@ -37,12 +35,12 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         bottomLinks.movementMethod = LinkMovementMethod()
 
         username.afterTextChangeEvents()
-                .subscribe { tvChangeEvent ->
+                .subscribe {
                     presenter.updateLoginButtonWithInputFields(username.text.toString(), password.text.toString())
         }
 
         password.afterTextChangeEvents()
-                .subscribe { tvChangeEvent ->
+                .subscribe {
                     presenter.updateLoginButtonWithInputFields(username.text.toString(), password.text.toString())
         }
     }
