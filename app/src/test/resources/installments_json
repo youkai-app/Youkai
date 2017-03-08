@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "id": "1139",
+      "type": "installments",
+      "links": {
+        "self": "https://kitsu.io/api/edge/installments/1139"
+      },
+      "attributes": {
+        "tag": null,
+        "position": 0
+      },
+      "relationships": {
+        "franchise": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/installments/1139/relationships/franchise",
+            "related": "https://kitsu.io/api/edge/installments/1139/franchise"
+          }
+        },
+        "media": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/installments/1139/relationships/media",
+            "related": "https://kitsu.io/api/edge/installments/1139/media"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "count": 1
+  },
+  "links": {
+    "first": "https://kitsu.io/api/edge/anime/7442/installments?page%5Blimit%5D=10&page%5Boffset%5D=0",
+    "last": "https://kitsu.io/api/edge/anime/7442/installments?page%5Blimit%5D=10&page%5Boffset%5D=0"
+  }
+}

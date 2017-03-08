@@ -2,6 +2,7 @@ package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.github.jasminb.jsonapi.Links
 import com.github.jasminb.jsonapi.annotations.*
 
 @Type("anime") @JsonIgnoreProperties(ignoreUnknown = true) //TODO: REMOVE @JsonIgnoreProperties
@@ -54,8 +55,6 @@ class Anime : BaseJsonModel() {
     @JsonProperty("nsfw")
     var isNsfw: Boolean? = null
 
-    //TODO: relationships: installments, reviews, mediaRelationships
-
     @Relationship("genres")
     var genres: List<Genre>? = null
 
@@ -97,5 +96,13 @@ class Anime : BaseJsonModel() {
 
     @RelationshipLinks("animeStaff")
     var animeStaffLinks: com.github.jasminb.jsonapi.Links? = null
+
+    //TODO: relationships: reviews, mediaRelationships
+
+    @Relationship("installments")
+    var installments: List<Installment>? = null
+
+    @RelationshipLinks("installments")
+    var installmentLinks: Links? = null
 
 }

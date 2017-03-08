@@ -400,4 +400,47 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff?page%5Blimit%5D=10&page%5Boffset%5D=48", animeStaffJsonDoc.links.last.href)
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun InstallmentsTest () {
+        val resourceConverter = ResourceConverter(Installment::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("installments_json")
+        val installmentsJsonDoc = resourceConverter.readDocumentCollection(testJson, Installment::class.java)
+        val installments = installmentsJsonDoc.get()
+
+        val first = installments[0]
+
+        assertEquals("1139", first.id)
+        assertEquals(null, first.tag)
+        assertEquals(0, first.position)
+
+        assertEquals("https://kitsu.io/api/edge/installments/1139/relationships/franchise", first.franchiseLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/installments/1139/franchise", first.franchiseLinks!!.related.href)
+        assertNull(first.franchise)
+
+        assertEquals("https://kitsu.io/api/edge/installments/1139/relationships/media", first.mediaLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/installments/1139/media", first.mediaLinks!!.related.href)
+        assertNull(first.media)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun FranchiseTest () {
+        val resourceConverter = ResourceConverter(Installment::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("franchise_json")
+        val franchiseJsonDoc = resourceConverter.readDocument(testJson, Franchise::class.java)
+        val franchise = franchiseJsonDoc.get()
+
+        assertEquals("400", franchise.id)
+        assertEquals("JoJo's Bizarre Adventure", franchise.titles!!.en)
+        assertEquals("", franchise.titles!!.enJp)
+        assertEquals("", franchise.canonicalTitle)
+
+        assertEquals("https://kitsu.io/api/edge/franchises/400/relationships/installments", franchise.installmentLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/franchises/400/installments", franchise.installmentLinks!!.related.href)
+        assertNull(franchise.installments)
+    }
+
 }
