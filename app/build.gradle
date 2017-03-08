@@ -72,7 +72,7 @@ dependencies {
     compile "com.android.support:cardview-v7:$support_lib_version"
     compile "com.android.support:recyclerview-v7:$support_lib_version"
     compile "com.android.support:design:$support_lib_version"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
 
     /* Mosby / MVP */
     compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
