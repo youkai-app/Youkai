@@ -4,7 +4,6 @@ import app.youkai.data.models.Anime
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.jasminb.jsonapi.retrofit.JSONAPIConverterFactory
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -41,8 +40,10 @@ object Api {
 
     }
 
-    fun getAnime(id: String) : Observable<Anime> = service.getAnime(id)
-
     fun login (username: String, password: String) = loginService.login(username, password, "password")
+
+    fun getAnime(id: String) = service.getAnime(id)
+
+    fun getManga(id: String) = service.getManga(id)
 
 }

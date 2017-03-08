@@ -7,7 +7,7 @@ import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
-@Type("anime") @JsonIgnoreProperties(ignoreUnknown = true) //TODO: REMOVE @JsonIgnoreProperties
+@JsonIgnoreProperties(ignoreUnknown = true) //TODO: REMOVE @JsonIgnoreProperties
 open class Media : BaseJsonModel() {
 
     var slug: String? = null
@@ -43,8 +43,6 @@ open class Media : BaseJsonModel() {
     var posterImage: PosterImage? = null
 
     var coverImage: CoverImage? = null
-
-    var episodeCount: Int? = null
 
     var subtype: String? = null
 

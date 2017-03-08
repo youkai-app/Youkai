@@ -1,0 +1,109 @@
+{
+  "data": {
+    "id": "66",
+    "type": "manga",
+    "links": {
+      "self": "https://kitsu.io/api/edge/manga/66"
+    },
+    "attributes": {
+      "slug": "fullmetal-alchemist",
+      "synopsis": "...to restore their dwakof...",
+      "coverImageTopOffset": 0,
+      "titles": {
+        "en": null,
+        "en_jp": "Fullmetal Alchemist"
+      },
+      "canonicalTitle": "Fullmetal Alchemist",
+      "abbreviatedTitles": null,
+      "averageRating": 4.59892638812736,
+      "ratingFrequencies": {
+        "0.5": "2",
+        "1.0": "1",
+        "1.5": "3",
+        "2.0": "2",
+        "2.5": "3",
+        "3.0": "24",
+        "3.5": "60",
+        "4.0": "187",
+        "4.5": "352",
+        "5.0": "813",
+        "nil": "37"
+      },
+      "favoritesCount": 469,
+      "startDate": "2001-07-12",
+      "endDate": "2010-06-11",
+      "popularityRank": 13,
+      "ratingRank": 2,
+      "ageRating": null,
+      "ageRatingGuide": null,
+      "posterImage": {
+        "tiny": "https://media.kitsu.io/manga/poster_images/66/tiny.jpg?1434249530",
+        "small": "https://media.kitsu.io/manga/poster_images/66/small.jpg?1434249530",
+        "medium": "https://media.kitsu.io/manga/poster_images/66/medium.jpg?1434249530",
+        "large": "https://media.kitsu.io/manga/poster_images/66/large.jpg?1434249530",
+        "original": "https://media.kitsu.io/manga/poster_images/66/original.gif?1434249530"
+      },
+      "coverImage": {
+        "tiny": "https://media.kitsu.io/manga/cover_images/66/tiny.jpg?1430838562",
+        "small": "https://media.kitsu.io/manga/cover_images/66/small.jpg?1430838562",
+        "large": "https://media.kitsu.io/manga/cover_images/66/large.jpg?1430838562",
+        "original": "https://media.kitsu.io/manga/cover_images/66/original.jpg?1430838562"
+      },
+      "subtype": "manga",
+      "chapterCount": 109,
+      "volumeCount": 27,
+      "serialization": "Shounen Gangan",
+      "mangaType": "manga"
+    },
+    "relationships": {
+      "genres": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/genres",
+          "related": "https://kitsu.io/api/edge/manga/66/genres"
+        }
+      },
+      "castings": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/castings",
+          "related": "https://kitsu.io/api/edge/manga/66/castings"
+        }
+      },
+      "installments": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/installments",
+          "related": "https://kitsu.io/api/edge/manga/66/installments"
+        }
+      },
+      "mappings": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/mappings",
+          "related": "https://kitsu.io/api/edge/manga/66/mappings"
+        }
+      },
+      "reviews": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/reviews",
+          "related": "https://kitsu.io/api/edge/manga/66/reviews"
+        }
+      },
+      "mediaRelationships": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/media-relationships",
+          "related": "https://kitsu.io/api/edge/manga/66/media-relationships"
+        }
+      },
+      "mangaCharacters": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/manga-characters",
+          "related": "https://kitsu.io/api/edge/manga/66/manga-characters"
+        }
+      },
+      "mangaStaff": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/manga/66/relationships/manga-staff",
+          "related": "https://kitsu.io/api/edge/manga/66/manga-staff"
+        }
+      }
+    }
+  }
+}

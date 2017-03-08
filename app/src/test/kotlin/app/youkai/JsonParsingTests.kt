@@ -14,7 +14,7 @@ class JsonParsingTests {
     */
     @Test
     @Throws(Exception::class)
-    fun animeTest1 () {
+    fun animeSparseTest () {
         val resourceConverter = ResourceConverter(Anime::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_sparse_json")
@@ -445,6 +445,70 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/franchises/400/relationships/installments", franchise.installmentLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/franchises/400/installments", franchise.installmentLinks!!.related.href)
         assertNull(franchise.installments)
+    }
+
+
+    @Test
+    @Throws(Exception::class)
+    fun mangaSparseTest () {
+        val resourceConverter = ResourceConverter(Manga::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("manga_sparse_json")
+        val mangaJsonDoc = resourceConverter.readDocument(testJson, Manga::class.java)
+        val manga = mangaJsonDoc.get()
+
+        assertEquals("66", manga.id)
+        assertEquals("https://kitsu.io/api/edge/manga/66", manga.links!!.self!!.href) // remember to use ?? in production code
+
+        assertEquals("fullmetal-alchemist", manga.slug)
+        assertEquals("...to restore their dwakof...", manga.synopsis)
+        assertEquals(0, manga.coverImageTopOffset)
+        assertEquals(null, manga.titles!!.en)
+        assertEquals("Fullmetal Alchemist", manga.titles!!.enJp)
+        assertEquals(null, manga.titles!!.jaJp)
+        assertEquals("Fullmetal Alchemist", manga.canonicalTitle)
+        assertEquals(null, manga.abbreviatedTitles)
+        assertEquals(4.59892638812736, manga.averageRating)
+        assertEquals("2", manga.ratingFrequencies!!["0.5"]) //Don't check all ratingFreq's because lazy.
+        assertEquals("24", manga.ratingFrequencies!!["3.0"])
+        assertEquals("813", manga.ratingFrequencies!!["5.0"])
+        assertEquals(469, manga.favoritesCount)
+        assertEquals("2001-07-12", manga.startDate)
+        assertEquals("2010-06-11", manga.endDate)
+        assertEquals(13, manga.popularityRank)
+        assertEquals(2, manga.ratingRank)
+        assertEquals(null, manga.ageRating)
+        assertEquals(null, manga.ageRatingGuide)
+        assertEquals("https://media.kitsu.io/manga/poster_images/66/tiny.jpg?1434249530", manga.posterImage!!.tiny)
+        assertEquals("https://media.kitsu.io/manga/poster_images/66/small.jpg?1434249530", manga.posterImage!!.small)
+        assertEquals("https://media.kitsu.io/manga/poster_images/66/medium.jpg?1434249530", manga.posterImage!!.medium)
+        assertEquals("https://media.kitsu.io/manga/poster_images/66/large.jpg?1434249530", manga.posterImage!!.large)
+        assertEquals("https://media.kitsu.io/manga/poster_images/66/original.gif?1434249530", manga.posterImage!!.original)
+        assertEquals("https://media.kitsu.io/manga/cover_images/66/tiny.jpg?1430838562", manga.coverImage!!.tiny)
+        assertEquals("https://media.kitsu.io/manga/cover_images/66/small.jpg?1430838562", manga.coverImage!!.small)
+        assertEquals("https://media.kitsu.io/manga/cover_images/66/large.jpg?1430838562", manga.coverImage!!.large)
+        assertEquals("https://media.kitsu.io/manga/cover_images/66/original.jpg?1430838562", manga.coverImage!!.original)
+        assertEquals(109, manga.chapterCount)
+        assertEquals(27, manga.volumeCount)
+        assertEquals("manga" , manga.subtype)
+        assertEquals("Shounen Gangan", manga.serialization)
+        assertEquals("manga", manga.mangaType)
+
+        assertEquals("https://kitsu.io/api/edge/manga/66/relationships/genres", manga.genreLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/manga/66/genres", manga.genreLinks!!.related.href)
+        assertNull(manga.genres)
+
+        assertEquals("https://kitsu.io/api/edge/manga/66/relationships/castings", manga.castingLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/manga/66/castings", manga.castingLinks!!.related.href)
+        assertNull(manga.castings)
+
+        assertEquals("https://kitsu.io/api/edge/manga/66/relationships/installments", manga.installmentLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/manga/66/installments", manga.installmentLinks!!.related.href)
+        assertNull(manga.installments)
+
+        assertEquals("https://kitsu.io/api/edge/manga/66/relationships/mappings", manga.mappingLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/manga/66/mappings", manga.mappingLinks!!.related.href)
+        assertNull(manga.mappings)
     }
 
 }
