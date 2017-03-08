@@ -86,6 +86,10 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/anime-staff", anime.animeStaffLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff", anime.animeStaffLinks!!.related.href)
         assertNull(anime.animeStaff)
+
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/installments", anime.installmentLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/installments", anime.installmentLinks!!.related.href)
+        assertNull(anime.installments)
     }
 
     @Test
