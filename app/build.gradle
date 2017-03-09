@@ -106,7 +106,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$support_lib_version"
     compile "com.android.support:design:$support_lib_version"
     compile "com.android.support:palette-v7:$support_lib_version"
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.android:flexbox:0.2.5'
 
     /* Mosby / MVP */
