@@ -13,6 +13,9 @@
     <color name="background_catchy_info">#ededed</color>
     <color name="background_catchy_info_ripple">@color/ripple_dark</color>
 
+    <color name="background_genre">#dddddd</color>
+    <color name="background_genre_ripple">#efefef</color>
+
     <color name="streaming_service_anime_network">#957DF9</color>
     <color name="streaming_service_animelab">#3E307C</color>
     <color name="streaming_service_crunchyroll">#F78B24</color>
