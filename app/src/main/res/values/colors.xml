@@ -12,4 +12,13 @@
 
     <color name="background_catchy_info">#ededed</color>
     <color name="background_catchy_info_ripple">@color/ripple_dark</color>
+
+    <color name="streaming_service_anime_network">#957DF9</color>
+    <color name="streaming_service_animelab">#3E307C</color>
+    <color name="streaming_service_crunchyroll">#F78B24</color>
+    <color name="streaming_service_daisuki">#F9DA32</color>
+    <color name="streaming_service_funimation">#411299</color>
+    <color name="streaming_service_hulu">#8BC34A</color>
+    <color name="streaming_service_netflix">#E21221</color>
+    <color name="streaming_service_viewster">#F3962F</color>
 </resources>
