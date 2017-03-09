@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="@android:integer/config_mediumAnimTime" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:radius="4dp" />
+            <solid android:color="@color/background_genre_ripple" />
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape>
+            <corners android:radius="4dp" />
+            <solid android:color="@color/background_genre" />
+            <stroke android:color="@color/background_genre_ripple" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <corners android:radius="4dp" />
+            <solid android:color="@color/background_genre" />
+        </shape>
+    </item>
+</selector>
