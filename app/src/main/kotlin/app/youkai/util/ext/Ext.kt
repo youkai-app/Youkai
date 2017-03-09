@@ -1,5 +1,7 @@
 package app.youkai.util.ext
 
+import android.content.Context
+import android.view.LayoutInflater
 import android.widget.EditText
 
 /**
@@ -11,6 +13,13 @@ import android.widget.EditText
  */
 fun Any.unitify() {
     /* do nothing */
+}
+
+/**
+ * Convenience function for getting [LayoutInflater]
+ */
+fun Context.getLayoutInflater(): LayoutInflater {
+    return getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 }
 
 /**
