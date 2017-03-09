@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="@android:integer/config_mediumAnimTime" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:radius="6dp" />
+            <solid android:color="@color/background_catchy_info_ripple" />
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape>
+            <corners android:radius="6dp" />
+            <stroke android:color="@color/background_catchy_info_ripple" />
+            <gradient
+                android:endColor="@android:color/transparent"
+                android:startColor="@color/background_catchy_info" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <corners android:radius="6dp" />
+            <gradient
+                android:endColor="@android:color/white"
+                android:startColor="@color/background_catchy_info" />
+        </shape>
+    </item>
+</selector>
