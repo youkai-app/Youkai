@@ -23,6 +23,19 @@ fun Context.getLayoutInflater(): LayoutInflater {
 }
 
 /**
+ * Assumes this [Int] is in dp units and converts it into pixels.
+ */
+fun Int.toPx(context: Context): Int {
+    return (this * context.resources.displayMetrics.density).toInt()
+}
+
+/**
+ * Assumes this [Int] is in pixel units and converts it into dp units.
+ */
+fun Int.toDp(context: Context): Int {
+    return (this / context.resources.displayMetrics.density).toInt()
+}
+/**
  * Appends a string to a string.
  */
 fun String.append(other: String, delimiter: String = ""): String {
