@@ -1,11 +1,14 @@
 package app.youkai.data.service
 
 import app.youkai.data.models.Anime
+import app.youkai.data.models.Manga
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.jasminb.jsonapi.retrofit.JSONAPIConverterFactory
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.http.QueryMap
 
 object Api {
 
@@ -42,8 +45,17 @@ object Api {
 
     fun login (username: String, password: String) = loginService.login(username, password, "password")
 
-    fun getAnime(id: String) = service.getAnime(id)
+    //TODO: wrapper for json requests (.includes().filter().sort().fields().build())
+    private val getAnimeCall = { id: String, m: Map<String, String> -> service.getAnime(id, m) }
 
-    fun getManga(id: String) = service.getManga(id)
+    fun anime(id: String) : JsonApiRequestBuilder<Observable<Anime>> {
+        return JsonApiRequestBuilder<Observable<Anime>> ( id, getAnimeCall)
+    }
+
+    private val getMangaCall = { id: String, m: Map<String, String> -> service.getManga(id, m) }
+
+    fun manga(id: String) : JsonApiRequestBuilder<Observable<Manga>> {
+        return JsonApiRequestBuilder<Observable<Manga>> ( id, getMangaCall)
+    }
 
 }
