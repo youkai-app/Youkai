@@ -136,6 +136,9 @@ dependencies {
     /* Fresco / Image Loading */
     compile 'com.facebook.fresco:fresco:1.1.0'
     compile 'com.facebook.fresco:animated-gif:1.1.0'
+
+    /* RatingBar */
+    compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
 }
 
 repositories {
