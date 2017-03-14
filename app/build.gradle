@@ -132,6 +132,10 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.6'
     compile 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
+
+    /* Fresco / Image Loading */
+    compile 'com.facebook.fresco:fresco:1.1.0'
+    compile 'com.facebook.fresco:animated-gif:1.1.0'
 }
 
 repositories {
