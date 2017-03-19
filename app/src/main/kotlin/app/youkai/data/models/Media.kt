@@ -70,6 +70,12 @@ open class Media : BaseJsonModel() {
     @RelationshipLinks("mappings")
     var mappingLinks: Links? = null
 
-    //TODO: relationships: reviews, mediaRelationships
+    @Relationship("mediaRelationships")
+    var medias: List<Media>? = null
+
+    @RelationshipLinks("mediaRelationships")
+    var mediaLinks: Links? = null
+
+    //TODO: relationships: reviews
 
 }
