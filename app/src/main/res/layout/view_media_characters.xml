@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlHardcoded">
+
+    <FrameLayout
+        android:id="@+id/char1Container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_light">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/char1"
+            style="@style/MediaCharImageView"
+            android:layout_width="202dp"
+            android:layout_height="202dp"
+            android:background="#726189"
+            android:src="#bababa" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/char2Container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/ripple_light">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/char2"
+                style="@style/MediaCharImageView"
+                android:layout_width="97dp"
+                android:layout_height="97dp"
+                android:layout_marginBottom="8dp"
+                android:background="#726121"
+                android:src="#bababa" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/char4Container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/ripple_light">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/char4"
+                style="@style/MediaCharImageView"
+                android:layout_width="97dp"
+                android:layout_height="97dp"
+                android:background="#927a22"
+                android:src="#bababa" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/char3Container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/ripple_light">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/char3"
+                style="@style/MediaCharImageView"
+                android:layout_width="97dp"
+                android:layout_height="97dp"
+                android:layout_marginBottom="8dp"
+                android:background="#328289"
+                android:src="#bababa" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/char5Container"
+            android:layout_width="97dp"
+            android:layout_height="97dp"
+            android:foreground="@drawable/ripple_dark">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/char5"
+                style="@style/MediaCharImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#1429ab"
+                android:src="#bababa" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.7"
+                android:background="@android:color/white" />
+
+            <TextView
+                android:id="@+id/moreCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:textSize="22sp"
+                tools:text="+7" />
+        </FrameLayout>
+    </LinearLayout>
+</merge>
