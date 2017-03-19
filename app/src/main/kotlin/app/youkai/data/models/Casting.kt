@@ -18,7 +18,11 @@ class Casting : BaseJsonModel() {
 
     var language: String? = null
 
-    //TODO: relationships: person
+    @Relationship("person")
+    var person: Person? = null
+
+    @RelationshipLinks("person")
+    var personLinks: Person? = null
 
     @Relationship("media")
     var anime: Anime? = null
