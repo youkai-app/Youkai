@@ -78,6 +78,7 @@
         android:layout_width="108dp"
         android:layout_height="108dp"
         android:layout_marginLeft="8dp"
+        android:background="@android:color/white"
         android:foreground="@drawable/ripple_dark">
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -85,14 +86,9 @@
             style="@style/MediaCharImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:alpha="0.3"
             android:background="#1429ab"
             android:src="#bababa" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.7"
-            android:background="@android:color/white" />
 
         <TextView
             android:id="@+id/moreCount"
