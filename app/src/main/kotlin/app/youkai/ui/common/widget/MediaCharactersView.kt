@@ -88,14 +88,6 @@ class MediaCharactersView : LinearLayout {
                 4 -> char5.setImageURI(chars[i])
             }
         }
-
-        when (chars.size) {
-            1 -> showMoreTile(false)
-            2 -> showMoreTile(false)
-            3 -> showMoreTile(false)
-            4 -> showMoreTile(false)
-            5 -> showMoreTile(true)
-        }
     }
 
     /**
@@ -103,7 +95,14 @@ class MediaCharactersView : LinearLayout {
      */
     @SuppressLint("SetTextI18n")
     fun setMoreCount(count: Int) {
-        rootView.moreCount.text = "+$count"
+        if (count != 0) {
+            rootView.moreCount.text = "+$count"
+            rootView.moreCount.visibility = VISIBLE
+            rootView.char5.alpha = .3f
+        } else {
+            rootView.char5.alpha = 1f
+            rootView.moreCount.visibility = GONE
+        }
     }
 
     /**
