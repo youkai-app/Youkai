@@ -14,7 +14,7 @@ class ApiTests {
                 .subscribe(
                         ::assertNotNull,
                         { l -> Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info(l.message) }
-        );
+        )
     }
 
     @Test
