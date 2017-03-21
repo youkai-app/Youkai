@@ -12,10 +12,10 @@ fun Any.unitify() {
 }
 
 fun String.append(other: String, delimiter: String = ""): String {
-    return if (!this.isEmpty()) this.plus(delimiter).plus(other) else other
+    return if (!isEmpty()) plus(delimiter).plus(other) else other
 }
 
 fun MutableMap<String, String>.append(key: String, other: String, delimiter: String = ""): MutableMap<String, String> {
-    put(key, (this[key]?: "").append(other, delimiter))
+    put(key, (this[key] ?: "").append(other, delimiter))
     return this
 }
