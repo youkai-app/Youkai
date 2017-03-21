@@ -30,6 +30,12 @@ class Character : BaseJsonModel() {
         image = m["original"];
     }
 
+    @Relationship("castings")
+    var casting: Casting? = null
+
+    @RelationshipLinks("castings")
+    var castingLinks: Links? = null
+
     /*
      * This is not implemented yet in the api, but is returned by character requests.
      * This is left here for future generations to discover, and lazily implement as required.
@@ -41,11 +47,5 @@ class Character : BaseJsonModel() {
     var animeLinks: Links? = null
      *
      */
-
-    @Relationship("castings")
-    var casting: Casting? = null
-
-    @RelationshipLinks("castings")
-    var castingLinks: Links? = null
 
 }

@@ -248,7 +248,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun MappingsTest () {
+    fun mappingsTest () {
         val resourceConverter = ResourceConverter(Mapping::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("mappings_json")
@@ -274,7 +274,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun AnimeCharactersTest () {
+    fun animeCharactersTest () {
         val resourceConverter = ResourceConverter(AnimeCharacter::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("characters_anime_json")
@@ -308,7 +308,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun CharacterTest () {
+    fun characterTest () {
         val resourceConverter = ResourceConverter(Character::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("character_json")
@@ -330,7 +330,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun AnimeProductionsTest () {
+    fun animeProductionsTest () {
         val resourceConverter = ResourceConverter(AnimeProduction::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("productions_anime_json")
@@ -358,7 +358,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun ProducerTest () {
+    fun producerTest () {
         val resourceConverter = ResourceConverter(Producer::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("producer_json")
@@ -377,7 +377,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun AnimeStaffTest () {
+    fun animeStaffTest () {
         val resourceConverter = ResourceConverter(AnimeStaff::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("staff_anime_json")
@@ -406,7 +406,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun InstallmentsTest () {
+    fun installmentsTest () {
         val resourceConverter = ResourceConverter(Installment::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("installments_json")
@@ -430,7 +430,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun FranchiseTest () {
+    fun franchiseTest () {
         val resourceConverter = ResourceConverter(Installment::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("franchise_json")
