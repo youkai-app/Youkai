@@ -22,7 +22,7 @@ class Casting : BaseJsonModel() {
     var person: Person? = null
 
     @RelationshipLinks("person")
-    var personLinks: Person? = null
+    var personLinks: Links? = null
 
     @Relationship("media")
     var anime: Anime? = null
