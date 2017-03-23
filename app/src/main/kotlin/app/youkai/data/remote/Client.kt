@@ -1,5 +1,6 @@
 package app.youkai.data.remote
 
+import app.youkai.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -11,6 +12,7 @@ val Client: OkHttpClient by lazy {
     OkHttpClient()
             .newBuilder()
             .addInterceptor(JsonHeadersInterceptor())
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)) //TODO: remove from production
+            .addInterceptor(HttpLoggingInterceptor().setLevel(
+                    if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE))
             .build()
 }
