@@ -3,7 +3,7 @@ package app.youkai.data.models
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("manga")
-class Manga : Media() {
+class Manga : BaseMedia() {
 
     var chapterCount: Int? = null
 

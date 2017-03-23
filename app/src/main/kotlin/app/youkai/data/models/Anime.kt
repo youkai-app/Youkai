@@ -7,7 +7,7 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("anime")
-class Anime : Media() {
+class Anime : BaseMedia() {
 
     var episodeCount: Int? = null
 

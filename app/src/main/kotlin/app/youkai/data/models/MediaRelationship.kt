@@ -7,7 +7,7 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 class MediaRelationship : BaseJsonModel() {
 
     /*
-    * whenever a type is needed it will have to be inferred from the role and from
+    * Whenever a type is needed it will have to be inferred from the role and from
     * what type of object the MediaRelationship was returned by. I.E. a "sequel" for a manga
     * will be a Manga object, but a "sequel" for an anime will be an Anime object.
     */
