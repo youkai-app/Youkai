@@ -4,14 +4,14 @@ import app.youkai.util.ext.append
 
 class RequestBuilder<T>(val id: String, val call: (String, Map<String, String>) -> T) {
 
-    val INCLUDE: String = "include"
-    val FIELDS: String = "fields"
-    val FILTER: String = "filter"
-    val SORT: String = "sort"
+    private val INCLUDE: String = "include"
+    private val FIELDS: String = "fields"
+    private val FILTER: String = "filter"
+    private val SORT: String = "sort"
 
-    val DELIMITER: String = ","
+    private val DELIMITER: String = ","
 
-    val queryMap = mutableMapOf<String, String>()
+    private val queryMap = mutableMapOf<String, String>()
 
     fun get(): T {
         return call(id, queryMap)
