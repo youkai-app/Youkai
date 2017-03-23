@@ -1,12 +1,13 @@
 package app.youkai.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.Links
 import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
-@Type("anime")
+@Type("anime") @JsonIgnoreProperties(ignoreUnknown = true)
 class Anime : BaseMedia() {
 
     var episodeCount: Int? = null
@@ -39,9 +40,9 @@ class Anime : BaseMedia() {
     var animeCharacterLinks: Links? = null
 
     @Relationship("animeStaff")
-    var animeStaff: List<AnimeStaff>? = null
+    var staff: List<AnimeStaff>? = null
 
     @RelationshipLinks("animeStaff")
-    var animeStaffLinks: Links? = null
+    var staffLinks: Links? = null
 
 }

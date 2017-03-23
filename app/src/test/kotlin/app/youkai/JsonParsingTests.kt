@@ -83,9 +83,9 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/anime/7442/anime-characters", anime.animeCharacterLinks!!.related.href)
         assertNull(anime.animeCharacters)
 
-        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/anime-staff", anime.animeStaffLinks!!.self.href)
-        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff", anime.animeStaffLinks!!.related.href)
-        assertNull(anime.animeStaff)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/anime-staff", anime.staffLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/anime/7442/anime-staff", anime.staffLinks!!.related.href)
+        assertNull(anime.staff)
 
         assertEquals("https://kitsu.io/api/edge/anime/7442/relationships/installments", anime.installmentLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/anime/7442/installments", anime.installmentLinks!!.related.href)
@@ -212,7 +212,6 @@ class JsonParsingTests {
 
     /*
      * From here on, extra properties will not get their own animeWith... tests.
-     * TODO: animWithEverythingTest()
      */
 
     @Test
@@ -447,7 +446,6 @@ class JsonParsingTests {
         assertNull(franchise.installments)
     }
 
-
     @Test
     @Throws(Exception::class)
     fun mangaSparseTest () {
@@ -509,6 +507,28 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/manga/66/relationships/mappings", manga.mappingLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/manga/66/mappings", manga.mappingLinks!!.related.href)
         assertNull(manga.mappings)
+    }
+
+    // TODO: animWithEverythingTest()
+    @Test
+    @Throws(Exception::class)
+    fun fullAnimeTest () {
+        val resourceConverter = ResourceConverter(Anime::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_everything_json")
+        val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
+        val anime = animeJsonDoc.get()
+
+        assertEquals("Adventure", anime.genres!!.find { it.id.equals(("2")) }!!.name)
+        assertEquals("ADR Director", anime.castings!!.find { it.id.equals("21") }!!.role)
+        assertEquals("https://kitsu.io/api/edge/installments/406/media", anime.installments!!.find { it.id.equals("406") }!!.mediaLinks!!.related.href)
+        assertEquals("76885", anime.mappings!!.find { it.id.equals("13567") }!!.externalId)
+        assertEquals("https://kitsu.io/api/edge/media-relationships/14530/relationships/source", anime.medias!!.find { it.id.equals("14530") }!!.sourceLinks!!.self.href)
+        assertEquals("2014-12-28T05:45:33.689Z", anime.reviews!!.find { it.id.equals("9036") }!!.createdAt)
+        assertEquals("The Real Folk Blues (2)", anime.episodes!!.find { it.id.equals("26") }!!.titles!!.enJp)
+        assertEquals("producer", anime.productions!!.find { it.id.equals("1") }!!.role)
+        assertEquals("supporting", anime.animeCharacters!!.find { it.id.equals("94251") }!!.role)
+        assertTrue(anime.staff!!.isEmpty())
     }
 
 }
