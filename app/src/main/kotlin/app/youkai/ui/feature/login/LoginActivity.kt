@@ -11,7 +11,9 @@ import app.youkai.R
 import app.youkai.util.ext.snackbar
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
+import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import com.jakewharton.rxbinding2.widget.afterTextChangeEvents
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginView {
@@ -32,17 +34,17 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
             presenter.doLogin(username.text.toString(), password.text.toString())
         }
 
+        // Allows for HTML-formatted links in the text to be clickable.
         bottomLinks.movementMethod = LinkMovementMethod()
 
-        username.afterTextChangeEvents()
-                .subscribe {
-                    presenter.updateLoginButtonWithInputFields(username.text.toString(), password.text.toString())
-        }
+        val inputConsumer: Consumer<TextViewAfterTextChangeEvent> = Consumer( { enableButton(areUsernameAndPasswordFilledIn()) } )
 
-        password.afterTextChangeEvents()
-                .subscribe {
-                    presenter.updateLoginButtonWithInputFields(username.text.toString(), password.text.toString())
-        }
+        username.afterTextChangeEvents().subscribe(inputConsumer)
+        password.afterTextChangeEvents().subscribe(inputConsumer)
+    }
+
+    private fun areUsernameAndPasswordFilledIn(): Boolean {
+        return username.text.isNotBlank() && password.text.isNotEmpty()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
