@@ -1,13 +1,15 @@
 package app.youkai.ui.feature.login
 
+import app.youkai.data.local.Credentials
+import app.youkai.data.service.Api
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
-import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class LoginPresenter : MvpBasePresenter<LoginView>() {
+
+    val subscriptions: CompositeDisposable = CompositeDisposable()
 
     override fun attachView(view: LoginView?) {
         super.attachView(view)
@@ -15,54 +17,43 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
 
     override fun detachView(retainInstance: Boolean) {
         super.detachView(retainInstance)
+        if (!retainInstance) subscriptions.dispose()
     }
 
-    // Part of mock. TODO: Remove
-    var tryTimes = 0
-
     fun doLogin(username: String, password: String) {
-        if (username.trim().isEmpty() || password.trim().isEmpty()) return
-
         view?.enableUsername(false)
         view?.enablePassword(false)
         view?.enableButton(false)
         view?.showProgress()
 
-        // Some lame mock... Will be replaced with actual API call.
         // TODO: Don't forget to handle state changes for the API call.
-        Observable.create<Boolean> {
-            Thread.sleep(3000)
-            if (tryTimes++ % 2 == 0) {
-                it.onError(null)
-            } else {
-                it.onNext(true)
-            }
-        }
-                .subscribeOn(Schedulers.newThread())
+        val disposable = Api.login(username.trim(), password) // No spaces in username, passwords may have spaces.
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Boolean> {
-                    override fun onSubscribe(d: Disposable?) {
-                    }
+                .subscribe(
+                // onNext
+                { m -> run {
+                    Credentials.username = username
+                    Credentials.password = password
+                    Credentials.authToken = m.accessToken
+                    Credentials.refreshToken = m.refreshToken }
+                },
+                // onError
+                { e -> run {
+                    view?.enableUsername()
+                    view?.enablePassword()
+                    view?.enableButton()
+                    view?.showProgress(false)
+                    view?.showError(e.message ?: "An error occurred.") }
+                },
+                // onComplete
+                {
+                    view?.showProgress(false)
+                    view?.completeLogin()
+                }
+        )
 
-                    override fun onNext(t: Boolean?) {
-                        view?.showProgress(false)
-                    }
-
-                    override fun onError(t: Throwable?) {
-                        view?.enableUsername()
-                        view?.enablePassword()
-                        view?.enableButton()
-                        view?.showProgress(false)
-                        view?.showError("No API. Please try again.")
-                    }
-
-                    override fun onComplete() {
-                    }
-
-                })
+        subscriptions.add(disposable)
     }
 
-    fun updateLoginButtonWithInputFields(username: String, password: String) {
-        view?.enableButton(!username.trim().isEmpty() && !password.trim().isEmpty())
-    }
 }

@@ -24,7 +24,7 @@ interface LoginView : MvpView {
     fun showProgress(show: Boolean = true)
 
     /**
-     * Shows a Snackbar message with the give String
+     * Shows a Snackbar message with the given String
      */
     fun showError(message: String)
 
