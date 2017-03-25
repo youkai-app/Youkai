@@ -29,7 +29,18 @@ interface LoginView : MvpView {
     fun showError(message: String)
 
     /**
+     * Sets flag for restarting requests.
+     */
+    fun setLoading(isLoading: Boolean)
+
+    /**
+     * logs in.
+     */
+    fun doLogin()
+
+    /**
      * Finishes itself (LoginActivity) and starts MainActivity
      */
     fun completeLogin()
+
 }

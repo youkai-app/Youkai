@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.text.method.LinkMovementMethod
+import android.text.method.MovementMethod
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import app.youkai.MainActivity
 import app.youkai.R
+import app.youkai.util.ext.inputString
 import app.youkai.util.ext.snackbar
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
@@ -30,12 +32,10 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        go.setOnClickListener {
-            presenter.doLogin(username.text.toString(), password.text.toString())
-        }
+        go.setOnClickListener { doLogin() }
 
         // Allows for HTML-formatted links in the text to be clickable.
-        bottomLinks.movementMethod = LinkMovementMethod()
+        bottomLinks.movementMethod = LinkMovementMethod() as MovementMethod
 
         val inputConsumer: Consumer<TextViewAfterTextChangeEvent> = Consumer( { enableButton(areUsernameAndPasswordFilledIn()) } )
 
@@ -44,6 +44,7 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
     }
 
     private fun areUsernameAndPasswordFilledIn(): Boolean {
+        // Usernames may not contain spaces, passwords may.
         return username.text.isNotBlank() && password.text.isNotEmpty()
     }
 
@@ -80,6 +81,14 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
             }
         })
         getState().error = message
+    }
+
+    override fun setLoading(isLoading: Boolean) {
+        getState().isLoading = isLoading
+    }
+
+    override fun doLogin() {
+        presenter.doLogin(username.inputString(), password.inputString())
     }
 
     override fun completeLogin() {

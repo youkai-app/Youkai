@@ -25,6 +25,7 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
         view?.enablePassword(false)
         view?.enableButton(false)
         view?.showProgress()
+        view?.setLoading(true)
 
         // TODO: Don't forget to handle state changes for the API call.
         val disposable = Api.login(username.trim(), password) // No spaces in username, passwords may have spaces.
@@ -44,11 +45,13 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
                     view?.enablePassword()
                     view?.enableButton()
                     view?.showProgress(false)
+                    view?.setLoading(false)
                     view?.showError(e.message ?: "An error occurred.") }
                 },
                 // onComplete
                 {
                     view?.showProgress(false)
+                    view?.setLoading(false)
                     view?.completeLogin()
                 }
         )
