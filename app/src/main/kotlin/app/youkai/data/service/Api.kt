@@ -19,7 +19,7 @@ object Api {
      * Lazy modifier only instantiates when the value is first used.
      * See: https://kotlinlang.org/docs/reference/delegated-properties.html
      */
-    val service: Service by lazy {
+    private val service: Service by lazy {
         val retrofit: Retrofit = Retrofit.Builder()
                 .client(Client)
                 .baseUrl(BASE + VERSION)
@@ -30,7 +30,7 @@ object Api {
         retrofit.create(Service::class.java)
     }
 
-    val loginService: LoginService by lazy {
+    private val loginService: LoginService by lazy {
         val retrofit: Retrofit = Retrofit.Builder()
                 .client(Client)
                 .baseUrl(BASE)
