@@ -11,7 +11,7 @@ class Credentials {
     var tokenType: String? = null
 
     @JsonProperty("expires_in")
-    var expriesIn: String? = null
+    var expiresIn: String? = null
 
     @JsonProperty("refresh_token")
     var refreshToken: String? = null

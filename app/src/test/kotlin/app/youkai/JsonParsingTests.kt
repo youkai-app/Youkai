@@ -101,7 +101,7 @@ class JsonParsingTests {
 
         assertEquals("46576873443657hg53667684m474hb34t34v232352543g64j64554y467edb551", credentials.accessToken)
         assertEquals("bearer", credentials.tokenType)
-        assertEquals("1373259", credentials.expriesIn)
+        assertEquals("1373259", credentials.expiresIn)
         assertEquals("fdsf34324325kl25l32k523n5235kkkkk42c02fca93966322222d03a4459df88", credentials.refreshToken)
         assertEquals("public", credentials.scope)
         assertEquals("1486761182", credentials.createdAt)

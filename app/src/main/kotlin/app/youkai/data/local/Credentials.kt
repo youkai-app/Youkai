@@ -12,7 +12,6 @@ object Credentials {
     private val NAME = "credentials_storage"
 
     private val KEY_USERNAME = "username"
-    private val KEY_PASSWORD = "password"
     private val KEY_AUTH_TOKEN = "auth_token"
     private val KEY_REFRESH_TOKEN = "refresh_token"
 
@@ -26,10 +25,6 @@ object Credentials {
         set(value) = prefs.edit().putString(KEY_USERNAME, value).commit().unitify()
         get() = prefs.getString(KEY_USERNAME, null)
 
-    var password: String?
-        set(value) = prefs.edit().putString(KEY_PASSWORD, value).commit().unitify()
-        get() = prefs.getString(KEY_PASSWORD, null)
-
     var authToken: String?
         set(value) = prefs.edit().putString(KEY_AUTH_TOKEN, value).commit().unitify()
         get() = prefs.getString(KEY_AUTH_TOKEN, null)
@@ -39,5 +34,5 @@ object Credentials {
         get() = prefs.getString(KEY_REFRESH_TOKEN, null)
 
     val isAuthenticated: Boolean
-        get() = username != null && password != null && authToken != null
+        get() = username != null && authToken != null
 }
