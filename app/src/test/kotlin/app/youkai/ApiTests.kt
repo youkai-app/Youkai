@@ -1,72 +1,107 @@
 package app.youkai
 
-import app.youkai.data.models.Anime
 import app.youkai.data.service.Api
-import io.reactivex.observers.TestObserver
-import junit.framework.Assert.assertNotNull
 import org.junit.Test
 
 class ApiTests {
 
+    /**
+     * Set your username and password for api tests. Remember to remove before committing anything.
+     * Tests will pass if null because they aren't run.
+     */
+    val testUsername = null
+    val testPassword = null
+
     @Test
     @Throws(Exception::class)
-    fun basicAnimeTest () {
-        val testSubscriber: TestObserver<Anime> = TestObserver()
-
-        Api.anime("7442").get().subscribe(::assertNotNull)
-
-        testSubscriber.assertNoErrors()
+    fun basicAnimeTest() {
+        Api.anime("7442").get()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+                .assertValue { a -> a != null }
     }
 
     @Test
     @Throws(Exception::class)
-    fun animeWithIncludesTest () {
-        val testSubscriber: TestObserver<Anime> = TestObserver()
-
+    fun animeWithIncludesTest() {
         Api.anime("3919").include("castings", "episodes").get()
-                .subscribe(
-                        { anime -> run {
-                            assertNotNull(anime)
-                            assertNotNull(anime?.castings)
-                            assertNotNull(anime?.episodes)
-                        }}
-                )
-
-        testSubscriber.assertNoErrors()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+                .assertValue { a -> a != null }
+                .assertValue { a -> a.castings != null }
+                .assertValue { a -> a.episodes != null }
     }
 
     @Test
     @Throws(Exception::class)
-    fun fullAnimeTest () {
-        val testSubscriber: TestObserver<Anime> = TestObserver()
+    fun fullAnimeTest() {
+        Api.anime("1")
+                .include("genres", "castings", "installments", "mappings", "mediaRelationships",
+                "reviews", "episodes", "animeProductions", "animeCharacters", "animeStaff")
+                .get()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+                .assertValue { a -> a != null }
+                .assertValue { a -> a.genres != null }
+                .assertValue { a -> a.castings != null }
+                .assertValue { a -> a.installments != null }
+                .assertValue { a -> a.mappings != null }
+                .assertValue { a -> a.medias != null }
+                .assertValue { a -> a.reviews != null }
+                .assertValue { a -> a.episodes != null }
+                .assertValue { a -> a.productions != null }
+                .assertValue { a -> a.animeCharacters != null }
+                .assertValue { a -> a.staff != null }
+                .assertValue { a -> a.genreLinks != null }
+                .assertValue { a -> a.castingLinks != null }
+                .assertValue { a -> a.installmentLinks != null }
+                .assertValue { a -> a.mappingLinks != null }
+                .assertValue { a -> a.mediaLinks != null }
+                .assertValue { a -> a.reviewLinks != null }
+                .assertValue { a -> a.episodeLinks != null }
+                .assertValue { a -> a.productionLinks != null }
+                .assertValue { a -> a.animeCharacterLinks != null }
+                .assertValue { a -> a.staffLinks != null }
+    }
 
-        Api.anime("1").include("genres", "castings", "installments", "mappings", "mediaRelationships",
-                "reviews", "episodes", "animeProductions", "animeCharacters", "animeStaff").get()
-                .doOnNext( { anime -> run {
-                    assertNotNull(anime)
-                    assertNotNull(anime!!.genres)
-                    assertNotNull(anime.genreLinks)
-                    assertNotNull(anime.castings)
-                    assertNotNull(anime.castingLinks)
-                    assertNotNull(anime.installments)
-                    assertNotNull(anime.installmentLinks)
-                    assertNotNull(anime.mappings)
-                    assertNotNull(anime.mappingLinks)
-                    assertNotNull(anime.medias)
-                    assertNotNull(anime.mediaLinks)
-                    assertNotNull(anime.reviews)
-                    assertNotNull(anime.reviewLinks)
-                    assertNotNull(anime.episodes)
-                    assertNotNull(anime.episodeLinks)
-                    assertNotNull(anime.productions)
-                    assertNotNull(anime.productionLinks)
-                    assertNotNull(anime.animeCharacters)
-                    assertNotNull(anime.animeCharacterLinks)
-                    assertNotNull(anime.staff)
-                    assertNotNull(anime.staffLinks) }} )
-                .subscribe(testSubscriber)
+    @Test
+    @Throws(Exception::class)
+    fun loginTest() {
+        if (testUsername != null && testPassword != null) {
+            Api.login(testUsername!!, testPassword!!)
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
+                    .assertValue { c -> c != null }
+                    .assertValue { c -> c.accessToken != null }
+                    .assertValue { c -> c.createdAt != null }
+                    .assertValue { c -> c.expiresIn != null }
+                    .assertValue { c -> c.refreshToken != null }
+                    .assertValue { c -> c.scope.equals("public") }
+                    .assertValue { c -> c.tokenType.equals("bearer") }
+        }
+    }
 
-        testSubscriber.assertNoErrors()
+    @Test
+    @Throws(Exception::class)
+    fun authRefreshTest() {
+        if (testUsername != null && testPassword != null) {
+            Api.login(testUsername!!, testPassword!!)
+                    .concatMap { c -> Api.refreshAuthToken(c.refreshToken!!) }
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
+                    .assertValue { c -> c != null }
+                    .assertValue { c -> c.accessToken != null }
+                    .assertValue { c -> c.createdAt != null }
+                    .assertValue { c -> c.expiresIn != null }
+                    .assertValue { c -> c.refreshToken != null }
+                    .assertValue { c -> c.scope.equals("public") }
+                    .assertValue { c -> c.tokenType.equals("bearer") }
+        }
     }
 
 }

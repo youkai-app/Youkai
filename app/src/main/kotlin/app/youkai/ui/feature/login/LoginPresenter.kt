@@ -35,7 +35,6 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
                         { m ->
                             run {
                                 Credentials.username = username
-                                Credentials.password = password
                                 Credentials.authToken = m.accessToken
                                 Credentials.refreshToken = m.refreshToken
                             }
