@@ -27,36 +27,45 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
         view?.showProgress()
         view?.setLoading(true)
 
-        // TODO: Don't forget to handle state changes for the API call.
-        val disposable = Api.login(username.trim(), password) // No spaces in username, passwords may have spaces.
+        val disposable = Api.login(username.trim(), password) // Usernames may not have spaces, passwords may have spaces.
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                // onNext
-                { m -> run {
-                    Credentials.username = username
-                    Credentials.password = password
-                    Credentials.authToken = m.accessToken
-                    Credentials.refreshToken = m.refreshToken }
-                },
-                // onError
-                { e -> run {
-                    view?.enableUsername()
-                    view?.enablePassword()
-                    view?.enableButton()
-                    view?.showProgress(false)
-                    view?.setLoading(false)
-                    view?.showError(e.message ?: "An error occurred.") }
-                },
-                // onComplete
-                {
-                    view?.showProgress(false)
-                    view?.setLoading(false)
-                    view?.completeLogin()
-                }
-        )
+                        // onNext
+                        { m ->
+                            run {
+                                Credentials.username = username
+                                Credentials.password = password
+                                Credentials.authToken = m.accessToken
+                                Credentials.refreshToken = m.refreshToken
+                            }
+                        },
+                        // onError
+                        { e ->
+                            run {
+                                view?.enableUsername()
+                                view?.enablePassword()
+                                view?.enableButton()
+                                view?.showProgress(false)
+                                view?.setLoading(false)
+                                view?.showError(e.message ?: "An error occurred.")
+                            }
+                        },
+                        // onComplete
+                        {
+                            view?.showProgress(false)
+                            view?.setLoading(false)
+                            view?.completeLogin()
+                        }
+                )
 
         subscriptions.add(disposable)
     }
+
+    // Usernames may not be empty, nor contain spaces.
+    fun isUsernameSufficient(username: String): Boolean = username.isNotBlank()
+
+    // Passwords may not be blank, but may contain spaces.
+    fun isPasswordSufficient(password: String): Boolean = password.isNotEmpty()
 
 }

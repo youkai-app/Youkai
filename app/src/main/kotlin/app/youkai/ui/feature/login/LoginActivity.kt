@@ -37,15 +37,15 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         // Allows for HTML-formatted links in the text to be clickable.
         bottomLinks.movementMethod = LinkMovementMethod() as MovementMethod
 
-        val inputConsumer: Consumer<TextViewAfterTextChangeEvent> = Consumer( { enableButton(areUsernameAndPasswordFilledIn()) } )
+        val inputConsumer: Consumer<TextViewAfterTextChangeEvent> = Consumer({
+            enableButton(
+                    presenter.isUsernameSufficient(username.inputString())
+                    && presenter.isPasswordSufficient(password.inputString())
+            )
+        })
 
         username.afterTextChangeEvents().subscribe(inputConsumer)
         password.afterTextChangeEvents().subscribe(inputConsumer)
-    }
-
-    private fun areUsernameAndPasswordFilledIn(): Boolean {
-        // Usernames may not contain spaces, passwords may.
-        return username.text.isNotBlank() && password.text.isNotEmpty()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
