@@ -90,7 +90,7 @@ class ApiTests {
     fun authRefreshTest() {
         if (testUsername != null && testPassword != null) {
             Api.login(testUsername!!, testPassword!!)
-                    .concatMap { c -> Api.refreshAuthToken(c.refreshToken!!) }
+                    .flatMap { c -> Api.refreshAuthToken(c.refreshToken!!) }
                     .test()
                     .assertNoErrors()
                     .assertComplete()
