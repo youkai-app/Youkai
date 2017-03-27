@@ -51,7 +51,7 @@ open class BaseMedia(type: JsonType = JsonType("media")) : BaseJsonModel(type) {
 
     var abbreviatedTitles: List<String>? = null
 
-    var averageRating: Double? = null
+    var averageRating: Float? = null
 
     var ratingFrequencies: Map<String, String>? = null
 

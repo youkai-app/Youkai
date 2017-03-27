@@ -32,7 +32,7 @@ class Review : BaseJsonModel(JsonType("titles")) {
 
     var progress: Int? = null
 
-    var rating: Double? = null
+    var rating: Float? = null
 
     var source: String? = null
 
