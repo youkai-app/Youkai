@@ -33,7 +33,7 @@ class Casting : BaseJsonModel() {
     @Relationship("character")
     var character: Character? = null
 
-    @RelationshipLinks("chacacter")
+    @RelationshipLinks("character")
     var characterLinks: Links? = null
 
 }

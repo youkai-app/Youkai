@@ -27,6 +27,12 @@ class Anime : BaseMedia() {
     @RelationshipLinks("episodes")
     var episodeLinks: Links? = null
 
+    @Relationship("streamingLinks")
+    var streamingLinks: List<StreamingLink>? = null
+
+    @RelationshipLinks("streamingLinks")
+    var streamingLinksLinks: Links? = null
+
     @Relationship("animeProductions")
     var productions: List<AnimeProduction>? = null
 

@@ -509,7 +509,6 @@ class JsonParsingTests {
         assertNull(manga.mappings)
     }
 
-    // TODO: animWithEverythingTest()
     @Test
     @Throws(Exception::class)
     fun fullAnimeTest () {
@@ -526,9 +525,26 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/media-relationships/14530/relationships/source", anime.medias!!.find { it.id.equals("14530") }!!.sourceLinks!!.self.href)
         assertEquals("2014-12-28T05:45:33.689Z", anime.reviews!!.find { it.id.equals("9036") }!!.createdAt)
         assertEquals("The Real Folk Blues (2)", anime.episodes!!.find { it.id.equals("26") }!!.titles!!.enJp)
+        assertEquals("ja", anime.streamingLinks!!.find { it.id.equals("290") }!!.dubs!![0])
         assertEquals("producer", anime.productions!!.find { it.id.equals("1") }!!.role)
         assertEquals("supporting", anime.animeCharacters!!.find { it.id.equals("94251") }!!.role)
         assertTrue(anime.staff!!.isEmpty())
+    }
+
+
+    @Test
+    @Throws(Exception::class)
+    fun streamerLinkTest () {
+        val resourceConverter = ResourceConverter(StreamingLink::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("streaming_link_json")
+        val streamingLinkJsonDoc = resourceConverter.readDocument(testJson, StreamingLink::class.java)
+        val streamingLink = streamingLinkJsonDoc.get()
+
+        assertEquals("290", streamingLink.id)
+        assertEquals("http://www.funimation.com/shows/cowboy-bebop/videos/episodes", streamingLink.url)
+        assertEquals("Funimation", streamingLink.streamer!!.siteName)
+        assertEquals("/logos/original/missing.png", streamingLink.streamer!!.logo)
     }
 
 }

@@ -1,0 +1,57 @@
+{
+  "data": {
+    "id": "290",
+    "type": "streamingLinks",
+    "links": {
+      "self": "https://kitsu.io/api/edge/streaming-links/290"
+    },
+    "attributes": {
+      "url": "http://www.funimation.com/shows/cowboy-bebop/videos/episodes",
+      "subs": [
+        "en"
+      ],
+      "dubs": [
+        "ja"
+      ]
+    },
+    "relationships": {
+      "streamer": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/streaming-links/290/relationships/streamer",
+          "related": "https://kitsu.io/api/edge/streaming-links/290/streamer"
+        },
+        "data": {
+          "type": "streamers",
+          "id": "2"
+        }
+      },
+      "media": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/streaming-links/290/relationships/media",
+          "related": "https://kitsu.io/api/edge/streaming-links/290/media"
+        }
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "2",
+      "type": "streamers",
+      "links": {
+        "self": "https://kitsu.io/api/edge/streamers/2"
+      },
+      "attributes": {
+        "siteName": "Funimation",
+        "logo": "/logos/original/missing.png"
+      },
+      "relationships": {
+        "streamingLinks": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/streamers/2/relationships/streaming-links",
+            "related": "https://kitsu.io/api/edge/streamers/2/streaming-links"
+          }
+        }
+      }
+    }
+  ]
+}

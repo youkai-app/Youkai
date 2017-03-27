@@ -1180,7 +1180,17 @@
         "links": {
           "self": "https://kitsu.io/api/edge/anime/1/relationships/streaming-links",
           "related": "https://kitsu.io/api/edge/anime/1/streaming-links"
-        }
+        },
+        "data": [
+          {
+            "type": "streamingLinks",
+            "id": "290"
+          },
+          {
+            "type": "streamingLinks",
+            "id": "289"
+          }
+        ]
       },
       "animeProductions": {
         "links": {
@@ -9859,6 +9869,66 @@
           "links": {
             "self": "https://kitsu.io/api/edge/episodes/4/relationships/media",
             "related": "https://kitsu.io/api/edge/episodes/4/media"
+          }
+        }
+      }
+    },
+    {
+      "id": "290",
+      "type": "streamingLinks",
+      "links": {
+        "self": "https://kitsu.io/api/edge/streaming-links/290"
+      },
+      "attributes": {
+        "url": "http://www.funimation.com/shows/cowboy-bebop/videos/episodes",
+        "subs": [
+          "en"
+        ],
+        "dubs": [
+          "ja"
+        ]
+      },
+      "relationships": {
+        "streamer": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/streaming-links/290/relationships/streamer",
+            "related": "https://kitsu.io/api/edge/streaming-links/290/streamer"
+          }
+        },
+        "media": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/streaming-links/290/relationships/media",
+            "related": "https://kitsu.io/api/edge/streaming-links/290/media"
+          }
+        }
+      }
+    },
+    {
+      "id": "289",
+      "type": "streamingLinks",
+      "links": {
+        "self": "https://kitsu.io/api/edge/streaming-links/289"
+      },
+      "attributes": {
+        "url": "http://www.hulu.com/cowboy-bebop",
+        "subs": [
+          "en"
+        ],
+        "dubs": [
+          "ja"
+        ]
+      },
+      "relationships": {
+        "streamer": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/streaming-links/289/relationships/streamer",
+            "related": "https://kitsu.io/api/edge/streaming-links/289/streamer"
+          }
+        },
+        "media": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/streaming-links/289/relationships/media",
+            "related": "https://kitsu.io/api/edge/streaming-links/289/media"
           }
         }
       }
