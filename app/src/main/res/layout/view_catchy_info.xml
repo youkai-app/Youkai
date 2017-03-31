@@ -7,7 +7,7 @@
         android:id="@+id/icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        app:srcCompat="@drawable/ic_timer_grey_36dp" />
+        app:srcCompat="@drawable/ic_catchy_info_view_default_icon" />
 
     <TextView
         android:id="@+id/text"
