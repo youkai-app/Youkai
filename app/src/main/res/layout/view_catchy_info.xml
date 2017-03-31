@@ -16,7 +16,6 @@
         android:layout_marginLeft="22dp"
         android:layout_marginRight="-24dp"
         android:layout_weight="1"
-        android:maxLines="2"
         android:textColorLink="@color/accent"
         tools:text="Aired Jul 3, 2009 to Jun 25, 2010\nSummer 2009" />
 
