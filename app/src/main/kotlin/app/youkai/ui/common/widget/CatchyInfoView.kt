@@ -4,11 +4,13 @@ import android.content.Context
 import android.support.annotation.IntegerRes
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import app.youkai.R
 import app.youkai.util.ext.getLayoutInflater
 import app.youkai.util.ext.toPx
-import kotlinx.android.synthetic.main.view_catchy_info.view.*
 
 /**
  * A custom view for displaying key info in an eye-catching style with an icon.
@@ -16,6 +18,9 @@ import kotlinx.android.synthetic.main.view_catchy_info.view.*
  * See: http://i.imgur.com/U1N3u2J.png
  */
 class CatchyInfoView : LinearLayout {
+    lateinit var iconView: ImageView
+    lateinit var textView: TextView
+    lateinit var chevronView: View
 
     constructor(context: Context) : super(context) {
         init(context, null, null, null)
@@ -36,6 +41,11 @@ class CatchyInfoView : LinearLayout {
     private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int?, defStyleRes: Int?) {
         /* Inflate the layout */
         context.getLayoutInflater().inflate(R.layout.view_catchy_info, this, true)
+
+        /* Get view references */
+        iconView = findViewById(R.id.icon) as ImageView
+        textView = findViewById(R.id.text) as TextView
+        chevronView = findViewById(R.id.chevron)
 
         /* Set root layout attributes */
         val padding = 16.toPx(context)
@@ -71,11 +81,11 @@ class CatchyInfoView : LinearLayout {
     }
 
     fun setIcon(@IntegerRes resource: Int) {
-        rootView.icon.setImageResource(resource)
+        iconView.setImageResource(resource)
     }
 
     fun setText(text: String) {
-        rootView.text.text = text
+        textView.text = text
     }
 
     fun setRoundedCorners(rounded: Boolean = true) {
@@ -89,7 +99,7 @@ class CatchyInfoView : LinearLayout {
     }
 
     private fun showChevron(show: Boolean = true) {
-        rootView.chevron.visibility = if (show) VISIBLE else GONE
+        chevronView.visibility = if (show) VISIBLE else GONE
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
