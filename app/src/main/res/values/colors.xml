@@ -13,8 +13,8 @@
     <color name="background_catchy_info">#f9f9f9</color>
     <color name="background_catchy_info_ripple">@color/ripple_dark</color>
 
-    <color name="background_genre">#dddddd</color>
-    <color name="background_genre_ripple">#efefef</color>
+    <color name="background_genre">#eeeeee</color>
+    <color name="background_genre_ripple">#bbbbbb</color>
 
     <color name="streaming_service_anime_network">#957DF9</color>
     <color name="streaming_service_animelab">#3E307C</color>
