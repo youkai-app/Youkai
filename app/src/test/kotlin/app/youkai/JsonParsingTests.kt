@@ -543,8 +543,32 @@ class JsonParsingTests {
 
         assertEquals("290", streamingLink.id)
         assertEquals("http://www.funimation.com/shows/cowboy-bebop/videos/episodes", streamingLink.url)
+        assertEquals(1, streamingLink.subs!!.size)
+        assertEquals("en", streamingLink.subs!!.first())
+        assertEquals(1, streamingLink.dubs!!.size)
+        assertEquals("ja", streamingLink.dubs!!.first())
         assertEquals("Funimation", streamingLink.streamer!!.siteName)
         assertEquals("/logos/original/missing.png", streamingLink.streamer!!.logo)
+        assertNull(streamingLink.media)
+        assertEquals("https://kitsu.io/api/edge/streaming-links/290/relationships/media", streamingLink.mediaLinks!!.self.href)
+    }
+
+
+    @Test
+    @Throws(Exception::class)
+    fun personTest () {
+        val resourceConverter = ResourceConverter(Person::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("person_json")
+        val personJsonDoc = resourceConverter.readDocument(testJson, Person::class.java)
+        val person = personJsonDoc.get()
+
+        assertEquals("1", person.id)
+        assertEquals("https://media.kitsu.io/people/images/1/original.jpg?1416260317", person.image)
+        assertEquals("Masahiko Minami", person.name)
+        assertEquals(6519, person.malId)
+        assertNull(person.castings)
+        assertEquals("https://kitsu.io/api/edge/people/1/castings", person.castingLinks!!.related.href)
     }
 
 }
