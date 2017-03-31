@@ -4,6 +4,7 @@
     android:color="@color/background_genre_ripple">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
+            <corners android:radius="4dp" />
             <solid android:color="@android:color/white" />
         </shape>
     </item>
