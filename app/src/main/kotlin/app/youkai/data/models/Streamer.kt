@@ -1,8 +1,9 @@
 package app.youkai.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
-@Type("streamers")
+@Type("streamers") @JsonIgnoreProperties(ignoreUnknown = true)
 class Streamer : BaseJsonModel() {
 
     var siteName: String? = null

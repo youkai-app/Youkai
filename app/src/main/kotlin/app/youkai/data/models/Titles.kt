@@ -1,9 +1,10 @@
 package app.youkai.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.annotations.Type
 
-@Type("titles")
+@Type("titles") @JsonIgnoreProperties(ignoreUnknown = true)
 class Titles : BaseJsonModel() {
 
     @JsonProperty("en")

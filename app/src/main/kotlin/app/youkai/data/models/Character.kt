@@ -1,12 +1,13 @@
 package app.youkai.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.Links
 import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
-@Type("characters")
+@Type("characters") @JsonIgnoreProperties(ignoreUnknown = true)
 class Character : BaseJsonModel() {
 
     var slug: String? = null

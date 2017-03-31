@@ -1,8 +1,9 @@
 package app.youkai.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
-@Type("manga")
+@Type("manga") @JsonIgnoreProperties(ignoreUnknown = true)
 class Manga : BaseMedia() {
 
     var chapterCount: Int? = null
