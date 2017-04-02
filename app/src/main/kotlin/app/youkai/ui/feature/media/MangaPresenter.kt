@@ -6,6 +6,7 @@ import app.youkai.App.Companion.context
 import app.youkai.R
 import app.youkai.data.models.Anime
 import app.youkai.data.models.Manga
+import app.youkai.data.models.ext.typeString
 import app.youkai.data.service.Api
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -48,15 +49,6 @@ class MangaPresenter : BaseMediaPresenter() {
     }
 
     override fun setType() {
-        view?.setType(
-                when ((media as Manga?)?.mangaType) {
-                    "manga" -> context.getString(R.string.media_type_manga_manga)
-                    "novel" -> context.getString(R.string.media_type_manga_novel)
-                    "manhua" -> context.getString(R.string.media_type_manga_manhua)
-                    "oneshot" -> context.getString(R.string.media_type_manga_oneshot)
-                    "doujin" -> context.getString(R.string.media_type_manga_doujin)
-                    else -> "?"
-                }
-        )
+        view?.setType((media as Manga?)?.typeString() ?: "")
     }
 }
