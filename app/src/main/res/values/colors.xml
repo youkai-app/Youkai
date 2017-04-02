@@ -26,8 +26,8 @@
     <color name="default_media_poster">@color/default_image</color>
     <color name="default_media_character">@color/default_image</color>
 
-    <color name="background_catchy_info">#f9f9f9</color>
-    <color name="background_catchy_info_ripple">@color/ripple_dark</color>
+    <color name="background_bar_info">#f9f9f9</color>
+    <color name="background_bar_info_ripple">@color/ripple_dark</color>
 
     <color name="background_genre">#eeeeee</color>
     <color name="background_genre_ripple">#bbbbbb</color>

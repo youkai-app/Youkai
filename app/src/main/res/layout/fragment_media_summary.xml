@@ -48,12 +48,12 @@
             android:layout_height="36dp" />
     </com.google.android.flexbox.FlexboxLayout>
 
-    <app.youkai.ui.common.widget.CatchyInfoView
+    <app.youkai.ui.common.widget.BarInfoView
         android:id="@+id/length"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:civ_icon="@drawable/ic_length_anime_36dp" />
+        app:biv_icon="@drawable/ic_length_anime_36dp" />
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/streamingServicesContainer"
@@ -72,12 +72,12 @@
             android:layout_height="36dp" />
     </com.google.android.flexbox.FlexboxLayout>
 
-    <app.youkai.ui.common.widget.CatchyInfoView
+    <app.youkai.ui.common.widget.BarInfoView
         android:id="@+id/releaseInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:civ_icon="@drawable/ic_release_info_36dp" />
+        app:biv_icon="@drawable/ic_release_info_36dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -218,11 +218,11 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <app.youkai.ui.common.widget.CatchyInfoView
+    <app.youkai.ui.common.widget.BarInfoView
         android:id="@+id/producers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:civ_icon="@drawable/ic_producer_anime_36dp" />
+        app:biv_icon="@drawable/ic_producer_anime_36dp" />
 
     <TextView
         android:id="@+id/charactersLabel"

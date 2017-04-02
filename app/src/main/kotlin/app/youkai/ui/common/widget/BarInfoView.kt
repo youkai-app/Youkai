@@ -17,7 +17,7 @@ import app.youkai.util.ext.toPx
  *
  * See: http://i.imgur.com/U1N3u2J.png
  */
-class CatchyInfoView : LinearLayout {
+class BarInfoView : LinearLayout {
     lateinit var iconView: ImageView
     lateinit var textView: TextView
     lateinit var chevronView: View
@@ -40,7 +40,7 @@ class CatchyInfoView : LinearLayout {
 
     private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int?, defStyleRes: Int?) {
         /* Inflate the layout */
-        context.getLayoutInflater().inflate(R.layout.view_catchy_info, this, true)
+        context.getLayoutInflater().inflate(R.layout.view_bar_info, this, true)
 
         /* Get view references */
         iconView = findViewById(R.id.icon) as ImageView
@@ -56,7 +56,7 @@ class CatchyInfoView : LinearLayout {
         /* Get values from the layout */
         val a = context.theme.obtainStyledAttributes(
                 attrs,
-                R.styleable.CatchyInfoView,
+                R.styleable.BarInfoView,
                 defStyleAttr ?: 0,
                 defStyleRes ?: 0
         )
@@ -66,9 +66,9 @@ class CatchyInfoView : LinearLayout {
         val rounded: Boolean
 
         try {
-            icon = a.getResourceId(R.styleable.CatchyInfoView_civ_icon, R.drawable.ic_catchy_info_view_default_icon)
-            text = a.getString(R.styleable.CatchyInfoView_civ_text) ?: ""
-            rounded = a.getBoolean(R.styleable.CatchyInfoView_civ_roundedCorners, false)
+            icon = a.getResourceId(R.styleable.BarInfoView_biv_icon, R.drawable.ic_bar_info_view_default_icon)
+            text = a.getString(R.styleable.BarInfoView_biv_text) ?: ""
+            rounded = a.getBoolean(R.styleable.BarInfoView_biv_roundedCorners, false)
         } finally {
             a.recycle()
         }
@@ -91,9 +91,9 @@ class CatchyInfoView : LinearLayout {
     fun setRoundedCorners(rounded: Boolean = true) {
         rootView.setBackgroundResource(
                 if (rounded) {
-                    R.drawable.background_catchy_info_view_rounded
+                    R.drawable.background_bar_info_view_rounded
                 } else {
-                    R.drawable.background_catchy_info_view
+                    R.drawable.background_bar_info_view
                 }
         )
     }

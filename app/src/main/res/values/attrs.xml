@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="CatchyInfoView">
-        <attr name="civ_text" format="string" />
-        <attr name="civ_icon" format="reference" />
-        <attr name="civ_roundedCorners" format="boolean" />
+    <declare-styleable name="BarInfoView">
+        <attr name="biv_text" format="string" />
+        <attr name="biv_icon" format="reference" />
+        <attr name="biv_roundedCorners" format="boolean" />
     </declare-styleable>
 </resources>

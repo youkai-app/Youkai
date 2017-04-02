@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/background_catchy_info_ripple">
+    android:color="@color/background_bar_info_ripple">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
             <solid android:color="@android:color/white" />
@@ -11,7 +11,7 @@
         <shape>
             <gradient
                 android:endColor="@android:color/white"
-                android:startColor="@color/background_catchy_info" />
+                android:startColor="@color/background_bar_info" />
         </shape>
     </item>
 </ripple>
