@@ -34,7 +34,7 @@ class JsonParsingTests {
         assertEquals("Shingeki no Kyojin", anime.titles!!.enJp)
         assertEquals("進撃の巨人", anime.titles!!.jaJp)
         assertEquals("Shingeki no Kyojin", anime.canonicalTitle)
-        assertEquals(4.23691079690624, anime.averageRating)
+        assertEquals(4.23691079690624f, anime.averageRating)
         anime.abbreviatedTitles?.forEach { title -> assertEquals("AoT", title) }
         assertEquals("141", anime.ratingFrequencies!!["0.5"]) //Don't check all ratingFreq's because lazy.
         assertEquals("2526", anime.ratingFrequencies!!["3.0"])
@@ -468,7 +468,7 @@ class JsonParsingTests {
         assertEquals(null, manga.titles!!.jaJp)
         assertEquals("Fullmetal Alchemist", manga.canonicalTitle)
         assertEquals(null, manga.abbreviatedTitles)
-        assertEquals(4.59892638812736, manga.averageRating)
+        assertEquals(4.59892638812736f, manga.averageRating)
         assertEquals("2", manga.ratingFrequencies!!["0.5"]) //Don't check all ratingFreq's because lazy.
         assertEquals("24", manga.ratingFrequencies!!["3.0"])
         assertEquals("813", manga.ratingFrequencies!!["5.0"])
