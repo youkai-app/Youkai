@@ -136,9 +136,6 @@ dependencies {
 
     /* RatingBar */
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
-
-    /* SimpleRatingView */
-    compile 'app.youkai.simpleratingview:library:1.0.0'
 }
 
 repositories {
