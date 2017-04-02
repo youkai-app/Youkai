@@ -2,7 +2,10 @@ package app.youkai.util.ext
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
+import java.text.NumberFormat
+import java.util.*
 
 /**
  * Various extension functions for various purposes that don't really belong in a specific file.
@@ -35,6 +38,14 @@ fun Int.toPx(context: Context): Int {
 fun Int.toDp(context: Context): Int {
     return (this / context.resources.displayMetrics.density).toInt()
 }
+
+/**
+ * Returns a View visibility int from this boolean.
+ */
+fun Boolean.toVisibility(): Int {
+    return if (this) View.VISIBLE else View.GONE
+}
+
 /**
  * Appends a string to a string.
  */
@@ -54,6 +65,26 @@ fun MutableMap<String, String>.append(key: String, other: String, delimiter: Str
  * Returns the input as a string.
  */
 fun EditText.inputString(): String = text.toString()
+
+/**
+ * Formats itself with appropriate commas and dots and returns the resulting String.
+ *
+ * Currently uses US locale since the app is only available in English (US). We will have to change
+ * this behavior if we ever decide to translate the app.
+ */
+fun Number.formatForDisplay(): String {
+    return NumberFormat.getInstance(Locale.US).format(this)
+}
+
+/**
+ * Formats itself by rounding the decimals to two digits and returns the resulting String.
+ *
+ * Currently uses US locale since the app is only available in English (US). We will have to change
+ * this behavior if we ever decide to translate the app.
+ */
+fun Number.formatTwoDecimals(): String {
+    return String.format(Locale.US, "%.2f", this)
+}
 
 /**
   * Capitalizes the first letter of the string.
