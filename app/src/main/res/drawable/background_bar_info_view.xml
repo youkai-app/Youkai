@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="@android:integer/config_mediumAnimTime" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
-    <item android:drawable="@color/background_catchy_info_ripple" />
+    <item android:drawable="@color/background_bar_info_ripple" />
     <item android:state_focused="true">
         <shape>
-            <stroke android:color="@color/background_catchy_info_ripple" />
+            <stroke android:color="@color/background_bar_info_ripple" />
             <gradient
                 android:endColor="@android:color/transparent"
-                android:startColor="@color/background_catchy_info" />
+                android:startColor="@color/background_bar_info" />
         </shape>
     </item>
     <item>
         <shape>
             <gradient
                 android:endColor="@android:color/white"
-                android:startColor="@color/background_catchy_info" />
+                android:startColor="@color/background_bar_info" />
         </shape>
     </item>
 </selector>

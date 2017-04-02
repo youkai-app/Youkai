@@ -13,7 +13,7 @@
             <corners android:radius="6dp" />
             <gradient
                 android:endColor="@android:color/white"
-                android:startColor="@color/background_catchy_info" />
+                android:startColor="@color/background_bar_info" />
         </shape>
     </item>
 </ripple>
