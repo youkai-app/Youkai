@@ -1,5 +1,32 @@
 <resources>
+
+    <style name="ReadMoreActionTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:text">@string/action_read_more</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
     <style name="MediaCharImageView">
         <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="MediaSectionLabelTextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="ChevronButtonTextView">
+        <item name="android:background">@drawable/ripple_dark</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:drawableRight">@drawable/ic_chevron_right_grey_24dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 </resources>

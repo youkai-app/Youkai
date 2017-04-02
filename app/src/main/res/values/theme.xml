@@ -16,6 +16,10 @@
         <item name="android:navigationBarColor">?colorPrimary</item>
     </style>
 
+    <style name="AppTheme.Media">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="AppTheme.Login.ProgressBar" parent="AppTheme.Login">
         <item name="colorAccent">@android:color/white</item>
     </style>

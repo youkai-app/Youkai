@@ -1,10 +1,162 @@
 <resources>
     <string name="app_name">Youkai</string>
 
+    <string name="title_alternative_titles">Alternative Titles</string>
+
     <string name="content_username">Username</string>
     <string name="content_password">Password</string>
     <string name="content_forgot_password_signup">Forgot your password? <a href="https://kitsu.io/password-reset">Reset</a>\nNew here? <a href="https://kitsu.io">Sign up</a></string>
 
+    <string name="content_highest_rated">Highest Rated</string>
+    <string name="content_most_popular">Most Popular</string>
+
+    <string name="content_characters">Characters</string>
+    <string name="content_related">Related</string>
+
+    <string name="content_all_reviews">All Reviews</string>
+
+    <string name="content_watch_trailer">Watch Trailer</string>
+
+    <string name="content_alternative_titles_message"><b>English:</b> %1$s\n<b>Romanized:</b> %2$s\n<b>Japanese:</b> %3$s\n<b>Synonyms:</b> %4$s</string>
+
+    <plurals name="x_episodes">
+        <item quantity="one">%d episode</item>
+        <item quantity="other">%d episodes</item>
+    </plurals>
+
+    <plurals name="x_minutes_each_y_hours_total">
+        <item quantity="one">%s</item>
+        <item quantity="other">%1$s each (%2$s total)</item>
+    </plurals>
+
+    <plurals name="x_minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+
+    <plurals name="x_hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+
+    <plurals name="x_chapters">
+        <item quantity="one">%s chapter</item>
+        <item quantity="other">%s chapters</item>
+    </plurals>
+
+    <plurals name="x_volumes">
+        <item quantity="one">%s volume</item>
+        <item quantity="other">%s volumes</item>
+    </plurals>
+
+    <plurals name="air_status_x_to_x">
+        <item quantity="zero">Will air on %s</item>
+        <item quantity="one">Airing on %s</item>
+        <item quantity="other">Aired on %s</item>
+    </plurals>
+
+    <plurals name="air_status_from_x_to_y">
+        <item quantity="zero">Will air from %1$s to %2$s</item>
+        <item quantity="one">Airing from %1$s to %2$s</item>
+        <item quantity="other">Aired from %1$s to %2$s</item>
+    </plurals>
+
+    <plurals name="air_status_on_x">
+        <item quantity="zero">Will start airing on %s</item>
+        <item quantity="one">Airing since %s</item>
+        <item quantity="other">Aired on %s</item>
+    </plurals>
+
+    <plurals name="air_status_to_y">
+        <item quantity="zero">Will finish airing on %s</item>
+        <item quantity="one">Airing until %s</item>
+        <item quantity="other">Aired until %s</item>
+    </plurals>
+
+    <string name="air_status_today">Airing today</string>
+    <string name="air_status_no_date_info">No air date info</string>
+    <string name="air_status_no_season_info">No season info</string>
+
+    <plurals name="publish_status_x_to_x">
+        <item quantity="zero">Will publish on %s</item>
+        <item quantity="one">Publishing on %s</item>
+        <item quantity="other">Published on %s</item>
+    </plurals>
+
+    <plurals name="publish_status_from_x_to_y">
+        <item quantity="zero">Will publish from %1$s to %2$s</item>
+        <item quantity="one">Publishing from %1$s to %2$s</item>
+        <item quantity="other">Published from %1$s to %2$s</item>
+    </plurals>
+
+    <plurals name="publish_status_on_x">
+        <item quantity="zero">Will start publishing on %s</item>
+        <item quantity="one">Publishing since %s</item>
+        <item quantity="other">Published on %s</item>
+    </plurals>
+
+    <plurals name="publish_status_to_y">
+        <item quantity="zero">Will finish publishing on %s</item>
+        <item quantity="one">Publishing until %s</item>
+        <item quantity="other">Published until %s</item>
+    </plurals>
+
+    <string name="publish_status_today">Publishing today</string>
+    <string name="publish_status_no_info">No publishing info</string>
+    <string name="publish_status_no_serialization_ino">No serialization info</string>
+
+    <plurals name="x_ratings">
+        <item quantity="one">%s rating</item>
+        <item quantity="other">%s ratings</item>
+    </plurals>
+
+    <plurals name="x_favorites">
+        <item quantity="one">%s favorite</item>
+        <item quantity="other">%s favorites</item>
+    </plurals>
+
+    <string name="no_producer_info">No producer information</string>
+    <string name="no_mangaka_info">No mangaka information</string>
+
+    <string name="anime_season_winter">Winter</string>
+    <string name="anime_season_spring">Spring</string>
+    <string name="anime_season_summer">Summer</string>
+    <string name="anime_season_fall">Fall</string>
+    <string name="anime_season_winter_y">Winter %s</string>
+    <string name="anime_season_spring_y">Spring %s</string>
+    <string name="anime_season_summer_y">Summer %s</string>
+    <string name="anime_season_fall_y">Fall %s</string>
+
+    <string name="media_type_anime_tv">TV Series</string>
+    <string name="media_type_anime_special">Special</string>
+    <string name="media_type_anime_ova">OVA</string>
+    <string name="media_type_anime_ona">ONA</string>
+    <string name="media_type_anime_movie">Movie</string>
+    <string name="media_type_anime_music">Music</string>
+    <string name="media_type_manga_manga">Manga</string>
+    <string name="media_type_manga_novel">Novel</string>
+    <string name="media_type_manga_manhua">Manhua</string>
+    <string name="media_type_manga_oneshot">Oneshot</string>
+    <string name="media_type_manga_doujin">Doujin</string>
+
+    <string name="media_release_summary_anime_future">Not Yet Aired</string>
+    <string name="media_release_summary_anime_present">Airing</string>
+    <string name="media_release_summary_anime_past">Finished Airing</string>
+
+    <string name="media_release_summary_manga_future">Not Yet Published</string>
+    <string name="media_release_summary_manga_present">Publishing</string>
+    <string name="media_release_summary_manga_past">Finished Publishing</string>
+
+    <string name="info_no_genres_yet">No genre data yet :(</string>
+    <string name="info_no_streaming_services">No streaming services :(</string>
+    <string name="info_no_reviews">No reviews</string>
+    <string name="info_no_synopsis">Synopsis not here. Dulleh, think of a witty message for this.</string>
+    <string name="error_no_trailer">Not sure why you even had that button, but there\'s no trailer available for this anime.</string>
+
     <string name="error_username_required">Username is required</string>
     <string name="error_password_required">Password is required</string>
+
+    <string name="action_read_more">Read More</string>
+
+    <string name="ok">OK</string>
 </resources>

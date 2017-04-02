@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/synopsisContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_dark"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/synopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:textColor="@android:color/black"
+            tools:text="Koyomi Araragi, a third-year high school student, manages to survive a vampire attack with the help of Meme Oshino, a strange man residing in an abandoned building. Though..." />
+
+        <TextView
+            style="@style/ReadMoreActionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/genresContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:dividerDrawable="@drawable/divider_8dp"
+        app:flexWrap="wrap"
+        app:showDividerHorizontal="middle"
+        app:showDividerVertical="middle">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <app.youkai.ui.common.widget.CatchyInfoView
+        android:id="@+id/length"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:civ_icon="@drawable/ic_length_anime_36dp" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/streamingServicesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        app:dividerDrawable="@drawable/divider_8dp"
+        app:showDividerHorizontal="middle"
+        app:showDividerVertical="middle">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <app.youkai.ui.common.widget.CatchyInfoView
+        android:id="@+id/releaseInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:civ_icon="@drawable/ic_release_info_36dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/communityRatingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/accent_kitsu"
+                android:textSize="38sp"
+                tools:text="4.28" />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/communityRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="16dp"
+                android:minWidth="16dp"
+                app:mrb_progressTint="@color/rating"
+                app:mrb_progressTintMode="src_atop"
+                app:mrb_secondaryProgressTint="@color/rating"
+                tools:rating="4.28" />
+
+            <TextView
+                android:id="@+id/ratingsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="18,806 ratings" />
+
+            <TextView
+                android:id="@+id/favoritesCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2,348 favorites" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/accent_kitsu"
+                    app:srcCompat="@drawable/ic_most_pupolar_black_36dp" />
+
+                <TextView
+                    android:id="@+id/popularityRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="26sp"
+                    tools:text="19th" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/content_most_popular" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/rating"
+                    app:srcCompat="@drawable/ic_highest_rated_black_36dp" />
+
+                <TextView
+                    android:id="@+id/ratingRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="26sp"
+                    tools:text="95th" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/content_highest_rated" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reviewsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/allReviewsButton"
+        style="@style/ChevronButtonTextView"
+        android:layout_gravity="right"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/content_all_reviews"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <app.youkai.ui.common.widget.CatchyInfoView
+        android:id="@+id/producers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:civ_icon="@drawable/ic_producer_anime_36dp" />
+
+    <TextView
+        android:id="@+id/charactersLabel"
+        style="@style/MediaSectionLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/content_characters" />
+
+    <app.youkai.ui.common.widget.MediaCharactersView
+        android:id="@+id/characters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp" />
+
+    <TextView
+        android:id="@+id/relatedLabel"
+        style="@style/MediaSectionLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/content_related" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:padding="16dp"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:id="@+id/related"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider_4dp"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="36dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>
