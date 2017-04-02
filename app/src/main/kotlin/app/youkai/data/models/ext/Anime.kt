@@ -2,6 +2,12 @@ package app.youkai.data.models.ext
 
 import app.youkai.data.models.Anime
 import app.youkai.data.models.BaseMedia
+import app.youkai.R
+import java.util.*
+
+/**
+ * Anime related extension stuff
+ */
 
 /**
  * Converts an Anime to a Media.
@@ -41,4 +47,25 @@ fun Anime.toMedia(): BaseMedia {
     media.reviews = this.reviews
     media.reviewLinks = this.reviewLinks
     return media
+}
+
+/**
+ * Figures out and returns season from an anime object based on start of airing date.
+ */
+fun Anime.season(): AnimeSeason {
+    val parts = startDate?.split("-") ?: arrayListOf("2000", "2", "10")
+    return when (parts[1].toInt() - 1) { // - 1 to normalize for the Calendar class
+        in Calendar.JANUARY..Calendar.MARCH -> AnimeSeason.WINTER
+        in Calendar.APRIL..Calendar.JUNE -> AnimeSeason.SPRING
+        in Calendar.JULY..Calendar.SEPTEMBER -> AnimeSeason.SUMMER
+        in Calendar.OCTOBER..Calendar.DECEMBER -> AnimeSeason.FALL
+        else -> AnimeSeason.WINTER
+    }
+}
+
+enum class AnimeSeason(val value: Int, val valueWithYear: Int) {
+    WINTER(R.string.anime_season_winter, R.string.anime_season_winter_y),
+    SPRING(R.string.anime_season_spring, R.string.anime_season_spring_y),
+    SUMMER(R.string.anime_season_summer, R.string.anime_season_summer_y),
+    FALL(R.string.anime_season_fall, R.string.anime_season_fall_y)
 }
