@@ -7,3 +7,8 @@ import app.youkai.App
  * Convenience function to get colors from anywhere
  */
 fun color(@IntegerRes res: Int) = App.context.resources.getColor(res)
+
+/**
+ * Convenience function to get strings from anywhere
+ */
+fun string(@IntegerRes res: Int): String? = App.context.resources.getString(res)
