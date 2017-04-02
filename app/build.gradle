@@ -137,9 +137,6 @@ dependencies {
     /* RatingBar */
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
 
-    /* ProgressView */
-    compile 'app.youkai.progressview:library:1.0.0'
-
     /* SimpleRatingView */
     compile 'app.youkai.simpleratingview:library:1.0.0'
 }
