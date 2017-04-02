@@ -10,6 +10,8 @@
     <color name="ripple_dark">#30000000</color>
     <color name="ripple_dark_stroke">#50000000</color>
 
+    <color name="default_image">#E0E0E0</color>
+
     <color name="background_catchy_info">#f9f9f9</color>
     <color name="background_catchy_info_ripple">@color/ripple_dark</color>
 

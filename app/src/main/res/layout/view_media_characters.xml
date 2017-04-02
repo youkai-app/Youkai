@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="RtlHardcoded">
 
@@ -14,8 +15,7 @@
             style="@style/MediaCharImageView"
             android:layout_width="202dp"
             android:layout_height="202dp"
-            android:background="#726189"
-            android:src="#bababa" />
+            app:placeholderImage="@color/default_media_character" />
     </FrameLayout>
 
     <LinearLayout
@@ -36,8 +36,7 @@
                 android:layout_width="97dp"
                 android:layout_height="97dp"
                 android:layout_marginBottom="8dp"
-                android:background="#726121"
-                android:src="#bababa" />
+                app:placeholderImage="@color/default_media_character" />
         </FrameLayout>
 
         <FrameLayout
@@ -51,8 +50,7 @@
                 style="@style/MediaCharImageView"
                 android:layout_width="97dp"
                 android:layout_height="97dp"
-                android:background="#927a22"
-                android:src="#bababa" />
+                app:placeholderImage="@color/default_media_character" />
         </FrameLayout>
     </LinearLayout>
 
@@ -74,8 +72,7 @@
                 android:layout_width="97dp"
                 android:layout_height="97dp"
                 android:layout_marginBottom="8dp"
-                android:background="#328289"
-                android:src="#bababa" />
+                app:placeholderImage="@color/default_media_character" />
         </FrameLayout>
 
         <FrameLayout
@@ -91,8 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.3"
-                android:background="#1429ab"
-                android:src="#bababa" />
+                app:placeholderImage="@color/default_media_character" />
 
             <TextView
                 android:id="@+id/moreCount"

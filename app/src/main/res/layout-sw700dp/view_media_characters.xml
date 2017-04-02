@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="RtlHardcoded">
 
     <!-- Used to perform tablet mode check in code based on whether this view exists in the layout -->
@@ -19,10 +20,9 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/char1"
             style="@style/MediaCharImageView"
+            app:placeholderImage="@color/default_media_character"
             android:layout_width="108dp"
-            android:layout_height="109dp"
-            android:background="#328289"
-            android:src="#bababa" />
+            android:layout_height="109dp" />
     </FrameLayout>
 
     <FrameLayout
@@ -34,11 +34,10 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/char2"
             style="@style/MediaCharImageView"
+            app:placeholderImage="@color/default_media_character"
             android:layout_width="108dp"
             android:layout_height="108dp"
-            android:layout_marginLeft="8dp"
-            android:background="#726189"
-            android:src="#bababa" />
+            android:layout_marginLeft="8dp" />
     </FrameLayout>
 
     <FrameLayout
@@ -50,11 +49,10 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/char3"
             style="@style/MediaCharImageView"
+            app:placeholderImage="@color/default_media_character"
             android:layout_width="108dp"
             android:layout_height="108dp"
-            android:layout_marginLeft="8dp"
-            android:background="#726121"
-            android:src="#bababa" />
+            android:layout_marginLeft="8dp" />
     </FrameLayout>
 
     <FrameLayout
@@ -66,11 +64,10 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/char4"
             style="@style/MediaCharImageView"
+            app:placeholderImage="@color/default_media_character"
             android:layout_width="108dp"
             android:layout_height="108dp"
-            android:layout_marginLeft="8dp"
-            android:background="#927a22"
-            android:src="#bababa" />
+            android:layout_marginLeft="8dp" />
     </FrameLayout>
 
     <FrameLayout
@@ -84,11 +81,10 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/char5"
             style="@style/MediaCharImageView"
+            app:placeholderImage="@color/default_media_character"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.3"
-            android:background="#1429ab"
-            android:src="#bababa" />
+            android:alpha="0.3" />
 
         <TextView
             android:id="@+id/moreCount"
