@@ -3,14 +3,28 @@
     <color name="primary">#402F3F</color>
     <color name="primary_dark">#2B1F2A</color>
     <color name="accent">#FF3D00</color>
-    <color name="accent_kitsu">#F75239</color> <!-- This is the orange used in Kitsu. It's too desaturated to be used as accent in Material Design. We use it to some color non-link UI elements.-->
+
+    <!--
+    This is the orange used in Kitsu. It's too desaturated to be used as accent in
+    Material Design. We use it to color some non-link UI elements.
+    -->
+    <color name="accent_kitsu">#F75239</color>
+
+    <color name="divider">#42000000</color>
+
+    <color name="rating">#FFC400</color>
 
     <color name="ripple_light">#50ffffff</color>
     <color name="ripple_light_stroke">#70ffffff</color>
     <color name="ripple_dark">#30000000</color>
     <color name="ripple_dark_stroke">#50000000</color>
 
+    <color name="background_media_cover">#000000</color>
+
     <color name="default_image">#E0E0E0</color>
+    <color name="default_media_cover">@color/default_image</color>
+    <color name="default_media_poster">@color/default_image</color>
+    <color name="default_media_character">@color/default_image</color>
 
     <color name="background_catchy_info">#f9f9f9</color>
     <color name="background_catchy_info_ripple">@color/ripple_dark</color>
@@ -29,4 +43,9 @@
     <color name="streamer_hulu">#8BC34A</color>
     <color name="streamer_netflix">#E21221</color>
     <color name="streamer_viewster">#F3962F</color>
+
+    <color name="media_review_rating_progress">#757575</color>
+    <color name="media_review_rating_background">#BDBDBD</color>
+
+    <color name="youtube">#FF1744</color>
 </resources>

@@ -22,6 +22,10 @@
         <activity
             android:name=".ui.feature.login.LoginActivity"
             android:theme="@style/AppTheme.Login" />
+
+        <activity
+            android:name=".ui.feature.media.MediaActivity"
+            android:theme="@style/AppTheme.Media" />
     </application>
 
 </manifest>
