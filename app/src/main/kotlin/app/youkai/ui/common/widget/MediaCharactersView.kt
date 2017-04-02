@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import app.youkai.R
+import app.youkai.data.models.Character
 import app.youkai.util.ext.getLayoutInflater
 import app.youkai.util.ext.toPx
 import kotlinx.android.synthetic.main.view_media_characters.view.*
@@ -78,14 +79,14 @@ class MediaCharactersView : LinearLayout {
     /**
      * Sets given characters into the tiles.
      */
-    fun setCharacters(vararg chars: String) {
+    fun setCharacters(chars: List<Character?>) {
         for (i in chars.indices) {
             when (i) {
-                0 -> char1.setImageURI(chars[i])
-                1 -> char2.setImageURI(chars[i])
-                2 -> char3.setImageURI(chars[i])
-                3 -> char4.setImageURI(chars[i])
-                4 -> char5.setImageURI(chars[i])
+                0 -> char1.setImageURI(chars[i]?.image ?: "")
+                1 -> char2.setImageURI(chars[i]?.image ?: "")
+                2 -> char3.setImageURI(chars[i]?.image ?: "")
+                3 -> char4.setImageURI(chars[i]?.image ?: "")
+                4 -> char5.setImageURI(chars[i]?.image ?: "")
             }
         }
     }
