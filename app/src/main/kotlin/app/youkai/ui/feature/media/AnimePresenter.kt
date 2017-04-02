@@ -4,6 +4,7 @@ import android.util.Log
 import app.youkai.App.Companion.context
 import app.youkai.R
 import app.youkai.data.models.Anime
+import app.youkai.data.models.ext.typeString
 import app.youkai.data.service.Api
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -48,17 +49,7 @@ class AnimePresenter : BaseMediaPresenter() {
     }
 
     override fun setType() {
-        view?.setType(
-                when ((media as Anime?)?.showType) {
-                    "TV" -> context.getString(R.string.media_type_anime_tv)
-                    "Special" -> context.getString(R.string.media_type_anime_special)
-                    "OVA" -> context.getString(R.string.media_type_anime_ova)
-                    "ONA" -> context.getString(R.string.media_type_anime_ona)
-                    "Movie" -> context.getString(R.string.media_type_anime_movie)
-                    "Music" -> context.getString(R.string.media_type_anime_music)
-                    else -> "?"
-                }
-        )
+        view?.setType((media as Anime?)?.typeString() ?: "")
     }
 
     override fun onTrailerClicked() {

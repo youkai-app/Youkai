@@ -1,6 +1,7 @@
 package app.youkai.data.models.ext
 
 import app.youkai.data.models.Anime
+import app.youkai.util.string
 import app.youkai.data.models.BaseMedia
 import app.youkai.R
 import java.util.*
@@ -68,4 +69,19 @@ enum class AnimeSeason(val value: Int, val valueWithYear: Int) {
     SPRING(R.string.anime_season_spring, R.string.anime_season_spring_y),
     SUMMER(R.string.anime_season_summer, R.string.anime_season_summer_y),
     FALL(R.string.anime_season_fall, R.string.anime_season_fall_y)
+}
+
+/**
+ * Returns the appropriate type string of this Anime.
+ */
+fun Anime.typeString(): String {
+    return when (showType) {
+        "TV" -> string(R.string.media_type_anime_tv)
+        "Special" -> string(R.string.media_type_anime_special)
+        "OVA" -> string(R.string.media_type_anime_ova)
+        "ONA" -> string(R.string.media_type_anime_ona)
+        "Movie" -> string(R.string.media_type_anime_movie)
+        "Music" -> string(R.string.media_type_anime_music)
+        else -> "?"
+    } ?: showType ?: "?"
 }
