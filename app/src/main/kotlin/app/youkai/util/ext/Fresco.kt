@@ -19,7 +19,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder
  *
  * If the resulting bitmap is null, the lambda expression won't be executed.
  */
-fun SimpleDraweeView.loadWithPalette(url: String, listener: (Palette) -> Unit) {
+fun SimpleDraweeView.loadWithPalette(url: String?, listener: (Palette) -> Unit) {
     controller = Fresco.newDraweeControllerBuilder()
             .setImageRequest(
                     ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
@@ -40,7 +40,7 @@ fun SimpleDraweeView.loadWithPalette(url: String, listener: (Palette) -> Unit) {
 /**
  * Loads an image with a new controller that automatically plays animations.
  */
-fun SimpleDraweeView.loadAnimated(url: String) {
+fun SimpleDraweeView.loadAnimated(url: String?) {
     controller = Fresco.newDraweeControllerBuilder()
             .setUri(url)
             .setAutoPlayAnimations(true)
