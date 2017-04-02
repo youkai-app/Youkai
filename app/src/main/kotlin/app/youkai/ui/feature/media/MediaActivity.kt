@@ -6,20 +6,16 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
-import android.text.Html
 import android.widget.Toast
-import app.youkai.MainActivity
 import app.youkai.R
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.LibraryEntry
 import app.youkai.data.models.Titles
 import app.youkai.data.models.ext.MediaType
-import app.youkai.ui.feature.library.EditBottomSheetFragment
 import app.youkai.ui.feature.media.summary.SummaryFragment
 import kotlinx.android.synthetic.main.activity_media.*
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
-
 
 class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), MediaView {
 
@@ -103,11 +99,11 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         (summaryFragment as SummaryFragment).setMedia(media, onTablet())
     }
 
-    override fun setPoster(url: String) {
+    override fun setPoster(url: String?) {
         poster.setImageURI(url)
     }
 
-    override fun setCover(url: String) {
+    override fun setCover(url: String?) {
         cover.setImageURI(url)
     }
 
@@ -172,8 +168,8 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
     }
 
     override fun showLibraryEdit() {
-        val bottomSheetDialogFragment = EditBottomSheetFragment()
-        bottomSheetDialogFragment.show(supportFragmentManager, bottomSheetDialogFragment.tag)
+        /*val bottomSheetDialogFragment = EditBottomSheetFragment()
+        bottomSheetDialogFragment.show(supportFragmentManager, bottomSheetDialogFragment.tag)*/
     }
 
     override fun showToast(text: String) {
