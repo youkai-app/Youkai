@@ -1,6 +1,5 @@
 package app.youkai.data.models
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.Links
 import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
@@ -9,6 +8,24 @@ import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("libraryEntries") //@JsonIgnoreProperties(ignoreUnknown = true) TODO: uncomment
 class LibraryEntry : BaseJsonModel() {
+
+    companion object FieldNames {
+        val TYPE = "libraryEntries"
+        val STATUS = "status"
+        val PROGRESS = "progress"
+        val RECONSUMING = "reconsuming"
+        val RECONSUME_COUNT = "reconsumeCount"
+        val NOTES = "notes"
+        val PRIVATE = "private"
+        val UPDATED_AT = "updatedAt"
+        val RATING = "rating"
+        val RATING_TWENTY = "ratingTwenty"
+        val USER = "user"
+        val ANIME = "anime"
+        val MANGA = "manga"
+        val REVIEW = "review"
+        val MEDIA = "media"
+    }
 
     var status: String? = null
 

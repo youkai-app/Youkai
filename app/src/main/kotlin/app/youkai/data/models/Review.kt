@@ -9,6 +9,22 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("reviews") @JsonIgnoreProperties(ignoreUnknown = true)
 class Review : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "reviews"
+        val CONTENT = "content"
+        val CONTENT_FORMATTED = "contentFormatted"
+        val LIKES_COUNT = "likesCount"
+        val PROGRESS = "progress"
+        val RATING = "rating"
+        val SOURCE = "source"
+        val SPOILER = "spoiler"
+        val CREATED_AT = "createdAt"
+        val UPDATED_AT = "updatedAt"
+        val LIBRARY_ENTRY = "libraryEntry"
+        val MEDIA = "media"
+        val USER = "user"
+    }
+
     var content: String? = null
 
     var contentFormatted: String? = null
@@ -27,15 +43,13 @@ class Review : BaseJsonModel() {
 
     var updatedAt: String? = null
 
-    /*
-     * TODO: LibraryEntry model
     @Relationship("libraryEntry")
     var libraryEntry: LibraryEntry? = null
 
     @RelationshipLinks("libraryEntry")
     var libraryEntryLinks: Links? = null
-    */
 
+    //TODO: Fix for polymorphism.
     @Relationship("media")
     var media: Media? = null
 

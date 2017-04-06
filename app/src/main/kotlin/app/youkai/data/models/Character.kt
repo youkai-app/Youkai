@@ -10,6 +10,16 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("characters") @JsonIgnoreProperties(ignoreUnknown = true)
 class Character : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "characters"
+        val SLUG = "slug"
+        val NAME = "name"
+        val MAL_ID = "malId"
+        val DESCRIPTION = "description"
+        val IMAGE = "image"
+        val CASTINGS = "castings"
+    }
+
     var slug: String? = null
 
     var name: String? = null
@@ -46,7 +56,6 @@ class Character : BaseJsonModel() {
 
     @RelationshipLinks("primaryMedia")
     var animeLinks: Links? = null
-     *
-     */
+    */
 
 }

@@ -6,6 +6,13 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("streamers") @JsonIgnoreProperties(ignoreUnknown = true)
 class Streamer : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "streamers"
+        val SITE_NAME = "siteName"
+        val LOGO = "logo"
+        val STREAMING_LINKS = "streamingLinks"
+    }
+
     var siteName: String? = null
 
     var logo: String? = null

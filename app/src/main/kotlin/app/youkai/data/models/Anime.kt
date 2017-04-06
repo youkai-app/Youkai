@@ -10,6 +10,20 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("anime") @JsonIgnoreProperties(ignoreUnknown = true)
 class Anime : BaseMedia() {
 
+    companion object FieldNames {
+        val TYPE = "anime"
+        val EPISODE_COUNT = "episodeCount"
+        val EPISODE_LENGTH = "episodeLength"
+        val SHOW_TYPE = "showType"
+        val YOUTUBE_VIDEO_ID = "youtubeVideoId"
+        val NSFW = "nsfw"
+        val EPISODES = "episodes"
+        val STREAMING_LINKS = "streamingLinks"
+        val PRODUCTIONS = "animeProductions"
+        val CHARACTERS = "animeCharacters"
+        val STAFF = "animeStaff"
+    }
+
     var episodeCount: Int? = null
 
     var episodeLength: Int? = null

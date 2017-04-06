@@ -9,6 +9,14 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("people") @JsonIgnoreProperties(ignoreUnknown = true)
 class Person : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "people"
+        val IMAGE = "image"
+        val NAME = "name"
+        val MAL_ID = "malId"
+        val CASTINGS = "castings"
+    }
+
     var image: String? = null
 
     var name: String? = null

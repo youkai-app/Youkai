@@ -6,6 +6,16 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("manga") @JsonIgnoreProperties(ignoreUnknown = true)
 class Manga : BaseMedia() {
 
+    companion object FieldNames {
+        val TYPE = "manga"
+        val CHAPTERS_COUNT = "chaptersCount"
+        val VOLUME_COUNT = "volumeCount"
+        val SERIALIZATION = "serialization"
+        val MANGA_TYPE = "mangaType"
+        val CHARCTERS = "mangaCharacters"
+        val STAFF = "mangaStaff"
+    }
+
     var chapterCount: Int? = null
 
     var volumeCount: Int? = null
@@ -29,7 +39,6 @@ class Manga : BaseMedia() {
 
     @RelationshipLinks("mangaStaff")
     var mangaStaffLinks: Links? = null
-
-     */
+    */
 
 }

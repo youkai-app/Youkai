@@ -9,6 +9,44 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("users") @JsonIgnoreProperties(ignoreUnknown = true)
 class User : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "users"
+        val NAME = "name"
+        val PAST_NAMES = "pastNames"
+        val ABOUT = "about"
+        val BIO = "bio"
+        val ABOUT_FORMATTED = "aboutFormatted"
+        val LOCATION = "location"
+        val WEBSITE = "website"
+        val WAIFU_OR_HUSBANDO = "waifuOrHusbando"
+        val FOLLOWERS_COUNT = "followersCount"
+        val CREATED_AT = "createdAt"
+        val FACEBOOK_ID = "facebookId"
+        val FOLLOWING_COUNT = "followingCount"
+        val LIFE_SPENT_ON_ANIME = "lifeSpentOnAnime"
+        val BIRTHDAY = "birthday"
+        val GENDER = "gender"
+        val UPDATED_AT = "updatedAt"
+        val COMMENTS_COUNT = "commentsCount"
+        val FAVORITES_COUNT = "favoritesCount"
+        val LIKES_GIVEN_COUNT = "likesFivenCount"
+        val REVIEWS_COUNT = "reviewsCount"
+        val LIKES_RECEIVED_COUNT = "likesReceivedCount"
+        val POSTS_COUNT = "postsCount"
+        val RATINGS_COUNT = "ratingsCount"
+        val PRO_EXPIRES_AT = "proExpiresAt"
+        val TITLE = "title"
+        val PROFILE_COMPLETED = "profileCompleted"
+        val FEED_COMPLETED = "feedCompleted"
+        val AVATAR = "avatar"
+        val COVER_IMAGE = "converImage"
+        val RATING_SYSTEM = "ratingSystem"
+        val THEME = "theme"
+        val WAIFU = "waifu"
+        val LIBRARY_ENTRIES = "libraryEntries"
+        val REVIEWS = "reviews"
+    }
+
     var name: String? = null
 
     var pastNames: List<String>? = null

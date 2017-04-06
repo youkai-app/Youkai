@@ -7,6 +7,13 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("titles") @JsonIgnoreProperties(ignoreUnknown = true)
 class Titles : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "titles"
+        val EN = "en"
+        val EN_JP = "en_jp"
+        val JA_JP = "ja_jp"
+    }
+
     @JsonProperty("en")
     var en: String? = null
 

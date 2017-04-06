@@ -10,6 +10,19 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("episodes") @JsonIgnoreProperties(ignoreUnknown = true)
 class Episode : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "episodes"
+        val TITLES = "titles"
+        val CANONICAL_TITLE = "canonicalTitle"
+        val SEASON_NUMBER = "seasonNumber"
+        val NUMBER = "number"
+        val SYNOPSIS = "synopsis"
+        val AIR_DATE = "airdate"
+        val LENGTH = "length"
+        val THUMBNAIL = "thumbnail"
+        val MEDIA = "media"
+    }
+
     var titles: Titles? = null
 
     var canonicalTitle: String? = null
@@ -37,10 +50,11 @@ class Episode : BaseJsonModel() {
         thumbnail = m["original"];
     }
 
+    //TODO: Fix for polymorphism.
     @Relationship("media")
-    var anime: Anime? = null
+    var media: Media? = null
 
     @RelationshipLinks("media")
-    var animeLinks: Links? = null
+    var mediaLinks: Links? = null
 
 }

@@ -10,6 +10,17 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("castings") @JsonIgnoreProperties(ignoreUnknown = true)
 class Casting : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "castings"
+        val ROLE = "role"
+        val VOICE_ACTOR = "voiceActor"
+        val FEATURED = "featured"
+        val LANGUAGE = "language"
+        val PERSON = "person"
+        val MEDIA = "media"
+        val CHARACTER = "character"
+    }
+
     var role: String? = null
 
     @JsonProperty("voiceActor")
@@ -25,11 +36,12 @@ class Casting : BaseJsonModel() {
     @RelationshipLinks("person")
     var personLinks: Links? = null
 
+    //TODO: Fix for polymorphism.
     @Relationship("media")
-    var anime: Anime? = null
+    var media: Media? = null
 
     @RelationshipLinks("media")
-    var animeLinks: Links? = null
+    var mediaLinks: Links? = null
 
     @Relationship("character")
     var character: Character? = null

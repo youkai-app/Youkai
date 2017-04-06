@@ -7,4 +7,10 @@ import com.github.jasminb.jsonapi.annotations.Type
   * See https://github.com/jasminb/jsonapi-converter/issues/110 for more info.
   */
 @Type("media")
-class Media : BaseMedia()
+class Media : BaseMedia() {
+
+    companion object FieldNames {
+        val TYPE = "media"
+    }
+
+}

@@ -9,6 +9,14 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("installments") @JsonIgnoreProperties(ignoreUnknown = true)
 class Installment : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "installments"
+        val TAG = "tag"
+        val POSITION = "position"
+        val FRANCHISE = "franchise"
+        val MEDIA = "media"
+    }
+
     var tag: String? = null
 
     var position: Int? = null
@@ -19,8 +27,9 @@ class Installment : BaseJsonModel() {
     @RelationshipLinks("franchise")
     var franchiseLinks: Links? = null
 
+    //TODO: Fix for polymorphism.
     @Relationship("media")
-    var media: Anime?= null
+    var media: Media?= null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

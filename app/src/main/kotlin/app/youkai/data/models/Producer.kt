@@ -9,6 +9,13 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("producers") @JsonIgnoreProperties(ignoreUnknown = true)
 class Producer : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "producers"
+        val SLUG = "slug"
+        val NAME = "name"
+        val PRODUCTIONS = "animeProductions"
+    }
+
     var slug: String? = null
 
     var name: String? = null

@@ -9,6 +9,13 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("franchises") @JsonIgnoreProperties(ignoreUnknown = true)
 class Franchise: BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "franchises"
+        val TITLES = "titles"
+        val CANONICAL_TITLE = "canonicalTitle"
+        val INSTALLMENTS = "installments"
+    }
+
     var titles: Titles? = null
 
     var canonicalTitle: String? = null

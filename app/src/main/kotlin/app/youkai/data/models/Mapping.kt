@@ -9,14 +9,22 @@ import com.github.jasminb.jsonapi.annotations.Type
 @Type("mappings") @JsonIgnoreProperties(ignoreUnknown = true)
 class Mapping : BaseJsonModel() {
 
+    companion object FieldNames {
+        val TYPE = "mappings"
+        val EXTERNAL_SITE = "externalSite"
+        val EXTERNAL_ID = "externalId"
+        val MEDIA = "media"
+    }
+
     var externalSite: String? = null
 
     var externalId: String? = null
 
+    //TODO: Fix for polymorphism.
     @Relationship("media")
-    var anime: Anime? = null
+    var media: Media? = null
 
     @RelationshipLinks("media")
-    var animeLinks: Links? = null
+    var mediaLinks: Links? = null
 
 }

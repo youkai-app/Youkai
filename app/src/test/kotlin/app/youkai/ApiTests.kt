@@ -1,5 +1,7 @@
 package app.youkai
 
+import app.youkai.data.models.Anime
+import app.youkai.data.models.BaseMedia
 import app.youkai.data.service.Api
 import org.junit.Test
 
@@ -25,7 +27,7 @@ class ApiTests {
     @Test
     @Throws(Exception::class)
     fun animeWithIncludesTest() {
-        Api.anime("3919").include("castings", "episodes").get()
+        Api.anime("3919").include(BaseMedia.CASTINGS, Anime.EPISODES).get()
                 .test()
                 .assertNoErrors()
                 .assertComplete()
@@ -38,8 +40,8 @@ class ApiTests {
     @Throws(Exception::class)
     fun fullAnimeTest() {
         Api.anime("1")
-                .include("genres", "castings", "installments", "mappings", "mediaRelationships",
-                "reviews", "episodes", "animeProductions", "animeCharacters", "animeStaff")
+                .include(BaseMedia.GENRES, BaseMedia.GENRES, BaseMedia.INSTALLMENTS, BaseMedia.MAPPINGS, BaseMedia.MEDIA_RELATIONSHIPS,
+                        BaseMedia.REVIEWS, Anime.EPISODES, Anime.PRODUCTIONS, Anime.CHARACTERS, Anime.STAFF)
                 .get()
                 .test()
                 .assertNoErrors()
