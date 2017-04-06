@@ -1,0 +1,127 @@
+{
+  "data": {
+    "id": "42603",
+    "type": "users",
+    "links": {
+      "self": "https://kitsu.io/api/edge/users/42603"
+    },
+    "attributes": {
+      "name": "wopian",
+      "pastNames": [],
+      "about": "※ Kitsu contributor\n※ Creator of Hibari (hb.wopian.me)\n\nCheck out my pinned post for more!",
+      "bio": "Hummingbird Contributor and Developer of「Hibari」                                                                  ",
+      "aboutFormatted": "Can't view my anime library? View it here:<br><a href=\"https://hb.wopian.me/wopian/library/\" target=\"_blank\">https://hb.wopian.me/wopian/library/</a><br><br>My anime \"On Hold\" list is anime coming out next season and any anime I have downloaded ready to watch.<br><br>My manga \"On Hold\" list is manga i'm up-to-date on.<br><br>Manga list is updated monthly.<br><br>Hibari (Hummingbird Tools): <a href=\"https://hb.wopian.me\" target=\"_blank\">https://hb.wopian.me</a><br>^^^ Still on Haitus since December 2014 ;) ^^^<br><br><iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/fwMhX3TTWzA?feature=oembed&amp;wmode=opaque\" frameborder=\"0\" allowfullscreen></iframe><br><br><a href=\"https://boincstats.com/signature/-1/user/3855895/sig.png\" target=\"_blank\"><img src=\"https://boincstats.com/signature/-1/user/3855895/sig.png\"></a>",
+      "location": "England, United Kingdom",
+      "website": "https://wopian.me",
+      "waifuOrHusbando": "ロリー·マーキュリー、使徒のエムロイ、需要全力崇拝。\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeffDemigoddess",
+      "followersCount": 543,
+      "createdAt": "2014-05-06T15:54:11.169Z",
+      "facebookId": null,
+      "followingCount": 390,
+      "lifeSpentOnAnime": 105680,
+      "birthday": "3000-02-06",
+      "gender": "male",
+      "updatedAt": "2017-04-06T15:29:14.346Z",
+      "commentsCount": 132,
+      "favoritesCount": 70,
+      "likesGivenCount": 2519,
+      "reviewsCount": 0,
+      "likesReceivedCount": 139,
+      "postsCount": 27,
+      "ratingsCount": 1231,
+      "proExpiresAt": "2017-01-01T08:37:16.433Z",
+      "title": null,
+      "profileCompleted": true,
+      "feedCompleted": true,
+      "avatar": {
+        "tiny": "https://media.kitsu.io/users/avatars/42603/tiny.png?1475885301",
+        "small": "https://media.kitsu.io/users/avatars/42603/small.png?1475885301",
+        "medium": "https://media.kitsu.io/users/avatars/42603/medium.png?1475885301",
+        "large": "https://media.kitsu.io/users/avatars/42603/large.png?1475885301",
+        "original": "https://media.kitsu.io/users/avatars/42603/original.png?1475885301"
+      },
+      "coverImage": {
+        "tiny": "https://media.kitsu.io/users/cover_images/42603/tiny.jpg?1476363556",
+        "small": "https://media.kitsu.io/users/cover_images/42603/small.jpg?1476363556",
+        "large": "https://media.kitsu.io/users/cover_images/42603/large.jpg?1476363556",
+        "original": "https://media.kitsu.io/users/cover_images/42603/original.jpeg?1476363556"
+      },
+      "ratingSystem": "advanced",
+      "theme": "light"
+    },
+    "relationships": {
+      "waifu": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/waifu",
+          "related": "https://kitsu.io/api/edge/users/42603/waifu"
+        }
+      },
+      "pinnedPost": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/pinned-post",
+          "related": "https://kitsu.io/api/edge/users/42603/pinned-post"
+        }
+      },
+      "followers": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/followers",
+          "related": "https://kitsu.io/api/edge/users/42603/followers"
+        }
+      },
+      "following": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/following",
+          "related": "https://kitsu.io/api/edge/users/42603/following"
+        }
+      },
+      "blocks": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/blocks",
+          "related": "https://kitsu.io/api/edge/users/42603/blocks"
+        }
+      },
+      "linkedAccounts": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/linked-accounts",
+          "related": "https://kitsu.io/api/edge/users/42603/linked-accounts"
+        }
+      },
+      "profileLinks": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/profile-links",
+          "related": "https://kitsu.io/api/edge/users/42603/profile-links"
+        }
+      },
+      "mediaFollows": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/media-follows",
+          "related": "https://kitsu.io/api/edge/users/42603/media-follows"
+        }
+      },
+      "userRoles": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/user-roles",
+          "related": "https://kitsu.io/api/edge/users/42603/user-roles"
+        }
+      },
+      "libraryEntries": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/library-entries",
+          "related": "https://kitsu.io/api/edge/users/42603/library-entries"
+        }
+      },
+      "favorites": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/favorites",
+          "related": "https://kitsu.io/api/edge/users/42603/favorites"
+        }
+      },
+      "reviews": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/users/42603/relationships/reviews",
+          "related": "https://kitsu.io/api/edge/users/42603/reviews"
+        }
+      }
+    }
+  }
+}

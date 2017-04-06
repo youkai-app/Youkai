@@ -14,7 +14,7 @@ class JsonParsingTests {
     */
     @Test
     @Throws(Exception::class)
-    fun animeSparseTest () {
+    fun animeSparseTest() {
         val resourceConverter = ResourceConverter(Anime::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_sparse_json")
@@ -94,7 +94,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun credentialsTest () {
+    fun credentialsTest() {
         val loginResponse = "{\"access_token\":\"46576873443657hg53667684m474hb34t34v232352543g64j64554y467edb551\",\"token_type\":\"bearer\",\"expires_in\":1373259,\"refresh_token\":\"fdsf34324325kl25l32k523n5235kkkkk42c02fca93966322222d03a4459df88\",\"scope\":\"public\",\"created_at\":1486761182}"
 
         val credentials = ObjectMapper().readValue(loginResponse, Credentials::class.java)
@@ -110,7 +110,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun castingsTest () {
+    fun castingsTest() {
         val resourceConverter = ResourceConverter(Casting::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("castings_json")
@@ -138,7 +138,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun animeWithCastingsTest () {
+    fun animeWithCastingsTest() {
         val resourceConverter = ResourceConverter(Anime::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_castings_json")
@@ -160,7 +160,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun genresTest () {
+    fun genresTest() {
         val resourceConverter = ResourceConverter(Genre::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("genres_json")
@@ -191,7 +191,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun animeWithGenresTest () {
+    fun animeWithGenresTest() {
         val resourceConverter = ResourceConverter(Anime::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_genres_json")
@@ -216,7 +216,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun episodesTest () {
+    fun episodesTest() {
         val resourceConverter = ResourceConverter(Episode::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("episodes_json")
@@ -247,7 +247,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun mappingsTest () {
+    fun mappingsTest() {
         val resourceConverter = ResourceConverter(Mapping::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("mappings_json")
@@ -273,7 +273,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun animeCharactersTest () {
+    fun animeCharactersTest() {
         val resourceConverter = ResourceConverter(AnimeCharacter::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("characters_anime_json")
@@ -307,7 +307,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun characterTest () {
+    fun characterTest() {
         val resourceConverter = ResourceConverter(Character::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("character_json")
@@ -321,15 +321,14 @@ class JsonParsingTests {
         assertEquals("Age: 15<br/>BirthHeight: 17 metres! WOW! WHAT A TALL GIRL...are inseparable.</span>", character.description)
         assertEquals("https://media.kitsu.io/characters/images/38505/original.jpg?1483096805", character.image)
         assertEquals("https://kitsu.io/api/edge/characters/38505", character.links!!.self.href)
-
+        assertNull(character.casting)
         assertEquals("https://kitsu.io/api/edge/characters/38505/relationships/castings", character.castingLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/characters/38505/castings", character.castingLinks!!.related.href)
-        assertNull(character.casting)
     }
 
     @Test
     @Throws(Exception::class)
-    fun animeProductionsTest () {
+    fun animeProductionsTest() {
         val resourceConverter = ResourceConverter(AnimeProduction::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("productions_anime_json")
@@ -357,7 +356,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun producerTest () {
+    fun producerTest() {
         val resourceConverter = ResourceConverter(Producer::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("producer_json")
@@ -376,7 +375,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun animeStaffTest () {
+    fun animeStaffTest() {
         val resourceConverter = ResourceConverter(AnimeStaff::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("staff_anime_json")
@@ -405,7 +404,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun installmentsTest () {
+    fun installmentsTest() {
         val resourceConverter = ResourceConverter(Installment::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("installments_json")
@@ -429,7 +428,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun franchiseTest () {
+    fun franchiseTest() {
         val resourceConverter = ResourceConverter(Installment::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("franchise_json")
@@ -448,7 +447,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun mangaSparseTest () {
+    fun mangaSparseTest() {
         val resourceConverter = ResourceConverter(Manga::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("manga_sparse_json")
@@ -511,7 +510,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun fullAnimeTest () {
+    fun fullAnimeTest() {
         val resourceConverter = ResourceConverter(Anime::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_everything_json")
@@ -534,7 +533,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun streamerLinkTest () {
+    fun streamerLinkTest() {
         val resourceConverter = ResourceConverter(StreamingLink::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("streaming_link_json")
@@ -556,7 +555,7 @@ class JsonParsingTests {
 
     @Test
     @Throws(Exception::class)
-    fun personTest () {
+    fun personTest() {
         val resourceConverter = ResourceConverter(Person::class.java)
 
         val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("person_json")
@@ -569,6 +568,94 @@ class JsonParsingTests {
         assertEquals(6519, person.malId)
         assertNull(person.castings)
         assertEquals("https://kitsu.io/api/edge/people/1/castings", person.castingLinks!!.related.href)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun libraryEntryTest() {
+        val resourceConverter = ResourceConverter(LibraryEntry::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("library_entry_json")
+        val libraryEntryJsonDoc = resourceConverter.readDocument(testJson, LibraryEntry::class.java)
+        val libraryEntry = libraryEntryJsonDoc.get()
+
+        assertEquals("120000", libraryEntry.id)
+        assertEquals("completed", libraryEntry.status)
+        assertEquals(3, libraryEntry.progress)
+        assertFalse(libraryEntry.reconsuming!!)
+        assertEquals(0, libraryEntry.reconsumeCount)
+        assertNull(libraryEntry.notes)
+        assertFalse(libraryEntry.private!!)
+        assertEquals("2010-04-04T02:52:54.000Z", libraryEntry.updatedAt)
+        assertEquals("4.0", libraryEntry.rating)
+        assertEquals(16, libraryEntry.ratingTwenty)
+        assertNull(libraryEntry.user)
+        assertEquals("https://kitsu.io/api/edge/library-entries/120000/user", libraryEntry.userLinks!!.related.href)
+        assertNull(libraryEntry.anime)
+        assertEquals("https://kitsu.io/api/edge/library-entries/120000/anime", libraryEntry.animeLinks!!.related.href)
+        assertNull(libraryEntry.manga)
+        assertEquals("https://kitsu.io/api/edge/library-entries/120000/manga", libraryEntry.mangaLinks!!.related.href)
+        assertNull(libraryEntry.review)
+        assertEquals("https://kitsu.io/api/edge/library-entries/120000/review", libraryEntry.reviewLinks!!.related.href)
+        assertNull(libraryEntry.media)
+        assertEquals("https://kitsu.io/api/edge/library-entries/120000/media", libraryEntry.mediaLinks!!.related.href)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun userTest() {
+        val resourceConverter = ResourceConverter(User::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("user_json")
+        val UserJsonDoc = resourceConverter.readDocument(testJson, User::class.java)
+        val user = UserJsonDoc.get()
+
+        assertEquals("42603", user.id)
+        assertEquals("wopian", user.name)
+        assertEquals(0, user.pastNames!!.size)
+        assertEquals("※ Kitsu contributor\n※ Creator of Hibari (hb.wopian.me)\n\nCheck out my pinned post for more!", user.about)
+        assertEquals("Hummingbird Contributor and Developer of「Hibari」                                                                  ", user.bio)
+        assertEquals("Can't view my anime library? View it here:<br><a href=\"https://hb.wopian.me/wopian/library/\" target=\"_blank\">https://hb.wopian.me/wopian/library/</a><br><br>My anime \"On Hold\" list is anime coming out next season and any anime I have downloaded ready to watch.<br><br>My manga \"On Hold\" list is manga i'm up-to-date on.<br><br>Manga list is updated monthly.<br><br>Hibari (Hummingbird Tools): <a href=\"https://hb.wopian.me\" target=\"_blank\">https://hb.wopian.me</a><br>^^^ Still on Haitus since December 2014 ;) ^^^<br><br><iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/fwMhX3TTWzA?feature=oembed&amp;wmode=opaque\" frameborder=\"0\" allowfullscreen></iframe><br><br><a href=\"https://boincstats.com/signature/-1/user/3855895/sig.png\" target=\"_blank\"><img src=\"https://boincstats.com/signature/-1/user/3855895/sig.png\"></a>", user.aboutFormatted)
+        assertEquals("England, United Kingdom", user.location)
+        assertEquals("https://wopian.me", user.website)
+        // what the fuck wopian
+        assertEquals("ロリー·マーキュリー、使徒のエムロイ、需要全力崇拝。\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeff\ufeffDemigoddess", user.waifuOrHusbando)
+        assertEquals(543, user.followersCount)
+        assertEquals("2014-05-06T15:54:11.169Z", user.createdAt)
+        assertNull(user.facebookId)
+        assertEquals(390, user.followingCount)
+        assertEquals(105680, user.lifeSpentOnAnime)
+        // wopian. why do you do this.
+        assertEquals("3000-02-06", user.birthday)
+        assertEquals("male", user.gender)
+        assertEquals("2017-04-06T15:29:14.346Z", user.updatedAt)
+        assertEquals(132, user.commentsCount)
+        assertEquals(70, user.favoritesCount)
+        assertEquals(2519, user.likesGivenCount)
+        assertEquals(0, user.reviewsCount)
+        assertEquals(139, user.likesReceivedCount)
+        assertEquals(27, user.postsCount)
+        assertEquals(1231, user.ratingsCount)
+        assertEquals("2017-01-01T08:37:16.433Z", user.proExpiresAt)
+        assertNull(user.title)
+        assert(user.profileCompleted!! && user.feedCompleted!!)
+        assertEquals("https://media.kitsu.io/users/avatars/42603/tiny.png?1475885301", user.avatar!!.tiny)
+        assertEquals("https://media.kitsu.io/users/avatars/42603/small.png?1475885301", user.avatar!!.small)
+        assertEquals("https://media.kitsu.io/users/avatars/42603/medium.png?1475885301", user.avatar!!.medium)
+        assertEquals("https://media.kitsu.io/users/avatars/42603/large.png?1475885301", user.avatar!!.large)
+        assertEquals("https://media.kitsu.io/users/avatars/42603/original.png?1475885301", user.avatar!!.original)
+        assertEquals("https://media.kitsu.io/users/cover_images/42603/tiny.jpg?1476363556", user.coverImage!!.tiny)
+        assertEquals("https://media.kitsu.io/users/cover_images/42603/small.jpg?1476363556", user.coverImage!!.small)
+        assertEquals("https://media.kitsu.io/users/cover_images/42603/large.jpg?1476363556", user.coverImage!!.large)
+        assertEquals("https://media.kitsu.io/users/cover_images/42603/original.jpeg?1476363556", user.coverImage!!.original)
+        assertEquals("advanced", user.ratingSystem)
+        assertEquals("light", user.theme)
+        assertNull(user.waifu)
+        assertEquals("https://kitsu.io/api/edge/users/42603/waifu", user.waifuLinks!!.related.href)
+        assertNull(user.libraryEntries)
+        assertEquals("https://kitsu.io/api/edge/users/42603/library-entries", user.libraryEntryLinks!!.related.href)
+        assertNull(user.reviews)
+        assertEquals("https://kitsu.io/api/edge/users/42603/reviews", user.reviewLinks!!.related.href)
     }
 
 }
