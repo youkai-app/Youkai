@@ -2,11 +2,14 @@ package app.youkai.data.service
 
 import app.youkai.data.models.Anime
 import app.youkai.data.models.Manga
+import app.youkai.data.models.Media
 import app.youkai.data.remote.Client
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.jasminb.jsonapi.JSONAPIDocument
 import com.github.jasminb.jsonapi.retrofit.JSONAPIConverterFactory
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
+import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -47,12 +50,16 @@ object Api {
 
     fun refreshAuthToken (refreshToken: String) = loginService.refreshAuthToken(refreshToken, "refresh_token", CLIENT_ID, CLIENT_SECRET)
 
-    fun anime(id: String): RequestBuilder<Observable<Anime>> {
-        return RequestBuilder<Observable<Anime>>(id, { id: String, m: Map<String, String> -> service.getAnime(id, m) })
+    private val getAnimeCall = { id: String, m: Map<String, String> -> service.getAnime(id, m) }
+
+    fun anime(id: String): RequestBuilder<Observable<JSONAPIDocument<Anime>>> {
+        return RequestBuilder<Observable<JSONAPIDocument<Anime>>>(id, getAnimeCall)
     }
 
-    fun manga(id: String): RequestBuilder<Observable<Manga>> {
-        return RequestBuilder<Observable<Manga>>(id, { id: String, m: Map<String, String> -> service.getManga(id, m) })
+    private val getMangaCall = { id: String, m: Map<String, String> -> service.getManga(id, m) }
+
+    fun manga(id: String): RequestBuilder<Observable<JSONAPIDocument<Manga>>> {
+        return RequestBuilder<Observable<JSONAPIDocument<Manga>>>(id, getMangaCall)
     }
 
 }

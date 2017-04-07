@@ -67,7 +67,6 @@ class User : BaseJsonModel() {
 
     var createdAt: String? = null
 
-    //TODO: confirm if string
     var facebookId: String? = null
 
     var followingCount: Int? = null

@@ -3,6 +3,7 @@ package app.youkai
 import app.youkai.data.models.Anime
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.service.Api
+import com.github.jasminb.jsonapi.JSONAPIDocument
 import org.junit.Test
 
 class ApiTests {
@@ -21,13 +22,14 @@ class ApiTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { a -> a != null }
+                .assertValue { response -> response.get() != null }
     }
 
     @Test
     @Throws(Exception::class)
     fun animeWithIncludesTest() {
         Api.anime("3919").include(BaseMedia.CASTINGS, Anime.EPISODES).get()
+                .map(JSONAPIDocument<Anime>::get)
                 .test()
                 .assertNoErrors()
                 .assertComplete()
@@ -51,6 +53,7 @@ class ApiTests {
                         Anime.CHARACTERS,
                         Anime.STAFF)
                 .get()
+                .map(JSONAPIDocument<Anime>::get)
                 .test()
                 .assertNoErrors()
                 .assertComplete()

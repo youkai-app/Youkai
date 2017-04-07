@@ -41,7 +41,6 @@ class LibraryEntry : BaseJsonModel() {
 
     var updatedAt: String? = null
 
-    //TODO: remove and never ever use
     var rating: String? = null
 
     var ratingTwenty: Int? = null
