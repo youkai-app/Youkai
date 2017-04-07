@@ -8,6 +8,7 @@ class RequestBuilder<T>(val id: String, val call: (String, Map<String, String>) 
     private val FIELDS: String = "fields"
     private val FILTER: String = "filter"
     private val SORT: String = "sort"
+    private val PAGE: String = "page"
 
     private val DELIMITER: String = ","
 
@@ -34,6 +35,11 @@ class RequestBuilder<T>(val id: String, val call: (String, Map<String, String>) 
 
     fun sort(queryParameter: String, descending: Boolean = false): RequestBuilder<T> {
         queryMap.append(SORT, if (descending) "-$queryParameter" else queryParameter, DELIMITER)
+        return this
+    }
+
+    fun page(context: String, vararg queryParameter: Int): RequestBuilder<T> {
+        queryMap.append("$PAGE[$context]", queryParameter.joinToString(DELIMITER), DELIMITER)
         return this
     }
 
