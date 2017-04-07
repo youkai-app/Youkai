@@ -40,8 +40,16 @@ class ApiTests {
     @Throws(Exception::class)
     fun fullAnimeTest() {
         Api.anime("1")
-                .include(BaseMedia.GENRES, BaseMedia.GENRES, BaseMedia.INSTALLMENTS, BaseMedia.MAPPINGS, BaseMedia.MEDIA_RELATIONSHIPS,
-                        BaseMedia.REVIEWS, Anime.EPISODES, Anime.PRODUCTIONS, Anime.CHARACTERS, Anime.STAFF)
+                .include(BaseMedia.GENRES,
+                        BaseMedia.CASTINGS,
+                        BaseMedia.INSTALLMENTS,
+                        BaseMedia.MAPPINGS,
+                        BaseMedia.MEDIA_RELATIONSHIPS,
+                        BaseMedia.REVIEWS,
+                        Anime.EPISODES,
+                        Anime.PRODUCTIONS,
+                        Anime.CHARACTERS,
+                        Anime.STAFF)
                 .get()
                 .test()
                 .assertNoErrors()

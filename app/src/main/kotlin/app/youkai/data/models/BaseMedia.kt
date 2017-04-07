@@ -31,7 +31,7 @@ open class BaseMedia : BaseJsonModel() {
         val CASTINGS = "castings"
         val INSTALLMENTS = "installments"
         val MAPPINGS = "mappings"
-        val MEDIA_RELATIONSHIPS = "mediaRelationship"
+        val MEDIA_RELATIONSHIPS = "mediaRelationships"
         val REVIEWS = "reviews"
     }
 

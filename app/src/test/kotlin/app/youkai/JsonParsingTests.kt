@@ -125,8 +125,8 @@ class JsonParsingTests {
         assertEquals(false, first.featured)
         assertEquals(null, first.language)
 
-        assertEquals("https://kitsu.io/api/edge/castings/121206/relationships/media", first.animeLinks!!.self.href)
-        assertEquals("https://kitsu.io/api/edge/castings/121206/media", first.animeLinks!!.related.href)
+        assertEquals("https://kitsu.io/api/edge/castings/121206/relationships/media", first.mediaLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/castings/121206/media", first.mediaLinks!!.related.href)
 
         assertEquals(64, castingsJsonDoc.meta["count"])
 
@@ -235,8 +235,8 @@ class JsonParsingTests {
         assertEquals("https://media.kitsu.io/episodes/thumbnails/66105/original.jpg?1416321163", first.thumbnail)
         assertEquals("https://kitsu.io/api/edge/episodes/66105", first.links!!.self.href)
 
-        assertEquals("https://kitsu.io/api/edge/episodes/66105/relationships/media", first.animeLinks!!.self.href)
-        assertEquals("https://kitsu.io/api/edge/episodes/66105/media", first.animeLinks!!.related.href)
+        assertEquals("https://kitsu.io/api/edge/episodes/66105/relationships/media", first.mediaLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/episodes/66105/media", first.mediaLinks!!.related.href)
 
         assertEquals(64, episodesJsonDoc.meta["count"])
 
@@ -261,9 +261,9 @@ class JsonParsingTests {
         assertEquals("16498", first.externalId)
         assertEquals("https://kitsu.io/api/edge/mappings/5686", first.links!!.self.href)
 
-        assertEquals("https://kitsu.io/api/edge/mappings/5686/relationships/media", first.animeLinks!!.self.href)
-        assertEquals("https://kitsu.io/api/edge/mappings/5686/media", first.animeLinks!!.related.href)
-        assertNull(first.anime)
+        assertEquals("https://kitsu.io/api/edge/mappings/5686/relationships/media", first.mediaLinks!!.self.href)
+        assertEquals("https://kitsu.io/api/edge/mappings/5686/media", first.mediaLinks!!.related.href)
+        assertNull(first.media)
 
         assertEquals(3, mappingsJsonDoc.meta["count"])
 
