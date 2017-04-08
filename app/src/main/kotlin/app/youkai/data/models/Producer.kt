@@ -7,7 +7,7 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("producers") @JsonIgnoreProperties(ignoreUnknown = true)
-class Producer : BaseJsonModel("producers") {
+class Producer : BaseJsonModel(JsonType("producers")) {
 
     companion object FieldNames {
         val SLUG = "slug"

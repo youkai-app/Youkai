@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("manga") @JsonIgnoreProperties(ignoreUnknown = true)
-class Manga : BaseMedia("manga") {
+class Manga : BaseMedia(JsonType("manga")) {
 
     companion object FieldNames {
         val CHAPTERS_COUNT = "chaptersCount"

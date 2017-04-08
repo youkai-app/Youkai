@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("image") @JsonIgnoreProperties(ignoreUnknown = true)
-open class Image(type: String = "image") : BaseJsonModel(type) {
+open class Image(type: JsonType = JsonType("image")) : BaseJsonModel(type) {
 
     companion object FieldNames {
         val TINY = "tiny"

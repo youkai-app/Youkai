@@ -7,7 +7,7 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("installments") @JsonIgnoreProperties(ignoreUnknown = true)
-class Installment : BaseJsonModel("installments") {
+class Installment : BaseJsonModel(JsonType("installments")) {
 
     companion object FieldNames {
         val TAG = "tag"

@@ -6,7 +6,7 @@ import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-open class BaseMedia(type: String) : BaseJsonModel(type) {
+open class BaseMedia(type: JsonType) : BaseJsonModel(type) {
 
     companion object FieldNames {
         val SLUG = "slug"

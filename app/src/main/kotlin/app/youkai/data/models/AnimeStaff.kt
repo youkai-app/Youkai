@@ -7,7 +7,7 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("animeStaff") @JsonIgnoreProperties(ignoreUnknown = true)
-class AnimeStaff : BaseJsonModel("animeStaff") {
+class AnimeStaff : BaseJsonModel(JsonType("animeStaff")) {
 
     companion object FieldNames {
         val ROLE = "role"
