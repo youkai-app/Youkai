@@ -7,10 +7,9 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("mediaRelationships") @JsonIgnoreProperties(ignoreUnknown = true)
-class MediaRelationship : BaseJsonModel() {
+class MediaRelationship : BaseJsonModel("mediaRelationships") {
 
     companion object FieldNames {
-        val TYPE = "mediaRelationships"
         val ROLE = "role"
         val SOURCE = "source"
         val DESTINATION = "destination"

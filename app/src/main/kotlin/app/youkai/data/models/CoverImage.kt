@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("coverImage") @JsonIgnoreProperties(ignoreUnknown = true)
-class CoverImage : BaseJsonModel() {
+class CoverImage : BaseJsonModel("coverImage") {
 
     companion object FieldNames {
-        val TYPE = "coverImage"
         val TINY = "tiny"
         val SMALL = "small"
         val LARGE = "large"

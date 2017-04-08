@@ -7,10 +7,9 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("reviews") @JsonIgnoreProperties(ignoreUnknown = true)
-class Review : BaseJsonModel() {
+class Review : BaseJsonModel("titles") {
 
     companion object FieldNames {
-        val TYPE = "reviews"
         val CONTENT = "content"
         val CONTENT_FORMATTED = "contentFormatted"
         val LIKES_COUNT = "likesCount"

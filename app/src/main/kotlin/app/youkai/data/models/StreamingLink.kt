@@ -7,10 +7,8 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("streamingLinks") @JsonIgnoreProperties(ignoreUnknown = true)
-class StreamingLink : BaseJsonModel() {
 
     companion object FieldNames {
-        val TYPE = "streamingLinks"
         val URL = "url"
         val SUBS = "subs"
         val DUBS = "dubs"

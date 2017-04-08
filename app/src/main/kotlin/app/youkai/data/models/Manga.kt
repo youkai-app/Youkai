@@ -4,15 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("manga") @JsonIgnoreProperties(ignoreUnknown = true)
-class Manga : BaseMedia() {
+class Manga : BaseMedia("manga") {
 
     companion object FieldNames {
-        val TYPE = "manga"
         val CHAPTERS_COUNT = "chaptersCount"
         val VOLUME_COUNT = "volumeCount"
         val SERIALIZATION = "serialization"
         val MANGA_TYPE = "mangaType"
-        val CHARCTERS = "mangaCharacters"
+        val CHARACTERS = "mangaCharacters"
         val STAFF = "mangaStaff"
     }
 

@@ -8,10 +8,9 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("anime") @JsonIgnoreProperties(ignoreUnknown = true)
-class Anime : BaseMedia() {
+class Anime : BaseMedia("anime") {
 
     companion object FieldNames {
-        val TYPE = "anime"
         val EPISODE_COUNT = "episodeCount"
         val EPISODE_LENGTH = "episodeLength"
         val SHOW_TYPE = "showType"

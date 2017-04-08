@@ -7,10 +7,9 @@ import com.github.jasminb.jsonapi.annotations.Type
 
 
 @Type("libraryEntries") //@JsonIgnoreProperties(ignoreUnknown = true) TODO: uncomment
-class LibraryEntry : BaseJsonModel() {
+class LibraryEntry : BaseJsonModel("libraryEntries") {
 
     companion object FieldNames {
-        val TYPE = "libraryEntries"
         val STATUS = "status"
         val PROGRESS = "progress"
         val RECONSUMING = "reconsuming"
