@@ -8,10 +8,9 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("castings") @JsonIgnoreProperties(ignoreUnknown = true)
-class Casting : BaseJsonModel() {
+class Casting : BaseJsonModel("castings") {
 
     companion object FieldNames {
-        val TYPE = "castings"
         val ROLE = "role"
         val VOICE_ACTOR = "voiceActor"
         val FEATURED = "featured"

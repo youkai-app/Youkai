@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("titles") @JsonIgnoreProperties(ignoreUnknown = true)
-class Titles : BaseJsonModel() {
+class Titles : BaseJsonModel("titles") {
 
     companion object FieldNames {
-        val TYPE = "titles"
         val EN = "en"
         val EN_JP = "en_jp"
         val JA_JP = "ja_jp"

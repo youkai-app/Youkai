@@ -7,10 +7,9 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("mappings") @JsonIgnoreProperties(ignoreUnknown = true)
-class Mapping : BaseJsonModel() {
+class Mapping : BaseJsonModel("mappings") {
 
     companion object FieldNames {
-        val TYPE = "mappings"
         val EXTERNAL_SITE = "externalSite"
         val EXTERNAL_ID = "externalId"
         val MEDIA = "media"
