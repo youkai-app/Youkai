@@ -26,9 +26,11 @@ class Installment : BaseJsonModel(JsonType("installments")) {
     @RelationshipLinks("franchise")
     var franchiseLinks: Links? = null
 
-    //TODO: Fix for polymorphism.
     @Relationship("media")
-    var media: Media?= null
+    var anime: Anime? = null
+
+    @Relationship("media")
+    var manga: Manga? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

@@ -48,9 +48,11 @@ class Review : BaseJsonModel(JsonType("titles")) {
     @RelationshipLinks("libraryEntry")
     var libraryEntryLinks: Links? = null
 
-    //TODO: Fix for polymorphism.
     @Relationship("media")
-    var media: Media? = null
+    var anime: Anime? = null
+
+    @Relationship("media")
+    var manga: Manga? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

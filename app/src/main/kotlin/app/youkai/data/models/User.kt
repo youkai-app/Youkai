@@ -92,10 +92,8 @@ class User : BaseJsonModel(JsonType("users")) {
 
     var ratingsCount: Int? = null
 
-    //TODO: confirm if string
     var proExpiresAt: String? = null
 
-    //TODO: confirm if string
     var title: String? = null
 
     var profileCompleted: Boolean? = null

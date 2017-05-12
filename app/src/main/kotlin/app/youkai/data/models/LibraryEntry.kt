@@ -1,12 +1,13 @@
 package app.youkai.data.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.Links
 import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 
-@Type("libraryEntries") //@JsonIgnoreProperties(ignoreUnknown = true) TODO: uncomment
+@Type("libraryEntries") @JsonIgnoreProperties(ignoreUnknown = true)
 class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
 
     companion object FieldNames {
@@ -68,13 +69,6 @@ class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
 
     @RelationshipLinks("review")
     var reviewLinks: Links? = null
-
-    //TODO: Fix for polymorphism
-    @Relationship("media")
-    var media: Media? = null
-
-    @RelationshipLinks("media")
-    var mediaLinks: Links? = null
 
 /*
     Are returned by the API but aren't implemented.

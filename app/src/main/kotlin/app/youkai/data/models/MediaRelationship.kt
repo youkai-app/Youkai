@@ -17,15 +17,20 @@ class MediaRelationship : BaseJsonModel(JsonType("mediaRelationships")) {
 
     var role: String? = null
 
-    //TODO: Fix for polymorphism.
     @Relationship("source")
-    var source: Media? = null
+    var sourceAnime: Anime? = null
+
+    @Relationship("source")
+    var sourceManga: Manga? = null
 
     @RelationshipLinks("source")
     var sourceLinks: Links? = null
 
     @Relationship("destination")
-    var destination: Media? = null
+    var destinationAnime: Anime? = null
+
+    @Relationship("destination")
+    var destinationManga: Manga? = null
 
     @RelationshipLinks("destination")
     var destinationLinks: Links? = null

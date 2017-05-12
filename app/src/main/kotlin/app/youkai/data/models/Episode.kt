@@ -49,9 +49,8 @@ class Episode : BaseJsonModel(JsonType("episodes")) {
         thumbnail = m["original"];
     }
 
-    //TODO: Fix for polymorphism.
     @Relationship("media")
-    var media: Media? = null
+    var anime: Anime? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

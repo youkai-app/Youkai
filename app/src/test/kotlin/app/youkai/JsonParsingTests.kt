@@ -1,7 +1,9 @@
 package app.youkai
 
 import app.youkai.data.models.*
+import app.youkai.data.models.ext.toMedia
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.jasminb.jsonapi.JSONAPIDocument
 import com.github.jasminb.jsonapi.ResourceConverter
 import org.junit.Test
 
@@ -263,7 +265,8 @@ class JsonParsingTests {
 
         assertEquals("https://kitsu.io/api/edge/mappings/5686/relationships/media", first.mediaLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/mappings/5686/media", first.mediaLinks!!.related.href)
-        assertNull(first.media)
+        assertNull(first.anime)
+        assertNull(first.manga)
 
         assertEquals(3, mappingsJsonDoc.meta["count"])
 
@@ -423,7 +426,8 @@ class JsonParsingTests {
 
         assertEquals("https://kitsu.io/api/edge/installments/1139/relationships/media", first.mediaLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/installments/1139/media", first.mediaLinks!!.related.href)
-        assertNull(first.media)
+        assertNull(first.anime)
+        assertNull(first.manga)
     }
 
     @Test
@@ -597,8 +601,6 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/library-entries/120000/manga", libraryEntry.mangaLinks!!.related.href)
         assertNull(libraryEntry.review)
         assertEquals("https://kitsu.io/api/edge/library-entries/120000/review", libraryEntry.reviewLinks!!.related.href)
-        assertNull(libraryEntry.media)
-        assertEquals("https://kitsu.io/api/edge/library-entries/120000/media", libraryEntry.mediaLinks!!.related.href)
     }
 
     @Test
@@ -656,6 +658,59 @@ class JsonParsingTests {
         assertEquals("https://kitsu.io/api/edge/users/42603/library-entries", user.libraryEntryLinks!!.related.href)
         assertNull(user.reviews)
         assertEquals("https://kitsu.io/api/edge/users/42603/reviews", user.reviewLinks!!.related.href)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun serializeAnimeTest() {
+        val resourceConverter = ResourceConverter(Anime::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_everything_json")
+        val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
+        val anime = animeJsonDoc.get()
+
+        val s: String = ResourceConverters.animeConverter.writeDocument(JSONAPIDocument<Anime>(anime)).toString(Charsets.UTF_8)
+        System.out.println(s)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun serializeMediaTest() {
+        val resourceConverter = ResourceConverter(Anime::class.java)
+
+        val testJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_everything_json")
+        val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
+        val anime = animeJsonDoc.get()
+
+        val s: String = ResourceConverters.mediaConverter.writeDocument(JSONAPIDocument<Media>(anime.toMedia())).toString(Charsets.UTF_8)
+        System.out.println(s)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun serializeLibraryEntryTest() {
+        var resourceConverter = ResourceConverter(Anime::class.java)
+
+        val animeJson = ClassLoader.getSystemClassLoader().getResourceAsStream("anime_with_everything_json")
+        val animeJsonDoc = resourceConverter.readDocument(animeJson, Anime::class.java)
+        val anime = animeJsonDoc.get()
+
+        resourceConverter = ResourceConverter(User::class.java)
+
+        val userJson = ClassLoader.getSystemClassLoader().getResourceAsStream("user_json")
+        val UserJsonDoc = resourceConverter.readDocument(userJson, User::class.java)
+        val user = UserJsonDoc.get()
+
+        val entry = LibraryEntry()
+        entry.id = "fake-id"
+        entry.anime = anime
+        entry.user = user
+        entry.status = "completed"
+        entry.progress = 99999
+        entry.ratingTwenty = 20
+        val body = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(entry)).toString(Charsets.UTF_8)
+
+        System.out.println(body)
     }
 
 }
