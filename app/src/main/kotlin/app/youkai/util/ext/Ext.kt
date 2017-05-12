@@ -33,3 +33,9 @@ fun MutableMap<String, String>.append(key: String, other: String, delimiter: Str
  */
 fun EditText.inputString(): String = text.toString()
 
+/**
+  * Capitalizes the first letter of the string.
+  */
+fun String.capitalizeFirstLetter(): String {
+    return this.first().toString().capitalize().append(this.substring(1))
+}
