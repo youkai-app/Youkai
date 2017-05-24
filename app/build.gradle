@@ -32,10 +32,20 @@ android {
         playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
+    signingConfigs {
+        release {
+            storeFile file("../keystore-upload.jks")
+            storePassword project.property("signing.upload.password")
+            keyAlias project.property("signing.upload.alias")
+            keyPassword project.property("signing.upload.password")
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
