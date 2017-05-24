@@ -18,7 +18,7 @@ android {
     playAccountConfigs {
         defaultAccountConfig {
             serviceAccountEmail = 'youkai-publish@api-7655273526229553849-892363.iam.gserviceaccount.com'
-            pk12File = file('key.p12')
+            pk12File = file('../key.p12')
         }
     }
 
