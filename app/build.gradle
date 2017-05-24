@@ -8,6 +8,9 @@ def versionMinor = 0
 def versionPatch = 0
 def versionBuild = Integer.parseInt(System.getenv('TRAVIS_BUILD_NUMBER') ?: "1")
 
+def keystoreAlias = System.getenv('keystoreAlias') ?: project.property("signing.upload.alias")
+def keystorePassword = System.getenv('keystorePassword') ?: project.property("signing.upload.password")
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -35,9 +38,9 @@ android {
     signingConfigs {
         release {
             storeFile file("../keystore-upload.jks")
-            storePassword project.property("signing.upload.password")
-            keyAlias project.property("signing.upload.alias")
-            keyPassword project.property("signing.upload.password")
+            storePassword keystorePassword
+            keyAlias keystoreAlias
+            keyPassword keystorePassword
         }
     }
 
