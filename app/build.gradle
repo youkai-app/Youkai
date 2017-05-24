@@ -1,10 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.triplet.play'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    playAccountConfigs {
+        defaultAccountConfig {
+            serviceAccountEmail = 'youkai-publish@api-7655273526229553849-892363.iam.gserviceaccount.com'
+            pk12File = file('key.p12')
+        }
+    }
 
     defaultConfig {
         applicationId "app.youkai"
@@ -15,6 +23,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
+
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     buildTypes {
