@@ -125,7 +125,7 @@ class ApiTests {
      */
     @Test
     @Throws
-    fun auth3DeleteTestLibraryEntry() {
+    fun auth3DeleteLibraryEntryTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             Api.login(TEST_USERNAME, TEST_PASSWORD)
                     .map { c -> c.accessToken!! }
@@ -150,7 +150,7 @@ class ApiTests {
 
     @Test
     @Throws(Exception::class)
-    fun auth4createLibraryEntryTest() {
+    fun auth4CreateLibraryEntryTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             val anime = Anime()
             anime.id = "10909"
@@ -191,7 +191,7 @@ class ApiTests {
 
     @Test
     @Throws(Exception::class)
-    fun auth5updateLibraryEntryTest() {
+    fun auth5UpdateLibraryEntryTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             Api.login(TEST_USERNAME, TEST_PASSWORD)
                     .map { c -> c.accessToken!! }

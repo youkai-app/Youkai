@@ -11,8 +11,8 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import okhttp3.Response
 import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -103,7 +103,7 @@ object Api {
         )
     }
 
-    fun deleteLibraryEntry(id: String, authToken: String, tokenType: String = "bearer"): Observable<ResponseBody>
+    fun deleteLibraryEntry(id: String, authToken: String, tokenType: String = "bearer"): Observable<Response<Void>>
             = service.deleteLibraryEntry(createAuthorizationParam(tokenType, authToken), id)
 
     fun createAuthorizationParam (tokenType: String, authToken: String): String {
