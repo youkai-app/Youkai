@@ -10,16 +10,15 @@ import okhttp3.Response
 class JsonHeadersInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-                .newBuilder()
-                .addHeader("Content-Type", "application/vnd.api+json")
+        val requestBuilder = chain.request().newBuilder()
+                .addHeader("Content-Type", "application/vnd.api+json") //TODO: Fix because it doesn't seem to actually work...
 
         // some requests require different Accept headers (E.G. login)
         if (chain.request().header("Accept").isNullOrEmpty()) {
-            request.addHeader("Accept", "application/vnd.api+json")
+            requestBuilder.addHeader("Accept", "application/vnd.api+json")
         }
 
-        return chain.proceed(request.build());
+        return chain.proceed(requestBuilder.build())
     }
 
 }

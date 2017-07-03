@@ -45,8 +45,8 @@ class Episode : BaseJsonModel(JsonType("episodes")) {
     var thumbnail: String? = null
 
     @JsonProperty("thumbnail")
-    fun setThumbnail(m: Map<String, String>) {
-        thumbnail = m["original"];
+    fun setThumbnail(m: Map<String, String>?) {
+        if (m != null) thumbnail = m["original"]
     }
 
     @Relationship("media")

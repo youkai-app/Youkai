@@ -1,19 +1,22 @@
 package app.youkai
 
-import app.youkai.data.models.Anime
-import app.youkai.data.models.BaseMedia
+import app.youkai.data.models.*
 import app.youkai.data.service.Api
 import com.github.jasminb.jsonapi.JSONAPIDocument
+import org.junit.FixMethodOrder
 import org.junit.Test
+import org.junit.runners.MethodSorters
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class ApiTests {
 
     /**
      * Set your username and password for api tests. Remember to remove before committing anything.
      * Tests will pass if null because they aren't run.
      */
-    val testUsername = null
-    val testPassword = null
+    val TEST_USERNAME: String? = null
+    val TEST_PASSWORD: String? = null
+    val TEST_ACCOUNT_REMOTE_USER_ID = "157458"
 
     @Test
     @Throws(Exception::class)
@@ -82,9 +85,9 @@ class ApiTests {
 
     @Test
     @Throws(Exception::class)
-    fun loginTest() {
-        if (testUsername != null && testPassword != null) {
-            Api.login(testUsername!!, testPassword!!)
+    fun auth1LoginTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
                     .test()
                     .assertNoErrors()
                     .assertComplete()
@@ -100,9 +103,9 @@ class ApiTests {
 
     @Test
     @Throws(Exception::class)
-    fun authRefreshTest() {
-        if (testUsername != null && testPassword != null) {
-            Api.login(testUsername!!, testPassword!!)
+    fun auth2RefreshTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
                     .flatMap { c -> Api.refreshAuthToken(c.refreshToken!!) }
                     .test()
                     .assertNoErrors()
@@ -114,6 +117,102 @@ class ApiTests {
                     .assertValue { c -> c.refreshToken != null }
                     .assertValue { c -> c.scope.equals("public") }
                     .assertValue { c -> c.tokenType.equals("bearer") }
+        }
+    }
+
+    /*
+     * This deletes the library entry for anime with #id 10909 so that the createLibraryEntryTest doesn't fail.
+     */
+    @Test
+    @Throws
+    fun auth3DeleteTestLibraryEntry() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
+                    .map { c -> c.accessToken!! }
+                    .concatMap { c ->
+                        Api.library(TEST_ACCOUNT_REMOTE_USER_ID)
+                                .include(LibraryEntry.ANIME)
+                                .get()
+                                .map { m -> m.get() }
+                                .flatMapIterable { library -> library }
+                                .filter { entry -> entry.anime!!.id == "10909" }
+                                .doOnNext { entry -> System.out.println(entry.id) }
+                                .map { entry -> entry.id!!}
+                                .concatMap { id ->
+                                    Api.deleteLibraryEntry(id, c)
+                                }
+                    }
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun auth4createLibraryEntryTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            val anime = Anime()
+            anime.id = "10909"
+            val user = User()
+            user.id = TEST_ACCOUNT_REMOTE_USER_ID
+            val libraryEntry = LibraryEntry()
+            libraryEntry.user = user
+            libraryEntry.anime = anime
+            libraryEntry.status = "completed"
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
+                    .map { c -> c.accessToken!! }
+                    .concatMap { c -> Api.createLibraryEntry(libraryEntry, c) }
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getLibraryEntryTest() {
+        Api.libraryEntry("17619547").get()
+                .doOnNext { m -> System.out.println(m.get()) }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getLibraryTest() {
+        Api.library(TEST_ACCOUNT_REMOTE_USER_ID).get()
+                .doOnNext { m -> System.out.println(m.get()) }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun auth5updateLibraryEntryTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
+                    .map { c -> c.accessToken!! }
+                    .concatMap { c ->
+                        Api.library(TEST_ACCOUNT_REMOTE_USER_ID)
+                                .include(LibraryEntry.ANIME)
+                                .get()
+                                .map { m -> m.get() }
+                                .flatMapIterable { library -> library }
+                                .filter { entry -> entry.anime!!.id == "10909" }
+                                .map { entry -> entry.id!!}
+                                .concatMap { id ->
+                                    val libraryEntry = LibraryEntry()
+                                    libraryEntry.id = id
+                                    libraryEntry.status = "dropped"
+                                    Api.updateLibraryEntry(libraryEntry, c)
+                                }
+                    }
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
         }
     }
 

@@ -6,7 +6,6 @@ import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
-
 @Type("libraryEntries") @JsonIgnoreProperties(ignoreUnknown = true)
 class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
 

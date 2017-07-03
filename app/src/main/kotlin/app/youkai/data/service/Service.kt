@@ -3,6 +3,9 @@ package app.youkai.data.service
 import app.youkai.data.models.*
 import com.github.jasminb.jsonapi.JSONAPIDocument
 import io.reactivex.Observable
+import okhttp3.RequestBody
+import okhttp3.Response
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface Service {
@@ -34,12 +37,49 @@ interface Service {
      * Everything else.
      */
     @GET("edge/anime/{id}")
-    fun getAnime(@Path("id") id: String,
-                 @QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<Anime>>
+    fun getAnime(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Anime>>
 
     @GET("edge/manga/{id}")
-    fun getManga(@Path("id") id: String,
-                 @QueryMap queries: Map<String, String>
+    fun getManga(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Manga>>
+
+    @GET("edge/users/{id}/library-entries")
+    fun getLibrary(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<LibraryEntry>>>
+
+    @GET("edge/library-entries/{id}")
+    fun getLibraryEntry(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<LibraryEntry>>
+
+    @POST("edge/library-entries")
+    @Headers("Content-Type: application/vnd.api+json")
+    fun createLibraryEntry(
+            @Header("Authorization") authorization: String,
+            @Body body: RequestBody
+    ): Observable<ResponseBody> //TODO: Check if response type is correct.
+
+    @PATCH("edge/library-entries/{id}")
+    @Headers("Content-Type: application/vnd.api+json")
+    fun updateLibraryEntry(
+            @Header("Authorization") authorization: String,
+            @Path("id") id: String,
+            @Body body: RequestBody
+    ): Observable<JSONAPIDocument<LibraryEntry>>
+
+    @DELETE("edge/library-entries/{id}")
+    @Headers("Content-Type: application/vnd.api+json")
+    fun deleteLibraryEntry(
+            @Header("Authorization") authorization: String,
+            @Path("id") id: String
+    ): Observable<ResponseBody>
 
 }
