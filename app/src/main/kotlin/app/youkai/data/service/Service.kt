@@ -82,4 +82,10 @@ interface Service {
             @Path("id") id: String
     ): Observable<Response<Void>>
 
+    @GET("edge/anime")
+    fun  searchAnime(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Anime>>>
+
+    @GET("edge/manga")
+    fun  searchManga(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Manga>>>
+
 }

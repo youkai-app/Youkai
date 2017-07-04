@@ -216,4 +216,22 @@ class ApiTests {
         }
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun searchAnimeTest() {
+        Api.searchAnime("goddamnit").get()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun searchMangaTest() {
+        Api.searchManga("goddamnit").get()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
 }

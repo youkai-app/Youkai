@@ -110,4 +110,18 @@ object Api {
         return tokenType.capitalizeFirstLetter().append(authToken, " ")
     }
 
+    private val searchAnimeCall = { ignored: String, m: Map<String, String> -> service.searchAnime(m) }
+
+    fun searchAnime(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>> {
+        return RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>>("", searchAnimeCall)
+                .filter("text", query)
+    }
+
+    private val searchMangaCall = { ignored: String, m: Map<String, String> -> service.searchManga(m) }
+
+    fun searchManga(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>> {
+        return RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>>("", searchMangaCall)
+                .filter("text", query)
+    }
+
 }
