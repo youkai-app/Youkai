@@ -36,7 +36,6 @@ class ApiTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { a -> a != null }
                 .assertValue { a -> a.castings != null }
                 .assertValue { a -> a.episodes != null }
     }
@@ -60,7 +59,6 @@ class ApiTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { a -> a != null }
                 .assertValue { a -> a.genres != null }
                 .assertValue { a -> a.castings != null }
                 .assertValue { a -> a.installments != null }
@@ -91,7 +89,6 @@ class ApiTests {
                     .test()
                     .assertNoErrors()
                     .assertComplete()
-                    .assertValue { c -> c != null }
                     .assertValue { c -> c.accessToken != null }
                     .assertValue { c -> c.createdAt != null }
                     .assertValue { c -> c.expiresIn != null }
@@ -110,7 +107,6 @@ class ApiTests {
                     .test()
                     .assertNoErrors()
                     .assertComplete()
-                    .assertValue { c -> c != null }
                     .assertValue { c -> c.accessToken != null }
                     .assertValue { c -> c.createdAt != null }
                     .assertValue { c -> c.expiresIn != null }
