@@ -55,7 +55,7 @@ object Api {
     private val getAnimeCall = { id: String, m: Map<String, String> -> service.getAnime(id, m) }
 
     fun anime(id: String): RequestBuilder<Observable<JSONAPIDocument<Anime>>> {
-        return RequestBuilder<Observable<JSONAPIDocument<Anime>>>(id.toString(), getAnimeCall)
+        return RequestBuilder<Observable<JSONAPIDocument<Anime>>>(id, getAnimeCall)
     }
 
     private val getMangaCall = { id: String, m: Map<String, String> -> service.getManga(id, m) }
@@ -76,7 +76,7 @@ object Api {
         return RequestBuilder<Observable<JSONAPIDocument<LibraryEntry>>>(id, getLibraryEntryCall)
     }
 
-    fun createLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer"): Observable<ResponseBody> {
+    fun createLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer"): Observable<Response<ResponseBody>> {
         libraryEntry.id = "temporary_id"
 
         var body: String = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(libraryEntry)).toString(Charsets.UTF_8)

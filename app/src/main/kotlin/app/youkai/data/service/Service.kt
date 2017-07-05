@@ -65,7 +65,7 @@ interface Service {
     fun createLibraryEntry(
             @Header("Authorization") authorization: String,
             @Body body: RequestBody
-    ): Observable<ResponseBody> //TODO: Check if response type is correct.
+    ): Observable<Response<ResponseBody>>
 
     @PATCH("edge/library-entries/{id}")
     @Headers("Content-Type: application/vnd.api+json")

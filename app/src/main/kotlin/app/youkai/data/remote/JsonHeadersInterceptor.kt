@@ -11,7 +11,7 @@ class JsonHeadersInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
-                .addHeader("Content-Type", "application/vnd.api+json") //TODO: Fix because it doesn't seem to actually work...
+                .addHeader("Content-Type", "application/vnd.api+json")
 
         // some requests require different Accept headers (E.G. login)
         if (chain.request().header("Accept").isNullOrEmpty()) {

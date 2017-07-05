@@ -62,7 +62,6 @@ class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
     @RelationshipLinks("manga")
     var mangaLinks: Links? = null
 
-    //TODO: confirm if implemented
     @Relationship("review")
     var review: Review? = null
 
@@ -71,7 +70,6 @@ class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
 
 /*
     Are returned by the API but aren't implemented.
-    //TODO: check if actually used
     @Relationship("unit")
     var unit: IDEK? = null
 

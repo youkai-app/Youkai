@@ -44,7 +44,8 @@ class ApiTests {
     @Throws(Exception::class)
     fun fullAnimeTest() {
         Api.anime("1")
-                .include(BaseMedia.GENRES,
+                .include(
+                        BaseMedia.GENRES,
                         BaseMedia.CASTINGS,
                         BaseMedia.INSTALLMENTS,
                         BaseMedia.MAPPINGS,
