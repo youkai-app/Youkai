@@ -12,7 +12,7 @@ val Client: OkHttpClient by lazy {
     OkHttpClient()
             .newBuilder()
             .addInterceptor(JsonHeadersInterceptor())
-            .addInterceptor(HttpLoggingInterceptor().setLevel(
+            .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(
                     if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE))
             .build()
 }

@@ -8,7 +8,19 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("episodes") @JsonIgnoreProperties(ignoreUnknown = true)
-class Episode : BaseJsonModel() {
+class Episode : BaseJsonModel(JsonType("episodes")) {
+
+    companion object FieldNames {
+        val TITLES = "titles"
+        val CANONICAL_TITLE = "canonicalTitle"
+        val SEASON_NUMBER = "seasonNumber"
+        val NUMBER = "number"
+        val SYNOPSIS = "synopsis"
+        val AIR_DATE = "airdate"
+        val LENGTH = "length"
+        val THUMBNAIL = "thumbnail"
+        val MEDIA = "media"
+    }
 
     var titles: Titles? = null
 
@@ -33,14 +45,14 @@ class Episode : BaseJsonModel() {
     var thumbnail: String? = null
 
     @JsonProperty("thumbnail")
-    fun setThumbnail(m: Map<String, String>) {
-        thumbnail = m["original"];
+    fun setThumbnail(m: Map<String, String>?) {
+        if (m != null) thumbnail = m["original"]
     }
 
     @Relationship("media")
     var anime: Anime? = null
 
     @RelationshipLinks("media")
-    var animeLinks: Links? = null
+    var mediaLinks: Links? = null
 
 }

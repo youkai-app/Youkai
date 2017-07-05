@@ -1,0 +1,70 @@
+{
+  "data": {
+    "id": "120000",
+    "type": "libraryEntries",
+    "links": {
+      "self": "https://kitsu.io/api/edge/library-entries/120000"
+    },
+    "attributes": {
+      "status": "completed",
+      "progress": 3,
+      "reconsuming": false,
+      "reconsumeCount": 0,
+      "notes": null,
+      "private": false,
+      "updatedAt": "2010-04-04T02:52:54.000Z",
+      "rating": "4.0",
+      "ratingTwenty": 16
+    },
+    "relationships": {
+      "user": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/user",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/user"
+        }
+      },
+      "anime": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/anime",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/anime"
+        }
+      },
+      "manga": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/manga",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/manga"
+        }
+      },
+      "drama": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/drama",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/drama"
+        }
+      },
+      "review": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/review",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/review"
+        }
+      },
+      "media": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/media",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/media"
+        }
+      },
+      "unit": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/unit",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/unit"
+        }
+      },
+      "nextUnit": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/120000/relationships/next-unit",
+          "related": "https://kitsu.io/api/edge/library-entries/120000/next-unit"
+        }
+      }
+    }
+  }
+}

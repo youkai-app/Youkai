@@ -1,16 +1,22 @@
 package app.youkai
 
+import app.youkai.data.models.*
 import app.youkai.data.service.Api
+import com.github.jasminb.jsonapi.JSONAPIDocument
+import org.junit.FixMethodOrder
 import org.junit.Test
+import org.junit.runners.MethodSorters
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class ApiTests {
 
     /**
      * Set your username and password for api tests. Remember to remove before committing anything.
      * Tests will pass if null because they aren't run.
      */
-    val testUsername = null
-    val testPassword = null
+    val TEST_USERNAME: String? = null
+    val TEST_PASSWORD: String? = null
+    val TEST_ACCOUNT_REMOTE_USER_ID = "157458"
 
     @Test
     @Throws(Exception::class)
@@ -19,17 +25,17 @@ class ApiTests {
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { a -> a != null }
+                .assertValue { response -> response.get() != null }
     }
 
     @Test
     @Throws(Exception::class)
     fun animeWithIncludesTest() {
-        Api.anime("3919").include("castings", "episodes").get()
+        Api.anime("3919").include(BaseMedia.CASTINGS, Anime.EPISODES).get()
+                .map(JSONAPIDocument<Anime>::get)
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { a -> a != null }
                 .assertValue { a -> a.castings != null }
                 .assertValue { a -> a.episodes != null }
     }
@@ -38,13 +44,22 @@ class ApiTests {
     @Throws(Exception::class)
     fun fullAnimeTest() {
         Api.anime("1")
-                .include("genres", "castings", "installments", "mappings", "mediaRelationships",
-                "reviews", "episodes", "animeProductions", "animeCharacters", "animeStaff")
+                .include(
+                        BaseMedia.GENRES,
+                        BaseMedia.CASTINGS,
+                        BaseMedia.INSTALLMENTS,
+                        BaseMedia.MAPPINGS,
+                        BaseMedia.MEDIA_RELATIONSHIPS,
+                        BaseMedia.REVIEWS,
+                        Anime.EPISODES,
+                        Anime.PRODUCTIONS,
+                        Anime.CHARACTERS,
+                        Anime.STAFF)
                 .get()
+                .map(JSONAPIDocument<Anime>::get)
                 .test()
                 .assertNoErrors()
                 .assertComplete()
-                .assertValue { a -> a != null }
                 .assertValue { a -> a.genres != null }
                 .assertValue { a -> a.castings != null }
                 .assertValue { a -> a.installments != null }
@@ -69,13 +84,12 @@ class ApiTests {
 
     @Test
     @Throws(Exception::class)
-    fun loginTest() {
-        if (testUsername != null && testPassword != null) {
-            Api.login(testUsername!!, testPassword!!)
+    fun auth1LoginTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
                     .test()
                     .assertNoErrors()
                     .assertComplete()
-                    .assertValue { c -> c != null }
                     .assertValue { c -> c.accessToken != null }
                     .assertValue { c -> c.createdAt != null }
                     .assertValue { c -> c.expiresIn != null }
@@ -87,14 +101,13 @@ class ApiTests {
 
     @Test
     @Throws(Exception::class)
-    fun authRefreshTest() {
-        if (testUsername != null && testPassword != null) {
-            Api.login(testUsername!!, testPassword!!)
+    fun auth2RefreshTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
                     .flatMap { c -> Api.refreshAuthToken(c.refreshToken!!) }
                     .test()
                     .assertNoErrors()
                     .assertComplete()
-                    .assertValue { c -> c != null }
                     .assertValue { c -> c.accessToken != null }
                     .assertValue { c -> c.createdAt != null }
                     .assertValue { c -> c.expiresIn != null }
@@ -102,6 +115,120 @@ class ApiTests {
                     .assertValue { c -> c.scope.equals("public") }
                     .assertValue { c -> c.tokenType.equals("bearer") }
         }
+    }
+
+    /*
+     * This deletes the library entry for anime with #id 10909 so that the createLibraryEntryTest doesn't fail.
+     */
+    @Test
+    @Throws
+    fun auth3DeleteLibraryEntryTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
+                    .map { c -> c.accessToken!! }
+                    .concatMap { c ->
+                        Api.library(TEST_ACCOUNT_REMOTE_USER_ID)
+                                .include(LibraryEntry.ANIME)
+                                .get()
+                                .map { m -> m.get() }
+                                .flatMapIterable { library -> library }
+                                .filter { entry -> entry.anime!!.id == "10909" }
+                                .doOnNext { entry -> System.out.println(entry.id) }
+                                .map { entry -> entry.id!!}
+                                .concatMap { id ->
+                                    Api.deleteLibraryEntry(id, c)
+                                }
+                    }
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun auth4CreateLibraryEntryTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            val anime = Anime()
+            anime.id = "10909"
+            val user = User()
+            user.id = TEST_ACCOUNT_REMOTE_USER_ID
+            val libraryEntry = LibraryEntry()
+            libraryEntry.user = user
+            libraryEntry.anime = anime
+            libraryEntry.status = "completed"
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
+                    .map { c -> c.accessToken!! }
+                    .concatMap { c -> Api.createLibraryEntry(libraryEntry, c) }
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getLibraryEntryTest() {
+        Api.libraryEntry("17619547").get()
+                .doOnNext { m -> System.out.println(m.get()) }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getLibraryTest() {
+        Api.library(TEST_ACCOUNT_REMOTE_USER_ID).get()
+                .doOnNext { m -> System.out.println(m.get()) }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun auth5UpdateLibraryEntryTest() {
+        if (TEST_USERNAME != null && TEST_PASSWORD != null) {
+            Api.login(TEST_USERNAME, TEST_PASSWORD)
+                    .map { c -> c.accessToken!! }
+                    .concatMap { c ->
+                        Api.library(TEST_ACCOUNT_REMOTE_USER_ID)
+                                .include(LibraryEntry.ANIME)
+                                .get()
+                                .map { m -> m.get() }
+                                .flatMapIterable { library -> library }
+                                .filter { entry -> entry.anime!!.id == "10909" }
+                                .map { entry -> entry.id!!}
+                                .concatMap { id ->
+                                    val libraryEntry = LibraryEntry()
+                                    libraryEntry.id = id
+                                    libraryEntry.status = "dropped"
+                                    Api.updateLibraryEntry(libraryEntry, c)
+                                }
+                    }
+                    .test()
+                    .assertNoErrors()
+                    .assertComplete()
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun searchAnimeTest() {
+        Api.searchAnime("goddamnit").get()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun searchMangaTest() {
+        Api.searchManga("goddamnit").get()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
     }
 
 }

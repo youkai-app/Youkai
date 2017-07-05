@@ -7,24 +7,30 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("mediaRelationships") @JsonIgnoreProperties(ignoreUnknown = true)
-class MediaRelationship : BaseJsonModel() {
+class MediaRelationship : BaseJsonModel(JsonType("mediaRelationships")) {
 
-    /*
-    * Whenever a type is needed it will have to be inferred from the role and from
-    * what type of object the MediaRelationship was returned by. I.E. a "sequel" for a manga
-    * will be a Manga object, but a "sequel" for an anime will be an Anime object.
-    */
+    companion object FieldNames {
+        val ROLE = "role"
+        val SOURCE = "source"
+        val DESTINATION = "destination"
+    }
 
     var role: String? = null
 
     @Relationship("source")
-    var source: Media? = null
+    var sourceAnime: Anime? = null
+
+    @Relationship("source")
+    var sourceManga: Manga? = null
 
     @RelationshipLinks("source")
     var sourceLinks: Links? = null
 
     @Relationship("destination")
-    var destination: Media? = null
+    var destinationAnime: Anime? = null
+
+    @Relationship("destination")
+    var destinationManga: Manga? = null
 
     @RelationshipLinks("destination")
     var destinationLinks: Links? = null

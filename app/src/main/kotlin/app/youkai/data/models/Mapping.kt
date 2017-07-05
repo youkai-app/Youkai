@@ -7,7 +7,13 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("mappings") @JsonIgnoreProperties(ignoreUnknown = true)
-class Mapping : BaseJsonModel() {
+class Mapping : BaseJsonModel(JsonType("mappings")) {
+
+    companion object FieldNames {
+        val EXTERNAL_SITE = "externalSite"
+        val EXTERNAL_ID = "externalId"
+        val MEDIA = "media"
+    }
 
     var externalSite: String? = null
 
@@ -16,7 +22,10 @@ class Mapping : BaseJsonModel() {
     @Relationship("media")
     var anime: Anime? = null
 
+    @Relationship("media")
+    var manga: Manga? = null
+
     @RelationshipLinks("media")
-    var animeLinks: Links? = null
+    var mediaLinks: Links? = null
 
 }

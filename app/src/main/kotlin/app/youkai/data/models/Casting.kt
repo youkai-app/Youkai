@@ -8,7 +8,17 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("castings") @JsonIgnoreProperties(ignoreUnknown = true)
-class Casting : BaseJsonModel() {
+class Casting : BaseJsonModel(JsonType("castings")) {
+
+    companion object FieldNames {
+        val ROLE = "role"
+        val VOICE_ACTOR = "voiceActor"
+        val FEATURED = "featured"
+        val LANGUAGE = "language"
+        val PERSON = "person"
+        val MEDIA = "media"
+        val CHARACTER = "character"
+    }
 
     var role: String? = null
 
@@ -28,8 +38,11 @@ class Casting : BaseJsonModel() {
     @Relationship("media")
     var anime: Anime? = null
 
+    @Relationship("media")
+    var manga: Manga? = null
+
     @RelationshipLinks("media")
-    var animeLinks: Links? = null
+    var mediaLinks: Links? = null
 
     @Relationship("character")
     var character: Character? = null

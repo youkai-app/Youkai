@@ -7,7 +7,14 @@ import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("installments") @JsonIgnoreProperties(ignoreUnknown = true)
-class Installment : BaseJsonModel() {
+class Installment : BaseJsonModel(JsonType("installments")) {
+
+    companion object FieldNames {
+        val TAG = "tag"
+        val POSITION = "position"
+        val FRANCHISE = "franchise"
+        val MEDIA = "media"
+    }
 
     var tag: String? = null
 
@@ -20,7 +27,10 @@ class Installment : BaseJsonModel() {
     var franchiseLinks: Links? = null
 
     @Relationship("media")
-    var media: Anime?= null
+    var anime: Anime? = null
+
+    @Relationship("media")
+    var manga: Manga? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

@@ -4,7 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("manga") @JsonIgnoreProperties(ignoreUnknown = true)
-class Manga : BaseMedia() {
+class Manga : BaseMedia(JsonType("manga")) {
+
+    companion object FieldNames {
+        val CHAPTERS_COUNT = "chaptersCount"
+        val VOLUME_COUNT = "volumeCount"
+        val SERIALIZATION = "serialization"
+        val MANGA_TYPE = "mangaType"
+        val CHARACTERS = "mangaCharacters"
+        val STAFF = "mangaStaff"
+    }
 
     var chapterCount: Int? = null
 
@@ -29,7 +38,6 @@ class Manga : BaseMedia() {
 
     @RelationshipLinks("mangaStaff")
     var mangaStaffLinks: Links? = null
-
-     */
+    */
 
 }

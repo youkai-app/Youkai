@@ -4,7 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("streamers") @JsonIgnoreProperties(ignoreUnknown = true)
-class Streamer : BaseJsonModel() {
+class Streamer : BaseJsonModel(JsonType("streamers")) {
+
+    companion object FieldNames {
+        val SITE_NAME = "siteName"
+        val LOGO = "logo"
+        val STREAMING_LINKS = "streamingLinks"
+    }
 
     var siteName: String? = null
 
