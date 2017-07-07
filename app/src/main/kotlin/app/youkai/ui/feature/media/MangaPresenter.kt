@@ -31,9 +31,7 @@ class MangaPresenter : BaseMediaPresenter() {
                         // onNext
                         { m ->
                             run {
-                                if (m != null) {
-                                    setMedia(m)
-                                }
+                                setMedia(m.get())
                             }
                         },
                         // onError
