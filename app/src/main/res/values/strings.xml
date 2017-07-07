@@ -179,4 +179,9 @@
     <string name="ok">OK</string>
 
     <string name="floating_action_button_scroll_behavior">app.youkai.ui.common.view.ScrollAwareFabBehavior</string>
+
+    <string-array name="statuses">
+        <item name="currently_watching">Currently watching</item>
+    </string-array>
+
 </resources>

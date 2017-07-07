@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@android:color/white">
+    
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="Re:Nichibros"
+        android:maxLines="1"
+        android:textSize="18sp"
+        android:textColor="#8a000000"
+        android:gravity="center_vertical"/>
+
+    <Switch
+        android:id="@+id/privacy_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="Private"
+        android:textColor="#8a000000"
+        android:textSize="14sp"
+        android:switchPadding="12dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintHorizontal_bias="1" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="Status"
+        android:textColor="#8a000000"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <Spinner
+        android:id="@+id/status_spinner"
+        android:spinnerMode="dropdown"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:entries="@array/statuses"
+        app:layout_constraintBaseline_toBaselineOf="@id/status"
+        app:layout_constraintStart_toEndOf="@id/status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1" />
+
+    <TextView
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Progress"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textColor="#8a000000"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/status" />
+
+    <app.youkai.progressview.ProgressView
+        android:id="@+id/progress_view"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:pv_showTotal="true"
+        app:layout_constraintBottom_toBottomOf="@id/progress"
+        app:layout_constraintStart_toEndOf="@id/progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1" />
+
+    <TextView
+        android:id="@+id/rewatched"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Rewatched"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textColor="#8a000000"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/progress" />
+
+    <app.youkai.progressview.ProgressView
+        android:id="@+id/rewatched_view"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:pv_showTotal="false"
+        app:layout_constraintBottom_toBottomOf="@id/rewatched"
+        app:layout_constraintStart_toEndOf="@id/rewatched"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1" />
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Rating"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textColor="#8a000000"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/rewatched" />
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="@id/rating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/rating"
+        app:mrb_progressBackgroundTint="#fecb20" />
+
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Personal notes"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textColor="#8a000000"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/rating" />
+    
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/notes_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/notes">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/notes_input_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</android.support.constraint.ConstraintLayout>

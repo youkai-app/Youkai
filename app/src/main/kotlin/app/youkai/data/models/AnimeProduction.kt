@@ -30,4 +30,3 @@ class AnimeProduction : BaseJsonModel(JsonType("animeProductions")) {
     var producerLinks: Links? = null
 
 }
-

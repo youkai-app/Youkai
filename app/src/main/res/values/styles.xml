@@ -33,4 +33,7 @@
     <style name="AppThemeErrorView">
         <item name="ev_retryColor">@color/accent</item>
     </style>
+
+    <style name="library_update_sheet"></style>
+
 </resources>
