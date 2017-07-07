@@ -4,6 +4,7 @@ import android.view.View
 import app.youkai.App
 import app.youkai.R
 import app.youkai.data.models.MediaRelationship
+import app.youkai.data.models.ext.source
 import app.youkai.util.color
 import app.youkai.util.ext.getLayoutInflater
 import app.youkai.util.ext.loadWithPalette
