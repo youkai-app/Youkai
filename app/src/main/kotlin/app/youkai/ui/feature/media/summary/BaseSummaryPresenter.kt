@@ -80,8 +80,8 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
         // TODO: Get directly from field when Nuck adds to the API response
         val ratingsCount = media?.ratingFrequencies?.run {
             this.filter {
-                arrayOf("0.5", "1.0", "1.5", "2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0")
-                        .contains(it.key)
+                arrayOf("2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
+                        "16", "17", "18", "19", "20").contains(it.key)
             }.values.sumBy(String::toInt)
         } ?: 0
         view?.setRatingsCount(ratingsCount)
