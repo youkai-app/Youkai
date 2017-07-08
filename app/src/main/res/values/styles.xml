@@ -36,4 +36,9 @@
 
     <style name="library_update_sheet"></style>
 
+    <style name="MaterialDialogSheet" parent="@style/AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 </resources>

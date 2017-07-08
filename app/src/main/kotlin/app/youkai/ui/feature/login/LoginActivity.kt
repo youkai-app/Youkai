@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import app.youkai.MainActivity
 import app.youkai.R
+import app.youkai.ui.feature.library_update.LibraryUpdateSheet
 import app.youkai.util.ext.inputString
 import app.youkai.util.ext.snackbar
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
@@ -35,7 +35,7 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         go.setOnClickListener { doLogin() }
 
         // Allows for HTML-formatted links in the text to be clickable.
-        bottomLinks.movementMethod = LinkMovementMethod() as MovementMethod
+        bottomLinks.movementMethod = LinkMovementMethod()
 
         val inputConsumer: Consumer<TextViewAfterTextChangeEvent> = Consumer({
             enableButton(
@@ -88,7 +88,10 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
     }
 
     override fun doLogin() {
-        presenter.doLogin(username.inputString(), password.inputString())
+        //presenter.doLogin(username.inputString(), password.inputString())
+
+        val testUpdateSheet = LibraryUpdateSheet(this);
+        testUpdateSheet.show() //TODO: remove
     }
 
     override fun completeLogin() {
