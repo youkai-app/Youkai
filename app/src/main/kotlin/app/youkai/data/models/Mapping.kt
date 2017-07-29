@@ -2,6 +2,7 @@ package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.Links
+import com.github.jasminb.jsonapi.annotations.PolymorphRelationship
 import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
@@ -19,10 +20,10 @@ class Mapping : BaseJsonModel(JsonType("mappings")) {
 
     var externalId: String? = null
 
-    @Relationship("media")
+    @PolymorphRelationship("media")
     var anime: Anime? = null
 
-    @Relationship("media")
+    @PolymorphRelationship("media")
     var manga: Manga? = null
 
     @RelationshipLinks("media")

@@ -192,7 +192,7 @@ class ApiTests {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             Api.login(TEST_USERNAME, TEST_PASSWORD)
                     .map { c -> c.accessToken!! }
-                    .concatMap { c ->
+                    .concatMap { accessToken ->
                         Api.library(TEST_ACCOUNT_REMOTE_USER_ID)
                                 .include(LibraryEntry.ANIME)
                                 .get()
@@ -204,7 +204,7 @@ class ApiTests {
                                     val libraryEntry = LibraryEntry()
                                     libraryEntry.id = id
                                     libraryEntry.status = "dropped"
-                                    Api.updateLibraryEntry(libraryEntry, c)
+                                    Api.updateLibraryEntry(libraryEntry, accessToken)
                                 }
                     }
                     .test()

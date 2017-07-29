@@ -3,6 +3,7 @@ package app.youkai.data.models
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.jasminb.jsonapi.Links
+import com.github.jasminb.jsonapi.annotations.PolymorphRelationship
 import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
@@ -35,10 +36,10 @@ class Casting : BaseJsonModel(JsonType("castings")) {
     @RelationshipLinks("person")
     var personLinks: Links? = null
 
-    @Relationship("media")
+    @PolymorphRelationship("media")
     var anime: Anime? = null
 
-    @Relationship("media")
+    @PolymorphRelationship("media")
     var manga: Manga? = null
 
     @RelationshipLinks("media")

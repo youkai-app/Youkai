@@ -552,7 +552,7 @@ class JsonParsingTests {
         assertEquals("ja", streamingLink.dubs!!.first())
         assertEquals("Funimation", streamingLink.streamer!!.siteName)
         assertEquals("/logos/original/missing.png", streamingLink.streamer!!.logo)
-        assertNull(streamingLink.media)
+        assertNull(streamingLink.anime)
         assertEquals("https://kitsu.io/api/edge/streaming-links/290/relationships/media", streamingLink.mediaLinks!!.self.href)
     }
 
@@ -710,7 +710,21 @@ class JsonParsingTests {
         entry.ratingTwenty = 20
         val body = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(entry)).toString(Charsets.UTF_8)
 
+        //TODO: make an actual test
         System.out.println(body)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun mediaRelationshipTest() {
+        val resourceConverter = ResourceConverter(MediaRelationship::class.java)
+
+        val mediaRelationshipsJson = ClassLoader.getSystemClassLoader().getResourceAsStream("media_relationship_json")
+        val mediaRelationshipsJsonDoc = resourceConverter.readDocumentCollection(mediaRelationshipsJson, MediaRelationship::class.java)
+        val mediaRelationships = mediaRelationshipsJsonDoc.get()
+
+        assertNotNull(mediaRelationships)
+        assertEquals("Little Witch Academia (TV)", mediaRelationships.filter { it -> it.id == "12272" }.first()!!.destinationAnime!!.canonicalTitle)
     }
 
 }
