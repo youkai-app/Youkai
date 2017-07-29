@@ -118,7 +118,9 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.8.6'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     /* compile 'com.github.jasminb:jsonapi-converter:0.7' */
-    compile 'com.github.youkai-app:jsonapi-converter:develop-SNAPSHOT'
+    compile('com.github.youkai-app:jsonapi-converter:develop-SNAPSHOT'){
+            changing=true
+    }
 
     /* Picasso */
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -134,4 +136,8 @@ dependencies {
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
