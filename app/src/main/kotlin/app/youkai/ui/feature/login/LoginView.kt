@@ -1,6 +1,6 @@
 package app.youkai.ui.feature.login
 
-import com.hannesdorfmann.mosby.mvp.MvpView
+import com.hannesdorfmann.mosby3.mvp.MvpView
 
 interface LoginView : MvpView {
     /**

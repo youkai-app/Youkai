@@ -102,6 +102,9 @@ dependencies {
      * https://github.com/xiprox/ErrorView */
     compile 'tr.xip.errorview:library:3.0.0'
 
+    /* Mosby / MVP */
+    compile 'com.hannesdorfmann.mosby3:viewstate:3.0.4'
+
     /* Facebook's Fresco
      * Image loading
      * https://github.com/facebook/fresco */

@@ -11,18 +11,17 @@ import app.youkai.R
 import app.youkai.ui.feature.library_update.LibraryUpdateSheet
 import app.youkai.util.ext.inputString
 import app.youkai.util.ext.snackbar
-import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
-import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
+import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateActivity
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import com.jakewharton.rxbinding2.widget.afterTextChangeEvents
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginView {
+class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter, LoginState>(), LoginView {
 
     override fun createPresenter(): LoginPresenter = LoginPresenter()
 
-    override fun createViewState(): ViewState<LoginView> = LoginState()
+    override fun createViewState() = LoginState()
 
     override fun onNewViewStateInstance() {
         /* do nothing */
@@ -90,8 +89,8 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
     override fun doLogin() {
         //presenter.doLogin(username.inputString(), password.inputString())
 
-        val testUpdateSheet = LibraryUpdateSheet(this);
-        testUpdateSheet.show() //TODO: remove
+        val testUpdateSheet = LibraryUpdateSheet();
+        testUpdateSheet.show(supportFragmentManager, testUpdateSheet.tag) //TODO: remove
     }
 
     override fun completeLogin() {

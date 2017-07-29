@@ -2,7 +2,7 @@ package app.youkai.ui.feature.login
 
 import app.youkai.data.local.Credentials
 import app.youkai.data.service.Api
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
+import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

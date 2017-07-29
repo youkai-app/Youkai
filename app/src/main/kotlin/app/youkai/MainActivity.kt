@@ -2,13 +2,9 @@ package app.youkai
 
 import android.content.Intent
 import android.os.Bundle
-<<<<<<< HEAD
 import android.support.v7.app.AppCompatActivity
 import app.youkai.data.local.Credentials
 import app.youkai.data.models.ext.MediaType
-=======
-import app.youkai.ui.feature.library_update.LibraryUpdateSheet
->>>>>>> 32cfe4e... Further work on views
 import app.youkai.ui.feature.login.LoginActivity
 import app.youkai.ui.feature.media.MediaActivity
 import kotlinx.android.synthetic.main.activity_main.*
