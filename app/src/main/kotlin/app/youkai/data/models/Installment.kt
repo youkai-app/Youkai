@@ -27,10 +27,7 @@ class Installment : BaseJsonModel(JsonType("installments")) {
     var franchiseLinks: Links? = null
 
     @Relationship("media")
-    var anime: Anime? = null
-
-    @Relationship("media")
-    var manga: Manga? = null
+    var media: BaseMedia? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

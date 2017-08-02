@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.github.jasminb.jsonapi.Links
 import com.github.jasminb.jsonapi.annotations.Relationship
 import com.github.jasminb.jsonapi.annotations.RelationshipLinks
+import com.github.jasminb.jsonapi.annotations.Type
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-open class BaseMedia(type: JsonType) : BaseJsonModel(type) {
+@Type("media")
+open class BaseMedia(type: JsonType = JsonType("media")) : BaseJsonModel(type) {
 
     companion object FieldNames {
         val SLUG = "slug"

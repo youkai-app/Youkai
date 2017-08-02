@@ -265,8 +265,7 @@ class JsonParsingTests {
 
         assertEquals("https://kitsu.io/api/edge/mappings/5686/relationships/media", first.mediaLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/mappings/5686/media", first.mediaLinks!!.related.href)
-        assertNull(first.anime)
-        assertNull(first.manga)
+        assertNull(first.media)
 
         assertEquals(3, mappingsJsonDoc.meta["count"])
 
@@ -426,8 +425,7 @@ class JsonParsingTests {
 
         assertEquals("https://kitsu.io/api/edge/installments/1139/relationships/media", first.mediaLinks!!.self.href)
         assertEquals("https://kitsu.io/api/edge/installments/1139/media", first.mediaLinks!!.related.href)
-        assertNull(first.anime)
-        assertNull(first.manga)
+        assertNull(first.media)
     }
 
     @Test
@@ -682,7 +680,7 @@ class JsonParsingTests {
         val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
         val anime = animeJsonDoc.get()
 
-        val s: String = ResourceConverters.mediaConverter.writeDocument(JSONAPIDocument<Media>(anime.toMedia())).toString(Charsets.UTF_8)
+        val s: String = ResourceConverters.mediaConverter.writeDocument(JSONAPIDocument<BaseMedia>(anime.toMedia())).toString(Charsets.UTF_8)
         System.out.println(s)
     }
 
@@ -712,5 +710,24 @@ class JsonParsingTests {
 
         System.out.println(body)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun mediaRelationshipTest() {
+        val resourceConverter = ResourceConverter(MediaRelationship::class.java)
+
+        val mediaRelationshipsJson = ClassLoader.getSystemClassLoader().getResourceAsStream("media_relationship_json")
+        val mediaRelationshipsJsonDoc = resourceConverter.readDocumentCollection(mediaRelationshipsJson, MediaRelationship::class.java)
+        val mediaRelationships = mediaRelationshipsJsonDoc.get()
+
+        assertNotNull(mediaRelationships)
+        assertEquals(true, mediaRelationships.first().source is Anime)
+        assertEquals(true, mediaRelationships.first().destination is Manga)
+        assertEquals(true, mediaRelationships.filter { it -> it.id == "11853" }.first()!!.source is Anime)
+        assertEquals(true, mediaRelationships.filter { it -> it.id == "11853" }.first()!!.destination is Anime)
+        assertEquals(true, (mediaRelationships.filter { it -> it.id == "11853" }.first()!!.destination!! as Anime).showType.equals("movie"))
+        assertEquals("Little Witch Academia (TV)", mediaRelationships.filter { it -> it.source!!.id == "12272" }.first()!!. source!!.canonicalTitle)
+    }
+
 
 }

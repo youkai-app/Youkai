@@ -20,10 +20,7 @@ class Mapping : BaseJsonModel(JsonType("mappings")) {
     var externalId: String? = null
 
     @Relationship("media")
-    var anime: Anime? = null
-
-    @Relationship("media")
-    var manga: Manga? = null
+    var media: BaseMedia? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

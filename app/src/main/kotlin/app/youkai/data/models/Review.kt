@@ -49,10 +49,7 @@ class Review : BaseJsonModel(JsonType("titles")) {
     var libraryEntryLinks: Links? = null
 
     @Relationship("media")
-    var anime: Anime? = null
-
-    @Relationship("media")
-    var manga: Manga? = null
+    var media: BaseMedia? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

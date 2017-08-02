@@ -50,7 +50,7 @@ class Episode : BaseJsonModel(JsonType("episodes")) {
     }
 
     @Relationship("media")
-    var anime: Anime? = null
+    var media: BaseMedia? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

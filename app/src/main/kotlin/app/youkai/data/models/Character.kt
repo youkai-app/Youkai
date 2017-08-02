@@ -51,10 +51,10 @@ class Character : BaseJsonModel(JsonType("characters")) {
      * This is left here for future generations to discover, and lazily implement as required.
      *
     @Relationship("primaryMedia")
-    var anime: Anime? = null
+    var media: BaseMedia? = null
 
     @RelationshipLinks("primaryMedia")
-    var animeLinks: Links? = null
+    var mediaLinks: Links? = null
     */
 
 }
