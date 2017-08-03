@@ -31,7 +31,9 @@ object Api {
         val converterFactory = JSONAPIConverterFactory(
                 ObjectMapper(),
                 Anime::class.java,
-                Manga::class.java
+                Manga::class.java,
+                Favorite::class.java,
+                User::class.java
         )
         converterFactory.setAlternativeFactory(JacksonConverterFactory.create())
         converterFactory
@@ -80,10 +82,10 @@ object Api {
                 .filter("text", query)
     }
 
-    private val getAnimeLanguaagesCall = { id: String, m: Map<String, String> -> service.getAnimeLangauges(id, m) }
+    private val getAnimeLanguagesCall = { id: String, m: Map<String, String> -> service.getAnimeLanguages(id, m) }
 
     fun animeLanguages(id: String): RequestBuilder<Observable<List<String>>> {
-        return RequestBuilder(id, getAnimeLanguaagesCall)
+        return RequestBuilder(id, getAnimeLanguagesCall)
     }
 
     private val getAnimeCharactersCall = { id: String, m: Map<String, String> -> service.getAnimeCharacters(id, m) }
@@ -117,10 +119,10 @@ object Api {
     /**
      * Library
      */
-    private val allLibraryEntries = { _: String, m: Map<String, String> -> service.allLibraryEntries(m) }
+    private val allLibraryEntriesCall = { _: String, m: Map<String, String> -> service.allLibraryEntries(m) }
 
     fun allLibraryEntries(): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return RequestBuilder("", allLibraryEntries)
+        return RequestBuilder("", allLibraryEntriesCall)
     }
 
     private val getLibraryCall = { id: String, m: Map<String, String> -> service.getLibrary(id, m) }
@@ -135,18 +137,31 @@ object Api {
         return RequestBuilder(id, getLibraryEntryCall)
     }
 
-    fun libraryEntry(userId: String, mediaType: JsonType, mediaId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return RequestBuilder("", allLibraryEntries)
+    private fun libraryEntryForMedia(userId: String, mediaId: String, mediaType: String)
+            : RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
+        return RequestBuilder("", allLibraryEntriesCall)
                 .filter("userId", userId)
-                .filter("kind", mediaType.type)
-                .filter(mediaType.type + "Id", mediaId)
+                .filter("kind", mediaType)
+                .filter(mediaType + "Id", mediaId)
                 .page("limit", 1)
     }
 
-    fun createLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer"): Observable<Response<ResponseBody>> {
+    fun libraryEntryForAnime(userId: String, animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
+        return libraryEntryForMedia(userId, animeId, "anime")
+    }
+
+    fun libraryEntryForManga(userId: String, mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
+        return libraryEntryForMedia(userId, mangaId, "manga")
+    }
+
+    fun createLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer")
+            : Observable<Response<ResponseBody>> {
         libraryEntry.id = "temporary_id"
 
-        var body: String = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(libraryEntry)).toString(Charsets.UTF_8)
+        var body: String = ResourceConverters
+                .libraryEntryConverter
+                .writeDocument(JSONAPIDocument<LibraryEntry>(libraryEntry))
+                .toString(Charsets.UTF_8)
 
         /**
          * This removes the ID from the content request. Currently the jsonapi library does not allow
@@ -172,5 +187,38 @@ object Api {
 
     fun deleteLibraryEntry(id: String, authToken: String, tokenType: String = "bearer"): Observable<Response<Void>>
             = service.deleteLibraryEntry(createAuthorizationParam(tokenType, authToken), id)
+
+    /**
+     * Favorites
+     */
+    private val allFavoritesCall = { _: String, m: Map<String, String> -> service.allFavorites(m) }
+
+    fun allFavorites(): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
+        return RequestBuilder("", allFavoritesCall)
+    }
+
+    private val getFavoriteCall = { id: String, m: Map<String, String> -> service.getFavorite(id, m) }
+
+    fun favorite(id: String): RequestBuilder<Observable<JSONAPIDocument<Favorite>>> {
+        return RequestBuilder(id, getFavoriteCall)
+    }
+
+    private fun favoriteForMedia(userId: String, mediaId: String, mediaType: String)
+            : RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
+        return RequestBuilder("", allFavoritesCall)
+                .filter("userId", userId)
+                .filter("itemId", mediaId)
+                .filter("itemType", mediaType)
+                .page("limit", 1)
+    }
+
+    fun favoriteForAnime(userId: String, animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
+        return favoriteForMedia(userId, animeId, "Anime")
+
+    }
+
+    fun favoriteForManga(userId: String, mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
+        return favoriteForMedia(userId, mangaId, "Manga")
+    }
 
 }

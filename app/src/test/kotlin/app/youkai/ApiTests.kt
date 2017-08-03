@@ -316,11 +316,75 @@ class ApiTests {
     @Throws(Exception::class)
     fun libraryEntryForAnime() {
         // always use id=12 (one piece) as a library entry for one piece is kept in the test account
-        Api.libraryEntry(TEST_ACCOUNT_REMOTE_USER_ID, JsonType("anime"), "12")
+        Api.libraryEntryForAnime(TEST_ACCOUNT_REMOTE_USER_ID, "12")
                 .get()
                 .map(JSONAPIDocument<List<LibraryEntry>>::get)
                 .test()
                 .assertValue { l -> l.size == 1 }
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun libraryEntryForManga() {
+        Api.libraryEntryForManga(TEST_ACCOUNT_REMOTE_USER_ID, "12")
+                .get()
+                .map(JSONAPIDocument<List<LibraryEntry>>::get)
+                .test()
+                // no entry for this manga
+                .assertValue { l -> l.isEmpty() }
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun allFavoritesTest() {
+        Api.allFavorites()
+                .filter("userId", TEST_ACCOUNT_REMOTE_USER_ID)
+                .filter("itemId", "12")
+                .filter("itemType", "Anime")
+                .page("limit", 1)
+                .get()
+                .map(JSONAPIDocument<List<Favorite>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getFavoriteTest() {
+        Api.favorite("696518").get()
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun favoriteForAnimeTest() {
+        // always use id=12 (one piece) as a library entry for one piece is a favorite in the test account
+        Api.favoriteForAnime(TEST_ACCOUNT_REMOTE_USER_ID, "12")
+                .get()
+                .map(JSONAPIDocument<List<Favorite>>::get)
+                .test()
+                .assertValue { l -> l.size == 1 }
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun favoriteForMangaTest() {
+        Api.favoriteForManga(TEST_ACCOUNT_REMOTE_USER_ID, "12")
+                .get()
+                .map(JSONAPIDocument<List<Favorite>>::get)
+                .test()
+                // no favorites for this manga
+                .assertValue { l -> l.isEmpty() }
                 .assertNoErrors()
                 .assertComplete()
     }

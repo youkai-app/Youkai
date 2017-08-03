@@ -46,7 +46,7 @@ interface Service {
     ): Observable<JSONAPIDocument<Anime>>
 
     @GET("edge/anime/{id}/_languages")
-    fun getAnimeLangauges(
+    fun getAnimeLanguages(
             @Path("id") id: String,
             @QueryMap queries: Map<String, String>
     ): Observable<List<String>>
@@ -108,5 +108,17 @@ interface Service {
             @Header("Authorization") authorization: String,
             @Path("id") id: String
     ): Observable<Response<Void>>
+
+    /**
+     * Favorites
+     */
+    @GET("edge/favorites")
+    fun allFavorites(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Favorite>>>
+
+    @GET("edge/favorites/{id}")
+    fun getFavorite(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Favorite>>
 
 }
