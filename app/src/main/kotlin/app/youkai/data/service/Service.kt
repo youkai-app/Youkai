@@ -34,13 +34,19 @@ interface Service {
     ): Observable<Credentials>
 
     /**
-     * Everything else.
+     * Anime
      */
+    @GET("edge/anime")
+    fun allAnime(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Anime>>>
+
     @GET("edge/anime/{id}")
     fun getAnime(
             @Path("id") id: String,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Anime>>
+
+    @GET("edge/manga")
+    fun  allManga(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Manga>>>
 
     @GET("edge/manga/{id}")
     fun getManga(
@@ -81,11 +87,5 @@ interface Service {
             @Header("Authorization") authorization: String,
             @Path("id") id: String
     ): Observable<Response<Void>>
-
-    @GET("edge/anime")
-    fun  searchAnime(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Anime>>>
-
-    @GET("edge/manga")
-    fun  searchManga(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Manga>>>
 
 }

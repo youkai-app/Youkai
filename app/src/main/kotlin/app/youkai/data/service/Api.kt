@@ -17,13 +17,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
 object Api {
-    val JSON_API_CONTENT_TYPE = "application/vnd.api+json"
+    private val JSON_API_CONTENT_TYPE = "application/vnd.api+json"
 
     val BASE = "https://kitsu.io/api/"
     private val CLIENT_ID = "dd031b32d2f56c990b1425efe6c42ad847e7fe3ab46bf1299f05ecd856bdb7dd"
     private val CLIENT_SECRET = "54d7307928f63414defd96399fc31ba847961ceaecef3a5fd93144e960c0e151"
 
-    /*
+    /**
      * Lazy modifier only instantiates when the value is first used.
      * See: https://kotlinlang.org/docs/reference/delegated-properties.html
      */
@@ -48,32 +48,62 @@ object Api {
         retrofit.create(Service::class.java)
     }
 
+    /**
+     * Authentication
+     */
     fun login (username: String, password: String) = service.login(username, password, "password", CLIENT_ID, CLIENT_SECRET)
 
     fun refreshAuthToken (refreshToken: String) = service.refreshAuthToken(refreshToken, "refresh_token", CLIENT_ID, CLIENT_SECRET)
 
+    private fun createAuthorizationParam (tokenType: String, authToken: String): String {
+        return tokenType.capitalizeFirstLetter().append(authToken, " ")
+    }
+
+    /**
+     * Anime
+     */
     private val getAnimeCall = { id: String, m: Map<String, String> -> service.getAnime(id, m) }
 
     fun anime(id: String): RequestBuilder<Observable<JSONAPIDocument<Anime>>> {
-        return RequestBuilder<Observable<JSONAPIDocument<Anime>>>(id, getAnimeCall)
+        return RequestBuilder(id, getAnimeCall)
     }
 
+    private val searchAnimeCall = { _: String, m: Map<String, String> -> service.allAnime(m) }
+
+    fun searchAnime(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>> {
+        return RequestBuilder("", searchAnimeCall)
+                .filter("text", query)
+    }
+
+    /**
+     * Manga
+     */
     private val getMangaCall = { id: String, m: Map<String, String> -> service.getManga(id, m) }
 
     fun manga(id: String): RequestBuilder<Observable<JSONAPIDocument<Manga>>> {
-        return RequestBuilder<Observable<JSONAPIDocument<Manga>>>(id, getMangaCall)
+        return RequestBuilder(id, getMangaCall)
     }
 
+    private val searchMangaCall = { _: String, m: Map<String, String> -> service.allManga(m) }
+
+    fun searchManga(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>> {
+        return RequestBuilder("", searchMangaCall)
+                .filter("text", query)
+    }
+
+    /**
+     * Library
+     */
     private val getLibraryCall = { id: String, m: Map<String, String> -> service.getLibrary(id, m) }
 
     fun library(id: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>>(id, getLibraryCall)
+        return RequestBuilder(id, getLibraryCall)
     }
 
     private val getLibraryEntryCall = { id: String, m: Map<String, String> -> service.getLibraryEntry(id, m) }
 
     fun libraryEntry(id: String): RequestBuilder<Observable<JSONAPIDocument<LibraryEntry>>> {
-        return RequestBuilder<Observable<JSONAPIDocument<LibraryEntry>>>(id, getLibraryEntryCall)
+        return RequestBuilder(id, getLibraryEntryCall)
     }
 
     fun createLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer"): Observable<Response<ResponseBody>> {
@@ -105,23 +135,5 @@ object Api {
 
     fun deleteLibraryEntry(id: String, authToken: String, tokenType: String = "bearer"): Observable<Response<Void>>
             = service.deleteLibraryEntry(createAuthorizationParam(tokenType, authToken), id)
-
-    fun createAuthorizationParam (tokenType: String, authToken: String): String {
-        return tokenType.capitalizeFirstLetter().append(authToken, " ")
-    }
-
-    private val searchAnimeCall = { ignored: String, m: Map<String, String> -> service.searchAnime(m) }
-
-    fun searchAnime(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>> {
-        return RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>>("", searchAnimeCall)
-                .filter("text", query)
-    }
-
-    private val searchMangaCall = { ignored: String, m: Map<String, String> -> service.searchManga(m) }
-
-    fun searchManga(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>> {
-        return RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>>("", searchMangaCall)
-                .filter("text", query)
-    }
 
 }

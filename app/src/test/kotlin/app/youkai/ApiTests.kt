@@ -7,6 +7,10 @@ import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
 
+/**
+ * The tests need to be run in order as the server has validation checks on library entries (to prevent duplicates).
+ * To get around this without relying on making library entries randomly the entry must first be deleted before a new one is created.
+ */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class ApiTests {
 
@@ -117,7 +121,7 @@ class ApiTests {
         }
     }
 
-    /*
+    /**
      * This deletes the library entry for anime with #id 10909 so that the createLibraryEntryTest doesn't fail.
      */
     @Test
