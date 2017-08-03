@@ -45,6 +45,18 @@ interface Service {
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Anime>>
 
+    @GET("edge/anime/{id}/_languages")
+    fun getAnimeLangauges(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<List<String>>
+
+    @GET("edge/anime/{id}/anime-characters")
+    fun getAnimeCharacters(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<AnimeCharacter>>>
+
     /**
      * Manga
      */

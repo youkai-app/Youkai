@@ -113,6 +113,28 @@ class ApiTests {
                 .assertComplete()
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun animeLanguagesTest() {
+        Api.animeLanguages("1").get()
+                .flatMapIterable { l -> l }
+                .doOnNext { s -> System.out.println(s) }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun animeCharactersTest() {
+        Api.animeCharacters("1").get()
+                .map(JSONAPIDocument<List<AnimeCharacter>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
     /**
      * Manga
      */

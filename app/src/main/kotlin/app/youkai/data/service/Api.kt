@@ -80,6 +80,18 @@ object Api {
                 .filter("text", query)
     }
 
+    private val getAnimeLanguaagesCall = { id: String, m: Map<String, String> -> service.getAnimeLangauges(id, m) }
+
+    fun animeLanguages(id: String): RequestBuilder<Observable<List<String>>> {
+        return RequestBuilder(id, getAnimeLanguaagesCall)
+    }
+
+    private val getAnimeCharactersCall = { id: String, m: Map<String, String> -> service.getAnimeCharacters(id, m) }
+
+    fun animeCharacters(id: String): RequestBuilder<Observable<JSONAPIDocument<List<AnimeCharacter>>>> {
+        return RequestBuilder(id, getAnimeCharactersCall)
+    }
+
     /**
      * Manga
      */
