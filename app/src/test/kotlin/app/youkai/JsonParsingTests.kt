@@ -56,7 +56,7 @@ class JsonParsingTests {
         assertEquals("https://media.kitsu.io/anime/cover_images/7442/original.png?1486065327", anime.coverImage!!.original)
         assertEquals(25, anime.episodeCount)
         assertEquals(24, anime.episodeLength)
-        assertEquals("TV" , anime.subtype)
+        assertEquals("TV", anime.subtype)
         assertEquals("LHtdKWJdif4", anime.youtubeVideoId)
         assertEquals("TV", anime.showType)
         assertEquals(false, anime.isNsfw)
@@ -491,7 +491,7 @@ class JsonParsingTests {
         assertEquals("https://media.kitsu.io/manga/cover_images/66/original.jpg?1430838562", manga.coverImage!!.original)
         assertEquals(109, manga.chapterCount)
         assertEquals(27, manga.volumeCount)
-        assertEquals("manga" , manga.subtype)
+        assertEquals("manga", manga.subtype)
         assertEquals("Shounen Gangan", manga.serialization)
         assertEquals("manga", manga.mangaType)
 
@@ -711,6 +711,17 @@ class JsonParsingTests {
         val body = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(entry)).toString(Charsets.UTF_8)
 
         System.out.println(body)
+    }
+
+
+    @Test
+    fun favoritesTest() {
+        val resourceConverter = ResourceConverter(Favorite::class.java)
+
+        val favoritesJson = ClassLoader.getSystemClassLoader().getResourceAsStream("favorites_json")
+        val favoritesJsonDoc = resourceConverter.readDocumentCollection(favoritesJson, Favorite::class.java)
+        val favorites = favoritesJsonDoc.get()
+        assertEquals("2017-08-03T19:05:25.184Z", favorites.first().createdAt)
     }
 
 }

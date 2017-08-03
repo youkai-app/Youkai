@@ -1,0 +1,37 @@
+{
+  "data":[
+    {
+      "id":"696518",
+      "type":"favorites",
+      "links":{
+        "self":"https://kitsu.io/api/edge/favorites/696518"
+      },
+      "attributes":{
+        "createdAt":"2017-08-03T19:05:25.184Z",
+        "updatedAt":"2017-08-03T19:05:25.184Z",
+        "favRank":0
+      },
+      "relationships":{
+        "user":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/favorites/696518/relationships/user",
+            "related":"https://kitsu.io/api/edge/favorites/696518/user"
+          }
+        },
+        "item":{
+          "links":{
+            "self":"https://kitsu.io/api/edge/favorites/696518/relationships/item",
+            "related":"https://kitsu.io/api/edge/favorites/696518/item"
+          }
+        }
+      }
+    }
+  ],
+  "meta":{
+    "count":1
+  },
+  "links":{
+    "first":"https://kitsu.io/api/edge/favorites?filter%5BitemId%5D=12&filter%5BitemType%5D=Anime&filter%5BuserId%5D=157458&page%5Blimit%5D=1&page%5Boffset%5D=0",
+    "last":"https://kitsu.io/api/edge/favorites?filter%5BitemId%5D=12&filter%5BitemType%5D=Anime&filter%5BuserId%5D=157458&page%5Blimit%5D=1&page%5Boffset%5D=0"
+  }
+}
