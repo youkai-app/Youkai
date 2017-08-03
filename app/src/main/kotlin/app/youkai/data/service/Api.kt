@@ -44,7 +44,6 @@ object Api {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(converterFactory)
                 .build()
-
         retrofit.create(Service::class.java)
     }
 
@@ -62,6 +61,12 @@ object Api {
     /**
      * Anime
      */
+    private val allAnime = { _: String, m: Map<String, String> -> service.allAnime(m) }
+
+    fun allAnime(): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>> {
+        return RequestBuilder("", allAnime)
+    }
+
     private val getAnimeCall = { id: String, m: Map<String, String> -> service.getAnime(id, m) }
 
     fun anime(id: String): RequestBuilder<Observable<JSONAPIDocument<Anime>>> {
@@ -78,6 +83,12 @@ object Api {
     /**
      * Manga
      */
+    private val allManga = { _: String, m: Map<String, String> -> service.allManga(m) }
+
+    fun allManga(): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>> {
+        return RequestBuilder("", allManga)
+    }
+
     private val getMangaCall = { id: String, m: Map<String, String> -> service.getManga(id, m) }
 
     fun manga(id: String): RequestBuilder<Observable<JSONAPIDocument<Manga>>> {
@@ -94,6 +105,12 @@ object Api {
     /**
      * Library
      */
+    private val allLibraryEntries = { _: String, m: Map<String, String> -> service.allLibraryEntries(m) }
+
+    fun allLibraryEntries(): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
+        return RequestBuilder("", allLibraryEntries)
+    }
+
     private val getLibraryCall = { id: String, m: Map<String, String> -> service.getLibrary(id, m) }
 
     fun library(id: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
@@ -104,6 +121,14 @@ object Api {
 
     fun libraryEntry(id: String): RequestBuilder<Observable<JSONAPIDocument<LibraryEntry>>> {
         return RequestBuilder(id, getLibraryEntryCall)
+    }
+
+    fun libraryEntry(userId: String, mediaType: JsonType, mediaId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
+        return RequestBuilder("", allLibraryEntries)
+                .filter("userId", userId)
+                .filter("kind", mediaType.type)
+                .filter(mediaType.type + "Id", mediaId)
+                .page("limit", 1)
     }
 
     fun createLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer"): Observable<Response<ResponseBody>> {
