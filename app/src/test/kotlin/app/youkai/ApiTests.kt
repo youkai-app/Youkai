@@ -26,7 +26,6 @@ class ApiTests {
      * Anime
      */
     @Test
-    @Throws(Exception::class)
     fun basicAnimeTest() {
         Api.anime("7442").get()
                 .map(JSONAPIDocument<Anime>::get)
@@ -37,7 +36,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun animeWithIncludesTest() {
         Api.anime("3919").include(BaseMedia.CASTINGS, Anime.EPISODES).get()
                 .map(JSONAPIDocument<Anime>::get)
@@ -50,7 +48,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun fullAnimeTest() {
         Api.anime("1")
                 .include(
@@ -92,7 +89,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun searchAnimeTest() {
         Api.searchAnime("goddamnit").get()
                 .map(JSONAPIDocument<List<Anime>>::get)
@@ -103,7 +99,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun allAnimeTest() {
         Api.allAnime().get()
                 .map(JSONAPIDocument<List<Anime>>::get)
@@ -114,22 +109,10 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
-    fun animeLanguagesTest() {
-        Api.animeLanguages("1").get()
+    fun languagesForAnimeTest() {
+        Api.languagesForAnime("1").get()
                 .flatMapIterable { l -> l }
                 .doOnNext { s -> System.out.println(s) }
-                .test()
-                .assertNoErrors()
-                .assertComplete()
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun animeCharactersTest() {
-        Api.animeCharacters("1").get()
-                .map(JSONAPIDocument<List<AnimeCharacter>>::get)
-                .flatMapIterable { l -> l }
                 .test()
                 .assertNoErrors()
                 .assertComplete()
@@ -139,7 +122,6 @@ class ApiTests {
      * Manga
      */
     @Test
-    @Throws(Exception::class)
     fun searchMangaTest() {
         Api.searchManga("goddamnit").get()
                 .map(JSONAPIDocument<List<Manga>>::get)
@@ -150,7 +132,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun allMangaTest() {
         Api.allManga().get()
                 .map(JSONAPIDocument<List<Manga>>::get)
@@ -164,7 +145,6 @@ class ApiTests {
      * Auth
      */
     @Test
-    @Throws(Exception::class)
     fun auth1LoginTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             Api.login(TEST_USERNAME, TEST_PASSWORD)
@@ -181,7 +161,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun auth2RefreshTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             Api.login(TEST_USERNAME, TEST_PASSWORD)
@@ -202,7 +181,6 @@ class ApiTests {
      * Library
      */
     @Test
-    @Throws(Exception::class)
     fun auth3CreateLibraryEntryTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             val anime = Anime()
@@ -223,7 +201,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun auth4UpdateLibraryEntryTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             Api.login(TEST_USERNAME, TEST_PASSWORD)
@@ -253,7 +230,6 @@ class ApiTests {
      * This deletes the library entry for anime with #id 10909 so that the createLibraryEntryTest doesn't fail (the next time tests are run).
      */
     @Test
-    @Throws
     fun auth5DeleteLibraryEntryTest() {
         if (TEST_USERNAME != null && TEST_PASSWORD != null) {
             Api.login(TEST_USERNAME, TEST_PASSWORD)
@@ -278,7 +254,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun getLibraryEntryTest() {
         Api.libraryEntry("17619547").get()
                 .test()
@@ -287,7 +262,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun getLibraryTest() {
         Api.library(TEST_ACCOUNT_REMOTE_USER_ID).get()
                 .map(JSONAPIDocument<List<LibraryEntry>>::get)
@@ -298,7 +272,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun allLibraryEntriesTest() {
         Api.allLibraryEntries()
                 .filter("userId", "59163")
@@ -313,7 +286,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun libraryEntryForAnime() {
         // always use id=12 (one piece) as a library entry for one piece is kept in the test account
         Api.libraryEntryForAnime(TEST_ACCOUNT_REMOTE_USER_ID, "12")
@@ -326,7 +298,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun libraryEntryForManga() {
         Api.libraryEntryForManga(TEST_ACCOUNT_REMOTE_USER_ID, "12")
                 .get()
@@ -338,8 +309,10 @@ class ApiTests {
                 .assertComplete()
     }
 
+    /**
+     * Favorites
+     */
     @Test
-    @Throws(Exception::class)
     fun allFavoritesTest() {
         Api.allFavorites()
                 .filter("userId", TEST_ACCOUNT_REMOTE_USER_ID)
@@ -355,7 +328,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun getFavoriteTest() {
         Api.favorite("696518").get()
                 .test()
@@ -364,7 +336,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun favoriteForAnimeTest() {
         // always use id=12 (one piece) as a library entry for one piece is a favorite in the test account
         Api.favoriteForAnime(TEST_ACCOUNT_REMOTE_USER_ID, "12")
@@ -377,7 +348,6 @@ class ApiTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun favoriteForMangaTest() {
         Api.favoriteForManga(TEST_ACCOUNT_REMOTE_USER_ID, "12")
                 .get()
@@ -385,6 +355,86 @@ class ApiTests {
                 .test()
                 // no favorites for this manga
                 .assertValue { l -> l.isEmpty() }
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    /**
+     * Characters
+     */
+    @Test
+    fun allCharactersTest() {
+        Api.allCharacters().get()
+                .map(JSONAPIDocument<List<Character>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun getCharacterTest() {
+        Api.character("2").get()
+                .test()
+                .assertValue { it -> it.get() is Character }
+                .assertValue { it -> it.get() != null }
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun charactersForAnimeTest() {
+        Api.charactersForAnime("1").get()
+                .map(JSONAPIDocument<List<AnimeCharacter>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    /**
+     * Castings
+     */
+
+    @Test
+    fun allCastingsTest() {
+        Api.allCastings().get()
+                .map(JSONAPIDocument<List<Casting>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun getCastingTest() {
+        Api.casting("4").get()
+                .test()
+                .assertValue { it -> it.get() is Casting }
+                .assertValue { it -> it.get() != null }
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun castingsForAnimeTest() {
+        Api.castingsForAnime("1").get()
+                .map(JSONAPIDocument<List<Casting>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun castingsForMangaTest() {
+        Api.castingsForManga("38")
+                .filter("isCharacter", "true")
+                .include("character", "person")
+                .get()
+                .map(JSONAPIDocument<List<Casting>>::get)
+                .flatMapIterable { l -> l }
+                .test()
                 .assertNoErrors()
                 .assertComplete()
     }

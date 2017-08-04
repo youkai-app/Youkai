@@ -28,11 +28,32 @@ object Api {
      * See: https://kotlinlang.org/docs/reference/delegated-properties.html
      */
     private val converterFactory by lazy {
+        /**
+         * Don't have to list all the classes manually, but we're doing so to prevent errors due to missing them.
+         * Hopefully some diligence will keep this list updated.
+         */
         val converterFactory = JSONAPIConverterFactory(
                 ObjectMapper(),
                 Anime::class.java,
-                Manga::class.java,
+                AnimeCharacter::class.java,
+                AnimeProduction::class.java,
+                AnimeStaff::class.java,
+                Casting::class.java,
+                Character::class.java,
+                Episode::class.java,
                 Favorite::class.java,
+                Franchise::class.java,
+                Genre::class.java,
+                Installment::class.java,
+                LibraryEntry::class.java,
+                Manga::class.java,
+                Mapping::class.java,
+                MediaRelationship::class.java,
+                Person::class.java,
+                Producer::class.java,
+                Review::class.java,
+                Streamer::class.java,
+                StreamingLink::class.java,
                 User::class.java
         )
         converterFactory.setAlternativeFactory(JacksonConverterFactory.create())
@@ -52,107 +73,82 @@ object Api {
     /**
      * Authentication
      */
-    fun login (username: String, password: String) = service.login(username, password, "password", CLIENT_ID, CLIENT_SECRET)
+    fun login (username: String, password: String) = service.postLogin(username, password, "password", CLIENT_ID, CLIENT_SECRET)
 
     fun refreshAuthToken (refreshToken: String) = service.refreshAuthToken(refreshToken, "refresh_token", CLIENT_ID, CLIENT_SECRET)
 
-    private fun createAuthorizationParam (tokenType: String, authToken: String): String {
-        return tokenType.capitalizeFirstLetter().append(authToken, " ")
-    }
+    private fun createAuthorizationParam (tokenType: String, authToken: String): String
+            = tokenType.capitalizeFirstLetter().append(authToken, " ")
 
     /**
      * Anime
      */
-    private val allAnime = { _: String, m: Map<String, String> -> service.allAnime(m) }
+    private val getAllAnimeCall = { _: String, m: Map<String, String> -> service.getAllAnime(m) }
 
-    fun allAnime(): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>> {
-        return RequestBuilder("", allAnime)
-    }
+    fun allAnime(): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>>
+            = RequestBuilder("", getAllAnimeCall)
 
     private val getAnimeCall = { id: String, m: Map<String, String> -> service.getAnime(id, m) }
 
-    fun anime(id: String): RequestBuilder<Observable<JSONAPIDocument<Anime>>> {
-        return RequestBuilder(id, getAnimeCall)
-    }
+    fun anime(id: String): RequestBuilder<Observable<JSONAPIDocument<Anime>>>
+            = RequestBuilder(id, getAnimeCall)
 
-    private val searchAnimeCall = { _: String, m: Map<String, String> -> service.allAnime(m) }
-
-    fun searchAnime(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>> {
-        return RequestBuilder("", searchAnimeCall)
-                .filter("text", query)
-    }
+    fun searchAnime(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>>
+            = RequestBuilder("", getAllAnimeCall).filter("text", query)
 
     private val getAnimeLanguagesCall = { id: String, m: Map<String, String> -> service.getAnimeLanguages(id, m) }
 
-    fun animeLanguages(id: String): RequestBuilder<Observable<List<String>>> {
-        return RequestBuilder(id, getAnimeLanguagesCall)
-    }
-
-    private val getAnimeCharactersCall = { id: String, m: Map<String, String> -> service.getAnimeCharacters(id, m) }
-
-    fun animeCharacters(id: String): RequestBuilder<Observable<JSONAPIDocument<List<AnimeCharacter>>>> {
-        return RequestBuilder(id, getAnimeCharactersCall)
-    }
+    fun languagesForAnime(animeId: String): RequestBuilder<Observable<List<String>>>
+            = RequestBuilder(animeId, getAnimeLanguagesCall)
 
     /**
      * Manga
      */
-    private val allManga = { _: String, m: Map<String, String> -> service.allManga(m) }
+    private val getAllMangaCall = { _: String, m: Map<String, String> -> service.getAllManga(m) }
 
-    fun allManga(): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>> {
-        return RequestBuilder("", allManga)
-    }
+    fun allManga(): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>>
+            = RequestBuilder("", getAllMangaCall)
 
     private val getMangaCall = { id: String, m: Map<String, String> -> service.getManga(id, m) }
 
-    fun manga(id: String): RequestBuilder<Observable<JSONAPIDocument<Manga>>> {
-        return RequestBuilder(id, getMangaCall)
-    }
+    fun manga(id: String): RequestBuilder<Observable<JSONAPIDocument<Manga>>>
+            = RequestBuilder(id, getMangaCall)
 
-    private val searchMangaCall = { _: String, m: Map<String, String> -> service.allManga(m) }
-
-    fun searchManga(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>> {
-        return RequestBuilder("", searchMangaCall)
-                .filter("text", query)
-    }
+    fun searchManga(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>>
+            = RequestBuilder("", getAllMangaCall).filter("text", query)
 
     /**
      * Library
      */
-    private val allLibraryEntriesCall = { _: String, m: Map<String, String> -> service.allLibraryEntries(m) }
+    private val getAllLibraryEntriesCall = { _: String, m: Map<String, String> -> service.getAllLibraryEntries(m) }
 
-    fun allLibraryEntries(): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return RequestBuilder("", allLibraryEntriesCall)
-    }
+    fun allLibraryEntries(): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>>
+            = RequestBuilder("", getAllLibraryEntriesCall)
 
     private val getLibraryCall = { id: String, m: Map<String, String> -> service.getLibrary(id, m) }
 
-    fun library(id: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return RequestBuilder(id, getLibraryCall)
-    }
+    fun library(id: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>>
+            = RequestBuilder(id, getLibraryCall)
 
     private val getLibraryEntryCall = { id: String, m: Map<String, String> -> service.getLibraryEntry(id, m) }
 
-    fun libraryEntry(id: String): RequestBuilder<Observable<JSONAPIDocument<LibraryEntry>>> {
-        return RequestBuilder(id, getLibraryEntryCall)
-    }
+    fun libraryEntry(id: String): RequestBuilder<Observable<JSONAPIDocument<LibraryEntry>>>
+            = RequestBuilder(id, getLibraryEntryCall)
 
     private fun libraryEntryForMedia(userId: String, mediaId: String, mediaType: String)
             : RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return RequestBuilder("", allLibraryEntriesCall)
+        return RequestBuilder("", getAllLibraryEntriesCall)
                 .filter("userId", userId)
                 .filter("kind", mediaType)
                 .filter(mediaType + "Id", mediaId)
                 .page("limit", 1)
     }
 
-    fun libraryEntryForAnime(userId: String, animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return libraryEntryForMedia(userId, animeId, "anime")
-    }
+    fun libraryEntryForAnime(userId: String, animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>>
+            = libraryEntryForMedia(userId, animeId, "anime")
 
-    fun libraryEntryForManga(userId: String, mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>> {
-        return libraryEntryForMedia(userId, mangaId, "manga")
-    }
+    fun libraryEntryForManga(userId: String, mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>>
+            = libraryEntryForMedia(userId, mangaId, "manga")
 
     fun createLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer")
             : Observable<Response<ResponseBody>> {
@@ -191,34 +187,77 @@ object Api {
     /**
      * Favorites
      */
-    private val allFavoritesCall = { _: String, m: Map<String, String> -> service.allFavorites(m) }
+    private val getAllFavoritesCall = { _: String, m: Map<String, String> -> service.getAllFavorites(m) }
 
-    fun allFavorites(): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
-        return RequestBuilder("", allFavoritesCall)
-    }
+    fun allFavorites(): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>>
+            = RequestBuilder("", getAllFavoritesCall)
 
     private val getFavoriteCall = { id: String, m: Map<String, String> -> service.getFavorite(id, m) }
 
-    fun favorite(id: String): RequestBuilder<Observable<JSONAPIDocument<Favorite>>> {
-        return RequestBuilder(id, getFavoriteCall)
-    }
+    fun favorite(id: String): RequestBuilder<Observable<JSONAPIDocument<Favorite>>>
+            = RequestBuilder(id, getFavoriteCall)
 
     private fun favoriteForMedia(userId: String, mediaId: String, mediaType: String)
             : RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
-        return RequestBuilder("", allFavoritesCall)
+        return RequestBuilder("", getAllFavoritesCall)
                 .filter("userId", userId)
                 .filter("itemId", mediaId)
                 .filter("itemType", mediaType)
                 .page("limit", 1)
     }
 
-    fun favoriteForAnime(userId: String, animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
-        return favoriteForMedia(userId, animeId, "Anime")
+    fun favoriteForAnime(userId: String, animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>>
+            = favoriteForMedia(userId, animeId, "Anime")
 
-    }
+    fun favoriteForManga(userId: String, mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>>
+            = favoriteForMedia(userId, mangaId, "Manga")
 
-    fun favoriteForManga(userId: String, mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>> {
-        return favoriteForMedia(userId, mangaId, "Manga")
-    }
+    /**
+     * Characters
+     */
+    private val getAllCharactersCall = { _: String, m: Map<String, String> -> service.getAllCharacters(m) }
+
+    fun allCharacters(): RequestBuilder<Observable<JSONAPIDocument<List<Character>>>>
+            = RequestBuilder("", getAllCharactersCall)
+
+    private val getCharacterCall = { id: String, m: Map<String, String> -> service.getCharacter(id, m) }
+
+    fun character(id: String): RequestBuilder<Observable<JSONAPIDocument<Character>>>
+            = RequestBuilder(id, getCharacterCall)
+
+    private val getAnimeCharactersCall = { id: String, m: Map<String, String> -> service.getAnimeCharacters(id, m) }
+
+    /**
+     * No equivalent method for Manga due to current Api limits (no filter for `mediaType` on `/characters` and `manga-characters` is unfilled.
+     * You must use [castingsForManga] and append the following [RequestBuilder] methods:
+     *          .filter("isCharacter", "true")
+     *          .include("character", "person")
+     */
+    fun charactersForAnime(animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<AnimeCharacter>>>>
+            = RequestBuilder(animeId, getAnimeCharactersCall)
+
+    /**
+     * Castings
+     */
+    private val getAllCastingsCall = { _: String, m: Map<String, String> -> service.getAllCastings(m) }
+
+    fun allCastings(): RequestBuilder<Observable<JSONAPIDocument<List<Casting>>>>
+            = RequestBuilder("", getAllCastingsCall)
+
+    private val getCastingCall = { id: String, m: Map<String, String> -> service.getCasting(id, m) }
+
+    fun casting(id: String): RequestBuilder<Observable<JSONAPIDocument<Casting>>>
+            = RequestBuilder(id, getCastingCall)
+
+    private fun castingsForMedia(mediaId: String, mediaType: String): RequestBuilder<Observable<JSONAPIDocument<List<Casting>>>>
+            = RequestBuilder("", getAllCastingsCall)
+            .filter("mediaType", mediaType)
+            .filter("mediaId", mediaId)
+
+    fun castingsForAnime(animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Casting>>>>
+            = castingsForMedia(animeId, "Anime")
+
+    fun castingsForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Casting>>>>
+            = castingsForMedia(mangaId, "Manga")
 
 }

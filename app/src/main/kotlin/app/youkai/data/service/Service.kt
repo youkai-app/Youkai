@@ -15,7 +15,7 @@ interface Service {
     @POST("oauth/token")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
-    fun login(
+    fun postLogin(
             @Field("username") username: String,
             @Field("password") password: String,
             @Field("grant_type") grantType: String,
@@ -37,7 +37,7 @@ interface Service {
      * Anime
      */
     @GET("edge/anime")
-    fun allAnime(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Anime>>>
+    fun getAllAnime(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Anime>>>
 
     @GET("edge/anime/{id}")
     fun getAnime(
@@ -61,7 +61,7 @@ interface Service {
      * Manga
      */
     @GET("edge/manga")
-    fun  allManga(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Manga>>>
+    fun getAllManga(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Manga>>>
 
     @GET("edge/manga/{id}")
     fun getManga(
@@ -73,7 +73,7 @@ interface Service {
      * Library
      */
     @GET("edge/library-entries")
-    fun  allLibraryEntries(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<LibraryEntry>>>
+    fun getAllLibraryEntries(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<LibraryEntry>>>
 
     @GET("edge/users/{id}/library-entries")
     fun getLibrary(
@@ -113,12 +113,36 @@ interface Service {
      * Favorites
      */
     @GET("edge/favorites")
-    fun allFavorites(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Favorite>>>
+    fun getAllFavorites(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Favorite>>>
 
     @GET("edge/favorites/{id}")
     fun getFavorite(
             @Path("id") id: String,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Favorite>>
+
+    /**
+     * Characters
+     */
+    @GET("edge/characters")
+    fun getAllCharacters(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Character>>>
+
+    @GET("edge/characters/{id}")
+    fun getCharacter(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Character>>
+
+    /**
+     * Castings
+     */
+    @GET("edge/castings")
+    fun getAllCastings(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Casting>>>
+
+    @GET("edge/castings/{id}")
+    fun getCasting(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Casting>>
 
 }

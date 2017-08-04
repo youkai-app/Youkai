@@ -713,7 +713,6 @@ class JsonParsingTests {
         System.out.println(body)
     }
 
-
     @Test
     fun favoritesTest() {
         val resourceConverter = ResourceConverter(Favorite::class.java)
