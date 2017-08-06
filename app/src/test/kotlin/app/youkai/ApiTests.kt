@@ -329,7 +329,7 @@ class ApiTests {
 
     @Test
     fun getFavoriteTest() {
-        Api.favorite("696518").get()
+        Api.favorite("697162").get()
                 .test()
                 .assertNoErrors()
                 .assertComplete()
@@ -357,6 +357,14 @@ class ApiTests {
                 .assertValue { l -> l.isEmpty() }
                 .assertNoErrors()
                 .assertComplete()
+    }
+
+    @Test
+    fun createFavorite() {
+        val favorite = Favorite()
+        favorite.user = User()
+        favorite.user!!.id = TEST_ACCOUNT_REMOTE_USER_ID
+        // TODO: finish test (needs polymorph fix)
     }
 
     /**

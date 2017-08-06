@@ -669,7 +669,7 @@ class JsonParsingTests {
         val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
         val anime = animeJsonDoc.get()
 
-        val s: String = ResourceConverters.animeConverter.writeDocument(JSONAPIDocument<Anime>(anime)).toString(Charsets.UTF_8)
+        val s: String = ResourceConverters.mainConverter.writeDocument(JSONAPIDocument<Anime>(anime)).toString(Charsets.UTF_8)
         System.out.println(s)
     }
 
@@ -682,7 +682,7 @@ class JsonParsingTests {
         val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
         val anime = animeJsonDoc.get()
 
-        val s: String = ResourceConverters.mediaConverter.writeDocument(JSONAPIDocument<Media>(anime.toMedia())).toString(Charsets.UTF_8)
+        val s: String = ResourceConverters.mainConverter.writeDocument(JSONAPIDocument<Media>(anime.toMedia())).toString(Charsets.UTF_8)
         System.out.println(s)
     }
 
@@ -708,7 +708,7 @@ class JsonParsingTests {
         entry.status = "completed"
         entry.progress = 99999
         entry.ratingTwenty = 20
-        val body = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(entry)).toString(Charsets.UTF_8)
+        val body = ResourceConverters.mainConverter.writeDocument(JSONAPIDocument<LibraryEntry>(entry)).toString(Charsets.UTF_8)
 
         System.out.println(body)
     }

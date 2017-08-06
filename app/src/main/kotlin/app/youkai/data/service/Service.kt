@@ -121,6 +121,19 @@ interface Service {
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Favorite>>
 
+    @POST("edge/favorites")
+    @Headers("Content-Type: application/vnd.api+json")
+    fun postFavorite(
+            @Header("Authorization") authorization: String,
+            @Body body: RequestBody
+    ): Observable<JSONAPIDocument<Favorite>>
+
+    @DELETE("edge/favorites/{id}")
+    @Headers("Content-Type: application/vnd.api+json")
+    fun deleteFavorite(
+            @Path("id") id: String
+    ): Observable<Response<Void>>
+
     /**
      * Characters
      */

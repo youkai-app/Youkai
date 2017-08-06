@@ -29,7 +29,7 @@ class Favorite : BaseJsonModel(JsonType("favorites")) {
     @RelationshipLinks("user")
     var userLinks: Links? = null
 
-/* TODO: Fix later.
+/* TODO: Fix (blocked by polymorph stuff)
     @Relationship("item")
     var item: BaseJsonModel? = null
 

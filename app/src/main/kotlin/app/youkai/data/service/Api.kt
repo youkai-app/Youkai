@@ -2,9 +2,9 @@ package app.youkai.data.service
 
 import app.youkai.data.models.*
 import app.youkai.data.remote.Client
+import app.youkai.util.SerializationUtils
 import app.youkai.util.ext.append
 import app.youkai.util.ext.capitalizeFirstLetter
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.jasminb.jsonapi.JSONAPIDocument
 import com.github.jasminb.jsonapi.retrofit.JSONAPIConverterFactory
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -28,34 +28,7 @@ object Api {
      * See: https://kotlinlang.org/docs/reference/delegated-properties.html
      */
     private val converterFactory by lazy {
-        /**
-         * Don't have to list all the classes manually, but we're doing so to prevent errors due to missing them.
-         * Hopefully some diligence will keep this list updated.
-         */
-        val converterFactory = JSONAPIConverterFactory(
-                ObjectMapper(),
-                Anime::class.java,
-                AnimeCharacter::class.java,
-                AnimeProduction::class.java,
-                AnimeStaff::class.java,
-                Casting::class.java,
-                Character::class.java,
-                Episode::class.java,
-                Favorite::class.java,
-                Franchise::class.java,
-                Genre::class.java,
-                Installment::class.java,
-                LibraryEntry::class.java,
-                Manga::class.java,
-                Mapping::class.java,
-                MediaRelationship::class.java,
-                Person::class.java,
-                Producer::class.java,
-                Review::class.java,
-                Streamer::class.java,
-                StreamingLink::class.java,
-                User::class.java
-        )
+        val converterFactory = JSONAPIConverterFactory(ResourceConverters.mainConverter)
         converterFactory.setAlternativeFactory(JacksonConverterFactory.create())
         converterFactory
     }
@@ -155,15 +128,12 @@ object Api {
         libraryEntry.id = "temporary_id"
 
         var body: String = ResourceConverters
-                .libraryEntryConverter
+                .mainConverter
                 .writeDocument(JSONAPIDocument<LibraryEntry>(libraryEntry))
                 .toString(Charsets.UTF_8)
 
-        /**
-         * This removes the ID from the content request. Currently the jsonapi library does not allow
-         * serialization of objects without IDs. TODO: Submit a PR to allow for this use case.
-         */
-        body = body.replace("\"id\":\"${libraryEntry.id}\",", "")
+        // remove the ID as it should not be sent (the resource has not been create yet so throws an error on the server)
+        body = SerializationUtils.removeFirstIdFromJson(body)
 
         return service.createLibraryEntry(
                 createAuthorizationParam(tokenType, authToken),
@@ -172,7 +142,7 @@ object Api {
     }
 
     fun updateLibraryEntry(libraryEntry: LibraryEntry, authToken: String, tokenType: String = "bearer"): Observable<JSONAPIDocument<LibraryEntry>> {
-        val body = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(libraryEntry))
+        val body = ResourceConverters.mainConverter.writeDocument(JSONAPIDocument<LibraryEntry>(libraryEntry))
 
         return service.updateLibraryEntry(
                 createAuthorizationParam(tokenType, authToken),
@@ -211,6 +181,32 @@ object Api {
 
     fun favoriteForManga(userId: String, mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>>
             = favoriteForMedia(userId, mangaId, "Manga")
+
+    // TODO: create version of method without need for full object
+    fun createFavorite(favorite: Favorite, authToken: String, tokenType: String = "bearer"): Observable<JSONAPIDocument<Favorite>> {
+        favorite.id = "temporary_id"
+
+        var body = ResourceConverters
+                .mainConverter
+                .writeDocument(JSONAPIDocument<Favorite>(favorite))
+                .toString(Charsets.UTF_8)
+
+        body = SerializationUtils.removeIdFromJson(body, favorite.id!!)
+
+        return service.postFavorite(
+                createAuthorizationParam(tokenType, authToken),
+                RequestBody.create(MediaType.parse(JSON_API_CONTENT_TYPE), body)
+        )
+    }
+
+    fun createFavorite(userId: String, mediaId: String, mediaType: JsonType, authToken: String, tokenType: String = "bearer") {
+        //TODO: write (blocked by polymorph)
+    }
+
+    //TODO: test (need to make a test for [createFavorite] first so can test safely
+    fun deleteFavorite(id: String): Observable<Response<Void>> {
+        return service.deleteFavorite(id)
+    }
 
     /**
      * Characters
