@@ -30,7 +30,7 @@ class StreamingLink : BaseJsonModel(JsonType("streamingLinks")) {
     var streamerLinks: Links? = null
 
     @Relationship("media")
-    var media: Media? = null
+    var media: BaseMedia? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null

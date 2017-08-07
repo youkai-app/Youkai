@@ -1,13 +1,13 @@
 package app.youkai.data.models.ext
 
 import app.youkai.data.models.Anime
-import app.youkai.data.models.Media
+import app.youkai.data.models.BaseMedia
 
 /**
  * Converts an Anime to a Media.
  */
-fun Anime.toMedia(): Media {
-    val media = Media()
+fun Anime.toMedia(): BaseMedia {
+    val media = BaseMedia()
     media.id = this.id
     media.links = this.links
     media.slug = this.slug

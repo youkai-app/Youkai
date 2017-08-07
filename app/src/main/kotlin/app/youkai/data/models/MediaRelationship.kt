@@ -18,19 +18,13 @@ class MediaRelationship : BaseJsonModel(JsonType("mediaRelationships")) {
     var role: String? = null
 
     @Relationship("source")
-    var sourceAnime: Anime? = null
-
-    @Relationship("source")
-    var sourceManga: Manga? = null
+    var source: BaseMedia? = null
 
     @RelationshipLinks("source")
     var sourceLinks: Links? = null
 
     @Relationship("destination")
-    var destinationAnime: Anime? = null
-
-    @Relationship("destination")
-    var destinationManga: Manga? = null
+    var destination: BaseMedia? = null
 
     @RelationshipLinks("destination")
     var destinationLinks: Links? = null

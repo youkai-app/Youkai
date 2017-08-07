@@ -1,7 +1,6 @@
 package app.youkai
 
 import app.youkai.data.remote.Client
-import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

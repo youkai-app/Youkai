@@ -36,10 +36,7 @@ class Casting : BaseJsonModel(JsonType("castings")) {
     var personLinks: Links? = null
 
     @Relationship("media")
-    var anime: Anime? = null
-
-    @Relationship("media")
-    var manga: Manga? = null
+    var media: BaseMedia? = null
 
     @RelationshipLinks("media")
     var mediaLinks: Links? = null
