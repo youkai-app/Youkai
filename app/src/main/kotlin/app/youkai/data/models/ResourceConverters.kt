@@ -34,7 +34,4 @@ object ResourceConverters {
                 User::class.java)
     }
 
-    val animeConverter by lazy { ResourceConverter(Anime::class.java) }
-
-    val mediaConverter: ResourceConverter by lazy { ResourceConverter(BaseMedia::class.java) }
 }

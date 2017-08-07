@@ -680,7 +680,7 @@ class JsonParsingTests {
         val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
         val anime = animeJsonDoc.get()
 
-        val s: String = ResourceConverters.mediaConverter.writeDocument(JSONAPIDocument<BaseMedia>(anime.toMedia())).toString(Charsets.UTF_8)
+        val s: String = ResourceConverters.mainConverter.writeDocument(JSONAPIDocument<BaseMedia>(anime.toMedia())).toString(Charsets.UTF_8)
         System.out.println(s)
     }
 
