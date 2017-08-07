@@ -15,7 +15,7 @@ interface Service {
     @POST("oauth/token")
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
-    fun login(
+    fun postLogin(
             @Field("username") username: String,
             @Field("password") password: String,
             @Field("grant_type") grantType: String,
@@ -34,19 +34,46 @@ interface Service {
     ): Observable<Credentials>
 
     /**
-     * Everything else.
+     * Anime
      */
+    @GET("edge/anime")
+    fun getAllAnime(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Anime>>>
+
     @GET("edge/anime/{id}")
     fun getAnime(
             @Path("id") id: String,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Anime>>
 
+    @GET("edge/anime/{id}/_languages")
+    fun getAnimeLanguages(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<List<String>>
+
+    @GET("edge/anime/{id}/anime-characters")
+    fun getAnimeCharacters(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<AnimeCharacter>>>
+
+    /**
+     * Manga
+     */
+    @GET("edge/manga")
+    fun getAllManga(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Manga>>>
+
     @GET("edge/manga/{id}")
     fun getManga(
             @Path("id") id: String,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Manga>>
+
+    /**
+     * Library
+     */
+    @GET("edge/library-entries")
+    fun getAllLibraryEntries(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<LibraryEntry>>>
 
     @GET("edge/users/{id}/library-entries")
     fun getLibrary(
@@ -82,10 +109,53 @@ interface Service {
             @Path("id") id: String
     ): Observable<Response<Void>>
 
-    @GET("edge/anime")
-    fun  searchAnime(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Anime>>>
+    /**
+     * Favorites
+     */
+    @GET("edge/favorites")
+    fun getAllFavorites(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Favorite>>>
 
-    @GET("edge/manga")
-    fun  searchManga(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Manga>>>
+    @GET("edge/favorites/{id}")
+    fun getFavorite(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Favorite>>
+
+    @POST("edge/favorites")
+    @Headers("Content-Type: application/vnd.api+json")
+    fun postFavorite(
+            @Header("Authorization") authorization: String,
+            @Body body: RequestBody
+    ): Observable<JSONAPIDocument<Favorite>>
+
+    @DELETE("edge/favorites/{id}")
+    @Headers("Content-Type: application/vnd.api+json")
+    fun deleteFavorite(
+            @Path("id") id: String
+    ): Observable<Response<Void>>
+
+    /**
+     * Characters
+     */
+    @GET("edge/characters")
+    fun getAllCharacters(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Character>>>
+
+    @GET("edge/characters/{id}")
+    fun getCharacter(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Character>>
+
+    /**
+     * Castings
+     */
+    @GET("edge/castings")
+    fun getAllCastings(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Casting>>>
+
+    @GET("edge/castings/{id}")
+    fun getCasting(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Casting>>
 
 }

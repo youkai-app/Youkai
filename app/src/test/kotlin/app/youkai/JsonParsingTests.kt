@@ -56,7 +56,7 @@ class JsonParsingTests {
         assertEquals("https://media.kitsu.io/anime/cover_images/7442/original.png?1486065327", anime.coverImage!!.original)
         assertEquals(25, anime.episodeCount)
         assertEquals(24, anime.episodeLength)
-        assertEquals("TV" , anime.subtype)
+        assertEquals("TV", anime.subtype)
         assertEquals("LHtdKWJdif4", anime.youtubeVideoId)
         assertEquals("TV", anime.showType)
         assertEquals(false, anime.isNsfw)
@@ -489,7 +489,7 @@ class JsonParsingTests {
         assertEquals("https://media.kitsu.io/manga/cover_images/66/original.jpg?1430838562", manga.coverImage!!.original)
         assertEquals(109, manga.chapterCount)
         assertEquals(27, manga.volumeCount)
-        assertEquals("manga" , manga.subtype)
+        assertEquals("manga", manga.subtype)
         assertEquals("Shounen Gangan", manga.serialization)
         assertEquals("manga", manga.mangaType)
 
@@ -667,7 +667,7 @@ class JsonParsingTests {
         val animeJsonDoc = resourceConverter.readDocument(testJson, Anime::class.java)
         val anime = animeJsonDoc.get()
 
-        val s: String = ResourceConverters.animeConverter.writeDocument(JSONAPIDocument<Anime>(anime)).toString(Charsets.UTF_8)
+        val s: String = ResourceConverters.mainConverter.writeDocument(JSONAPIDocument<Anime>(anime)).toString(Charsets.UTF_8)
         System.out.println(s)
     }
 
@@ -706,7 +706,7 @@ class JsonParsingTests {
         entry.status = "completed"
         entry.progress = 99999
         entry.ratingTwenty = 20
-        val body = ResourceConverters.libraryEntryConverter.writeDocument(JSONAPIDocument<LibraryEntry>(entry)).toString(Charsets.UTF_8)
+        val body = ResourceConverters.mainConverter.writeDocument(JSONAPIDocument<LibraryEntry>(entry)).toString(Charsets.UTF_8)
 
         System.out.println(body)
     }
@@ -728,6 +728,4 @@ class JsonParsingTests {
         assertEquals(true, (mediaRelationships.filter { it -> it.id == "11853" }.first()!!.destination!! as Anime).showType.equals("movie"))
         assertEquals("Little Witch Academia (TV)", mediaRelationships.filter { it -> it.source!!.id == "12272" }.first()!!. source!!.canonicalTitle)
     }
-
-
 }
