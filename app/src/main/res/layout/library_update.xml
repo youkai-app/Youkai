@@ -21,7 +21,7 @@
         android:gravity="center_vertical"/>
 
     <Switch
-        android:id="@+id/privacy_switch"
+        android:id="@+id/privacySwitch"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:text="Private"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <Spinner
-        android:id="@+id/status_spinner"
+        android:id="@+id/statusSpinner"
         android:spinnerMode="dropdown"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@id/status" />
 
     <app.youkai.progressview.ProgressView
-        android:id="@+id/progress_view"
+        android:id="@+id/progressView"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         app:pv_showMax="true"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@id/progress" />
 
     <app.youkai.progressview.ProgressView
-        android:id="@+id/rewatched_view"
+        android:id="@+id/rewatchedView"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         app:pv_showMax="false"
@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@id/rewatched" />
 
     <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:id="@+id/rating_bar"
+        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="@id/rating"
@@ -133,7 +133,7 @@
         app:layout_constraintTop_toBottomOf="@id/rating" />
 
     <EditText
-        android:id="@+id/notes_input_edit"
+        android:id="@+id/notesInputEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

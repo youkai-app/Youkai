@@ -89,8 +89,9 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter, LoginState
     override fun doLogin() {
         //presenter.doLogin(username.inputString(), password.inputString())
 
+        //TODO: remove before PR merge
         val testUpdateSheet = LibraryUpdateSheet();
-        testUpdateSheet.show(supportFragmentManager, testUpdateSheet.tag) //TODO: remove
+        testUpdateSheet.show(supportFragmentManager, testUpdateSheet.tag)
     }
 
     override fun completeLogin() {

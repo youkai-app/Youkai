@@ -1,32 +1,48 @@
 package app.youkai.ui.feature.library_update
 
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.youkai.R
-import app.youkai.ui.MvpBottomSheetFragment
+import kotlinx.android.synthetic.main.library_update.*
 
-class LibraryUpdateSheet : MvpBottomSheetFragment<LibraryUpdateView, LibraryUpdatePresenter>(), LibraryUpdateView {
-    override fun createPresenter(): LibraryUpdatePresenter {
-        return LibraryUpdatePresenter()
+//class LibraryUpdateSheet : MvpBottomSheetFragment<LibraryUpdateView, LibraryUpdatePresenter>(), LibraryUpdateView {
+class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
+    var presenter: LibraryUpdatePresenter = LibraryUpdatePresenter()
+
+    fun createPresenter() {
+        presenter = LibraryUpdatePresenter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = super.onCreateView(inflater, container, savedInstanceState)
-        inflater.inflate(R.layout.library_update, container, false)
-        super.onViewCreated(v, savedInstanceState)
+        val v: View = inflater.inflate(R.layout.library_update, container, false)
+
+        // manually calling presenter method
+        presenter.attachView(this)
+
         return v
     }
 
-    /*
-    init {
-        setContentView(R.layout.library_update_dialog)
-        setCanceledOnTouchOutside(true)
-    }*/
+    override fun onDestroyView() {
+        super.onDestroyView()
 
-    override fun onStart() {
-        super.onStart()
+        // manually calling presenter method
+        presenter.detachView(retainInstance = false)
+
+    }
+
+    private fun postUpdate () {
+        //TODO: handle status
+        presenter.postEntryUpdate(
+                privacySwitch.isChecked,
+                "status",
+                progressView.progress,
+                rewatchedView.progress,
+                ratingBar.rating,
+                notesInputEdit.text.toString()
+        )
     }
 
 }
