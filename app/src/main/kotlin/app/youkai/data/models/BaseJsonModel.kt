@@ -3,7 +3,9 @@ package app.youkai.data.models
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.github.jasminb.jsonapi.annotations.Id
 import com.github.jasminb.jsonapi.annotations.Links
+import com.github.jasminb.jsonapi.annotations.Type
 
+@Type("baseJsonModelShouldBeIgnoredInAllCases")
 open class BaseJsonModel(@JsonIgnore val type: JsonType) {
 
     /*

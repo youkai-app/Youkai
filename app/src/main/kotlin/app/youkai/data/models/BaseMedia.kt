@@ -8,6 +8,7 @@ import com.github.jasminb.jsonapi.annotations.Type
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Type("media")
+//TODO: rename to Media
 open class BaseMedia(type: JsonType = JsonType("media")) : BaseJsonModel(type) {
 
     companion object FieldNames {

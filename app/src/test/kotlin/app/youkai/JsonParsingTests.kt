@@ -3,6 +3,7 @@ package app.youkai
 import app.youkai.data.models.*
 import app.youkai.data.models.ext.toMedia
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.jasminb.jsonapi.DeserializationFeature
 import com.github.jasminb.jsonapi.JSONAPIDocument
 import com.github.jasminb.jsonapi.ResourceConverter
 import org.junit.Test
@@ -728,4 +729,22 @@ class JsonParsingTests {
         assertEquals(true, (mediaRelationships.filter { it -> it.id == "11853" }.first()!!.destination!! as Anime).showType.equals("movie"))
         assertEquals("Little Witch Academia (TV)", mediaRelationships.filter { it -> it.source!!.id == "12272" }.first()!!. source!!.canonicalTitle)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun favoritesWithItemTest() {
+        val resourceConverter = ResourceConverter(Favorite::class.java)
+        resourceConverter.enableDeserializationOption(DeserializationFeature.ALLOW_UNKNOWN_INCLUSIONS)
+        resourceConverter.enableDeserializationOption(DeserializationFeature.ALLOW_UNKNOWN_TYPE_IN_RELATIONSHIP)
+
+        val favoritesJson = ClassLoader.getSystemClassLoader().getResourceAsStream("favorites_json")
+        val favoritesJsonDoc = resourceConverter.readDocumentCollection(favoritesJson, Favorite::class.java)
+        val favorites = favoritesJsonDoc.get()
+
+        assertNotNull(favorites)
+        //assertEquals(true, favorites.first().item is Character)
+        //assertEquals(true, favorites[1].item is Manga)
+        //xassertEquals(454, (favorites.first().item as Character).malId)
+    }
+
 }
