@@ -8,7 +8,8 @@
     android:paddingBottom="16dp"
     android:background="@android:color/white"
     android:focusable="true"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true"
+    android:theme="@style/AppTheme" >
     
     <TextView
         android:id="@+id/title"
@@ -17,15 +18,18 @@
         android:text="Re:Nichibros"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="#8a000000"
-        android:gravity="center_vertical"/>
+        android:textColor="@color/bottom_sheet_title"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp" />
 
     <Switch
         android:id="@+id/privacySwitch"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:text="Private"
-        android:textColor="#8a000000"
+        android:textColor="@color/bottom_sheet_item"
         android:textSize="14sp"
         android:switchPadding="12dp"
         app:layout_constraintBaseline_toBaselineOf="@id/title"
@@ -40,7 +44,9 @@
         android:gravity="center_vertical"
         android:maxLines="1"
         android:text="Status"
-        android:textColor="#8a000000"
+        android:textColor="@color/bottom_sheet_title"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -49,7 +55,7 @@
         android:spinnerMode="dropdown"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:entries="@array/statuses"
+        android:gravity="right"
         app:layout_constraintBaseline_toBaselineOf="@id/status"
         app:layout_constraintStart_toEndOf="@id/status"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +68,9 @@
         android:text="Progress"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="#8a000000"
+        android:textColor="@color/bottom_sheet_title"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/status" />
 
@@ -83,7 +91,9 @@
         android:text="Rewatched"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="#8a000000"
+        android:textColor="@color/bottom_sheet_title"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/progress" />
 
@@ -104,21 +114,23 @@
         android:text="Rating"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="#8a000000"
+        android:textColor="@color/bottom_sheet_title"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/rewatched" />
 
     <me.zhanghai.android.materialratingbar.MaterialRatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/rewatched"
         app:layout_constraintBottom_toBottomOf="@id/rating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/rating"
-        app:mrb_progressBackgroundTint="#fecb20"
+        app:mrb_progressBackgroundTint="@color/bottom_sheet_title"
         app:mrb_progressTint="#fecb20"
-        app:mrb_indeterminateTint="#fecb20"
         app:mrb_secondaryProgressTint="#fecb20" />
 
     <TextView
@@ -128,20 +140,18 @@
         android:text="Personal notes"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="#8a000000"
+        android:textColor="@color/bottom_sheet_title"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/rating" />
 
     <EditText
         android:id="@+id/notesInputEdit"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@id/notes"
-        app:layout_constraintBaseline_toBaselineOf="@id/notes"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        app:layout_constraintTop_toBottomOf="@id/notes"
+        android:paddingTop="0dp"
         android:hint="Edit notes" />
 
 </android.support.constraint.ConstraintLayout>

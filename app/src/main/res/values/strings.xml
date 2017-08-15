@@ -180,8 +180,18 @@
 
     <string name="floating_action_button_scroll_behavior">app.youkai.ui.common.view.ScrollAwareFabBehavior</string>
 
-    <string-array name="statuses">
-        <item name="currently_watching">Currently watching</item>
+    <string name="currently_watching">Currently Watching</string>
+    <string name="want_to_watch">Want to Watch</string>
+    <string name="completed">Completed</string>
+    <string name="on_hold">On Hold</string>
+    <string name="dropped">Dropped</string>
+
+    <string-array name="anime_statuses">
+        <item>@string/currently_watching</item>
+        <item>@string/want_to_watch</item>
+        <item>@string/completed</item>
+        <item>@string/on_hold</item>
+        <item>@string/dropped</item>
     </string-array>
 
 </resources>
