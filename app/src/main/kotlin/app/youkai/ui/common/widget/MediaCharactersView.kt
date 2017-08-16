@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.view_media_characters.view.*
  * See: https://i.imgur.com/0xzxF4v.png, https://i.imgur.com/nFkpAEl.png
  */
 class MediaCharactersView : LinearLayout {
-    var clickListener: ClickListener? = null
+    var clickListener: (position: Int) -> Unit = {}
 
     constructor(context: Context) : super(context) {
         init(context, null, null, null)
@@ -43,19 +43,19 @@ class MediaCharactersView : LinearLayout {
 
         /* Click listeners */
         char1Container.setOnClickListener {
-            clickListener?.onCharacterClick(0)
+            clickListener.invoke(0)
         }
         char2Container.setOnClickListener {
-            clickListener?.onCharacterClick(1)
+            clickListener.invoke(1)
         }
         char3Container.setOnClickListener {
-            clickListener?.onCharacterClick(2)
+            clickListener.invoke(2)
         }
         char4Container.setOnClickListener {
-            clickListener?.onCharacterClick(3)
+            clickListener.invoke(3)
         }
         char5Container.setOnClickListener {
-            clickListener?.onCharacterClick(4)
+            clickListener.invoke(4)
         }
     }
 
