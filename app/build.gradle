@@ -136,6 +136,9 @@ dependencies {
 
     /* RatingBar */
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
+
+    /* ErrorView */
+    compile 'tr.xip.errorview:library:3.0.0'
 }
 
 repositories {
