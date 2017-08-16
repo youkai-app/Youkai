@@ -102,3 +102,10 @@ fun ViewFlipper.setDisplayedChildSafe(index: Int) {
         displayedChild = index
     }
 }
+
+/**
+ * Cleaner and more self-explanatory null checking
+ */
+inline fun <T:Any, R> whenNotNull(input: T?, callback: (T)->R): R? {
+    return input?.let(callback)
+}
