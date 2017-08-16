@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.ViewFlipper
 import java.text.NumberFormat
 import java.util.*
 
@@ -91,4 +92,13 @@ fun Number.formatTwoDecimals(): String {
   */
 fun String.capitalizeFirstLetter(): String {
     return this.first().toString().capitalize().append(this.substring(1))
+}
+
+/**
+ * Sets ViewFlipper child to a given index if it's not already displaying it.
+ */
+fun ViewFlipper.setDisplayedChildSafe(index: Int) {
+    if (displayedChild != index) {
+        displayedChild = index
+    }
 }
