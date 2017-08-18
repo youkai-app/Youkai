@@ -58,7 +58,9 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
             //TODO: manga doesn't have chapters count any more
             //view.setMaxChapters(entry.manga!!.chapterCount!!)
             view.setTitle(entry.manga!!.titles!!.en!!)
+            view.setMaxChapters(entry.manga!!.chapterCount!!)
             view.setChapterProgress(entry.progress!!)
+            view.setMaxVolumes(entry.manga!!.volumeCount!!)
             view.setVolumeProgress(entry.volumesOwned!!)
         }
         libraryEntry = entry
@@ -80,7 +82,7 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
                     .include("anime", "manga")
                     .fields("anime", Anime.EPISODE_COUNT, BaseMedia.TITLES)
                     //.fields("manga", Manga.CHAPTERS_COUNT)
-                    .fields("manga", BaseMedia.TITLES)
+                    .fields("manga", BaseMedia.TITLES, Manga.CHAPTERS_COUNT, Manga.VOLUME_COUNT)
                     .get()
                     .observeOn(Schedulers.computation())
                     .map { it.get() }

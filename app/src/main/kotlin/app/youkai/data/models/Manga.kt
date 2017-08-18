@@ -11,7 +11,7 @@ class Manga : BaseMedia(JsonType("manga")) {
 
     companion object FieldNames {
         //TODO: chapters count no longer exists
-        val CHAPTERS_COUNT = "chaptersCount"
+        val CHAPTERS_COUNT = "chapterCount"
         val VOLUME_COUNT = "volumeCount"
         val SERIALIZATION = "serialization"
         val MANGA_TYPE = "mangaType"
