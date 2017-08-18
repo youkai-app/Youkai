@@ -12,6 +12,7 @@ class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
     companion object FieldNames {
         val STATUS = "status"
         val PROGRESS = "progress"
+        val VOLUMES_OWNED = "volumesOwned"
         val RECONSUMING = "reconsuming"
         val RECONSUME_COUNT = "reconsumeCount"
         val NOTES = "notes"
@@ -30,6 +31,11 @@ class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
     var status: String? = null
 
     var progress: Int? = null
+
+    /**
+     * Only used for manga currently.
+    */
+    var volumesOwned: Int? = null
 
     var reconsuming: Boolean? = null
 
