@@ -11,4 +11,4 @@ fun color(@IntegerRes res: Int) = App.context.resources.getColor(res)
 /**
  * Convenience function to get strings from anywhere
  */
-fun string(@IntegerRes res: Int): String? = App.context.resources.getString(res)
+fun string(@IntegerRes res: Int): String = App.context.resources.getString(res)
