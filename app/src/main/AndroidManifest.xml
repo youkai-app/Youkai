@@ -26,6 +26,10 @@
         <activity
             android:name=".ui.feature.media.MediaActivity"
             android:theme="@style/AppTheme.Media" />
+
+        <activity
+            android:name=".ui.feature.media.characters.CharactersActivity"
+            android:label="@string/title_characters" />
     </application>
 
 </manifest>

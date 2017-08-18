@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Youkai</string>
 
+    <string name="title_characters">Characters</string>
+
     <string name="title_alternative_titles">Alternative Titles</string>
 
     <string name="content_username">Username</string>

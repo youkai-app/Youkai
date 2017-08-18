@@ -2,6 +2,7 @@ package app.youkai.ui.feature.media.summary
 
 import android.support.annotation.IntegerRes
 import app.youkai.data.models.*
+import app.youkai.data.models.ext.MediaType
 import com.hannesdorfmann.mosby.mvp.MvpView
 
 interface SummaryView : MvpView {
@@ -39,4 +40,6 @@ interface SummaryView : MvpView {
     fun onAllCharactersClicked()
     fun onGenreClicked(slug: String)
     fun onRelatedClicked(id: String)
+
+    fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String)
 }

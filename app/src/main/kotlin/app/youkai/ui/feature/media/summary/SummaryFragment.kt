@@ -3,11 +3,8 @@ package app.youkai.ui.feature.media.summary
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.support.annotation.IntegerRes
 import android.text.Html
-import android.text.Spannable
 import android.text.SpannableString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -15,13 +12,11 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import app.youkai.R
 import app.youkai.data.models.*
+import app.youkai.data.models.ext.MediaType
+import app.youkai.ui.feature.media.characters.CharactersActivity
 import app.youkai.ui.feature.media.view.*
-import app.youkai.util.ext.formatForDisplay
-import app.youkai.util.ext.formatTwoDecimals
-import app.youkai.util.ext.toTimestamp
-import app.youkai.util.ext.toVisibility
+import app.youkai.util.ext.*
 import com.hannesdorfmann.mosby.mvp.MvpFragment
-import kotlinx.android.synthetic.main.activity_media.*
 import kotlinx.android.synthetic.main.fragment_media_summary.*
 
 class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), SummaryView {
@@ -59,6 +54,12 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
 
         allReviewsButton.setOnClickListener {
             presenter.onAllReviewsClicked()
+        }
+
+        characters.clickListener = {
+            if (it == 4) {
+                presenter.onMoreCharactersClicked()
+            }
         }
     }
 
@@ -268,6 +269,12 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
 
     override fun onRelatedClicked(id: String) {
         // TODO: Implementation
+    }
+
+    override fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String) {
+        whenNotNull(activity) {
+            CharactersActivity.start(it, mediaId, mediaType, mediaTitle)
+        }
     }
 
     interface StreamingServiceClickListener {
