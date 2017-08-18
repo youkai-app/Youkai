@@ -3,6 +3,7 @@ package app.youkai.ui.feature.media.summary
 import app.youkai.App
 import app.youkai.R
 import app.youkai.data.models.*
+import app.youkai.data.models.ext.MediaType
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 
 /**
@@ -161,7 +162,12 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
     }
 
     override fun onMoreCharactersClicked() {
-        view?.onAllCharactersClicked()
+        val type = when (media) {
+            is Anime -> MediaType.ANIME
+            is Manga -> MediaType.MANGA
+            else -> MediaType.NO_IDEA
+        }
+        view?.startCharactersActivity(media?.id ?: "?", type, media?.canonicalTitle ?: "?")
     }
 
     override fun onRelatedClicked(id: String) {
