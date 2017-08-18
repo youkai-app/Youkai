@@ -8,52 +8,82 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import app.youkai.R
+import app.youkai.data.models.Anime
+import app.youkai.data.models.JsonType
+import app.youkai.data.models.Manga
+import app.youkai.data.models.Status
+import app.youkai.progressview.ProgressView
+import app.youkai.util.ext.removeAllAndAdd
 import com.jakewharton.rxbinding2.widget.RxTextView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.library_update.*
 import kotlinx.android.synthetic.main.library_update.view.*
-import java.util.*
+import kotlinx.android.synthetic.main.library_update_progress_anime.*
+import kotlinx.android.synthetic.main.library_update_progress_anime.view.*
+import kotlinx.android.synthetic.main.library_update_progress_manga.*
+import kotlinx.android.synthetic.main.library_update_progress_manga.view.*
 
-//class LibraryUpdateSheet : MvpBottomSheetFragment<LibraryUpdateView, LibraryUpdatePresenter>(), LibraryUpdateView {
+/**
+ * Was intended to be
+ * class LibraryUpdateSheet : MvpBottomSheetFragment<LibraryUpdateView, BaseLibraryUpdatePresenter>(), LibraryUpdateView
+ * but could not get MvpBottomSheetFragment to work.
+ */
 class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
-    var presenter: LibraryUpdatePresenter = LibraryUpdatePresenter()
 
-    fun createPresenter() {
-        presenter = LibraryUpdatePresenter()
+    companion object {
+        val ARGUMENT_LIBRARY_ENTRY_ID = "libraryEntryId"
+        val ARGUMENT_ANIME_ID = "animeId"
+        val ARGUMENT_MANGA_ID = "mangaId"
     }
+
+    private var mediaType: JsonType? = null
+    private var presenter: BaseLibraryUpdatePresenter? = null
+    private var statusResolver: StatusResolver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (arguments.containsKey(ARGUMENT_LIBRARY_ENTRY_ID)) {
+            presenter = BaseLibraryUpdatePresenter()
+            presenter!!.getEntryById(arguments.getString(ARGUMENT_LIBRARY_ENTRY_ID))
+        } else if (arguments.containsKey(ARGUMENT_ANIME_ID)) {
+            //TODO: mediaType
+            setMediaType(JsonType("anime"))
+            (presenter as AnimeLibraryUpdatePresenter).getEntryByAnime(arguments.getString(ARGUMENT_ANIME_ID))
+        } else if (arguments.containsKey(ARGUMENT_MANGA_ID)) {
+            setMediaType(JsonType("manga"))
+            (presenter as MangaLibraryUpdatePresenter).getEntryByManga(arguments.getString(ARGUMENT_MANGA_ID))
+
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.library_update, container, false)
         // manually calling presenter method
-        presenter.attachView(this)
+        if (presenter == null) presenter = BaseLibraryUpdatePresenter()
 
-        v.privacySwitch.setOnCheckedChangeListener { _, isPrivate -> presenter.setPrivate(isPrivate) }
-        //TODO: make MangaStatusResolver
-        val statusAdapter = ArrayAdapter.createFromResource(context, R.array.anime_statuses, R.layout.simple_spinner_item)
-        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        v.statusSpinner.adapter = statusAdapter
+        presenter!!.attachView(this)
+
+        v.privacySwitch.setOnCheckedChangeListener { _, isPrivate -> presenter!!.setPrivate(isPrivate) }
         v.statusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // do nothing?
             }
 
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
-                //TODO: make MangaStatusResolver
-                System.out.println(AnimeStatusResolver.getItemStatus(statusAdapter.getItem(position).toString()))
+                if (statusResolver != null) {
+                    presenter!!.setStatus(statusResolver!!.getItemStatus(statusSpinner.adapter.getItem(position).toString()))
+                }
+                /**
+                 * Cannot throw this error because [onItemSelected] is called when the status is set initially.
+                 * TODO: find a better way to do this?
+                 */
+                // else throw IllegalStateException("Cannot set a status without a statusResolver.")
             }
-
         }
-        v.progressView.setListener { presenter.setProgress(v.progressView.progress) }
-        //TODO: set max properly
-        v.progressView.max = 12
-        v.rewatchedView.setListener { presenter.setProgress(v.progressView.progress) }
-        v.ratingBar.setOnRatingChangeListener { _, rating -> presenter.setRating(rating) }
+        //TODO: handle rating preferences
+        v.ratingBar.setOnRatingChangeListener { _, rating -> presenter!!.setRating(rating) }
         RxTextView.textChangeEvents(v.notesInputEdit)
                 .skipInitialValue()
-                .subscribe { t -> presenter.setNotes(t.text().toString()) }
+                .subscribe { t -> presenter!!.setNotes(t.text().toString()) }
 
         return v
     }
@@ -61,7 +91,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     override fun onDestroyView() {
         super.onDestroyView()
         // manually calling presenter method
-        presenter.detachView(retainInstance = false)
+        presenter?.detachView(retainInstance = false)
     }
 
     override fun onPause() {
@@ -72,9 +102,173 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
          *  - switched app
          *  -
          */
-        presenter.postUpdate()
+        presenter?.postUpdate()
 
         super.onPause()
+    }
+
+    private fun mediaTypeIsAnime(mediaType: JsonType? = null): Boolean {
+        if (mediaType != null) return mediaType.type == Anime().type.type
+        else return this.mediaType!!.type == Anime().type.type
+    }
+
+    private fun mediaTypeIsManga(mediaType: JsonType? = null): Boolean {
+        if (mediaType != null) return mediaType.type == Manga().type.type
+        else return this.mediaType!!.type == Manga().type.type
+    }
+
+    override fun setMediaType(mediaType: JsonType) {
+        if (!mediaTypeIsAnime(mediaType) && !mediaTypeIsManga(mediaType))
+            throw IllegalArgumentException("Media type " + mediaType.type + " is unrecognised.")
+
+        this.mediaType = mediaType
+        configureForMediaType()
+    }
+
+    private fun configureForMediaType() {
+        replacePresenterForMediaType()
+        if (mediaTypeIsAnime()) {
+            //TODO: set headers in view
+            statusResolver = AnimeStatusResolver()
+            statusResolver!!.init(context)
+        } else if (mediaTypeIsManga()) {
+            statusResolver = MangaStatusResolver()
+            statusResolver!!.init(context)
+        }
+        configureViewForMediaType()
+    }
+
+    private fun configureViewForMediaType(v: View? = null) {
+        setProgressViewForMediaType(v)
+        setStatusSpinnerForMediaType(v)
+    }
+
+    private fun replacePresenterForMediaType() {
+        val newPresenter: BaseLibraryUpdatePresenter =
+                if (mediaTypeIsAnime()) AnimeLibraryUpdatePresenter()
+                else if (mediaTypeIsManga()) MangaLibraryUpdatePresenter()
+                else throw IllegalArgumentException("No library entry presenter for type: " + mediaType!!.type)
+
+        if (presenter != null) newPresenter.libraryEntry = presenter!!.libraryEntry
+        presenter = newPresenter
+    }
+
+    private fun setProgressViewForMediaType(v: View? = null) {
+        val layout: Int =
+                if (mediaTypeIsAnime())
+                    R.layout.library_update_progress_anime
+                else if (mediaTypeIsManga())
+                    R.layout.library_update_progress_manga
+                else throw IllegalArgumentException("No progress layout for media type: " + mediaType!!.type)
+
+        val container: ViewGroup =
+                if (v != null) v.progressContainer
+                else if (progressContainer != null) progressContainer
+                else throw NullPointerException("No container to inflate progress views into.")
+
+        val episodes: ProgressView? =
+                if (v != null) v.episodesProgressView
+                else if (episodesProgressView != null) episodesProgressView
+                else null
+
+        val chapters: ProgressView? =
+                if (v != null) v.chaptersProgressView
+                else if (chaptersProgressView != null) chaptersProgressView
+                else null
+
+        val volumes: ProgressView? =
+                if (v != null) v.volumesProgressView
+                else if (volumesProgressView != null) volumesProgressView
+                else null
+
+        container.removeAllAndAdd(activity.layoutInflater, layout)
+
+        // set listeners
+        if (presenter is AnimeLibraryUpdatePresenter) {
+            episodes?.setListener { (presenter as AnimeLibraryUpdatePresenter).setProgress(episodes.progress) }
+        } else if (presenter is MangaLibraryUpdatePresenter) {
+            chapters?.setListener { presenter!!.setProgress(chapters.progress) }
+            volumes?.setListener { (presenter as MangaLibraryUpdatePresenter).setVolumesProgress(volumes.progress) }
+        } else throw IllegalStateException("Presenter $presenter is unsuitable.")
+    }
+
+    private fun setStatusSpinnerForMediaType(v: View?) {
+        val statusAdapter = ArrayAdapter.createFromResource(
+                context,
+                if (mediaTypeIsAnime()) R.array.anime_statuses
+                else if (mediaTypeIsManga()) R.array.manga_statuses
+                else throw IllegalArgumentException("Cannot set status spinner for media type: " + mediaType?.type),
+                R.layout.simple_spinner_item
+        )
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        if(v != null) v.statusSpinner.adapter = statusAdapter
+        else statusSpinner.adapter = statusAdapter
+    }
+
+    override fun setTitle(title: String) {
+        this.title.text = title
+    }
+
+    override fun setPrivate(isPrivate: Boolean) {
+        privacySwitch.isChecked = isPrivate
+    }
+
+    override fun setStatus(status: Status) {
+        this.statusSpinner.setSelection(statusResolver!!.getItemPosition(status))
+    }
+
+    override fun setReconsumedCount(reconsumedCount: Int) {
+        rewatchedView.progress = reconsumedCount
+    }
+
+    override fun setRating(rating: Float) {
+        ratingBar.rating = rating
+    }
+
+    override fun setNotes(notes: String) {
+        notesInputEdit.setText(notes)
+    }
+
+    override fun setEpisodeProgress(progress: Int) {
+        if (mediaTypeIsAnime()) {
+            if (progressContainer.findViewById(R.id.episodesProgressView) != null) episodesProgressView.progress = progress
+            else throw IllegalArgumentException("No episodesProgressView was inflated.")
+        } else throw IllegalArgumentException("Cannot set episode progress for media type: " + mediaType!!.type)
+    }
+
+    override fun setMaxEpisodes(max: Int) {
+        if (mediaTypeIsAnime()) {
+            if (progressContainer.findViewById(R.id.episodesProgressView) != null) episodesProgressView.max = max
+            else throw IllegalArgumentException("No episodesProgressView was inflated.")
+        } else throw IllegalArgumentException("Cannot set max episodes for media type: " + mediaType!!.type)
+    }
+
+    override fun setChapterProgress(progress: Int) {
+        if (mediaTypeIsManga()) {
+            if (progressContainer.findViewById(R.id.chaptersProgressView) != null) chaptersProgressView.progress = progress
+            else throw IllegalArgumentException("No chaptersProgressView was inflated.")
+        } else throw IllegalArgumentException("Cannot set chapter progress for media type: " + mediaType!!.type)
+    }
+
+    override fun setMaxChapters(max: Int) {
+        if (mediaTypeIsManga()) {
+            if (progressContainer.findViewById(R.id.chaptersProgressView) != null) chaptersProgressView.max = max
+            else throw IllegalArgumentException("No chaptersProgressView was inflated.")
+        } else throw IllegalArgumentException("Cannot set max chapters for media type: " + mediaType!!.type)
+    }
+
+    override fun setVolumeProgress(progress: Int) {
+        if (mediaTypeIsManga()) {
+            if (progressContainer.findViewById(R.id.volumesProgressView) != null) volumesProgressView.progress = progress
+            else throw IllegalArgumentException("No volumesProgressView was inflated.")
+        } else throw IllegalArgumentException("Cannot set volume progress for media type: " + mediaType!!.type)
+    }
+
+    override fun setMaxVolumes(max: Int) {
+        if (mediaTypeIsManga()) {
+            if (progressContainer.findViewById(R.id.volumesProgressView) != null) volumesProgressView.max = max
+            else throw IllegalArgumentException("No volumesProgressView was inflated.")
+        } else throw IllegalArgumentException("Cannot set max volumes for media type: " + mediaType!!.type)
     }
 
 }

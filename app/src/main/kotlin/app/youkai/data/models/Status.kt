@@ -1,6 +1,6 @@
 package app.youkai.data.models
 
-class Status(value: String) {
+class Status(val value: String) {
 
     companion object {
         val CURRENT = Status("current")

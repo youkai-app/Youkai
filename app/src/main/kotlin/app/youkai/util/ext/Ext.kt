@@ -3,6 +3,8 @@ package app.youkai.util.ext
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.support.annotation.LayoutRes
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ViewFlipper
 import java.text.NumberFormat
@@ -108,4 +110,15 @@ fun ViewFlipper.setDisplayedChildSafe(index: Int) {
  */
 inline fun <T:Any, R> whenNotNull(input: T?, callback: (T)->R): R? {
     return input?.let(callback)
+}
+
+/** Empties the ViewGroup and adds the child view.
+ * @param layoutInflater The layout inflater to use to inflate the childView.
+ * @param childView The new view to add to this ViewGroup.
+ */
+fun ViewGroup.removeAllAndAdd(layoutInflater: LayoutInflater, @LayoutRes childViewRes: Int) {
+    this.removeAllViews()
+    val childView = layoutInflater.inflate(childViewRes, this, false)
+    this.addView(childView)
+
 }

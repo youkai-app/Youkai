@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="16dp"
+    android:paddingLeft="20dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
     android:background="@android:color/white"
@@ -15,7 +15,6 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:text="Re:Nichibros"
         android:maxLines="1"
         android:textSize="16sp"
         android:textColor="@color/bottom_sheet_title"
@@ -28,7 +27,7 @@
         android:id="@+id/privacySwitch"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:text="Private"
+        android:text="@string/private_text"
         android:textColor="@color/bottom_sheet_item"
         android:textSize="14sp"
         android:switchPadding="12dp"
@@ -43,9 +42,8 @@
         android:layout_height="48dp"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:text="Status"
-        android:textColor="@color/bottom_sheet_title"
-        android:fontFamily="sans-serif-medium"
+        android:text="@string/status"
+        android:textColor="@color/bottom_sheet_item"
         android:textStyle="normal"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/title" />
@@ -55,7 +53,6 @@
         android:spinnerMode="dropdown"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:gravity="right"
         app:layout_constraintBaseline_toBaselineOf="@id/status"
         app:layout_constraintStart_toEndOf="@id/status"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,45 +62,41 @@
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Progress"
+        android:text="@string/progress"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="@color/bottom_sheet_title"
-        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/bottom_sheet_item"
         android:textStyle="normal"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/status" />
 
-    <app.youkai.progressview.ProgressView
-        android:id="@+id/progressView"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        app:pv_showMax="true"
-        app:layout_constraintBottom_toBottomOf="@id/progress"
+    <FrameLayout
+        android:id="@+id/progressContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/progress"
         app:layout_constraintStart_toEndOf="@id/progress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/rewatched"
+        android:id="@+id/reconsumed"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Rewatched"
+        android:text="@string/rewatched"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="@color/bottom_sheet_title"
-        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/bottom_sheet_item"
         android:textStyle="normal"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/progress" />
+        app:layout_constraintTop_toBottomOf="@id/progressContainer" />
 
     <app.youkai.progressview.ProgressView
         android:id="@+id/rewatchedView"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         app:pv_showMax="false"
-        app:layout_constraintBottom_toBottomOf="@id/rewatched"
-        app:layout_constraintStart_toEndOf="@id/rewatched"
+        app:layout_constraintTop_toTopOf="@id/reconsumed"
+        app:layout_constraintStart_toEndOf="@id/reconsumed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1" />
 
@@ -111,37 +104,41 @@
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Rating"
+        android:text="@string/rating"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="@color/bottom_sheet_title"
-        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/bottom_sheet_item"
         android:textStyle="normal"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/rewatched" />
+        app:layout_constraintTop_toBottomOf="@id/reconsumed" />
 
+    <!--
+        The secondaryProgressTint is currently incorrect because the rating bar library does not handle transparency in
+        star colouring properly (draws the indeterminate color over the progressBackgroundTint) so it ends up too dark
+        in half stars.
+    -->
     <me.zhanghai.android.materialratingbar.MaterialRatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        app:layout_constraintTop_toBottomOf="@id/rewatched"
-        app:layout_constraintBottom_toBottomOf="@id/rating"
+        app:layout_constraintTop_toBottomOf="@id/reconsumed"
+        app:layout_constraintTop_toTopOf="@id/rating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/rating"
         app:mrb_progressBackgroundTint="@color/bottom_sheet_title"
         app:mrb_progressTint="#fecb20"
-        app:mrb_secondaryProgressTint="#fecb20" />
+        app:mrb_secondaryProgressTint="#fecb20"
+        app:mrb_indeterminateTint="@color/bottom_sheet_title" />
 
     <TextView
         android:id="@+id/notes"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Personal notes"
+        android:text="@string/personal_notes"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textColor="@color/bottom_sheet_title"
-        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/bottom_sheet_item"
         android:textStyle="normal"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/rating" />
@@ -152,6 +149,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/notes"
         android:paddingTop="0dp"
-        android:hint="Edit notes" />
+        android:hint="@string/edit_notes" />
 
 </android.support.constraint.ConstraintLayout>

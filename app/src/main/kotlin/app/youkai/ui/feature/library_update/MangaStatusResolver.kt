@@ -4,13 +4,13 @@ import android.content.Context
 import app.youkai.R
 import app.youkai.data.models.Status
 
-class AnimeStatusResolver : StatusResolver {
+class MangaStatusResolver : StatusResolver {
 
     /**
      * These may be translated.
      */
-    private lateinit var currentlyWatching: String
-    private lateinit var wantToWatch: String
+    private lateinit var currentlyReading: String
+    private lateinit var wantToRead: String
     private lateinit var completed: String
     private lateinit var onHold: String
     private lateinit var dropped: String
@@ -20,12 +20,12 @@ class AnimeStatusResolver : StatusResolver {
      * Must be initialised before using any functions.
      */
     override fun init(context: Context) {
-        currentlyWatching = context.resources.getString(R.string.currently_watching)
-        wantToWatch = context.resources.getString(R.string.want_to_watch)
+        currentlyReading = context.resources.getString(R.string.currently_reading)
+        wantToRead = context.resources.getString(R.string.want_to_read)
         completed = context.resources.getString(R.string.completed)
         onHold = context.resources.getString(R.string.on_hold)
         dropped = context.resources.getString(R.string.dropped)
-        statusTexts = context.resources.getStringArray(R.array.anime_statuses)
+        statusTexts = context.resources.getStringArray(R.array.manga_statuses)
     }
 
     /**
@@ -35,8 +35,8 @@ class AnimeStatusResolver : StatusResolver {
      */
     override fun getItemStatus(statusText: String): Status {
         when (statusText) {
-            currentlyWatching -> return Status.CURRENT
-            wantToWatch -> return Status.PLANNED
+            currentlyReading -> return Status.CURRENT
+            wantToRead -> return Status.PLANNED
             completed -> return Status.COMPLETED
             onHold -> return Status.ON_HOLD
             dropped -> return Status.DROPPED
@@ -52,8 +52,8 @@ class AnimeStatusResolver : StatusResolver {
     override fun getItemPosition(status: Status): Int {
         val statusText: String
         when (status.value) {
-            Status.CURRENT.value -> statusText = currentlyWatching
-            Status.PLANNED.value -> statusText = wantToWatch
+            Status.CURRENT.value -> statusText = currentlyReading
+            Status.PLANNED.value -> statusText = wantToRead
             Status.COMPLETED.value -> statusText = completed
             Status.ON_HOLD.value -> statusText = onHold
             Status.DROPPED.value -> statusText = dropped
