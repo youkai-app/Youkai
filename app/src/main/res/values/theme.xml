@@ -24,4 +24,8 @@
     <style name="AppTheme.Login.ProgressBar" parent="AppTheme.Login">
         <item name="colorAccent">@android:color/white</item>
     </style>
+
+    <style name="AppTheme.AccentWhite" parent="@style/AppTheme">
+        <item name="colorAccent">@android:color/white</item>
+    </style>
 </resources>
