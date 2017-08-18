@@ -2,15 +2,18 @@ package app.youkai.ui.common.app
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import app.youkai.R
+import com.hannesdorfmann.mosby.mvp.MvpActivity
+import com.hannesdorfmann.mosby.mvp.MvpPresenter
+import com.hannesdorfmann.mosby.mvp.MvpView
 import kotlinx.android.synthetic.main.activity_fragment_container.*
 
 /**
  * A base Activity class that takes care of the dirty work of wrapper layout, fragment transaction,
  * and toolbar stuff...
  */
-abstract class FragmentContainerActivity : AppCompatActivity() {
+abstract class FragmentContainerActivity<V : MvpView, P : MvpPresenter<V>> : MvpActivity<V, P>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +22,7 @@ abstract class FragmentContainerActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, getFragment())
+                .replace(R.id.fragmentContainer, newFragment())
                 .commit()
     }
 
@@ -28,8 +31,10 @@ abstract class FragmentContainerActivity : AppCompatActivity() {
         return true
     }
 
+    protected fun getToolbar(): Toolbar = toolbar
+
     /**
      * Returns the fragment to be used in this Activity
      */
-    abstract fun getFragment(): Fragment
+    abstract fun newFragment(): Fragment
 }
