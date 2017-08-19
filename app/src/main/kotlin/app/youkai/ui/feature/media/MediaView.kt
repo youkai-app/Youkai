@@ -11,6 +11,7 @@ interface MediaView : MvpView {
     fun setPoster(url: String?)
     fun setCover(url: String?)
     fun setTitle(title: String)
+    fun setAlternativeTitlesButtonVisible(visible: Boolean)
     fun setTrailerButtonVisible(visible: Boolean)
     fun setFavorited(favorited: Boolean = true)
     fun setType(type: String)
