@@ -17,18 +17,20 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder
  * of the image that is loaded. The bitmap is then used to obtain a Palette instance. The resulting
  * Palette instance is passed to tha lambda parameter.
  *
- * If the resulting bitmap is null, the lambda expression won't be executed.
+ * If the resulting bitmap is null, the lambda expression will have a null argument.
  */
-fun SimpleDraweeView.loadWithPalette(url: String?, listener: (Palette) -> Unit) {
+fun SimpleDraweeView.loadWithPalette(url: String?, listener: (Palette?) -> Unit) {
     controller = Fresco.newDraweeControllerBuilder()
             .setImageRequest(
-                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
+                    ImageRequestBuilder.newBuilderWithSource(Uri.parse(url ?: ""))
                             .setPostprocessor(object : BasePostprocessor() {
                                 override fun process(bitmap: Bitmap?) {
-                                    bitmap?.run {
+                                    if (bitmap != null) {
                                         Palette.from(bitmap).generate {
                                             listener(it)
                                         }
+                                    } else {
+                                        listener(null)
                                     }
                                 }
                             })
