@@ -5,7 +5,6 @@ import android.support.design.widget.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import app.youkai.R
 import app.youkai.data.models.Anime
@@ -14,13 +13,18 @@ import app.youkai.data.models.Manga
 import app.youkai.data.models.Status
 import app.youkai.progressview.ProgressView
 import app.youkai.util.ext.removeAllAndAdd
-import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.library_update.*
 import kotlinx.android.synthetic.main.library_update.view.*
 import kotlinx.android.synthetic.main.library_update_progress_anime.*
 import kotlinx.android.synthetic.main.library_update_progress_anime.view.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.view.*
+import android.view.ViewAnimationUtils
+import android.animation.Animator
+import android.annotation.SuppressLint
+import android.os.Build
+import com.jakewharton.rxbinding2.widget.itemSelections
+import com.jakewharton.rxbinding2.widget.textChangeEvents
 
 /**
  * Was intended to be
@@ -38,6 +42,9 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     private var mediaType: JsonType? = null
     private var presenter: BaseLibraryUpdatePresenter? = null
     private var statusResolver: StatusResolver? = null
+
+    private var privacySwitchTouchX: Float? = null
+    private var privacySwitchTouchY: Float? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,26 +69,26 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
         presenter!!.attachView(this)
 
-        v.privacySwitch.setOnCheckedChangeListener { _, isPrivate -> presenter!!.setPrivate(isPrivate) }
-        v.statusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                // do nothing?
-            }
-
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
-                if (statusResolver != null) {
-                    presenter!!.setStatus(statusResolver!!.getItemStatus(statusSpinner.adapter.getItem(position).toString()))
-                }
-                /**
-                 * Cannot throw this error because [onItemSelected] is called when the status is set initially.
-                 * TODO: find a better way to do this?
-                 */
-                // else throw IllegalStateException("Cannot set a status without a statusResolver.")
-            }
+        v.privacySwitch.setOnTouchListener { _, motionEvent ->
+            privacySwitchTouchX = motionEvent.x
+            privacySwitchTouchY = motionEvent.y
+            false
         }
+        v.privacySwitch.setOnCheckedChangeListener { _, isPrivate ->
+            presenter!!.setPrivate(isPrivate); setPrivateBackground(isPrivate)
+        }
+        v.statusSpinner.itemSelections()
+                .skipInitialValue()
+                .filter { v.statusSpinner.adapter != null }
+                .map { v.statusSpinner.adapter.getItem(it).toString() }
+                .doOnNext { if (statusResolver == null) throw IllegalStateException("Cannot set a status without a statusResolver") }
+                .map { statusResolver!!.getItemStatus(it) }
+                .filter { presenter != null }
+                .doOnNext { presenter!!.setStatus(it) }
+                .subscribe()
         //TODO: handle rating preferences
         v.ratingBar.setOnRatingChangeListener { _, rating -> presenter!!.setRating(rating) }
-        RxTextView.textChangeEvents(v.notesInputEdit)
+        v.notesInputEdit.textChangeEvents()
                 .skipInitialValue()
                 .subscribe { t -> presenter!!.setNotes(t.text().toString()) }
 
@@ -211,6 +218,33 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun setPrivate(isPrivate: Boolean) {
         privacySwitch.isChecked = isPrivate
+        setPrivateBackground(isPrivate)
+    }
+
+    @SuppressLint("NewApi")
+    private fun  setPrivateBackground(isPrivate: Boolean) {
+        // previously invisible view
+        val view = isPrivateBackground
+        var animator: Animator? = null
+        val isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+
+        /**
+         * if [privacySwitchTouchX] or [privacySwitchTouchY] are null we cannot animate
+         */
+        if (isLollipopOrGreater && privacySwitchTouchX != null && privacySwitchTouchY != null) {
+            val startX: Int = (privacySwitch.left + privacySwitchTouchX!!).toInt()
+            val startY: Int = (privacySwitch.top + privacySwitchTouchY!!).toInt()
+            val startRadius = 0
+            val endRadius = Math.hypot(view.width.toDouble(), view.height.toDouble())
+            // set animator to expand or contract depending on the resultant state
+            animator = ViewAnimationUtils.createCircularReveal(view, startX, startY,
+                    if (isPrivate) startRadius.toFloat() else endRadius.toFloat(),
+                    if (isPrivate) endRadius.toFloat() else startRadius.toFloat())
+        }
+
+        // make the view visible and start the animation
+        view.visibility = if (isPrivate) View.VISIBLE else View.GONE
+        if (isLollipopOrGreater) animator?.start()
     }
 
     override fun setStatus(status: Status) {
