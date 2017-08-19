@@ -24,6 +24,7 @@
     <color name="default_image">#E0E0E0</color>
     <color name="default_media_cover">@color/default_image</color>
     <color name="default_media_poster">@color/default_image</color>
+    <color name="default_media_poster_dark">#b1b1b1</color>
     <color name="default_media_character">@color/default_image</color>
 
     <color name="background_bar_info">#f9f9f9</color>
