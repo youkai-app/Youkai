@@ -209,9 +209,9 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         val ARG_MEDIA = "media"
         val ARG_LIBRARY_ENTRY = "library_entry"
 
-        fun new(context: Context, id: String, type: MediaType, media: BaseMedia?, libraryEntry: LibraryEntry?): Intent {
+        fun new(context: Context, id: String?, type: MediaType, media: BaseMedia?, libraryEntry: LibraryEntry?): Intent {
             val intent = Intent(context, MediaActivity::class.java)
-            intent.putExtra(ARG_ID, id)
+            intent.putExtra(ARG_ID, id ?: "-1")
             intent.putExtra(ARG_TYPE, type.toString())
             // TODO: Parcelable stuff
 //            if (media != null) intent.putExtra(ARG_MEDIA, media)

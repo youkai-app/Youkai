@@ -39,7 +39,7 @@ interface SummaryView : MvpLceView {
     fun onCharacterClicked(id: String)
     fun onAllCharactersClicked()
     fun onGenreClicked(slug: String)
-    fun onRelatedClicked(id: String)
+    fun startRelatedMediaActivity(id: String, type: MediaType)
 
     fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String)
 }

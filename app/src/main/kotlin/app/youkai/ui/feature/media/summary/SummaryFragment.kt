@@ -16,6 +16,7 @@ import app.youkai.data.models.*
 import app.youkai.data.models.ext.MediaType
 import app.youkai.ui.common.mvp.LceListener
 import app.youkai.ui.common.mvp.MvpLceFragment
+import app.youkai.ui.feature.media.MediaActivity
 import app.youkai.ui.feature.media.characters.CharactersActivity
 import app.youkai.ui.feature.media.view.*
 import app.youkai.util.ext.*
@@ -234,9 +235,8 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
         for (item in related) {
             val view = RelatedMediaItemCreator.new(item)
             view.setOnClickListener {
-                if (item.id != null) {
-                    presenter.onRelatedClicked(item.id!!)
-                }
+                val id = item.destination?.id ?: ""
+                presenter.onRelatedClicked(id, MediaType.fromObject(item.destination))
             }
             this.related.addView(view)
         }
@@ -287,8 +287,8 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
         // TODO: Implementation
     }
 
-    override fun onRelatedClicked(id: String) {
-        // TODO: Implementation
+    override fun startRelatedMediaActivity(id: String, type: MediaType) {
+        activity?.startActivity(MediaActivity.new(activity, id, type, null, null))
     }
 
     override fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String) {
