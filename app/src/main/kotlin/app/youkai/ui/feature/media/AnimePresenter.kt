@@ -22,8 +22,8 @@ class AnimePresenter : BaseMediaPresenter() {
                         "streamingLinks.streamer",
                         "reviews.user",
                         "animeProductions.producer",
-                        "animeCharacters.character"
-//                        "mediaRelationships.destination"
+                        "animeCharacters.character",
+                        "mediaRelationships.destination"
                 )
                 .get()
                 .subscribeOn(Schedulers.io())
