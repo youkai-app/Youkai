@@ -3,6 +3,7 @@ package app.youkai.ui.feature.media
 import app.youkai.App.Companion.context
 import app.youkai.R
 import app.youkai.data.models.Anime
+import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.ext.typeString
 import app.youkai.data.service.Api
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -41,6 +42,11 @@ class AnimePresenter : BaseMediaPresenter() {
                             // onComplete
                         }
                 )
+    }
+
+    override fun setMedia(media: BaseMedia) {
+        super.setMedia(media)
+        view?.setTrailerButtonVisible(media is Anime && media.youtubeVideoId != null)
     }
 
     override fun setType() {

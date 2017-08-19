@@ -13,6 +13,7 @@ import app.youkai.data.models.LibraryEntry
 import app.youkai.data.models.Titles
 import app.youkai.data.models.ext.MediaType
 import app.youkai.ui.feature.media.summary.SummaryFragment
+import app.youkai.util.ext.toVisibility
 import kotlinx.android.synthetic.main.activity_media.*
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
@@ -110,6 +111,10 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
     override fun setTitle(title: String) {
         toolbar.title = title
         this.titleView.text = title
+    }
+
+    override fun setTrailerButtonVisible(visible: Boolean) {
+        trailer.visibility = visible.toVisibility()
     }
 
     override fun setFavorited(favorited: Boolean) {

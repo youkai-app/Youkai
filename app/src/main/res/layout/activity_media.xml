@@ -148,7 +148,9 @@
                 android:padding="8dp"
                 android:text="@string/content_watch_trailer"
                 android:textAllCaps="true"
-                android:textColor="@color/youtube" />
+                android:textColor="@color/youtube"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <fragment
                 android:id="@+id/summaryFragment"
