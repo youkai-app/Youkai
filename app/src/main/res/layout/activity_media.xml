@@ -67,12 +67,12 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/poster"
                     android:layout_width="120dp"
-                    android:layout_height="158dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    app:placeholderImage="@color/default_media_poster" />
+                    app:placeholderImage="@color/default_media_poster"
+                    app:viewAspectRatio="0.7051282051" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
