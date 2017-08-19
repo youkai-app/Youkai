@@ -19,15 +19,17 @@ object RelatedMediaItemCreator {
      */
     fun new(data: MediaRelationship): View {
         val view = App.context.getLayoutInflater().inflate(R.layout.item_media_related, null, false)
-        val url = data.source?.posterImage?.tiny
+        val url = data.destination?.posterImage?.tiny
         view.poster.loadWithPalette(url, {
-            view.card.setBackgroundColor(it.darkMutedSwatch?.rgb ?: color(R.color.primary))
-            view.title.setTextColor(it.darkMutedSwatch?.titleTextColor ?: color(android.R.color.white))
-            view.type.setTextColor(it.darkMutedSwatch?.titleTextColor ?: color(android.R.color.white))
-        })
-        view.poster.setImageURI(data.source?.posterImage?.medium)
+            view.card.setCardBackgroundColor(it?.mutedSwatch?.rgb ?: color(R.color.default_media_poster_dark))
+            view.title.setTextColor(it?.mutedSwatch?.titleTextColor ?: color(android.R.color.white))
+            view.type.setTextColor(it?.mutedSwatch?.titleTextColor ?: color(android.R.color.white))
 
-        view.title.text = data.source?.canonicalTitle
+            // Load the actual image after colors are obtained
+            view.poster.setImageURI(data.destination?.posterImage?.medium)
+        })
+
+        view.title.text = data.destination?.canonicalTitle
         view.type.text = data.role
 
         return view
