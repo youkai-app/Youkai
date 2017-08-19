@@ -105,7 +105,9 @@
                             android:layout_marginRight="8dp"
                             android:background="@drawable/ripple_dark_oval"
                             android:scaleType="center"
-                            app:srcCompat="@drawable/ic_info_grey_24dp" />
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/ic_info_grey_24dp"
+                            tools:visibility="visible" />
                     </LinearLayout>
 
                     <TextView

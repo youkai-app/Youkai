@@ -49,6 +49,9 @@ open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
         setType()
         setReleaseSummary()
         setAgeRating()
+
+        view?.setAlternativeTitlesButtonVisible(media.titles != null
+                || media.abbreviatedTitles?.isNotEmpty() ?: false)
     }
 
     override fun setLibraryInfo(libraryEntry: LibraryEntry?) {

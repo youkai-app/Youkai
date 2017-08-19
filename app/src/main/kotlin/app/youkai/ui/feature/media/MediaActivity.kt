@@ -113,6 +113,10 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         this.titleView.text = title
     }
 
+    override fun setAlternativeTitlesButtonVisible(visible: Boolean) {
+        alternativeTitles.visibility = visible.toVisibility()
+    }
+
     override fun setTrailerButtonVisible(visible: Boolean) {
         trailer.visibility = visible.toVisibility()
     }
