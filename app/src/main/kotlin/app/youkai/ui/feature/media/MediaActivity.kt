@@ -96,6 +96,11 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
     override fun setSummary(media: BaseMedia) {
         (summaryFragment as SummaryFragment).setMedia(media, onTablet())
     }
