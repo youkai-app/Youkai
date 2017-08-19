@@ -1,10 +1,5 @@
 package app.youkai.ui.feature.media
 
-import android.util.Log
-import app.youkai.App
-import app.youkai.App.Companion.context
-import app.youkai.R
-import app.youkai.data.models.Anime
 import app.youkai.data.models.Manga
 import app.youkai.data.models.ext.typeString
 import app.youkai.data.service.Api
@@ -17,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 class MangaPresenter : BaseMediaPresenter() {
 
     override fun loadMedia(mediaId: String) {
+        onLoading()
         Api.manga(mediaId)
                 .include(
                         "genres",
@@ -28,25 +24,26 @@ class MangaPresenter : BaseMediaPresenter() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        // onNext
                         { m ->
                             run {
                                 setMedia(m.get())
+                                onContent()
                             }
                         },
-                        // onError
                         { e ->
-                            throw e
-                            // TODO: Handle
+                            onError(e)
                         },
-                        // onComplete
                         {
-                            Log.wtf("CCCCCCC", "")
+                            // onComplete
                         }
                 )
     }
 
     override fun setType() {
         view?.setType((media as Manga?)?.typeString() ?: "")
+    }
+
+    override fun onError(e: Throwable) {
+        view?.tellChildrenError(e)
     }
 }

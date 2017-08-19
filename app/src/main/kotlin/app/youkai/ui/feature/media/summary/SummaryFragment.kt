@@ -10,16 +10,32 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ViewFlipper
 import app.youkai.R
 import app.youkai.data.models.*
 import app.youkai.data.models.ext.MediaType
+import app.youkai.ui.common.mvp.LceListener
+import app.youkai.ui.common.mvp.MvpLceFragment
 import app.youkai.ui.feature.media.characters.CharactersActivity
 import app.youkai.ui.feature.media.view.*
 import app.youkai.util.ext.*
-import com.hannesdorfmann.mosby.mvp.MvpFragment
 import kotlinx.android.synthetic.main.fragment_media_summary.*
+import tr.xip.errorview.ErrorView
 
-class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), SummaryView {
+class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), SummaryView {
+
+    val lceListener = LceListener(
+            onLoading = {
+                presenter.onLoading()
+            },
+            onContent = {
+                presenter.onContent()
+            },
+            onError = {
+                presenter.onError(it)
+            }
+    )
+
     var streamingServiceClickListener: StreamingServiceClickListener? = null
     var episodesClickListener: SimpleClickListener? = null
     var seasonClickListener: SimpleClickListener? = null
@@ -27,6 +43,10 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
     var charactersClickListener: SimpleClickListener? = null
 
     override fun createPresenter(): BaseSummaryPresenter = BaseSummaryPresenter()
+
+    override fun getViewFlipper(): ViewFlipper = flipper
+
+    override fun getErrorView(): ErrorView = errorView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -105,6 +105,18 @@ open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
         }
     }
 
+    override fun onLoading() {
+        view?.tellChildrenLoading()
+    }
+
+    override fun onContent() {
+        view?.tellChildrenContent()
+    }
+
+    override fun onError(e: Throwable) {
+        view?.tellChildrenError(e)
+    }
+
     override fun onPosterClicked() {
         view?.showFullscreenPoster()
     }

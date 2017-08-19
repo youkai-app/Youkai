@@ -1,6 +1,5 @@
 package app.youkai.ui.feature.media
 
-import android.util.Log
 import app.youkai.App.Companion.context
 import app.youkai.R
 import app.youkai.data.models.Anime
@@ -15,6 +14,7 @@ import io.reactivex.schedulers.Schedulers
 class AnimePresenter : BaseMediaPresenter() {
 
     override fun loadMedia(mediaId: String) {
+        onLoading()
         Api.anime(mediaId)
                 .include(
                         "genres",
@@ -28,20 +28,17 @@ class AnimePresenter : BaseMediaPresenter() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        // onNext
                         { m ->
                             run {
                                 setMedia(m.get())
+                                onContent()
                             }
                         },
-                        // onError
                         { e ->
-                            throw e
-                            // TODO: Handle
+                            onError(e)
                         },
-                        // onComplete
                         {
-                            Log.wtf("CCCCCCC", "")
+                            // onComplete
                         }
                 )
     }
@@ -57,5 +54,9 @@ class AnimePresenter : BaseMediaPresenter() {
         } else {
             view?.showToast(context.getString(R.string.error_no_trailer))
         }
+    }
+
+    override fun onError(e: Throwable) {
+        view?.tellChildrenError(e)
     }
 }
