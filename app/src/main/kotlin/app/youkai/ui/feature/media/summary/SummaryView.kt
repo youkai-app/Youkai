@@ -3,9 +3,9 @@ package app.youkai.ui.feature.media.summary
 import android.support.annotation.IntegerRes
 import app.youkai.data.models.*
 import app.youkai.data.models.ext.MediaType
-import com.hannesdorfmann.mosby.mvp.MvpView
+import app.youkai.ui.common.mvp.MvpLceView
 
-interface SummaryView : MvpView {
+interface SummaryView : MvpLceView {
     fun setSynopsis(synopsis: String)
     fun setGenres(genres: List<Genre>)
     fun setNoGenres()

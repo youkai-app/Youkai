@@ -160,5 +160,7 @@
 
     <string name="action_read_more">Read More</string>
 
+    <string name="oops">Oops</string>
+
     <string name="ok">OK</string>
 </resources>

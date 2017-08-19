@@ -4,6 +4,7 @@ import app.youkai.App
 import app.youkai.R
 import app.youkai.data.models.*
 import app.youkai.data.models.ext.MediaType
+import app.youkai.util.string
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 
 /**
@@ -125,6 +126,19 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
     override fun setRelated() {
         throw NotImplementedError("This is media-specific functionality and has to be implemented" +
                 " in a subclassing presenter.")
+    }
+
+    override fun onLoading() {
+        view?.switchToLoading()
+    }
+
+    override fun onContent() {
+        view?.switchToContent()
+    }
+
+    override fun onError(e: Throwable) {
+        view?.setError(string(R.string.oops), e.message ?: "?", showRetryButton = true)
+        view?.switchToError()
     }
 
     override fun onSynopsisClicked() {

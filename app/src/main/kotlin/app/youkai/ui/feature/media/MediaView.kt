@@ -25,6 +25,10 @@ interface MediaView : MvpView {
     fun showLibraryEdit()
     fun showToast(text: String)
 
+    fun tellChildrenLoading()
+    fun tellChildrenContent()
+    fun tellChildrenError(e: Throwable)
+
     fun onTablet(): Boolean
 
     enum class FabState {
