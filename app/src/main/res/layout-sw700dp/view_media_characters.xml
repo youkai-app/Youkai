@@ -84,7 +84,7 @@
             app:placeholderImage="@color/default_media_character"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.3" />
+            android:alpha="0.5" />
 
         <TextView
             android:id="@+id/moreCount"
