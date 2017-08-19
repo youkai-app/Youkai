@@ -3,6 +3,7 @@ package app.youkai.ui.feature.media.summary
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.Character
 import app.youkai.data.models.Genre
+import app.youkai.data.models.ext.MediaType
 
 interface SummaryPresenter {
     fun load(media: BaseMedia, onTablet: Boolean)
@@ -36,5 +37,5 @@ interface SummaryPresenter {
     fun onAllReviewsClicked()
     fun onCharacterClicked(character: Character)
     fun onMoreCharactersClicked()
-    fun onRelatedClicked(id: String)
+    fun onRelatedClicked(id: String, type: MediaType)
 }

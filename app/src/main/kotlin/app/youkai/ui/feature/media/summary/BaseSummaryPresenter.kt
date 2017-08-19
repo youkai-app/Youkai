@@ -184,7 +184,7 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
         view?.startCharactersActivity(media?.id ?: "?", type, media?.canonicalTitle ?: "?")
     }
 
-    override fun onRelatedClicked(id: String) {
-        view?.onRelatedClicked(id)
+    override fun onRelatedClicked(id: String, type: MediaType) {
+        view?.startRelatedMediaActivity(id, type)
     }
 }
