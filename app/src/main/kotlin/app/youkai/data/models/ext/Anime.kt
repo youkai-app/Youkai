@@ -77,11 +77,11 @@ enum class AnimeSeason(val value: Int, val valueWithYear: Int) {
 fun Anime.typeString(): String {
     return when (showType) {
         "TV" -> string(R.string.media_type_anime_tv)
-        "Special" -> string(R.string.media_type_anime_special)
+        "special" -> string(R.string.media_type_anime_special)
         "OVA" -> string(R.string.media_type_anime_ova)
         "ONA" -> string(R.string.media_type_anime_ona)
-        "Movie" -> string(R.string.media_type_anime_movie)
-        "Music" -> string(R.string.media_type_anime_music)
+        "movie" -> string(R.string.media_type_anime_movie)
+        "music" -> string(R.string.media_type_anime_music)
         else -> "?"
     } ?: showType ?: "?"
 }
