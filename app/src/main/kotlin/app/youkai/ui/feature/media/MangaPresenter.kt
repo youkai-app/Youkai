@@ -17,7 +17,7 @@ class MangaPresenter : BaseMediaPresenter() {
                 .include(
                         "genres",
                         "castings.person",
-                        /*"mediaRelationships.destination",*/
+                        "mediaRelationships.destination",
                         "reviews.user"
                 )
                 .get()
