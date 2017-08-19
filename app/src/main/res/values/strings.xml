@@ -149,6 +149,19 @@
     <string name="media_release_summary_manga_present">Publishing</string>
     <string name="media_release_summary_manga_past">Finished Publishing</string>
 
+    <string name="media_relationship_role_adaptation">Adaptation</string>
+    <string name="media_relationship_role_alternative_setting">Alternative Setting</string>
+    <string name="media_relationship_role_alternative_version">Alternative Version</string>
+    <string name="media_relationship_role_character">Character</string>
+    <string name="media_relationship_role_full_story">Full Story</string>
+    <string name="media_relationship_role_other">Other</string>
+    <string name="media_relationship_role_parent_story">Parent Story</string>
+    <string name="media_relationship_role_prequel">Prequel</string>
+    <string name="media_relationship_role_sequel">Sequel</string>
+    <string name="media_relationship_role_side_story">Side Story</string>
+    <string name="media_relationship_role_spinoff">Spin-off</string>
+    <string name="media_relationship_role_summary">Summary</string>
+
     <string name="info_no_genres_yet">No genre data yet :(</string>
     <string name="info_no_streaming_services">No streaming services :(</string>
     <string name="info_no_reviews">No reviews</string>

@@ -4,6 +4,7 @@ import android.view.View
 import app.youkai.App
 import app.youkai.R
 import app.youkai.data.models.MediaRelationship
+import app.youkai.data.models.ext.roleString
 import app.youkai.util.color
 import app.youkai.util.ext.getLayoutInflater
 import app.youkai.util.ext.loadWithPalette
@@ -30,7 +31,7 @@ object RelatedMediaItemCreator {
         })
 
         view.title.text = data.destination?.canonicalTitle
-        view.type.text = data.role
+        view.type.text = data.roleString
 
         return view
     }
