@@ -742,9 +742,31 @@ class JsonParsingTests {
         val favorites = favoritesJsonDoc.get()
 
         assertNotNull(favorites)
-        //assertEquals(true, favorites.first().item is Character)
-        //assertEquals(true, favorites[1].item is Manga)
-        //xassertEquals(454, (favorites.first().item as Character).malId)
+        assertEquals(true, favorites.first().item is Character)
+        assertEquals(true, favorites[1].item is Manga)
+        assertEquals(454, (favorites.first().item as Character).malId)
+    }
+
+    @Test
+    fun categoryTest() {
+        val resourceConverter = ResourceConverter(Category::class.java)
+
+        val categoryJson = ClassLoader.getSystemClassLoader().getResourceAsStream("category_json")
+        val categoryJsonDoc = resourceConverter.readDocument(categoryJson, Category::class.java)
+        val category = categoryJsonDoc.get()
+
+        assertNotNull(category)
+        assertEquals("2017-05-31T06:38:50.904Z", category.createdAt)
+        assertEquals("2017-05-31T06:39:37.905Z", category.updatedAt)
+        assertEquals("Japan", category.title)
+        assertEquals("Last stronghold for humanity. If Tokyo falls, it's all over. Tokyo Tower will undoubtedly fall anyway.", category.description)
+        assertEquals(2717, category.totalMediaCount)
+        assertEquals("japan", category.slug)
+        assert(!category.nsfw!!)
+        assertEquals(2, category.childCount)
+        assertNull(category.image)
+        assertNotNull(category.mangas)
+        assertEquals(17, category.mangas!!.size)
     }
 
 }

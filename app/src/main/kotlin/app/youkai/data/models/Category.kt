@@ -49,16 +49,16 @@ class Category : BaseJsonModel(JsonType("categories")) {
     var parentLinks: Links? = null
 
     @Relationship("anime")
-    var anime: Anime? = null
+    var animes: List<Anime>? = null
 
     @RelationshipLinks("anime")
-    var animeLinks: Links? = null
+    var animesLinks: Links? = null
 
     @Relationship("manga")
-    var manga: Manga? = null
+    var mangas: List<Manga>? = null
 
     @RelationshipLinks("manga")
-    var mangaLinks: Links? = null
+    var mangasLinks: Links? = null
 
     /**
     @Relationship("drama")
