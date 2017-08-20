@@ -96,11 +96,13 @@ class MangaSummaryPresenter : BaseSummaryPresenter() {
             airText = res.getString(R.string.publish_status_no_info)
         }
 
-        view?.setReleaseInfo(
-                airText,
-                media.serialization ?: res.getString(R.string.publish_status_no_serialization_ino),
-                false
-        )
+        val serialization = if (media.serialization?.isNotEmpty() ?: false) {
+            media.serialization!!
+        } else {
+            res.getString(R.string.publish_status_no_serialization_ino)
+        }
+
+        view?.setReleaseInfo(airText, serialization, false)
     }
 
     override fun setProducers() {
