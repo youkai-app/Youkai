@@ -36,8 +36,8 @@ class Character : BaseJsonModel(JsonType("characters")) {
     var image: String? = null
 
     @JsonProperty("image")
-    fun setImage(m: Map<String, String>) {
-        image = m["original"];
+    fun setImage(m: Map<String, String>?) {
+        image = m?.get("original")
     }
 
     @Relationship("castings")
