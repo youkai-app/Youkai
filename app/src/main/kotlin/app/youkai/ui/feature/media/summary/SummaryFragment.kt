@@ -151,8 +151,7 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
     }
 
     override fun setCommunityRating(rating: Float) {
-        communityRatingText.text = rating.formatTwoDecimals()
-        communityRating.rating = rating
+        communityRatingText.text = "${rating.formatTwoDecimals()}%"
     }
 
     override fun setRatingsCount(count: Int) {

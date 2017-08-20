@@ -115,21 +115,13 @@
                         android:id="@+id/communityRatingText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_thumb_up_kitsu_40dp"
+                        android:drawablePadding="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/accent_kitsu"
                         android:textSize="38sp"
-                        tools:text="4.28" />
-
-                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                        android:id="@+id/communityRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="16dp"
-                        android:minWidth="16dp"
-                        app:mrb_progressTint="@color/rating"
-                        app:mrb_progressTintMode="src_atop"
-                        app:mrb_secondaryProgressTint="@color/rating"
-                        tools:rating="4.28" />
+                        tools:ignore="RtlHardcoded"
+                        tools:text="85%" />
 
                     <TextView
                         android:id="@+id/ratingsCount"
