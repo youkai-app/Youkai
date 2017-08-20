@@ -95,6 +95,11 @@ object Api {
     fun searchManga(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>>
             = RequestBuilder("", getAllMangaCall).filter("text", query)
 
+    private val getMangaChaptersCall = { id: String, m: Map<String, String> -> service.getMangaChapters(id, m) }
+
+    fun chaptersForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Chapter>>>>
+            = RequestBuilder(mangaId, getMangaChaptersCall)
+
     /**
      * Library
      */

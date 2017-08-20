@@ -75,6 +75,12 @@ interface Service {
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Manga>>
 
+    @GET("edge/manga/{id}/chapters")
+    fun getMangaChapters(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<Chapter>>>
+
     /**
      * Library
      */

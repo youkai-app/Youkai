@@ -34,7 +34,8 @@ object ResourceConverters {
                 User::class.java,
                 Category::class.java,
                 Reaction::class.java,
-                ReactionVote::class.java
+                ReactionVote::class.java,
+                Chapter::class.java
         )
     }
 

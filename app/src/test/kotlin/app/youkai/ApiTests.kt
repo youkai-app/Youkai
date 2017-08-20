@@ -150,6 +150,16 @@ class ApiTests {
                 .assertComplete()
     }
 
+    @Test
+    fun chaptersForMangaTest() {
+        Api.chaptersForManga("1").get()
+                .map(JSONAPIDocument<List<Chapter>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
     /**
      * Auth
      */
