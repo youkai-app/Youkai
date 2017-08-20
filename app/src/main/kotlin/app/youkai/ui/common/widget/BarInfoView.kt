@@ -2,6 +2,7 @@ package app.youkai.ui.common.widget
 
 import android.content.Context
 import android.support.annotation.IntegerRes
+import android.text.SpannableString
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
@@ -86,6 +87,10 @@ class BarInfoView : LinearLayout {
 
     fun setText(text: String) {
         textView.text = text
+    }
+
+    fun setText(text: SpannableString) {
+        textView.setText(text, TextView.BufferType.SPANNABLE)
     }
 
     fun setRoundedCorners(rounded: Boolean = true) {
