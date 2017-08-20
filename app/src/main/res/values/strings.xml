@@ -176,4 +176,6 @@
     <string name="oops">Oops</string>
 
     <string name="ok">OK</string>
+
+    <string name="floating_action_button_scroll_behavior">app.youkai.ui.common.view.ScrollAwareFabBehavior</string>
 </resources>
