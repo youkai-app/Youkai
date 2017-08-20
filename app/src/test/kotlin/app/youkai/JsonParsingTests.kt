@@ -769,4 +769,34 @@ class JsonParsingTests {
         assertEquals(17, category.mangas!!.size)
     }
 
+    @Test
+    fun reactionVotesTest() {
+        val resourceConverter = ResourceConverter(ReactionVote::class.java)
+
+        val reactionVotesJson = ClassLoader.getSystemClassLoader().getResourceAsStream("media_reaction_votes_json")
+        val reactionVotesJsonDoc = resourceConverter.readDocumentCollection(reactionVotesJson, ReactionVote::class.java)
+        val reactionVotes = reactionVotesJsonDoc.get()
+
+        assertNotNull(reactionVotes)
+        reactionVotes.forEach { assertNotNull(it) }
+    }
+
+    @Test
+    fun reactionTest() {
+        val resourceConverter = ResourceConverter(Reaction::class.java)
+
+        val reactionJson = ClassLoader.getSystemClassLoader().getResourceAsStream("reaction_json")
+        val reactionJsonDoc = resourceConverter.readDocument(reactionJson, Reaction::class.java)
+        val reaction = reactionJsonDoc.get()
+
+        assertNotNull(reaction)
+        assertNotNull(reaction.createdAt)
+        assertNotNull(reaction.updatedAt)
+        assertNotNull(reaction.anime)
+        assertNull(reaction.manga)
+        assertNotNull(reaction.user)
+        assertNotNull(reaction.libraryEntry)
+        assertNotNull(reaction.votes)
+    }
+
 }
