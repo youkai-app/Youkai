@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         // SNK Manga = 14916
         // SNK Anime = 7442
         // Bakemonogatari = 3919
-        startActivity(MediaActivity.new(this, "14916", MediaType.MANGA, null, null))
+        // Hanamonogatari = 8032
+        startActivity(MediaActivity.new(this, "3919", MediaType.ANIME))
     }
 }

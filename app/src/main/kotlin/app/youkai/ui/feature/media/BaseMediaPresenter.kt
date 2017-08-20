@@ -15,17 +15,9 @@ open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
 
     internal var fabState = MediaView.FabState.LOADING
 
-    override fun set(mediaId: String, media: BaseMedia?, libraryEntry: LibraryEntry?) {
-        if (media != null) {
-            setMedia(media)
-        } else {
-            loadMedia(mediaId)
-        }
-        if (libraryEntry != null) {
-            setLibraryInfo(libraryEntry)
-        } else {
-            loadLibraryInfo(mediaId)
-        }
+    override fun set(mediaId: String) {
+        loadMedia(mediaId)
+        loadLibraryInfo(mediaId)
     }
 
     override fun loadMedia(mediaId: String) {

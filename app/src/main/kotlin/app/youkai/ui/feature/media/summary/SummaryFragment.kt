@@ -298,7 +298,7 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
     }
 
     override fun startRelatedMediaActivity(id: String, type: MediaType) {
-        activity?.startActivity(MediaActivity.new(activity, id, type, null, null))
+        activity?.startActivity(MediaActivity.new(activity, id, type))
     }
 
     override fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String) {
