@@ -105,7 +105,7 @@
 
     <string name="publish_status_today">Publishing today</string>
     <string name="publish_status_no_info">No publishing info</string>
-    <string name="publish_status_no_serialization_ino">No serialization info</string>
+    <string name="publish_status_serialization_unknown">Serialization unknown</string>
 
     <plurals name="x_ratings">
         <item quantity="one">%s rating</item>

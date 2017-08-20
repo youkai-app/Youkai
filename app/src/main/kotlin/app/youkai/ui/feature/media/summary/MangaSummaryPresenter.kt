@@ -99,7 +99,7 @@ class MangaSummaryPresenter : BaseSummaryPresenter() {
         val serialization = if (media.serialization?.isNotEmpty() ?: false) {
             media.serialization!!
         } else {
-            res.getString(R.string.publish_status_no_serialization_ino)
+            res.getString(R.string.publish_status_serialization_unknown)
         }
 
         view?.setReleaseInfo(airText, serialization, false)
