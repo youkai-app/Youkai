@@ -145,70 +145,70 @@
                         tools:text="2,348 favorites" />
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:gravity="center|center_vertical">
 
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/popularityIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:tint="@color/accent_kitsu"
-                            app:srcCompat="@drawable/ic_most_pupolar_black_36dp" />
-
-                        <TextView
-                            android:id="@+id/popularityRank"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:fontFamily="sans-serif-light"
-                            android:textSize="26sp"
-                            tools:text="19th" />
-                    </LinearLayout>
+                        android:layout_marginLeft="-5dp"
+                        android:tint="@color/accent_kitsu"
+                        app:srcCompat="@drawable/ic_most_pupolar_black_36dp" />
 
                     <TextView
+                        android:id="@+id/popularityRank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/popularityText"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/popularityIcon"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="26sp"
+                        tools:text="19th" />
+
+                    <TextView
+                        android:id="@+id/popularityText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/popularityIcon"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/content_most_popular" />
 
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/ratingIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/popularityText"
+                        android:layout_marginLeft="-5dp"
                         android:layout_marginTop="16dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:tint="@color/rating"
-                            app:srcCompat="@drawable/ic_highest_rated_black_36dp" />
-
-                        <TextView
-                            android:id="@+id/ratingRank"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:fontFamily="sans-serif-light"
-                            android:textSize="26sp"
-                            tools:text="95th" />
-                    </LinearLayout>
+                        android:tint="@color/rating"
+                        app:srcCompat="@drawable/ic_highest_rated_black_36dp" />
 
                     <TextView
+                        android:id="@+id/ratingRank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/ratingText"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/ratingIcon"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="26sp"
+                        tools:text="95th" />
+
+                    <TextView
+                        android:id="@+id/ratingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ratingIcon"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/content_highest_rated" />
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
