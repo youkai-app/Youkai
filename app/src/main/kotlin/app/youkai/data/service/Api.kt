@@ -256,4 +256,28 @@ object Api {
     fun castingsForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Casting>>>>
             = castingsForMedia(mangaId, "Manga")
 
+
+    /**
+     * Reactions
+     */
+    private val getAllReactionsCall = { _: String, m: Map<String, String> -> service.getAllReactions(m) }
+
+    fun allReactions(): RequestBuilder<Observable<JSONAPIDocument<List<Reaction>>>>
+            = RequestBuilder("", getAllReactionsCall)
+
+    private val getReactionCall = { id: String, m: Map<String, String> -> service.getReaction(id, m) }
+
+    fun reaction(id: String): RequestBuilder<Observable<JSONAPIDocument<Reaction>>>
+            = RequestBuilder(id, getReactionCall)
+
+    private fun reactionsForMedia(mediaId: String, mediaType: String): RequestBuilder<Observable<JSONAPIDocument<List<Reaction>>>>
+            = RequestBuilder("", getAllReactionsCall)
+            .filter(mediaType + "Id", mediaId)
+
+    fun reactionsForAnime(animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Reaction>>>>
+            = reactionsForMedia(animeId, "anime")
+
+    fun reactionsForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Reaction>>>>
+            = reactionsForMedia(mangaId, "manga")
+
 }

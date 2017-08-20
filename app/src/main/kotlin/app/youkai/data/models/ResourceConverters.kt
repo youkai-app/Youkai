@@ -31,7 +31,11 @@ object ResourceConverters {
                 Review::class.java,
                 Streamer::class.java,
                 StreamingLink::class.java,
-                User::class.java)
+                User::class.java,
+                Category::class.java,
+                Reaction::class.java,
+                ReactionVote::class.java
+        )
     }
 
 }

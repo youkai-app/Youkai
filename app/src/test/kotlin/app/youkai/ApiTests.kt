@@ -403,7 +403,6 @@ class ApiTests {
     /**
      * Castings
      */
-
     @Test
     fun allCastingsTest() {
         Api.allCastings().get()
@@ -441,6 +440,51 @@ class ApiTests {
                 .include("character", "person")
                 .get()
                 .map(JSONAPIDocument<List<Casting>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+
+    /**
+     * Reactions
+     */
+    @Test
+    fun allReactionsTest() {
+        Api.allReactions().get()
+                .map(JSONAPIDocument<List<Reaction>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun getReactionTest() {
+        Api.reaction("4").get()
+                .test()
+                .assertValue { it -> it.get() is Reaction }
+                .assertValue { it -> it.get() != null }
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun reactionsForAnimeTest() {
+        Api.reactionsForAnime("1").get()
+                .map(JSONAPIDocument<List<Reaction>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun reactionsForMangaTest() {
+        Api.reactionsForManga("38")
+                .get()
+                .map(JSONAPIDocument<List<Reaction>>::get)
                 .flatMapIterable { l -> l }
                 .test()
                 .assertNoErrors()

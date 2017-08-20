@@ -158,4 +158,16 @@ interface Service {
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Casting>>
 
+    /**
+     * Reactions
+     */
+    @GET("edge/media-reactions")
+    fun getAllReactions(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Reaction>>>
+
+    @GET("edge/media-reactions/{id}")
+    fun getReaction(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Reaction>>
+
 }
