@@ -7,6 +7,7 @@ import app.youkai.data.local.Credentials
 import app.youkai.data.models.ext.MediaType
 import app.youkai.ui.feature.login.LoginActivity
 import app.youkai.ui.feature.media.MediaActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         // SNK Anime = 7442
         // Bakemonogatari = 3919
         // Hanamonogatari = 8032
-        startActivity(MediaActivity.new(this, "3919", MediaType.ANIME))
+        // Development code. TODO: Remove
+        go.setOnClickListener {
+            val id = mediaId.text.toString()
+            val type = MediaType.fromString(mediaType.text.toString())
+            startActivity(MediaActivity.new(this, id, type))
+        }
     }
 }
