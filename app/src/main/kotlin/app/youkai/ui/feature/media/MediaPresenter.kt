@@ -4,7 +4,7 @@ import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.LibraryEntry
 
 interface MediaPresenter {
-    fun set(mediaId: String, media: BaseMedia?, libraryEntry: LibraryEntry?)
+    fun set(mediaId: String)
     fun loadMedia(mediaId: String)
     fun loadLibraryInfo(mediaId: String)
     fun setMedia(media: BaseMedia)

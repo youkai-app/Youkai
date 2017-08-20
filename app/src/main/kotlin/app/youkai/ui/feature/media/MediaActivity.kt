@@ -9,14 +9,14 @@ import android.support.design.widget.AppBarLayout
 import android.widget.Toast
 import app.youkai.R
 import app.youkai.data.models.BaseMedia
-import app.youkai.data.models.LibraryEntry
 import app.youkai.data.models.Titles
 import app.youkai.data.models.ext.MediaType
 import app.youkai.ui.feature.media.summary.SummaryFragment
 import app.youkai.util.ext.toVisibility
-import kotlinx.android.synthetic.main.activity_media.*
+import app.youkai.util.ext.whenNotNull
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
+import kotlinx.android.synthetic.main.activity_media.*
 
 class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), MediaView {
 
@@ -55,16 +55,10 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
 
         var mediaId: String = ""
         var type = MediaType.NO_IDEA
-        var media: BaseMedia? = null
-        var libraryEntry: LibraryEntry? = null
 
-        val extras = intent.extras
-        if (extras != null) {
-            mediaId = extras.getString(ARG_ID)
-            type = MediaType.fromString(extras.getString(ARG_TYPE))
-            // TODO: Real get
-            media = null
-            libraryEntry = null
+        whenNotNull(intent.extras) {
+            mediaId = it.getString(ARG_ID)
+            type = MediaType.fromString(it.getString(ARG_TYPE))
         }
 
         when (type) {
@@ -73,7 +67,7 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         }
         presenter.attachView(this)
 
-        presenter.set(mediaId, media, libraryEntry)
+        presenter.set(mediaId)
 
         titleView.setOnClickListener {
             presenter.onTitleClicked()
@@ -207,16 +201,11 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         val ARG_TYPE = "type"
 
         val ARG_ID = "id"
-        val ARG_MEDIA = "media"
-        val ARG_LIBRARY_ENTRY = "library_entry"
 
-        fun new(context: Context, id: String?, type: MediaType, media: BaseMedia?, libraryEntry: LibraryEntry?): Intent {
+        fun new(context: Context, id: String?, type: MediaType): Intent {
             val intent = Intent(context, MediaActivity::class.java)
             intent.putExtra(ARG_ID, id ?: "-1")
             intent.putExtra(ARG_TYPE, type.toString())
-            // TODO: Parcelable stuff
-//            if (media != null) intent.putExtra(ARG_MEDIA, media)
-//            if (libraryEntry != null) intent.putExtra(ARG_LIBRARY_ENTRY, libraryEntry)
             return intent
         }
     }
