@@ -171,6 +171,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/activity_horizontal_margin"
         app:fabSize="normal"
+        app:layout_behavior="@string/floating_action_button_scroll_behavior"
         app:rippleColor="@android:color/white"
         app:srcCompat="@drawable/ic_library_add_white_24dp" />
 </android.support.design.widget.CoordinatorLayout>
