@@ -3,8 +3,6 @@ package app.youkai.ui.feature.media.summary
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.Html
-import android.text.SpannableString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -19,7 +17,10 @@ import app.youkai.ui.common.mvp.MvpLceFragment
 import app.youkai.ui.feature.media.MediaActivity
 import app.youkai.ui.feature.media.characters.CharactersActivity
 import app.youkai.ui.feature.media.view.*
-import app.youkai.util.ext.*
+import app.youkai.util.coloredSpannableString
+import app.youkai.util.ext.formatForDisplay
+import app.youkai.util.ext.toVisibility
+import app.youkai.util.ext.whenNotNull
 import kotlinx.android.synthetic.main.fragment_media_summary.*
 import tr.xip.errorview.ErrorView
 
@@ -117,8 +118,13 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
     }
 
     override fun setLength(firstLine: String, secondLine: String, makeLink: Boolean) {
-        val first = if (makeLink) SpannableString("<a href=\"\">$firstLine</a>") else firstLine
-        length.setText(Html.fromHtml("$first<br>$secondLine").toString())
+        val text = "$firstLine\n$secondLine"
+        if (makeLink) {
+            length.setText(coloredSpannableString(text, resources.getColor(R.color.accent), 0,
+                    firstLine.length))
+        } else {
+            length.setText(text)
+        }
     }
 
     override fun setLengthIcon(res: Int) {
@@ -146,8 +152,13 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
     }
 
     override fun setReleaseInfo(firstLine: String, secondLine: String, makeLink: Boolean) {
-        val second = if (makeLink) SpannableString("<a href=\"\">$secondLine</a>") else secondLine
-        releaseInfo.setText(Html.fromHtml("$firstLine<br>$second").toString())
+        val text = "$firstLine\n$secondLine"
+        if (makeLink) {
+            releaseInfo.setText(coloredSpannableString(text, resources.getColor(R.color.accent),
+                    text.indexOf(secondLine), text.length))
+        } else {
+            releaseInfo.setText(text)
+        }
     }
 
     override fun setCommunityRating(rating: Float) {
