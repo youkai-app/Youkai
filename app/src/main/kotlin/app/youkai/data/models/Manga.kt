@@ -1,6 +1,9 @@
 package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.github.jasminb.jsonapi.Links
+import com.github.jasminb.jsonapi.annotations.Relationship
+import com.github.jasminb.jsonapi.annotations.RelationshipLinks
 import com.github.jasminb.jsonapi.annotations.Type
 
 @Type("manga") @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,6 +14,7 @@ class Manga : BaseMedia(JsonType("manga")) {
         val VOLUME_COUNT = "volumeCount"
         val SERIALIZATION = "serialization"
         val MANGA_TYPE = "mangaType"
+        val MANGA_CHAPTERS = "chapters"
         val CHARACTERS = "mangaCharacters"
         val STAFF = "mangaStaff"
     }
@@ -22,6 +26,12 @@ class Manga : BaseMedia(JsonType("manga")) {
     var serialization: String? = null
 
     var mangaType: String? = null
+
+    @Relationship("chapters")
+    var chapters: List<Chapter>? = null
+
+    @RelationshipLinks("chapters")
+    var chaptersLinks: Links? = null
 
     /*
      * These relationships exist in Kitsu's manga model but are not hooked up.

@@ -799,4 +799,26 @@ class JsonParsingTests {
         assertNotNull(reaction.votes)
     }
 
+    @Test
+    fun chapterTest() {
+        val resourceConverter = ResourceConverter(Chapter::class.java)
+
+        val chapterJson = ClassLoader.getSystemClassLoader().getResourceAsStream("chapter_json")
+        val chapterJsonDoc = resourceConverter.readDocument(chapterJson, Chapter::class.java)
+        val chapter = chapterJsonDoc.get()
+
+        assertNotNull(chapter)
+        assertNotNull(chapter.createdAt)
+        assertNotNull(chapter.updatedAt)
+        assertNotNull(chapter.titles!!.enJp)
+        assertNotNull(chapter.canonicalTitle)
+        assertEquals(1, chapter.volumeNumber)
+        assertEquals(10, chapter.number)
+        assertEquals("", chapter.synopsis)
+        assertNull(chapter.published)
+        assertNull(chapter.length)
+        assertNull(chapter.thumbnail)
+        assertNull(chapter.manga)
+    }
+
 }

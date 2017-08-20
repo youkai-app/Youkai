@@ -1,0 +1,31 @@
+{
+  "data":{
+    "id":"98480",
+    "type":"chapters",
+    "links":{
+      "self":"https://kitsu.io/api/edge/chapters/98480"
+    },
+    "attributes":{
+      "createdAt":"2017-07-17T01:51:45.229Z",
+      "updatedAt":"2017-07-17T01:51:45.229Z",
+      "titles":{
+        "en_jp":"Chapter 10"
+      },
+      "canonicalTitle":"Chapter 10",
+      "volumeNumber":1,
+      "number":10,
+      "synopsis":"",
+      "published":null,
+      "length":null,
+      "thumbnail":null
+    },
+    "relationships":{
+      "manga":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/chapters/98480/relationships/manga",
+          "related":"https://kitsu.io/api/edge/chapters/98480/manga"
+        }
+      }
+    }
+  }
+}
