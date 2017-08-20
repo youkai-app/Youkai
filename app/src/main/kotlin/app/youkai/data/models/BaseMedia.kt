@@ -31,6 +31,7 @@ open class BaseMedia(type: JsonType = JsonType("media")) : BaseJsonModel(type) {
         val COVER_IMAGE = "coverImage"
         val SUBTYPE = "subtype"
         val GENRES = "genres"
+        val CATEGORIES = "categories"
         val CASTINGS = "castings"
         val INSTALLMENTS = "installments"
         val MAPPINGS = "mappings"
@@ -74,11 +75,20 @@ open class BaseMedia(type: JsonType = JsonType("media")) : BaseJsonModel(type) {
 
     var subtype: String? = null
 
+    /**
+     * Heads up: you probably want [categories] rather than [genres].
+     */
     @Relationship("genres")
     var genres: List<Genre>? = null
 
     @RelationshipLinks("genres")
     var genreLinks: Links? = null
+
+    @Relationship("categories")
+    var categories: List<Category>? = null
+
+    @RelationshipLinks("categories")
+    var categoryLinks: Links? = null
 
     @Relationship("castings")
     var castings: List<Casting>? = null

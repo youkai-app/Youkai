@@ -1,0 +1,46 @@
+{
+  "data":{
+    "id":"44",
+    "type":"categories",
+    "links":{
+      "self":"https://kitsu.io/api/edge/categories/44"
+    },
+    "attributes":{
+      "createdAt":"2017-05-31T06:38:46.860Z",
+      "updatedAt":"2017-05-31T06:39:37.399Z",
+      "title":"Gunfights",
+      "description":"Fights where two or more parties are firing guns at one another.",
+      "totalMediaCount":234,
+      "slug":"gunfights",
+      "nsfw":false,
+      "childCount":0,
+      "image":null
+    },
+    "relationships":{
+      "parent":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/categories/44/relationships/parent",
+          "related":"https://kitsu.io/api/edge/categories/44/parent"
+        }
+      },
+      "anime":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/categories/44/relationships/anime",
+          "related":"https://kitsu.io/api/edge/categories/44/anime"
+        }
+      },
+      "drama":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/categories/44/relationships/drama",
+          "related":"https://kitsu.io/api/edge/categories/44/drama"
+        }
+      },
+      "manga":{
+        "links":{
+          "self":"https://kitsu.io/api/edge/categories/44/relationships/manga",
+          "related":"https://kitsu.io/api/edge/categories/44/manga"
+        }
+      }
+    }
+  }
+}
