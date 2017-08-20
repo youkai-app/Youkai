@@ -510,4 +510,14 @@ class ApiTests {
                 .assertComplete()
     }
 
+    @Test
+    fun reactionForLibraryEntryTest() {
+        Api.reactionForLibraryEntry("16601101")
+                .get()
+                .map(JSONAPIDocument<Reaction>::get)
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
 }

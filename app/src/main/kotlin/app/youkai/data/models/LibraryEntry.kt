@@ -23,6 +23,7 @@ class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
         val ANIME = "anime"
         val MANGA = "manga"
         val REVIEW = "review"
+        val REACTION = "mediaReaction"
         val MEDIA = "media"
     }
 
@@ -67,6 +68,12 @@ class LibraryEntry : BaseJsonModel(JsonType("libraryEntries")) {
 
     @RelationshipLinks("review")
     var reviewLinks: Links? = null
+
+    @Relationship("mediaReaction")
+    var reaction: Reaction? = null
+
+    @RelationshipLinks("mediaReaction")
+    var reactionLinks: Links? = null
 
 /*
     Are returned by the API but aren't implemented.

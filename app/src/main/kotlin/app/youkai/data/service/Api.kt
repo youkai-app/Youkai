@@ -290,4 +290,9 @@ object Api {
     fun reactionsForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Reaction>>>>
             = reactionsForMedia(mangaId, "manga")
 
+    private val getLibraryEntryReactionCall = { id: String, m: Map<String, String> -> service.getLibraryEntryReaction(id, m) }
+
+    fun reactionForLibraryEntry(libraryEntryId: String): RequestBuilder<Observable<JSONAPIDocument<Reaction>>>
+            = RequestBuilder(libraryEntryId, getLibraryEntryReactionCall)
+
 }

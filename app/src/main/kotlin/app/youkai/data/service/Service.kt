@@ -182,4 +182,10 @@ interface Service {
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Reaction>>
 
+    @GET("edge/library-entries/{id}/media-reaction")
+    fun getLibraryEntryReaction(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<Reaction>>
+
 }
