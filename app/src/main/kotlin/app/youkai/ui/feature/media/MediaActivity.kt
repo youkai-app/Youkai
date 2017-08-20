@@ -75,10 +75,6 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
 
         presenter.set(mediaId, media, libraryEntry)
 
-        // TODO: We should probably handle the odd case (aka "wtf u doin, dev" case) when no id or
-        // type are passed with the extras. Some fancy-ish empty state with "uhhh, something went wrong"
-        // should be fine. Probably. Or maybe even a Snackbar. We shall see.
-
         titleView.setOnClickListener {
             presenter.onTitleClicked()
         }
