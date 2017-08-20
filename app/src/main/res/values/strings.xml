@@ -162,7 +162,7 @@
     <string name="media_relationship_role_spinoff">Spin-off</string>
     <string name="media_relationship_role_summary">Summary</string>
 
-    <string name="info_no_genres_yet">No genre data yet :(</string>
+    <string name="info_no_category_info">No category info :(</string>
     <string name="info_no_streaming_services">No streaming services :(</string>
     <string name="info_no_reviews">No reviews</string>
     <string name="info_no_synopsis">Synopsis not here. Dulleh, think of a witty message for this.</string>

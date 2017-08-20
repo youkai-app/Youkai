@@ -18,7 +18,7 @@ class AnimePresenter : BaseMediaPresenter() {
         onLoading()
         Api.anime(mediaId)
                 .include(
-                        "genres",
+                        "categories",
                         "streamingLinks.streamer",
                         "reviews.user",
                         "animeProductions.producer",

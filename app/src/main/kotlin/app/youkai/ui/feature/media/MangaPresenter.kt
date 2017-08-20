@@ -15,7 +15,7 @@ class MangaPresenter : BaseMediaPresenter() {
         onLoading()
         Api.manga(mediaId)
                 .include(
-                        "genres",
+                        "categories",
                         "castings.person",
                         "mediaRelationships.destination",
                         "reviews.user"
