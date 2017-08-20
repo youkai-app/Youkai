@@ -112,7 +112,16 @@ class ApiTests {
     fun languagesForAnimeTest() {
         Api.languagesForAnime("1").get()
                 .flatMapIterable { l -> l }
-                .doOnNext { s -> System.out.println(s) }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun episodesForAnimeTest() {
+        Api.episodesForAnime("1").get()
+                .map(JSONAPIDocument<List<Episode>>::get)
+                .flatMapIterable { l -> l }
                 .test()
                 .assertNoErrors()
                 .assertComplete()

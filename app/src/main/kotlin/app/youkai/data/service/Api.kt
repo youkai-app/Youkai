@@ -74,6 +74,11 @@ object Api {
     fun languagesForAnime(animeId: String): RequestBuilder<Observable<List<String>>>
             = RequestBuilder(animeId, getAnimeLanguagesCall)
 
+    private val getAnimeEpisodesCall = { id: String, m: Map<String, String> -> service.getAnimeEpisodes(id, m) }
+
+    fun episodesForAnime(animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Episode>>>>
+            = RequestBuilder(animeId, getAnimeEpisodesCall)
+
     /**
      * Manga
      */
