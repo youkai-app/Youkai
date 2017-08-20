@@ -27,7 +27,7 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
         this.onTablet = onTablet
 
         setSynopsis()
-        setGenres()
+        setCategories()
         setLength()
         setStreamers()
         setReleaseInfo()
@@ -46,17 +46,17 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
         view?.setSynopsis(media?.synopsis ?: App.context.resources.getString(R.string.info_no_synopsis))
     }
 
-    override fun setGenres() {
-        val genres = media?.genres ?: arrayListOf()
-        if (genres.isNotEmpty()) {
-            view?.setGenres(genres)
+    override fun setCategories() {
+        val categories = media?.categories ?: arrayListOf()
+        if (categories.isNotEmpty()) {
+            view?.setCategories(categories)
         } else {
-            showNoGenres()
+            showNoCategories()
         }
     }
 
-    override fun showNoGenres() {
-        view?.setNoGenres()
+    override fun showNoCategories() {
+        view?.setNoCategories()
     }
 
     override fun setLength() {
@@ -145,8 +145,8 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
         view?.onSynopsisClicked(media?.canonicalTitle ?: "?", media?.synopsis ?: "?") // TODO
     }
 
-    override fun onGenreClicked(genre: Genre) {
-        view?.onGenreClicked(genre.slug ?: "") // TODO: Null handling
+    override fun onCategoryClicked(category: Category) {
+        view?.onCategoryClicked(category.slug ?: "") // TODO: Null handling
     }
 
     override fun onLengthClicked() {

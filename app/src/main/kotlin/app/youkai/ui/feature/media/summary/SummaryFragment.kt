@@ -100,20 +100,20 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
         this.synopsis.text = synopsis
     }
 
-    override fun setGenres(genres: List<Genre>) {
-        genresContainer.removeAllViews()
-        for (genre in genres) {
-            val view = GenreItemCreator.new(genre)
+    override fun setCategories(categories: List<Category>) {
+        categoriesContainer.removeAllViews()
+        for (category in categories) {
+            val view = CategoryItemCreator.new(category)
             view.setOnClickListener {
-                presenter.onGenreClicked(genre)
+                presenter.onCategoryClicked(category)
             }
-            genresContainer.addView(view)
+            categoriesContainer.addView(view)
         }
     }
 
-    override fun setNoGenres() {
-        genresContainer.removeAllViews()
-        genresContainer.addView(NothingHereItemCreator.new(R.string.info_no_genres_yet))
+    override fun setNoCategories() {
+        categoriesContainer.removeAllViews()
+        categoriesContainer.addView(NothingHereItemCreator.new(R.string.info_no_category_info))
     }
 
     override fun setLength(firstLine: String, secondLine: String, makeLink: Boolean) {
@@ -283,7 +283,7 @@ class SummaryFragment : MvpLceFragment<SummaryView, BaseSummaryPresenter>(), Sum
         charactersClickListener?.onClick()
     }
 
-    override fun onGenreClicked(slug: String) {
+    override fun onCategoryClicked(slug: String) {
         // TODO: Implementation
     }
 

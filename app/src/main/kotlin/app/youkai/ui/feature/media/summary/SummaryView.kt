@@ -7,8 +7,8 @@ import app.youkai.ui.common.mvp.MvpLceView
 
 interface SummaryView : MvpLceView {
     fun setSynopsis(synopsis: String)
-    fun setGenres(genres: List<Genre>)
-    fun setNoGenres()
+    fun setCategories(categories: List<Category>)
+    fun setNoCategories()
     fun setLength(firstLine: String, secondLine: String, makeLink: Boolean)
     fun setLengthIcon(@IntegerRes res: Int)
     fun setStreamers(streamers: List<StreamingLink>)
@@ -38,7 +38,7 @@ interface SummaryView : MvpLceView {
     fun onAllReviewsClicked()
     fun onCharacterClicked(id: String)
     fun onAllCharactersClicked()
-    fun onGenreClicked(slug: String)
+    fun onCategoryClicked(slug: String)
     fun startRelatedMediaActivity(id: String, type: MediaType)
 
     fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String)

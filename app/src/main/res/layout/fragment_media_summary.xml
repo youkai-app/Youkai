@@ -50,7 +50,7 @@
             </LinearLayout>
 
             <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/genresContainer"
+                android:id="@+id/categoriesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"

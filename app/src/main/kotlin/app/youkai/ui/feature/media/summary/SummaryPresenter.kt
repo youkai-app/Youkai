@@ -1,16 +1,16 @@
 package app.youkai.ui.feature.media.summary
 
 import app.youkai.data.models.BaseMedia
+import app.youkai.data.models.Category
 import app.youkai.data.models.Character
-import app.youkai.data.models.Genre
 import app.youkai.data.models.ext.MediaType
 
 interface SummaryPresenter {
     fun load(media: BaseMedia, onTablet: Boolean)
 
     fun setSynopsis()
-    fun setGenres()
-    fun showNoGenres()
+    fun setCategories()
+    fun showNoCategories()
     fun setLength()
     fun setStreamers()
     fun setReleaseInfo()
@@ -29,7 +29,7 @@ interface SummaryPresenter {
     fun onContent()
     fun onError(e: Throwable)
     fun onSynopsisClicked()
-    fun onGenreClicked(genre: Genre)
+    fun onCategoryClicked(category: Category)
     fun onLengthClicked()
     fun onStreamerClicked(service: Any) // TODO: Real type
     fun onReleaseInfoClicked()
