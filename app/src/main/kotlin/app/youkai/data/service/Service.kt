@@ -42,24 +42,28 @@ interface Service {
     @GET("edge/anime/{id}")
     fun getAnime(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Anime>>
 
     @GET("edge/anime/{id}/_languages")
     fun getAnimeLanguages(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<List<String>>
 
     @GET("edge/anime/{id}/anime-characters")
     fun getAnimeCharacters(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<List<AnimeCharacter>>>
 
     @GET("edge/anime/{id}/episodes")
     fun getAnimeEpisodes(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<List<Episode>>>
 
@@ -72,12 +76,14 @@ interface Service {
     @GET("edge/manga/{id}")
     fun getManga(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Manga>>
 
     @GET("edge/manga/{id}/chapters")
     fun getMangaChapters(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<List<Chapter>>>
 
@@ -90,12 +96,14 @@ interface Service {
     @GET("edge/users/{id}/library-entries")
     fun getLibrary(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<List<LibraryEntry>>>
 
     @GET("edge/library-entries/{id}")
     fun getLibraryEntry(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<LibraryEntry>>
 
@@ -125,11 +133,15 @@ interface Service {
      * Favorites
      */
     @GET("edge/favorites")
-    fun getAllFavorites(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Favorite>>>
+    fun getAllFavorites(
+            @HeaderMap headers: Map<String, String>,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<Favorite>>>
 
     @GET("edge/favorites/{id}")
     fun getFavorite(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Favorite>>
 
@@ -150,11 +162,15 @@ interface Service {
      * Characters
      */
     @GET("edge/characters")
-    fun getAllCharacters(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Character>>>
+    fun getAllCharacters(
+            @HeaderMap headers: Map<String, String>,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<Character>>>
 
     @GET("edge/characters/{id}")
     fun getCharacter(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Character>>
 
@@ -162,11 +178,15 @@ interface Service {
      * Castings
      */
     @GET("edge/castings")
-    fun getAllCastings(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Casting>>>
+    fun getAllCastings(
+            @HeaderMap headers: Map<String, String>,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<Casting>>>
 
     @GET("edge/castings/{id}")
     fun getCasting(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Casting>>
 
@@ -174,17 +194,22 @@ interface Service {
      * Reactions
      */
     @GET("edge/media-reactions")
-    fun getAllReactions(@QueryMap queries: Map<String, String>): Observable<JSONAPIDocument<List<Reaction>>>
+    fun getAllReactions(
+            @HeaderMap headers: Map<String, String>,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<Reaction>>>
 
     @GET("edge/media-reactions/{id}")
     fun getReaction(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Reaction>>
 
     @GET("edge/library-entries/{id}/media-reaction")
     fun getLibraryEntryReaction(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Reaction>>
 
@@ -192,11 +217,15 @@ interface Service {
      * Users
      */
     @GET("edge/users")
-    fun getAllUsers(@QueryMap queries:  Map<String, String>): Observable<JSONAPIDocument<List<User>>>
+    fun getAllUsers(
+            @HeaderMap headers: Map<String, String>,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<User>>>
 
     @GET("edge/users/{id}")
     fun getUser(
             @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<User>>
 }

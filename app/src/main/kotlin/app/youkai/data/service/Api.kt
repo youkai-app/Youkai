@@ -56,12 +56,18 @@ object Api {
     /**
      * Anime
      */
-    private val getAllAnimeCall = { _: String, m: Map<String, String> -> service.getAllAnime(m) }
+    private val getAllAnimeCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllAnime(m)
+    }
 
     fun allAnime(): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>>
             = RequestBuilder("", getAllAnimeCall)
 
-    private val getAnimeCall = { id: String, m: Map<String, String> -> service.getAnime(id, m) }
+    private val getAnimeCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAnime(id, h, m)
+    }
 
     fun anime(id: String): RequestBuilder<Observable<JSONAPIDocument<Anime>>>
             = RequestBuilder(id, getAnimeCall)
@@ -69,12 +75,18 @@ object Api {
     fun searchAnime(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Anime>>>>
             = RequestBuilder("", getAllAnimeCall).filter("text", query)
 
-    private val getAnimeLanguagesCall = { id: String, m: Map<String, String> -> service.getAnimeLanguages(id, m) }
+    private val getAnimeLanguagesCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAnimeLanguages(id, h, m)
+    }
 
     fun languagesForAnime(animeId: String): RequestBuilder<Observable<List<String>>>
             = RequestBuilder(animeId, getAnimeLanguagesCall)
 
-    private val getAnimeEpisodesCall = { id: String, m: Map<String, String> -> service.getAnimeEpisodes(id, m) }
+    private val getAnimeEpisodesCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAnimeEpisodes(id, h, m)
+    }
 
     fun episodesForAnime(animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Episode>>>>
             = RequestBuilder(animeId, getAnimeEpisodesCall)
@@ -82,12 +94,18 @@ object Api {
     /**
      * Manga
      */
-    private val getAllMangaCall = { _: String, m: Map<String, String> -> service.getAllManga(m) }
+    private val getAllMangaCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllManga(m)
+    }
 
     fun allManga(): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>>
             = RequestBuilder("", getAllMangaCall)
 
-    private val getMangaCall = { id: String, m: Map<String, String> -> service.getManga(id, m) }
+    private val getMangaCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getManga(id, h, m)
+    }
 
     fun manga(id: String): RequestBuilder<Observable<JSONAPIDocument<Manga>>>
             = RequestBuilder(id, getMangaCall)
@@ -95,7 +113,10 @@ object Api {
     fun searchManga(query: String): RequestBuilder<Observable<JSONAPIDocument<List<Manga>>>>
             = RequestBuilder("", getAllMangaCall).filter("text", query)
 
-    private val getMangaChaptersCall = { id: String, m: Map<String, String> -> service.getMangaChapters(id, m) }
+    private val getMangaChaptersCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getMangaChapters(id, h, m)
+    }
 
     fun chaptersForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Chapter>>>>
             = RequestBuilder(mangaId, getMangaChaptersCall)
@@ -103,17 +124,26 @@ object Api {
     /**
      * Library
      */
-    private val getAllLibraryEntriesCall = { _: String, m: Map<String, String> -> service.getAllLibraryEntries(m) }
+    private val getAllLibraryEntriesCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllLibraryEntries(m)
+    }
 
     fun allLibraryEntries(): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>>
             = RequestBuilder("", getAllLibraryEntriesCall)
 
-    private val getLibraryCall = { id: String, m: Map<String, String> -> service.getLibrary(id, m) }
+    private val getLibraryCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getLibrary(id, h, m)
+    }
 
     fun library(id: String): RequestBuilder<Observable<JSONAPIDocument<List<LibraryEntry>>>>
             = RequestBuilder(id, getLibraryCall)
 
-    private val getLibraryEntryCall = { id: String, m: Map<String, String> -> service.getLibraryEntry(id, m) }
+    private val getLibraryEntryCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getLibraryEntry(id, h, m)
+    }
 
     fun libraryEntry(id: String): RequestBuilder<Observable<JSONAPIDocument<LibraryEntry>>>
             = RequestBuilder(id, getLibraryEntryCall)
@@ -167,12 +197,18 @@ object Api {
     /**
      * Favorites
      */
-    private val getAllFavoritesCall = { _: String, m: Map<String, String> -> service.getAllFavorites(m) }
+    private val getAllFavoritesCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllFavorites(h, m)
+    }
 
     fun allFavorites(): RequestBuilder<Observable<JSONAPIDocument<List<Favorite>>>>
             = RequestBuilder("", getAllFavoritesCall)
 
-    private val getFavoriteCall = { id: String, m: Map<String, String> -> service.getFavorite(id, m) }
+    private val getFavoriteCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getFavorite(id, h, m)
+    }
 
     fun favorite(id: String): RequestBuilder<Observable<JSONAPIDocument<Favorite>>>
             = RequestBuilder(id, getFavoriteCall)
@@ -221,17 +257,26 @@ object Api {
     /**
      * Characters
      */
-    private val getAllCharactersCall = { _: String, m: Map<String, String> -> service.getAllCharacters(m) }
+    private val getAllCharactersCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllCharacters(h, m)
+    }
 
     fun allCharacters(): RequestBuilder<Observable<JSONAPIDocument<List<Character>>>>
             = RequestBuilder("", getAllCharactersCall)
 
-    private val getCharacterCall = { id: String, m: Map<String, String> -> service.getCharacter(id, m) }
+    private val getCharacterCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getCharacter(id, h, m)
+    }
 
     fun character(id: String): RequestBuilder<Observable<JSONAPIDocument<Character>>>
             = RequestBuilder(id, getCharacterCall)
 
-    private val getAnimeCharactersCall = { id: String, m: Map<String, String> -> service.getAnimeCharacters(id, m) }
+    private val getAnimeCharactersCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAnimeCharacters(id, h, m)
+    }
 
     /**
      * No equivalent method for Manga due to current Api limits (no filter for `mediaType` on `/characters` and `manga-characters` is unfilled.
@@ -245,12 +290,18 @@ object Api {
     /**
      * Castings
      */
-    private val getAllCastingsCall = { _: String, m: Map<String, String> -> service.getAllCastings(m) }
+    private val getAllCastingsCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllCastings(h, m)
+    }
 
     fun allCastings(): RequestBuilder<Observable<JSONAPIDocument<List<Casting>>>>
             = RequestBuilder("", getAllCastingsCall)
 
-    private val getCastingCall = { id: String, m: Map<String, String> -> service.getCasting(id, m) }
+    private val getCastingCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getCasting(id, h, m)
+    }
 
     fun casting(id: String): RequestBuilder<Observable<JSONAPIDocument<Casting>>>
             = RequestBuilder(id, getCastingCall)
@@ -270,12 +321,18 @@ object Api {
     /**
      * Reactions
      */
-    private val getAllReactionsCall = { _: String, m: Map<String, String> -> service.getAllReactions(m) }
+    private val getAllReactionsCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllReactions(h, m)
+    }
 
     fun allReactions(): RequestBuilder<Observable<JSONAPIDocument<List<Reaction>>>>
             = RequestBuilder("", getAllReactionsCall)
 
-    private val getReactionCall = { id: String, m: Map<String, String> -> service.getReaction(id, m) }
+    private val getReactionCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getReaction(id, h, m)
+    }
 
     fun reaction(id: String): RequestBuilder<Observable<JSONAPIDocument<Reaction>>>
             = RequestBuilder(id, getReactionCall)
@@ -290,7 +347,10 @@ object Api {
     fun reactionsForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Reaction>>>>
             = reactionsForMedia(mangaId, "manga")
 
-    private val getLibraryEntryReactionCall = { id: String, m: Map<String, String> -> service.getLibraryEntryReaction(id, m) }
+    private val getLibraryEntryReactionCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getLibraryEntryReaction(id, h, m)
+    }
 
     fun reactionForLibraryEntry(libraryEntryId: String): RequestBuilder<Observable<JSONAPIDocument<Reaction>>>
             = RequestBuilder(libraryEntryId, getLibraryEntryReactionCall)
@@ -298,12 +358,18 @@ object Api {
     /**
      * Users
      */
-    private val getAllUsersCall = { _: String, m: Map<String, String> -> service.getAllUsers(m) }
+    private val getAllUsersCall = {
+        _: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAllUsers(h, m)
+    }
 
     fun allUsers(): RequestBuilder<Observable<JSONAPIDocument<List<User>>>>
             = RequestBuilder("", getAllUsersCall)
 
-    private val getUserCall = { id: String, m: Map<String, String> -> service.getUser(id, m) }
+    private val getUserCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getUser(id, h, m)
+    }
 
     fun user(id: String): RequestBuilder<Observable<JSONAPIDocument<User>>>
             = RequestBuilder(id, getUserCall)

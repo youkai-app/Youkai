@@ -2,7 +2,7 @@ package app.youkai.data.service
 
 import app.youkai.util.ext.append
 
-class RequestBuilder<T>(val id: String, val call: (String, Map<String, String>) -> T) {
+class RequestBuilder<T>(val id: String, val call: (String, Map<String, String>, Map<String, String>) -> T) {
 
     private val INCLUDE: String = "include"
     private val FIELDS: String = "fields"
@@ -12,10 +12,16 @@ class RequestBuilder<T>(val id: String, val call: (String, Map<String, String>) 
 
     private val DELIMITER: String = ","
 
+    private val headerMap = mutableMapOf<String, String>()
     private val queryMap = mutableMapOf<String, String>()
 
     fun get(): T {
-        return call(id, queryMap)
+        return call(id, headerMap, queryMap)
+    }
+
+    fun withHeader(header: String, value: String): RequestBuilder<T> {
+        headerMap.put(header, value)
+        return this
     }
 
     fun include(vararg queryParameter: String): RequestBuilder<T> {
