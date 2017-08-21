@@ -29,29 +29,23 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
 
         val disposable = Api.login(username.trim(), password) // Usernames may not have spaces, passwords may have spaces.
                 .subscribeOn(Schedulers.io())
+                .flatMap {
+                    loginResponse ->
+                    Credentials.username = username
+                    Credentials.authToken = loginResponse.accessToken
+                    Credentials.refreshToken = loginResponse.refreshToken
+                    Api.allUsersAuth(loginResponse.accessToken ?: "")
+                            .filter("self", "true").get()
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        // onNext
-                        { m ->
-                            run {
-                                Credentials.username = username
-                                Credentials.authToken = m.accessToken
-                                Credentials.refreshToken = m.refreshToken
-                            }
-                        },
-                        // onError
-                        { e ->
-                            run {
-                                view?.enableUsername()
-                                view?.enablePassword()
-                                view?.enableButton()
-                                view?.showProgress(false)
-                                view?.setLoading(false)
-                                view?.showError(e.message ?: "An error occurred.")
-                            }
-                        },
-                        // onComplete
                         {
+                            Credentials.userId = it.get()?.get(0)?.id
+                        },
+                        {
+                            onError(it)
+                        },
+                        { // onComplete
                             view?.showProgress(false)
                             view?.setLoading(false)
                             view?.completeLogin()
@@ -67,4 +61,12 @@ class LoginPresenter : MvpBasePresenter<LoginView>() {
     // Passwords may not be blank, but may contain spaces.
     fun isPasswordSufficient(password: String): Boolean = password.isNotEmpty()
 
+    private fun onError(e: Throwable?) {
+        view?.enableUsername()
+        view?.enablePassword()
+        view?.enableButton()
+        view?.showProgress(false)
+        view?.setLoading(false)
+        view?.showError(e?.message ?: "An error occurred.")
+    }
 }
