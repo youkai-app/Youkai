@@ -366,6 +366,10 @@ object Api {
     fun allUsers(): RequestBuilder<Observable<JSONAPIDocument<List<User>>>>
             = RequestBuilder("", getAllUsersCall)
 
+    fun allUsersAuth(authToken: String, tokenType: String = "bearer"): RequestBuilder<Observable<JSONAPIDocument<List<User>>>>
+            = RequestBuilder("", getAllUsersCall)
+            .withHeader("Authorization", createAuthorizationParam(tokenType, authToken))
+
     private val getUserCall = {
         id: String, h: Map<String, String>, m: Map<String, String> ->
         service.getUser(id, h, m)
