@@ -46,11 +46,11 @@ object Api {
     /**
      * Authentication
      */
-    fun login (username: String, password: String) = service.postLogin(username, password, "password", CLIENT_ID, CLIENT_SECRET)
+    fun login(username: String, password: String) = service.postLogin(username, password, "password", CLIENT_ID, CLIENT_SECRET)
 
-    fun refreshAuthToken (refreshToken: String) = service.refreshAuthToken(refreshToken, "refresh_token", CLIENT_ID, CLIENT_SECRET)
+    fun refreshAuthToken(refreshToken: String) = service.refreshAuthToken(refreshToken, "refresh_token", CLIENT_ID, CLIENT_SECRET)
 
-    private fun createAuthorizationParam (tokenType: String, authToken: String): String
+    private fun createAuthorizationParam(tokenType: String, authToken: String): String
             = tokenType.capitalizeFirstLetter().append(authToken, " ")
 
     /**
@@ -295,4 +295,16 @@ object Api {
     fun reactionForLibraryEntry(libraryEntryId: String): RequestBuilder<Observable<JSONAPIDocument<Reaction>>>
             = RequestBuilder(libraryEntryId, getLibraryEntryReactionCall)
 
+    /**
+     * Users
+     */
+    private val getAllUsersCall = { _: String, m: Map<String, String> -> service.getAllUsers(m) }
+
+    fun allUsers(): RequestBuilder<Observable<JSONAPIDocument<List<User>>>>
+            = RequestBuilder("", getAllUsersCall)
+
+    private val getUserCall = { id: String, m: Map<String, String> -> service.getUser(id, m) }
+
+    fun user(id: String): RequestBuilder<Observable<JSONAPIDocument<User>>>
+            = RequestBuilder(id, getUserCall)
 }

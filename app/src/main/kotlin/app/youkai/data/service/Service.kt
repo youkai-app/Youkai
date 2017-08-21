@@ -188,4 +188,15 @@ interface Service {
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<Reaction>>
 
+    /**
+     * Users
+     */
+    @GET("edge/users")
+    fun getAllUsers(@QueryMap queries:  Map<String, String>): Observable<JSONAPIDocument<List<User>>>
+
+    @GET("edge/users/{id}")
+    fun getUser(
+            @Path("id") id: String,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<User>>
 }
