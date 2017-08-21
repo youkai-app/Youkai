@@ -1,8 +1,9 @@
 package app.youkai
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import app.youkai.data.local.Credentials
 import app.youkai.ui.feature.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Temporary for testing. TODO: Replace with real auth check.
-        startActivity(Intent(this, LoginActivity::class.java))
+        if (!Credentials.isAuthenticated) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
     }
 }
