@@ -12,7 +12,6 @@ import io.reactivex.schedulers.Schedulers
 class MangaPresenter : BaseMediaPresenter() {
 
     override fun loadMedia(mediaId: String) {
-        onLoading()
         Api.manga(mediaId)
                 .include(
                         "categories",
@@ -27,11 +26,9 @@ class MangaPresenter : BaseMediaPresenter() {
                         { m ->
                             run {
                                 setMedia(m.get())
-                                onContent()
                             }
                         },
                         { e ->
-                            onError(e)
                         },
                         {
                             // onComplete
@@ -41,9 +38,5 @@ class MangaPresenter : BaseMediaPresenter() {
 
     override fun setType() {
         view?.setType((media as Manga?)?.typeString() ?: "")
-    }
-
-    override fun onError(e: Throwable) {
-        view?.tellChildrenError(e)
     }
 }

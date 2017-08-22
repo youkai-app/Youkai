@@ -15,7 +15,6 @@ import io.reactivex.schedulers.Schedulers
 class AnimePresenter : BaseMediaPresenter() {
 
     override fun loadMedia(mediaId: String) {
-        onLoading()
         Api.anime(mediaId)
                 .include(
                         "categories",
@@ -32,11 +31,9 @@ class AnimePresenter : BaseMediaPresenter() {
                         { m ->
                             run {
                                 setMedia(m.get())
-                                onContent()
                             }
                         },
                         { e ->
-                            onError(e)
                         },
                         {
                             // onComplete
@@ -60,9 +57,5 @@ class AnimePresenter : BaseMediaPresenter() {
         } else {
             view?.showToast(context.getString(R.string.error_no_trailer))
         }
-    }
-
-    override fun onError(e: Throwable) {
-        view?.tellChildrenError(e)
     }
 }

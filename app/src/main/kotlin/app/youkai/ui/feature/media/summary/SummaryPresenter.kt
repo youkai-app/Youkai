@@ -25,9 +25,6 @@ interface SummaryPresenter {
     fun setCharacters()
     fun setRelated()
 
-    fun onLoading()
-    fun onContent()
-    fun onError(e: Throwable)
     fun onSynopsisClicked()
     fun onCategoryClicked(category: Category)
     fun onLengthClicked()
