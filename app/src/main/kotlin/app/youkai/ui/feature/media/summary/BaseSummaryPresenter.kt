@@ -128,19 +128,6 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
                 " in a subclassing presenter.")
     }
 
-    override fun onLoading() {
-        view?.switchToLoading()
-    }
-
-    override fun onContent() {
-        view?.switchToContent()
-    }
-
-    override fun onError(e: Throwable) {
-        view?.setError(string(R.string.oops), e.message ?: "?", showRetryButton = true)
-        view?.switchToError()
-    }
-
     override fun onSynopsisClicked() {
         view?.onSynopsisClicked(media?.canonicalTitle ?: "?", media?.synopsis ?: "?") // TODO
     }

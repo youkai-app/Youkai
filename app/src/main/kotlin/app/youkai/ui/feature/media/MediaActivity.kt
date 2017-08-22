@@ -180,18 +180,6 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         Toast.makeText(this@MediaActivity, text, Toast.LENGTH_LONG).show()
     }
 
-    override fun tellChildrenLoading() {
-        (summaryFragment as SummaryFragment).lceListener.onLoading()
-    }
-
-    override fun tellChildrenContent() {
-        (summaryFragment as SummaryFragment).lceListener.onContent()
-    }
-
-    override fun tellChildrenError(e: Throwable) {
-        (summaryFragment as SummaryFragment).lceListener.onError(e)
-    }
-
     override fun onTablet(): Boolean {
         // TODO: Real check
         return false

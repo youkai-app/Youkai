@@ -19,9 +19,6 @@ interface MediaPresenter {
     fun setAgeRating()
     fun setFabState(state: MediaView.FabState)
 
-    fun onLoading()
-    fun onContent()
-    fun onError(e: Throwable)
     fun onPosterClicked()
     fun onCoverClicked()
     fun onTitleClicked()
