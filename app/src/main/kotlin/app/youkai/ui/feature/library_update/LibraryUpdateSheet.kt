@@ -24,9 +24,13 @@ import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Build
+import android.util.TypedValue
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.jakewharton.rxbinding2.widget.textChangeEvents
+import android.animation.AnimatorListenerAdapter
+
+
 
 /**
  * Was intended to be
@@ -44,11 +48,6 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     private var mediaType: JsonType? = null
     private var presenter: BaseLibraryUpdatePresenter? = null
     private var statusResolver: StatusResolver? = null
-
-    private var privacySwitchTouchX: Float? = null
-    private var privacySwitchTouchY: Float? = null
-
-    private var removeButtonIsPrimed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,11 +72,6 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
         presenter!!.attachView(this)
 
-        v.privacySwitch.setOnTouchListener { _, motionEvent ->
-            privacySwitchTouchX = motionEvent.x
-            privacySwitchTouchY = motionEvent.y
-            false
-        }
         v.privacySwitch.setOnCheckedChangeListener { _, isPrivate ->
             presenter!!.setPrivate(isPrivate); setPrivateBackground(isPrivate)
         }
@@ -225,19 +219,18 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         setPrivateBackground(isPrivate)
     }
 
+    var privacyRippleInset: Float? = null
+
     @SuppressLint("NewApi")
     private fun  setPrivateBackground(isPrivate: Boolean) {
-        // previously invisible view
         val view = isPrivateBackground
         var animator: Animator? = null
         val isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
 
-        /**
-         * if [privacySwitchTouchX] or [privacySwitchTouchY] are null we cannot animate
-         */
-        if (isLollipopOrGreater && privacySwitchTouchX != null && privacySwitchTouchY != null) {
-            val startX: Int = (privacySwitch.left + privacySwitchTouchX!!).toInt()
-            val startY: Int = (privacySwitch.top + privacySwitchTouchY!!).toInt()
+        if (isLollipopOrGreater) {
+            if (privacyRippleInset == null) privacyRippleInset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics)
+            val startX: Int = (privacySwitch.right - privacyRippleInset!!).toInt()
+            val startY: Int = (privacySwitch.bottom + privacySwitch.top).div(2)
             val startRadius = 0
             val endRadius = Math.hypot(view.width.toDouble(), view.height.toDouble())
             // set animator to expand or contract depending on the resultant state
@@ -246,9 +239,21 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                     if (isPrivate) endRadius.toFloat() else startRadius.toFloat())
         }
 
+        if (!isPrivate) {
+            // if going from private to public (circle getting smaller)
+            animator?.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    super.onAnimationEnd(animation)
+                    view.visibility = View.INVISIBLE
+                }
+            })
+        } else {
+            // if going from public to private (circle getting larger)
+            view.visibility = View.VISIBLE
+        }
+
         // make the view visible and start the animation
-        view.visibility = if (isPrivate) View.VISIBLE else View.GONE
-        if (isLollipopOrGreater) animator?.start()
+        if (isLollipopOrGreater) animator!!.start()
     }
 
     private fun showRemovalConfirmationDialog() {
