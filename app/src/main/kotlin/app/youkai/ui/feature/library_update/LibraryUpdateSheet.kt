@@ -30,8 +30,6 @@ import com.jakewharton.rxbinding2.widget.itemSelections
 import com.jakewharton.rxbinding2.widget.textChangeEvents
 import android.animation.AnimatorListenerAdapter
 
-
-
 /**
  * Was intended to be
  * class LibraryUpdateSheet : MvpBottomSheetFragment<LibraryUpdateView, BaseLibraryUpdatePresenter>(), LibraryUpdateView
@@ -241,18 +239,22 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
         if (!isPrivate) {
             // if going from private to public (circle getting smaller)
-            animator?.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    view.visibility = View.INVISIBLE
-                }
-            })
+            if (isLollipopOrGreater) {
+                animator!!.addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        super.onAnimationEnd(animation)
+                        view.visibility = View.INVISIBLE
+                    }
+                })
+            } else {
+                view.visibility = View.INVISIBLE
+            }
         } else {
             // if going from public to private (circle getting larger)
             view.visibility = View.VISIBLE
         }
 
-        // make the view visible and start the animation
+        // start the animation
         if (isLollipopOrGreater) animator!!.start()
     }
 
