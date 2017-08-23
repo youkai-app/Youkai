@@ -2,9 +2,6 @@ package app.youkai.ui.feature.library_update
 
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import app.youkai.R
 import app.youkai.data.models.Anime
@@ -19,7 +16,6 @@ import kotlinx.android.synthetic.main.library_update_progress_anime.*
 import kotlinx.android.synthetic.main.library_update_progress_anime.view.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.view.*
-import android.view.ViewAnimationUtils
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -29,6 +25,7 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.jakewharton.rxbinding2.widget.textChangeEvents
 import android.animation.AnimatorListenerAdapter
+import android.view.*
 
 /**
  * Was intended to be
@@ -49,6 +46,10 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        configureForArguments()
+    }
+
+    private fun configureForArguments() {
         if (arguments.containsKey(ARGUMENT_LIBRARY_ENTRY_ID)) {
             presenter = BaseLibraryUpdatePresenter()
             presenter!!.getEntryById(arguments.getString(ARGUMENT_LIBRARY_ENTRY_ID))
@@ -59,12 +60,16 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         } else if (arguments.containsKey(ARGUMENT_MANGA_ID)) {
             setMediaType(JsonType("manga"))
             (presenter as MangaLibraryUpdatePresenter).getEntryByManga(arguments.getString(ARGUMENT_MANGA_ID))
-
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.library_update, container, false)
+        setViewListeners(v)
+        return v
+    }
+
+    private fun setViewListeners(v: View) {
         // manually calling presenter method
         if (presenter == null) presenter = BaseLibraryUpdatePresenter()
 
@@ -88,7 +93,6 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 .skipInitialValue()
                 .subscribe { t -> presenter!!.setNotes(t.text().toString()) }
         v.removeButton.clicks().subscribe{ _ -> showRemovalConfirmationDialog() }
-        return v
     }
 
     override fun onDestroyView() {
@@ -226,7 +230,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         val isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
 
         if (isLollipopOrGreater) {
-            if (privacyRippleInset == null) privacyRippleInset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics)
+            if (privacyRippleInset == null) privacyRippleInset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics)
             val startX: Int = (privacySwitch.right - privacyRippleInset!!).toInt()
             val startY: Int = (privacySwitch.bottom + privacySwitch.top).div(2)
             val startRadius = 0

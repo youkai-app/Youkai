@@ -15,11 +15,11 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:visibility="gone"
-        android:layout_alignTop="@+id/libraryUpdateConstraintLayout"
+        android:layout_alignTop="@+id/libraryUpdateContent"
         android:layout_alignBottom="@+id/end_padding" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@id/libraryUpdateConstraintLayout"
+        android:id="@id/libraryUpdateContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
@@ -173,7 +173,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:gravity="center_vertical"
-        android:layout_below="@id/libraryUpdateConstraintLayout"
+        android:layout_below="@id/libraryUpdateContent"
         android:text="@string/remove_from_library"
         android:textColor="@color/bottom_sheet_title"
         android:drawableLeft="@drawable/ic_delete_black_24dp"

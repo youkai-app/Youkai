@@ -116,9 +116,16 @@ inline fun <T:Any, R> whenNotNull(input: T?, callback: (T)->R): R? {
  * @param layoutInflater The layout inflater to use to inflate the childView.
  * @param childView The new view to add to this ViewGroup.
  */
-fun ViewGroup.removeAllAndAdd(layoutInflater: LayoutInflater, @LayoutRes childViewRes: Int) {
+fun ViewGroup.removeAllAndAdd(childView: View) {
     this.removeAllViews()
-    val childView = layoutInflater.inflate(childViewRes, this, false)
     this.addView(childView)
+}
 
+/**
+ * Empties the ViewGroup and adds the child view.
+ * @param layoutInflater The layout inflater to use to inflate the childView.
+ * @param childView The layout resource for the new view to add to this ViewGroup.
+ */
+fun ViewGroup.removeAllAndAdd(layoutInflater: LayoutInflater, @LayoutRes childViewRes: Int) {
+    this.removeAllAndAdd(layoutInflater.inflate(childViewRes, this, false))
 }
