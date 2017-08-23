@@ -54,4 +54,6 @@
     <color name="bottom_sheet_title">#55000000</color>
     <color name="bottom_sheet_item">#8a000000</color>
 
+    <color name="text_gray">#8a000000</color>
+
 </resources>

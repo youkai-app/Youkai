@@ -86,22 +86,11 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter, LoginState
         getState().isLoading = isLoading
     }
 
-    override fun doLogin() {
-        presenter.doLogin(username.inputString(), password.inputString())
+    override fun doLogin() = presenter.doLogin(username.inputString(), password.inputString())
 
-        //TODO: remove before PR merge
-        val testUpdateSheet = LibraryUpdateSheet();
-        val bundle = Bundle()
-        //bundle.putString(LibraryUpdateSheet.ARGUMENT_ANIME_ID, "1")
-        bundle.putString(LibraryUpdateSheet.ARGUMENT_LIBRARY_ENTRY_ID, "17370281")
-        testUpdateSheet.arguments = bundle
-        testUpdateSheet.show(supportFragmentManager, testUpdateSheet.tag)
-    }
-
-    //TODO: UNDO
     override fun completeLogin() {
-        //finish()
-        //startActivity(Intent(this, MainActivity::class.java))
+        finish()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun getState(): LoginState = viewState

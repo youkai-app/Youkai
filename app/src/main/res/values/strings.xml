@@ -186,6 +186,12 @@
     <!--
         Library Update
     -->
+    <string name="remove_from_library">Remove from library</string>
+    <string name="tap_again_to_remove">Tap again to remove</string>
+    <string name="delete_confirmation_title">Delete library entry</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete this entry? You cannot undo this change.</string>
+    <string name="delete_confirmation_positive">DELETE</string>
+
     <string name="private_text">Private</string>
     <string name="status">Status</string>
     <string name="progress">Progress</string>

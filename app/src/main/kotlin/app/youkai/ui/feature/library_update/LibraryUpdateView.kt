@@ -2,7 +2,7 @@ package app.youkai.ui.feature.library_update
 
 import app.youkai.data.models.JsonType
 import app.youkai.data.models.Status
-import com.hannesdorfmann.mosby3.mvp.MvpView
+import com.hannesdorfmann.mosby.mvp.MvpView
 
 interface LibraryUpdateView : MvpView {
 

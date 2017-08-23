@@ -1,3 +1,7 @@
+/**
+ * TODO: update to mosby v3
+ * Requires v3 of mosby and doesn't work anyway.
+ *
 package app.youkai.ui
 
 import android.app.Activity
@@ -84,3 +88,4 @@ abstract class MvpBottomSheetFragment<V : MvpView, P : MvpPresenter<V>> : Bottom
         mvpDelegate.onSaveInstanceState(outState)
     }
 }
+ **/

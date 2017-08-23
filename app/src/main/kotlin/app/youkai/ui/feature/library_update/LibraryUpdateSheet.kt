@@ -22,7 +22,9 @@ import kotlinx.android.synthetic.main.library_update_progress_manga.view.*
 import android.view.ViewAnimationUtils
 import android.animation.Animator
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Build
+import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.jakewharton.rxbinding2.widget.textChangeEvents
 
@@ -45,6 +47,8 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     private var privacySwitchTouchX: Float? = null
     private var privacySwitchTouchY: Float? = null
+
+    private var removeButtonIsPrimed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +95,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         v.notesInputEdit.textChangeEvents()
                 .skipInitialValue()
                 .subscribe { t -> presenter!!.setNotes(t.text().toString()) }
-
+        v.removeButton.clicks().subscribe{ _ -> showRemovalConfirmationDialog() }
         return v
     }
 
@@ -245,6 +249,28 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         // make the view visible and start the animation
         view.visibility = if (isPrivate) View.VISIBLE else View.GONE
         if (isLollipopOrGreater) animator?.start()
+    }
+
+    private fun showRemovalConfirmationDialog() {
+        val dialog = AlertDialog.Builder(context, R.style.LibraryUpdateDialog)
+                .setTitle(R.string.delete_confirmation_title)
+                .setMessage(R.string.delete_confirmation_message)
+                .setPositiveButton(
+                        R.string.delete_confirmation_positive,
+                        { _, _ ->
+                            presenter!!.removeLibraryEntry()
+                        }
+                )
+                .setNeutralButton(
+                        android.R.string.cancel,
+                        { _, _ ->
+                            //do nothing
+                        }
+                )
+                .create()
+        dialog.show()
+        dialog.getButton(android.app.AlertDialog.BUTTON_NEUTRAL)
+                .setTextColor(resources.getColor(R.color.text_gray))
     }
 
     override fun setStatus(status: Status) {

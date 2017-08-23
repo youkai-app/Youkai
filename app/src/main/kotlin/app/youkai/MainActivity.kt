@@ -30,5 +30,17 @@ class MainActivity : AppCompatActivity() {
             val type = MediaType.fromString(mediaType.text.toString())
             startActivity(MediaActivity.new(this, id, type))
         }
+
+        // Temporary for testing. TODO: Replace with real auth check.
+        //startActivity(Intent(this, LoginActivity::class.java))
+
+        //TODO: remove
+        /**val testUpdateSheet = LibraryUpdateSheet();
+        val bundle = Bundle()
+        bundle.putString(LibraryUpdateSheet.ARGUMENT_ANIME_ID, "1")
+        bundle.putString(LibraryUpdateSheet.ARGUMENT_LIBRARY_ENTRY_ID, "17370281")
+        testUpdateSheet.arguments = bundle
+        testUpdateSheet.show(supportFragmentManager, testUpdateSheet.tag) **/
     }
+
 }

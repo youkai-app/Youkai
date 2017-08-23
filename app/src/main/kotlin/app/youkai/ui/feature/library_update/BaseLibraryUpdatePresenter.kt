@@ -2,7 +2,7 @@ package app.youkai.ui.feature.library_update
 
 import app.youkai.data.models.*
 import app.youkai.data.service.Api
-import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
+import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
