@@ -10,11 +10,11 @@
     android:theme="@style/AppTheme" >
 
     <View
-        android:id="@+id/isPrivateBackground"
+        android:id="@+id/privateBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_alignTop="@+id/libraryUpdateContent"
         android:layout_alignBottom="@+id/end_padding" />
 
@@ -34,7 +34,7 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:textColor="@color/bottom_sheet_title"
+            android:textColor="@color/bottom_sheet_title_light"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -44,7 +44,7 @@
             android:layout_height="56dp"
             android:switchPadding="12dp"
             android:text="@string/private_text"
-            android:textColor="@color/bottom_sheet_item"
+            android:textColor="@color/bottom_sheet_label_light"
             android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@id/title"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/status"
-            android:textColor="@color/bottom_sheet_item"
+            android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/title" />
@@ -80,7 +80,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/progress"
-            android:textColor="@color/bottom_sheet_item"
+            android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/status" />
@@ -100,7 +100,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/rewatched"
-            android:textColor="@color/bottom_sheet_item"
+            android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/progressContainer" />
@@ -122,7 +122,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/rating"
-            android:textColor="@color/bottom_sheet_item"
+            android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/reconsumed" />
@@ -141,8 +141,8 @@
             app:layout_constraintStart_toEndOf="@id/rating"
             app:layout_constraintTop_toBottomOf="@id/reconsumed"
             app:layout_constraintTop_toTopOf="@id/rating"
-            app:mrb_indeterminateTint="@color/bottom_sheet_title"
-            app:mrb_progressBackgroundTint="@color/bottom_sheet_title"
+            app:mrb_indeterminateTint="@color/bottom_sheet_title_light"
+            app:mrb_progressBackgroundTint="@color/bottom_sheet_title_light"
             app:mrb_progressTint="#fecb20"
             app:mrb_secondaryProgressTint="#fecb20" />
 
@@ -153,7 +153,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/personal_notes"
-            android:textColor="@color/bottom_sheet_item"
+            android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/rating" />
@@ -164,6 +164,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/edit_notes"
             android:paddingTop="0dp"
+            android:textColor="@color/bottom_sheet_item_light"
+            android:textColorHint="@color/bottom_sheet_title_light"
+            android:backgroundTint="@color/bottom_sheet_title_light"
             app:layout_constraintTop_toBottomOf="@id/notes" />
 
     </android.support.constraint.ConstraintLayout>
@@ -175,10 +178,10 @@
         android:gravity="center_vertical"
         android:layout_below="@id/libraryUpdateContent"
         android:text="@string/remove_from_library"
-        android:textColor="@color/bottom_sheet_title"
+        android:textColor="@color/bottom_sheet_title_light"
         android:drawableLeft="@drawable/ic_delete_black_24dp"
         android:drawableStart="@drawable/ic_delete_black_24dp"
-        android:drawableTint="@color/bottom_sheet_title"
+        android:drawableTint="@color/bottom_sheet_title_light"
         android:drawablePadding="8dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"

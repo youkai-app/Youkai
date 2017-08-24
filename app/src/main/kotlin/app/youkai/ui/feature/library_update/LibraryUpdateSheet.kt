@@ -25,7 +25,14 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.jakewharton.rxbinding2.widget.textChangeEvents
 import android.animation.AnimatorListenerAdapter
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.graphics.Rect
+import android.support.annotation.ColorRes
 import android.view.*
+import android.widget.TextView
+import app.youkai.ui.CustomRecolor
+import com.transitionseverywhere.*
 
 /**
  * Was intended to be
@@ -39,6 +46,15 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         val ARGUMENT_ANIME_ID = "animeId"
         val ARGUMENT_MANGA_ID = "mangaId"
     }
+
+    private val isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+
+    private val titleColorLight = R.color.bottom_sheet_title_light
+    private val titleColorDark = R.color.bottom_sheet_title_dark
+    private val labelColorLight = R.color.bottom_sheet_label_light
+    private val labelColorDark = R.color.bottom_sheet_label_dark
+    private val itemColorLight = R.color.bottom_sheet_item_light
+    private val itemColorDark = R.color.bottom_sheet_item_dark
 
     private var mediaType: JsonType? = null
     private var presenter: BaseLibraryUpdatePresenter? = null
@@ -76,10 +92,15 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         presenter!!.attachView(this)
 
         v.privacySwitch.setOnCheckedChangeListener { _, isPrivate ->
-            presenter!!.setPrivate(isPrivate); setPrivateBackground(isPrivate)
+            presenter!!.setPrivate(isPrivate)
+            setPrivate(isPrivate)
         }
         v.statusSpinner.itemSelections()
                 .skipInitialValue()
+                .doOnNext {
+                    if (privacySwitch.isChecked) setSpinnerSelectedColors(itemColorDark, labelColorDark)
+                    else setSpinnerSelectedColors(itemColorLight, labelColorLight)
+                }
                 .filter { v.statusSpinner.adapter != null }
                 .map { v.statusSpinner.adapter.getItem(it).toString() }
                 .doOnNext { if (statusResolver == null) throw IllegalStateException("Cannot set a status without a statusResolver") }
@@ -103,6 +124,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun onPause() {
         /**
+         * TODO: change behaviour
          * Save when:
          *  - dismissed
          *  - screen off
@@ -222,44 +244,131 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     }
 
     var privacyRippleInset: Float? = null
+    var privacyAnimator: Animator? = null
 
     @SuppressLint("NewApi")
     private fun  setPrivateBackground(isPrivate: Boolean) {
-        val view = isPrivateBackground
-        var animator: Animator? = null
-        val isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+        val animationDuration: Long = 320
+
+        if (privacyAnimator != null && privacyAnimator!!.isRunning) privacyAnimator!!.cancel()
 
         if (isLollipopOrGreater) {
             if (privacyRippleInset == null) privacyRippleInset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics)
             val startX: Int = (privacySwitch.right - privacyRippleInset!!).toInt()
             val startY: Int = (privacySwitch.bottom + privacySwitch.top).div(2)
             val startRadius = 0
-            val endRadius = Math.hypot(view.width.toDouble(), view.height.toDouble())
+            val endRadius = Math.hypot(privateBackground.width.toDouble(), privateBackground.height.toDouble())
             // set animator to expand or contract depending on the resultant state
-            animator = ViewAnimationUtils.createCircularReveal(view, startX, startY,
+            privacyAnimator = ViewAnimationUtils.createCircularReveal(privateBackground, startX, startY,
                     if (isPrivate) startRadius.toFloat() else endRadius.toFloat(),
                     if (isPrivate) endRadius.toFloat() else startRadius.toFloat())
+            privacyAnimator!!.duration = animationDuration
         }
 
+        val epicentreRect = Rect()
+        privacySwitch.getGlobalVisibleRect(epicentreRect)
+
+        val changeColorsWithEpicentre = TransitionSet()
+                .addTransition(CustomRecolor().setDuration(animationDuration))
+                .setEpicenterCallback(object: Transition.EpicenterCallback() {
+                    override fun onGetEpicenter(transition: Transition?): Rect {
+                        return epicentreRect
+                    }
+                })
+                .excludeTarget(privateBackground, true)
+                .setDuration(animationDuration)
+
+        TransitionManager.beginDelayedTransition(libraryUpdateRelativeLayout, changeColorsWithEpicentre)
+
+        // set background and views to match privacy option
         if (!isPrivate) {
             // if going from private to public (circle getting smaller)
             if (isLollipopOrGreater) {
-                animator!!.addListener(object : AnimatorListenerAdapter() {
+                privacyAnimator!!.addListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
                         super.onAnimationEnd(animation)
-                        view.visibility = View.INVISIBLE
+                        privateBackground.visibility = View.INVISIBLE
                     }
                 })
+                applyLightColors()
             } else {
-                view.visibility = View.INVISIBLE
+                privateBackground.visibility = View.INVISIBLE
+                applyLightColors()
             }
+            // set colors
         } else {
-            // if going from public to private (circle getting larger)
-            view.visibility = View.VISIBLE
+            privateBackground.visibility = View.VISIBLE
+            applyDarkColors()
         }
 
         // start the animation
-        if (isLollipopOrGreater) animator!!.start()
+        if (isLollipopOrGreater) privacyAnimator!!.start()
+    }
+
+    @SuppressLint("NewApi")
+    private fun setColors(@ColorRes titleColor: Int, @ColorRes labelColor: Int, @ColorRes itemColor: Int) {
+        title.setTextColor(getColor(titleColor))
+        privacySwitch.setTextColor(getColor(labelColor))
+        status.setTextColor(getColor(labelColor))
+        setSpinnerSelectedColors(itemColor, labelColor)
+        progress.setTextColor(getColor(labelColor))
+        reconsumed.setTextColor(getColor(labelColor))
+        rating.setTextColor(getColor(labelColor))
+        ratingBar.progressBackgroundTintList = ColorStateList.valueOf(getColor(titleColor))
+        ratingBar.indeterminateTintList = ColorStateList.valueOf(getColor(titleColor))
+        notes.setTextColor(getColor(labelColor))
+        //TODO: better colors for edit texts, remember to change xml
+        notesInputEdit.setHintTextColor(getColor(titleColor))
+        notesInputEdit.setTextColor(getColor(itemColor))
+        removeButton.setTextColor(getColor(titleColor))
+        if (isLollipopOrGreater) {
+            removeButton.compoundDrawableTintList = ColorStateList.valueOf(getColor(titleColor))
+            notesInputEdit.backgroundTintList = ColorStateList.valueOf(getColor(titleColor))
+        } else {
+            /**
+             * Shitty inexact hack for tinting the delete icon for API versions < Lollipop.
+             * Means the colour of the icon will be slightly different after the first privacySwitch use.
+             * Alter the alpha value & color filter to adjust (does not support directly setting a filter while preserving transparency).
+             */
+            removeButton.compoundDrawables.forEach {
+                it?.setColorFilter(getColor(itemColor), PorterDuff.Mode.SRC_ATOP)
+                it?.alpha = 125
+            }
+            notesInputEdit.background.setColorFilter(getColor(itemColor), PorterDuff.Mode.SRC_ATOP)
+            notesInputEdit.background.alpha = 125
+        }
+        if (progressContainer.chapters != null && progressContainer.volumes != null ) {
+            progressContainer.chapters.setTextColor(getColor(labelColor))
+            progressContainer.volumes.setTextColor(getColor(labelColor))
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun setSpinnerSelectedColors(@ColorRes textColorRes: Int, @ColorRes dropdownColorRes: Int) {
+        val statusText = statusSpinner.getChildAt(0) as TextView
+        statusText.setTextColor(getColor(textColorRes))
+        if (isLollipopOrGreater)
+            statusSpinner.backgroundTintList = ColorStateList.valueOf(getColor(dropdownColorRes))
+        else {
+            statusSpinner.background.setColorFilter(getColor(dropdownColorRes), PorterDuff.Mode.SRC_ATOP)
+            statusSpinner.background.alpha = 125
+        }
+    }
+
+    private fun applyLightColors() {
+        setColors(titleColorLight, labelColorLight, itemColorLight)
+    }
+
+    private fun applyDarkColors() {
+        setColors(titleColorDark, labelColorDark, itemColorDark)
+    }
+
+    private fun getColor(@ColorRes colorRes: Int): Int {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return resources.getColor(colorRes, context.theme)
+        } else {
+            return resources.getColor(colorRes)
+        }
     }
 
     private fun showRemovalConfirmationDialog() {
@@ -281,7 +390,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 .create()
         dialog.show()
         dialog.getButton(android.app.AlertDialog.BUTTON_NEUTRAL)
-                .setTextColor(resources.getColor(R.color.text_gray))
+                .setTextColor(getColor(R.color.text_gray_light))
     }
 
     override fun setStatus(status: Status) {

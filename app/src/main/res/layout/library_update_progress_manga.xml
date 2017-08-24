@@ -21,7 +21,7 @@
         android:paddingRight="8dp"
         android:gravity="center_vertical"
         android:text="@string/chapters"
-        android:textColor="@color/bottom_sheet_item"
+        android:textColor="@color/bottom_sheet_label_light"
         android:textSize="16sp"
         android:fontFamily="sans-serif-light"
         app:layout_constraintEnd_toStartOf="@id/chaptersProgressView" />
@@ -42,7 +42,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="@string/volumes"
-        android:textColor="@color/bottom_sheet_item"
+        android:textColor="@color/bottom_sheet_label_light"
         android:textSize="16sp"
         android:fontFamily="sans-serif-light"
         android:gravity="center_vertical"

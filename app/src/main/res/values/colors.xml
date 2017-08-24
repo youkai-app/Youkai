@@ -51,9 +51,15 @@
 
     <color name="youtube">#FF1744</color>
 
-    <color name="bottom_sheet_title">#55000000</color>
-    <color name="bottom_sheet_item">#8a000000</color>
+    <color name="bottom_sheet_title_light">#58000000</color>
+    <color name="bottom_sheet_label_light">#8a000000</color>
+    <color name="bottom_sheet_item_light">@android:color/black</color>
 
-    <color name="text_gray">#8a000000</color>
+    <color name="bottom_sheet_title_dark">#58ffffff</color>
+    <color name="bottom_sheet_label_dark">#81ffffff</color>
+    <color name="bottom_sheet_item_dark">#cdffffff</color>
+
+    <color name="text_gray_light">#8a000000</color>
+    <color name="text_gray_dark">#8affffff</color>
 
 </resources>
