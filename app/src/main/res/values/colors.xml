@@ -56,7 +56,7 @@
     <color name="bottom_sheet_item_light">@android:color/black</color>
 
     <color name="bottom_sheet_title_dark">#58ffffff</color>
-    <color name="bottom_sheet_label_dark">#81ffffff</color>
+    <color name="bottom_sheet_label_dark">#96ffffff</color>
     <color name="bottom_sheet_item_dark">#cdffffff</color>
 
     <color name="text_gray_light">#8a000000</color>

@@ -27,10 +27,12 @@ import com.jakewharton.rxbinding2.widget.textChangeEvents
 import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.view.*
+import android.widget.EditText
 import android.widget.TextView
 import app.youkai.ui.CustomRecolor
 import app.youkai.ui.feature.login.LoginActivity
@@ -84,6 +86,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.library_update, container, false)
         setViewListeners(v)
+        //TODO: setColors
         return v
     }
 
@@ -100,8 +103,8 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         v.statusSpinner.itemSelections()
                 .skipInitialValue()
                 .doOnNext {
-                    if (privacySwitch.isChecked) setSpinnerSelectedColors(itemColorDark, labelColorDark)
-                    else setSpinnerSelectedColors(itemColorLight, labelColorLight)
+                    if (privacySwitch.isChecked) setSpinnerSelectedColors(itemColorDark, labelColorDark, R.color.library_update_button_drawable_dark)
+                    else setSpinnerSelectedColors(itemColorLight, labelColorLight, R.color.library_update_button_drawable_light)
                 }
                 .filter { v.statusSpinner.adapter != null }
                 .map { v.statusSpinner.adapter.getItem(it).toString() }
@@ -159,7 +162,6 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     private fun configureForMediaType() {
         replacePresenterForMediaType()
         if (mediaTypeIsAnime()) {
-            //TODO: set headers in view
             statusResolver = AnimeStatusResolver()
             statusResolver!!.init(context)
         } else if (mediaTypeIsManga()) {
@@ -308,61 +310,87 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     }
 
     @SuppressLint("NewApi")
-    private fun setColors(@ColorRes titleColor: Int, @ColorRes labelColor: Int, @ColorRes itemColor: Int) {
-        title.setTextColor(getColor(titleColor))
-        privacySwitch.setTextColor(getColor(labelColor))
-        status.setTextColor(getColor(labelColor))
-        setSpinnerSelectedColors(itemColor, labelColor)
-        progress.setTextColor(getColor(labelColor))
-        reconsumed.setTextColor(getColor(labelColor))
-        rating.setTextColor(getColor(labelColor))
-        ratingBar.progressBackgroundTintList = ColorStateList.valueOf(getColor(titleColor))
-        ratingBar.indeterminateTintList = ColorStateList.valueOf(getColor(titleColor))
-        notes.setTextColor(getColor(labelColor))
-        //TODO: better colors for edit texts, remember to change xml
-        notesInputEdit.setHintTextColor(getColor(titleColor))
-        notesInputEdit.setTextColor(getColor(itemColor))
-        removeButton.setTextColor(getColor(titleColor))
-        if (isLollipopOrGreater) {
-            removeButton.compoundDrawableTintList = ColorStateList.valueOf(getColor(titleColor))
-            notesInputEdit.backgroundTintList = ColorStateList.valueOf(getColor(titleColor))
-        } else {
-            /**
-             * Shitty inexact hack for tinting the delete icon for API versions < Lollipop.
-             * Means the colour of the icon will be slightly different after the first privacySwitch use.
-             * Alter the alpha value & color filter to adjust (does not support directly setting a filter while preserving transparency).
-             */
-            removeButton.compoundDrawables.forEach {
-                it?.setColorFilter(getColor(itemColor), PorterDuff.Mode.SRC_ATOP)
-                it?.alpha = 125
-            }
-            notesInputEdit.background.setColorFilter(getColor(itemColor), PorterDuff.Mode.SRC_ATOP)
-            notesInputEdit.background.alpha = 125
+    private fun setColors(
+            @ColorRes titleColorRes: Int,
+            @ColorRes labelColorRes: Int,
+            @ColorRes itemColorRes: Int,
+            @ColorRes spinnerBackgroundColorRes: Int,
+            @ColorRes buttonDrawableColorRes: Int,
+            @ColorRes editTextBackgroundColorRes: Int) {
+        val titleColor = getColor(titleColorRes)
+        val labelColor = getColor(labelColorRes)
+        val itemColor = getColor(itemColorRes)
+
+        title.setTextColor(titleColor)
+        privacySwitch.setTextColor(labelColor)
+        status.setTextColor(labelColor)
+        setSpinnerSelectedColors(itemColorRes, labelColorRes, spinnerBackgroundColorRes)
+        progress.setTextColor(labelColor)
+        if (progressContainer.episodesProgressView != null) {
+            setProgressViewColors(progressContainer.episodesProgressView, itemColorRes, editTextBackgroundColorRes)
+        } else if (progressContainer.chaptersProgressView != null && progressContainer.volumesProgressView != null) {
+            setProgressViewColors(progressContainer.chaptersProgressView, itemColorRes, editTextBackgroundColorRes)
+            setProgressViewColors(progressContainer.volumesProgressView, itemColorRes, editTextBackgroundColorRes)
         }
+        reconsumed.setTextColor(labelColor)
+        setProgressViewColors(reconsumedProgressView, itemColorRes, editTextBackgroundColorRes)
+        rating.setTextColor(labelColor)
+        ratingBar.progressBackgroundTintList = ColorStateList.valueOf(titleColor)
+        ratingBar.indeterminateTintList = ColorStateList.valueOf(titleColor)
+        notes.setTextColor(labelColor)
+        //TODO: better colors for edit texts, remember to change xml
+        notesInputEdit.setHintTextColor(titleColor)
+        notesInputEdit.setTextColor(itemColor)
+        removeButton.setTextColor(titleColor)
+        removeButton.compoundDrawables.forEach {
+            if (it != null) retintDrawable(it, buttonDrawableColorRes)
+        }
+        retintDrawable(notesInputEdit.background, editTextBackgroundColorRes)
         if (progressContainer.chapters != null && progressContainer.volumes != null ) {
-            progressContainer.chapters.setTextColor(getColor(labelColor))
-            progressContainer.volumes.setTextColor(getColor(labelColor))
+            progressContainer.chapters.setTextColor(labelColor)
+            progressContainer.volumes.setTextColor(labelColor)
         }
     }
 
     @SuppressLint("NewApi")
-    private fun setSpinnerSelectedColors(@ColorRes textColorRes: Int, @ColorRes dropdownColorRes: Int) {
+    private fun setSpinnerSelectedColors(@ColorRes textColorRes: Int, @ColorRes dropdownColorRes: Int, @ColorRes backgroundColorRes: Int) {
         val statusText: TextView? = statusSpinner.getChildAt(0) as TextView
         statusText?.setTextColor(getColor(textColorRes))
-        if (isLollipopOrGreater)
-            statusSpinner.backgroundTintList = ColorStateList.valueOf(getColor(dropdownColorRes))
-        else {
-            statusSpinner.background.setColorFilter(getColor(dropdownColorRes), PorterDuff.Mode.SRC_ATOP)
-            statusSpinner.background.alpha = 125
-        }
+        if (statusText != null) retintDrawable(statusSpinner.background, backgroundColorRes)
+    }
+
+    @SuppressLint("NewApi")
+    private fun setProgressViewColors(progressView: ProgressView, @ColorRes textColorRes: Int, @ColorRes editTextBackgroundColorRes: Int) {
+        val textColor = getColor(textColorRes)
+        val editText = progressView.findViewById(R.id.progress) as EditText?
+        editText?.setTextColor(textColor)
+        editText?.setHintTextColor(textColor)
+        if (editText != null) retintDrawable(editText.background, editTextBackgroundColorRes)
+        (progressView.findViewById(R.id.max) as TextView?)?.setTextColor(textColor)
+    }
+
+    private fun retintDrawable(drawable: Drawable, @ColorRes colorStateListRes: Int) {
+        DrawableCompat.setTintList(drawable, resources.getColorStateList(colorStateListRes))
     }
 
     private fun applyLightColors() {
-        setColors(titleColorLight, labelColorLight, itemColorLight)
+        setColors(
+                titleColorLight,
+                labelColorLight,
+                itemColorLight,
+                R.color.library_update_button_drawable_light,
+                R.color.library_update_button_drawable_light,
+                R.color.library_update_edittext_light)
     }
 
     private fun applyDarkColors() {
-        setColors(titleColorDark, labelColorDark, itemColorDark)
+        setColors(
+                titleColorDark,
+                labelColorDark,
+                itemColorDark,
+                R.color.library_update_button_drawable_dark,
+                R.color.library_update_button_drawable_dark,
+                R.color.library_update_edittext_dark)
     }
 
     private fun getColor(@ColorRes colorRes: Int): Int {
@@ -400,7 +428,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     }
 
     override fun setReconsumedCount(reconsumedCount: Int) {
-        rewatchedView.progress = reconsumedCount
+        reconsumedProgressView.progress = reconsumedCount
     }
 
     override fun setRating(rating: Float) {
