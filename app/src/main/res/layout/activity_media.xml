@@ -88,11 +88,12 @@
                         android:id="@+id/titleContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:gravity="center_vertical">
 
-                        <TextView
+                        <app.youkai.placeholdertextview.PlaceholderTextView
                             android:id="@+id/titleView"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ellipsize="end"
@@ -100,7 +101,7 @@
                             android:maxLines="2"
                             android:textColor="?android:textColorPrimary"
                             android:textSize="18sp"
-                            tools:text="Bakemonogatari" />
+                            app:ptv_sampleText="Bakemonogataririririri" />
 
                         <ImageView
                             android:id="@+id/alternativeTitles"
@@ -115,29 +116,29 @@
                             tools:visibility="visible" />
                     </LinearLayout>
 
-                    <TextView
+                    <app.youkai.placeholdertextview.PlaceholderTextView
                         android:id="@+id/type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/titleContainer"
                         android:layout_marginTop="16dp"
-                        tools:text="TV Series" />
+                        app:ptv_sampleText="TV Series" />
 
-                    <TextView
+                    <app.youkai.placeholdertextview.PlaceholderTextView
                         android:id="@+id/releaseSummary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/type"
                         android:layout_marginTop="8dp"
-                        tools:text="Finished Airing" />
+                        app:ptv_sampleText="Finished Airing" />
 
-                    <TextView
+                    <app.youkai.placeholdertextview.PlaceholderTextView
                         android:id="@+id/ageRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/releaseSummary"
                         android:layout_marginTop="8dp"
-                        tools:text="R - 17+ (violence + profanity)" />
+                        app:ptv_sampleText="R - 17+ (violence + profanity)" />
                 </RelativeLayout>
             </RelativeLayout>
 

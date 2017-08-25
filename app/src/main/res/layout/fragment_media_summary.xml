@@ -126,8 +126,8 @@
                     <app.youkai.placeholdertextview.PlaceholderTextView
                         android:id="@+id/favoritesCount"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="4dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         app:ptv_sampleText="2,348 favorites" />
                 </LinearLayout>
 
@@ -145,7 +145,7 @@
                         android:tint="@color/accent_kitsu"
                         app:srcCompat="@drawable/ic_most_pupolar_black_36dp" />
 
-                    <TextView
+                    <app.youkai.placeholdertextview.PlaceholderTextView
                         android:id="@+id/popularityRank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -154,8 +154,9 @@
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/popularityIcon"
                         android:fontFamily="sans-serif-light"
+                        android:lines="1"
                         android:textSize="26sp"
-                        tools:text="19th" />
+                        app:ptv_sampleText="19th" />
 
                     <TextView
                         android:id="@+id/popularityText"
@@ -175,7 +176,7 @@
                         android:tint="@color/rating"
                         app:srcCompat="@drawable/ic_highest_rated_black_36dp" />
 
-                    <TextView
+                    <app.youkai.placeholdertextview.PlaceholderTextView
                         android:id="@+id/ratingRank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -184,8 +185,9 @@
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/ratingIcon"
                         android:fontFamily="sans-serif-light"
+                        android:lines="1"
                         android:textSize="26sp"
-                        tools:text="95th" />
+                        app:ptv_sampleText="95th" />
 
                     <TextView
                         android:id="@+id/ratingText"
