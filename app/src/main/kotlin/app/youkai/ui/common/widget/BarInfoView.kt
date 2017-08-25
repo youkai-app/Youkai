@@ -4,12 +4,12 @@ import android.content.Context
 import android.support.annotation.IntegerRes
 import android.text.SpannableString
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import app.youkai.R
+import app.youkai.placeholdertextview.PlaceholderTextView
 import app.youkai.util.ext.getLayoutInflater
 import app.youkai.util.ext.toPx
 
@@ -18,7 +18,7 @@ import app.youkai.util.ext.toPx
  *
  * See: http://i.imgur.com/U1N3u2J.png
  */
-class BarInfoView : LinearLayout {
+class BarInfoView : FrameLayout {
     lateinit var iconView: ImageView
     lateinit var textView: TextView
     lateinit var chevronView: View
@@ -45,14 +45,12 @@ class BarInfoView : LinearLayout {
 
         /* Get view references */
         iconView = findViewById<ImageView>(R.id.icon)
-        textView = findViewById<TextView>(R.id.text)
+        textView = findViewById<PlaceholderTextView>(R.id.text)
         chevronView = findViewById(R.id.chevron)
 
         /* Set root layout attributes */
         val padding = 16.toPx(context)
         setPadding(padding, padding, padding, padding)
-        orientation = HORIZONTAL
-        gravity = Gravity.CENTER
 
         /* Get values from the layout */
         val a = context.theme.obtainStyledAttributes(
