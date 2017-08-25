@@ -10,13 +10,13 @@ import app.youkai.MainActivity
 import app.youkai.R
 import app.youkai.util.ext.inputString
 import app.youkai.util.ext.snackbar
-import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateActivity
+import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import com.jakewharton.rxbinding2.widget.afterTextChangeEvents
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter, LoginState>(), LoginView {
+class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginView {
 
     companion object {
         val START_FOR_ACCESS_TOKEN = 1
@@ -98,5 +98,5 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter, LoginState
         if (callingActivity == null) startActivity(Intent(this, MainActivity::class.java))
     }
 
-    private fun getState(): LoginState = viewState
+    private fun getState(): LoginState = getViewState() as LoginState
 }

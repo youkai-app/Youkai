@@ -48,32 +48,32 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
 
     private fun setEntryOnView(entry: LibraryEntry) {
         if (entry.anime != null) {
-            view.setMediaType(JsonType(Anime().type.type))
-            view.setMaxEpisodes(entry.anime!!.episodeCount!!)
+            view?.setMediaType(JsonType(Anime().type.type))
+            view?.setMaxEpisodes(entry.anime!!.episodeCount!!)
             //TODO: title preferences
-            view.setTitle(entry.anime!!.titles!!.en!!)
-            view.setEpisodeProgress(entry.progress!!)
+            view?.setTitle(entry.anime!!.titles!!.en!!)
+            view?.setEpisodeProgress(entry.progress!!)
         } else if (entry.manga != null) {
-            view.setMediaType(JsonType(Manga().type.type))
+            view?.setMediaType(JsonType(Manga().type.type))
             //TODO: manga doesn't have chapters count any more
             //view.setMaxChapters(entry.manga!!.chapterCount!!)
-            view.setTitle(entry.manga!!.titles!!.en!!)
-            view.setMaxChapters(entry.manga!!.chapterCount!!)
-            view.setChapterProgress(entry.progress!!)
-            view.setMaxVolumes(entry.manga!!.volumeCount!!)
-            view.setVolumeProgress(entry.volumesOwned!!)
+            view?.setTitle(entry.manga!!.titles!!.en!!)
+            view?.setMaxChapters(entry.manga!!.chapterCount!!)
+            view?.setChapterProgress(entry.progress!!)
+            view?.setMaxVolumes(entry.manga!!.volumeCount!!)
+            view?.setVolumeProgress(entry.volumesOwned!!)
         }
         libraryEntry = entry
         //TODO: make safe!! (!!)
-        view.setPrivate(entry.private!!)
-        view.setStatus(Status(entry.status!!))
-        view.setReconsumedCount(entry.reconsumeCount!!)
+        view?.setPrivate(entry.private!!)
+        view?.setStatus(Status(entry.status!!))
+        view?.setReconsumedCount(entry.reconsumeCount!!)
         //TODO: create dedicated rating model or methods?
         if (entry.ratingTwenty != null && entry.ratingTwenty!! >= 0) {
-            view.setRating(entry.ratingTwenty!!.div(4).toFloat())
+            view?.setRating(entry.ratingTwenty!!.div(4).toFloat())
         }
         if (entry.notes != null) {
-            view.setNotes(entry.notes!!)
+            view?.setNotes(entry.notes!!)
         }
     }
 

@@ -1,7 +1,7 @@
 package app.youkai.ui.feature.library_update
 
 import android.os.Bundle
-import com.hannesdorfmann.mosby3.mvp.viewstate.RestorableViewState
+import com.hannesdorfmann.mosby.mvp.viewstate.RestorableViewState
 
 class LibraryUpdateState : RestorableViewState<LibraryUpdateView> {
     val isPrivate = false

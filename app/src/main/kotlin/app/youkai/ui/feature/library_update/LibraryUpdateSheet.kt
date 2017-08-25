@@ -90,6 +90,11 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         return v
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        applyLightColors()
+    }
+
     private fun setViewListeners(v: View) {
         // manually calling presenter method
         if (presenter == null) presenter = BaseLibraryUpdatePresenter()
@@ -103,8 +108,8 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         v.statusSpinner.itemSelections()
                 .skipInitialValue()
                 .doOnNext {
-                    if (privacySwitch.isChecked) setSpinnerSelectedColors(itemColorDark, labelColorDark, R.color.library_update_button_drawable_dark)
-                    else setSpinnerSelectedColors(itemColorLight, labelColorLight, R.color.library_update_button_drawable_light)
+                    if (privacySwitch.isChecked) setSpinnerSelectedColors(itemColorDark, R.color.library_update_button_drawable_dark, R.color.dropdown_dark)
+                    else setSpinnerSelectedColors(itemColorLight, R.color.library_update_button_drawable_light, R.color.dropdown_light)
                 }
                 .filter { v.statusSpinner.adapter != null }
                 .map { v.statusSpinner.adapter.getItem(it).toString() }
@@ -324,7 +329,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         title.setTextColor(titleColor)
         privacySwitch.setTextColor(labelColor)
         status.setTextColor(labelColor)
-        setSpinnerSelectedColors(itemColorRes, labelColorRes, spinnerBackgroundColorRes)
+        setSpinnerSelectedColors(itemColorRes, buttonDrawableColorRes, spinnerBackgroundColorRes)
         progress.setTextColor(labelColor)
         if (progressContainer.episodesProgressView != null) {
             setProgressViewColors(progressContainer.episodesProgressView, itemColorRes, editTextBackgroundColorRes)
@@ -352,21 +357,23 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         }
     }
 
-    @SuppressLint("NewApi")
+    /**
+     * [backgroundColorRes] is currently unused as there is no easy way to set the text color on the dropdown.
+     */
     private fun setSpinnerSelectedColors(@ColorRes textColorRes: Int, @ColorRes dropdownColorRes: Int, @ColorRes backgroundColorRes: Int) {
-        val statusText: TextView? = statusSpinner.getChildAt(0) as TextView
+        val statusText = statusSpinner.getChildAt(0) as TextView?
         statusText?.setTextColor(getColor(textColorRes))
-        if (statusText != null) retintDrawable(statusSpinner.background, backgroundColorRes)
+        if (statusText != null) retintDrawable(statusSpinner.background, dropdownColorRes)
+        //retintDrawable(statusSpinner.popupBackground, backgroundColorRes)
     }
 
-    @SuppressLint("NewApi")
     private fun setProgressViewColors(progressView: ProgressView, @ColorRes textColorRes: Int, @ColorRes editTextBackgroundColorRes: Int) {
         val textColor = getColor(textColorRes)
-        val editText = progressView.findViewById(R.id.progress) as EditText?
+        val editText = progressView.findViewById<EditText>(R.id.progress)
         editText?.setTextColor(textColor)
         editText?.setHintTextColor(textColor)
         if (editText != null) retintDrawable(editText.background, editTextBackgroundColorRes)
-        (progressView.findViewById(R.id.max) as TextView?)?.setTextColor(textColor)
+        progressView.findViewById<TextView>(R.id.max)?.setTextColor(textColor)
     }
 
     private fun retintDrawable(drawable: Drawable, @ColorRes colorStateListRes: Int) {
@@ -378,7 +385,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 titleColorLight,
                 labelColorLight,
                 itemColorLight,
-                R.color.library_update_button_drawable_light,
+                R.color.dropdown_light,
                 R.color.library_update_button_drawable_light,
                 R.color.library_update_edittext_light)
     }
@@ -388,7 +395,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 titleColorDark,
                 labelColorDark,
                 itemColorDark,
-                R.color.library_update_button_drawable_dark,
+                R.color.dropdown_dark,
                 R.color.library_update_button_drawable_dark,
                 R.color.library_update_edittext_dark)
     }
@@ -441,42 +448,42 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun setEpisodeProgress(progress: Int) {
         if (mediaTypeIsAnime()) {
-            if (progressContainer.findViewById(R.id.episodesProgressView) != null) episodesProgressView.progress = progress
+            if (progressContainer.findViewById<ProgressView>(R.id.episodesProgressView) != null) episodesProgressView.progress = progress
             else throw IllegalArgumentException("No episodesProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set episode progress for media type: " + mediaType!!.type)
     }
 
     override fun setMaxEpisodes(max: Int) {
         if (mediaTypeIsAnime()) {
-            if (progressContainer.findViewById(R.id.episodesProgressView) != null) episodesProgressView.max = max
+            if (progressContainer.findViewById<ProgressView>(R.id.episodesProgressView) != null) episodesProgressView.max = max
             else throw IllegalArgumentException("No episodesProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set max episodes for media type: " + mediaType!!.type)
     }
 
     override fun setChapterProgress(progress: Int) {
         if (mediaTypeIsManga()) {
-            if (progressContainer.findViewById(R.id.chaptersProgressView) != null) chaptersProgressView.progress = progress
+            if (progressContainer.findViewById<ProgressView>(R.id.chaptersProgressView) != null) chaptersProgressView.progress = progress
             else throw IllegalArgumentException("No chaptersProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set chapter progress for media type: " + mediaType!!.type)
     }
 
     override fun setMaxChapters(max: Int) {
         if (mediaTypeIsManga()) {
-            if (progressContainer.findViewById(R.id.chaptersProgressView) != null) chaptersProgressView.max = max
+            if (progressContainer.findViewById<ProgressView>(R.id.chaptersProgressView) != null) chaptersProgressView.max = max
             else throw IllegalArgumentException("No chaptersProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set max chapters for media type: " + mediaType!!.type)
     }
 
     override fun setVolumeProgress(progress: Int) {
         if (mediaTypeIsManga()) {
-            if (progressContainer.findViewById(R.id.volumesProgressView) != null) volumesProgressView.progress = progress
+            if (progressContainer.findViewById<ProgressView>(R.id.volumesProgressView) != null) volumesProgressView.progress = progress
             else throw IllegalArgumentException("No volumesProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set volume progress for media type: " + mediaType!!.type)
     }
 
     override fun setMaxVolumes(max: Int) {
         if (mediaTypeIsManga()) {
-            if (progressContainer.findViewById(R.id.volumesProgressView) != null) volumesProgressView.max = max
+            if (progressContainer.findViewById<ProgressView>(R.id.volumesProgressView) != null) volumesProgressView.max = max
             else throw IllegalArgumentException("No volumesProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set max volumes for media type: " + mediaType!!.type)
     }
