@@ -6,7 +6,7 @@ import app.youkai.data.models.Character
 import app.youkai.data.models.ext.MediaType
 
 interface SummaryPresenter {
-    fun load(media: BaseMedia, onTablet: Boolean)
+    fun load(media: BaseMedia?, onTablet: Boolean)
 
     fun setSynopsis()
     fun setCategories()

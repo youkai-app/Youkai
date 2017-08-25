@@ -6,14 +6,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.design.widget.Snackbar
 import android.widget.Toast
 import app.youkai.R
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.Titles
 import app.youkai.data.models.ext.MediaType
 import app.youkai.ui.feature.media.summary.SummaryFragment
+import app.youkai.util.ext.snackbar
 import app.youkai.util.ext.toVisibility
 import app.youkai.util.ext.whenNotNull
+import app.youkai.util.string
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
 import kotlinx.android.synthetic.main.activity_media.*
@@ -91,7 +94,7 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         return true
     }
 
-    override fun setSummary(media: BaseMedia) {
+    override fun setSummary(media: BaseMedia?) {
         (summaryFragment as SummaryFragment).setMedia(media, onTablet())
     }
 
@@ -178,6 +181,15 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
 
     override fun showToast(text: String) {
         Toast.makeText(this@MediaActivity, text, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showErrorSnackbar(text: String, actionListener: () -> Unit) {
+        nestedScrollView.snackbar(text, Snackbar.LENGTH_INDEFINITE) {
+            setAction(string(R.string.retry), {
+                actionListener()
+            })
+//            setActionTextColor(color)
+        }
     }
 
     override fun onTablet(): Boolean {
