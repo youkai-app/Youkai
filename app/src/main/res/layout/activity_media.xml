@@ -30,10 +30,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="164dp"
                 android:alpha=".8"
+                android:background="@color/default_media_cover"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
-                app:placeholderImage="@color/default_media_cover" />
+                app:failureImage="@drawable/ic_missing_image_light_grey_16dp"
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -70,8 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:background="@color/default_media_poster"
                     android:scaleType="centerCrop"
-                    app:placeholderImage="@color/default_media_poster"
+                    app:failureImage="@drawable/ic_missing_image_light_grey_16dp"
                     app:viewAspectRatio="0.7051282051" />
 
                 <RelativeLayout
