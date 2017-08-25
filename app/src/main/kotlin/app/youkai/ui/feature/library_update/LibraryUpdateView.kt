@@ -35,4 +35,6 @@ interface LibraryUpdateView : MvpView {
 
     fun setNotes(notes: String)
 
+    fun sendToLogin()
+
 }

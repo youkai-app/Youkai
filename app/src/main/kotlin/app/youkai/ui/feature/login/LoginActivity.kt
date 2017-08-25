@@ -8,7 +8,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import app.youkai.MainActivity
 import app.youkai.R
-import app.youkai.ui.feature.library_update.LibraryUpdateSheet
 import app.youkai.util.ext.inputString
 import app.youkai.util.ext.snackbar
 import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateActivity
@@ -18,6 +17,11 @@ import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter, LoginState>(), LoginView {
+
+    companion object {
+        val START_FOR_ACCESS_TOKEN = 1
+        val RESULT_OK = 1
+    }
 
     override fun createPresenter(): LoginPresenter = LoginPresenter()
 
@@ -89,8 +93,9 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter, LoginState
     override fun doLogin() = presenter.doLogin(username.inputString(), password.inputString())
 
     override fun completeLogin() {
+        setResult(RESULT_OK)
         finish()
-        startActivity(Intent(this, MainActivity::class.java))
+        if (callingActivity == null) startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun getState(): LoginState = viewState

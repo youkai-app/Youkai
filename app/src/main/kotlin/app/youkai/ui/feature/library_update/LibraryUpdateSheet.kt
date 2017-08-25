@@ -25,6 +25,7 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.jakewharton.rxbinding2.widget.textChangeEvents
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.Rect
@@ -32,6 +33,7 @@ import android.support.annotation.ColorRes
 import android.view.*
 import android.widget.TextView
 import app.youkai.ui.CustomRecolor
+import app.youkai.ui.feature.login.LoginActivity
 import com.transitionseverywhere.*
 
 /**
@@ -345,8 +347,8 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     @SuppressLint("NewApi")
     private fun setSpinnerSelectedColors(@ColorRes textColorRes: Int, @ColorRes dropdownColorRes: Int) {
-        val statusText = statusSpinner.getChildAt(0) as TextView
-        statusText.setTextColor(getColor(textColorRes))
+        val statusText: TextView? = statusSpinner.getChildAt(0) as TextView
+        statusText?.setTextColor(getColor(textColorRes))
         if (isLollipopOrGreater)
             statusSpinner.backgroundTintList = ColorStateList.valueOf(getColor(dropdownColorRes))
         else {
@@ -449,6 +451,17 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
             if (progressContainer.findViewById(R.id.volumesProgressView) != null) volumesProgressView.max = max
             else throw IllegalArgumentException("No volumesProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set max volumes for media type: " + mediaType!!.type)
+    }
+
+    override fun sendToLogin() {
+        startActivityForResult(Intent(context, LoginActivity::class.java), LoginActivity.START_FOR_ACCESS_TOKEN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == LoginActivity.START_FOR_ACCESS_TOKEN && resultCode == LoginActivity.RESULT_OK) {
+            presenter?.postUpdate()
+        }
     }
 
 }

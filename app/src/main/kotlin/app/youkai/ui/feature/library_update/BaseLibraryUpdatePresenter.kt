@@ -121,6 +121,11 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
      * Posts any changes to the server.
      */
     fun postUpdate() {
+        if (!isAuthed()) {
+            sendToLogin()
+            return
+        }
+
         val updateObservable = Observable.just(libraryEntry)
                 .subscribeOn(Schedulers.io())
 
@@ -174,6 +179,40 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
                             // do nothing
                         }
                 )
+    }
+
+    fun removeLibraryEntry() {
+        if (!isAuthed()) {
+            sendToLogin()
+            return
+        }
+
+        Api.deleteLibraryEntry(libraryEntry.id!!, Credentials().accessToken!!)
+                .subscribe(
+                        // onNext
+                        {
+                            System.out.println("posting update2")
+                            // do nothing
+                        },
+                        // onError
+                        {
+                            it.printStackTrace()
+                            //TODO: error handling
+                        },
+                        // onComplete
+                        {
+                            System.out.println("posting update3")
+                            // do nothing
+                        }
+                )
+    }
+
+    private fun isAuthed(): Boolean {
+        return Credentials().accessToken != null
+    }
+
+    private fun sendToLogin() {
+        view?.sendToLogin()
     }
 
 }
