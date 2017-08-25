@@ -44,8 +44,8 @@ class BarInfoView : LinearLayout {
         context.getLayoutInflater().inflate(R.layout.view_bar_info, this, true)
 
         /* Get view references */
-        iconView = findViewById(R.id.icon) as ImageView
-        textView = findViewById(R.id.text) as TextView
+        iconView = findViewById<ImageView>(R.id.icon)
+        textView = findViewById<TextView>(R.id.text)
         chevronView = findViewById(R.id.chevron)
 
         /* Set root layout attributes */

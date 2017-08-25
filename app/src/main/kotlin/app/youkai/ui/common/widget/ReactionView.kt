@@ -50,11 +50,11 @@ class ReactionView : LinearLayout {
         context.getLayoutInflater().inflate(R.layout.view_reaction, this, true)
 
         /* Get view references */
-        upvotesContainer = findViewById(R.id.upvotesContainer) as LinearLayout
-        upvoteIcon = findViewById(R.id.upvoteIcon) as ImageView
-        upvotesCount = findViewById(R.id.upvotesCount) as TextView
-        author = findViewById(R.id.author) as TextView
-        reaction = findViewById(R.id.reaction) as TextView
+        upvotesContainer = findViewById<LinearLayout>(R.id.upvotesContainer)
+        upvoteIcon = findViewById<ImageView>(R.id.upvoteIcon)
+        upvotesCount = findViewById<TextView>(R.id.upvotesCount)
+        author = findViewById<TextView>(R.id.author)
+        reaction = findViewById<TextView>(R.id.reaction)
 
         /* Set root layout attributes */
         val padding = 8.toPx(context)
