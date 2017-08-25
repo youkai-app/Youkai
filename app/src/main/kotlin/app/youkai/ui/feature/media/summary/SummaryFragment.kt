@@ -16,6 +16,7 @@ import app.youkai.ui.feature.media.characters.CharactersActivity
 import app.youkai.ui.feature.media.view.*
 import app.youkai.util.coloredSpannableString
 import app.youkai.util.ext.formatForDisplay
+import app.youkai.util.ext.setDisplayedChildSafe
 import app.youkai.util.ext.toVisibility
 import app.youkai.util.ext.whenNotNull
 import com.hannesdorfmann.mosby.mvp.MvpFragment
@@ -65,7 +66,7 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
         }
     }
 
-    fun setMedia(media: BaseMedia, onTablet: Boolean) { // TODO: Real type
+    fun setMedia(media: BaseMedia?, onTablet: Boolean) { // TODO: Real type
         setPresenter(
                 when (media) {
                     is Anime -> AnimeSummaryPresenter()
@@ -277,6 +278,14 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
         // TODO: Implementation
     }
 
+    override fun showEmptyState(show: Boolean) {
+        flipper.setDisplayedChildSafe(if (show) FLIPPER_EMPTY_STATE else FLIPPER_CONTENT)
+    }
+
+    override fun setContentVisible(show: Boolean) {
+        content.visibility = show.toVisibility()
+    }
+
     override fun startRelatedMediaActivity(id: String, type: MediaType) {
         activity?.startActivity(MediaActivity.new(activity, id, type))
     }
@@ -293,5 +302,10 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
 
     interface SimpleClickListener {
         fun onClick()
+    }
+
+    companion object {
+        private val FLIPPER_CONTENT = 0
+        private val FLIPPER_EMPTY_STATE = 1
     }
 }

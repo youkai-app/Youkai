@@ -7,7 +7,7 @@ interface MediaPresenter {
     fun set(mediaId: String)
     fun loadMedia(mediaId: String)
     fun loadLibraryInfo(mediaId: String)
-    fun setMedia(media: BaseMedia)
+    fun setMedia(media: BaseMedia?)
     fun setLibraryInfo(libraryEntry: LibraryEntry?)
 
     fun setPoster()
@@ -19,6 +19,9 @@ interface MediaPresenter {
     fun setAgeRating()
     fun setFabState(state: MediaView.FabState)
 
+    fun onMediaError(e: Throwable)
+    fun onLibraryEntryError(e: Throwable)
+
     fun onPosterClicked()
     fun onCoverClicked()
     fun onTitleClicked()
@@ -26,4 +29,7 @@ interface MediaPresenter {
     fun onFavoriteClicked()
     fun onTrailerClicked()
     fun onFabClicked()
+
+    fun onMediaRetryClicked()
+    fun onLibraryEntryRetryClicked()
 }

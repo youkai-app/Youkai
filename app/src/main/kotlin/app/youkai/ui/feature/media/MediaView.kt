@@ -6,7 +6,7 @@ import app.youkai.data.models.Titles
 import com.hannesdorfmann.mosby.mvp.MvpView
 
 interface MediaView : MvpView {
-    fun setSummary(media: BaseMedia)
+    fun setSummary(media: BaseMedia?)
 
     fun setPoster(url: String?)
     fun setCover(url: String?)
@@ -26,6 +26,7 @@ interface MediaView : MvpView {
     fun showTrailer(videoId: String)
     fun showLibraryEdit()
     fun showToast(text: String)
+    fun showErrorSnackbar(text: String, actionListener: () -> Unit)
 
     fun onTablet(): Boolean
 

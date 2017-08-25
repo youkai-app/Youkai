@@ -6,6 +6,8 @@ import app.youkai.data.models.ext.MediaType
 import com.hannesdorfmann.mosby.mvp.MvpView
 
 interface SummaryView : MvpView {
+    fun setContentVisible(show: Boolean = true)
+
     fun setSynopsis(synopsis: String)
     fun setCategories(categories: List<Category>)
     fun setNoCategories()
@@ -40,6 +42,7 @@ interface SummaryView : MvpView {
     fun onAllCharactersClicked()
     fun onCategoryClicked(slug: String)
     fun startRelatedMediaActivity(id: String, type: MediaType)
-
     fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String)
+
+    fun showEmptyState(show: Boolean = true)
 }

@@ -4,7 +4,7 @@ import app.youkai.App
 import app.youkai.R
 import app.youkai.data.models.*
 import app.youkai.data.models.ext.MediaType
-import app.youkai.util.string
+import app.youkai.util.ext.whenNotNull
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 
 /**
@@ -22,24 +22,31 @@ open class BaseSummaryPresenter : MvpBasePresenter<SummaryView>(), SummaryPresen
         super.detachView(retainInstance)
     }
 
-    override fun load(media: BaseMedia, onTablet: Boolean) {
-        this.media = media
+    override fun load(media: BaseMedia?, onTablet: Boolean) {
         this.onTablet = onTablet
 
-        setSynopsis()
-        setCategories()
-        setLength()
-        setStreamers()
-        setReleaseInfo()
-        setCommunityRating()
-        setRatingsCount()
-        setFavoritesCount()
-        setPopularityRank()
-        setRatingsRank()
-        setReviews()
-        setProducers()
-        setCharacters()
-        setRelated()
+
+        view?.showEmptyState(media == null)
+        view?.setContentVisible(media != null)
+
+        whenNotNull(media) {
+            this.media = media
+
+            setSynopsis()
+            setCategories()
+            setLength()
+            setStreamers()
+            setReleaseInfo()
+            setCommunityRating()
+            setRatingsCount()
+            setFavoritesCount()
+            setPopularityRank()
+            setRatingsRank()
+            setReviews()
+            setProducers()
+            setCharacters()
+            setRelated()
+        }
     }
 
     override fun setSynopsis() {

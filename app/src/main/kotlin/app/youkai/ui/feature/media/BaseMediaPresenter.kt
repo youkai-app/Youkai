@@ -4,18 +4,21 @@ import app.youkai.R
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.LibraryEntry
 import app.youkai.data.models.ext.releaseSummary
+import app.youkai.util.string
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 
 /**
  * Top-level media presenter that takes care of all common and core functions.
  */
 open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
+    lateinit var mediaId: String
     internal var media: BaseMedia? = null
     internal var libraryEntry: Any? = null
 
     internal var fabState = MediaView.FabState.LOADING
 
     override fun set(mediaId: String) {
+        this.mediaId = mediaId
         loadMedia(mediaId)
         loadLibraryInfo(mediaId)
     }
@@ -29,21 +32,26 @@ open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
         // TODO: Get from API
     }
 
-    override fun setMedia(media: BaseMedia) {
+    override fun setMedia(media: BaseMedia?) {
         this.media = media
 
+        // Let summary handle null media internally
         view?.setSummary(media)
 
+        // Exclude these from the check below since they have proper error states
         setPoster()
         setCover()
-        setTitle()
-        setFavorited()
-        setType()
-        setReleaseSummary()
-        setAgeRating()
 
-        view?.setAlternativeTitlesButtonVisible(media.titles != null
-                || media.abbreviatedTitles?.isNotEmpty() ?: false)
+        if (media != null) {
+            setTitle()
+            setFavorited()
+            setType()
+            setReleaseSummary()
+            setAgeRating()
+        }
+
+        view?.setAlternativeTitlesButtonVisible(media?.titles != null
+                || media?.abbreviatedTitles?.isNotEmpty() ?: false)
     }
 
     override fun setLibraryInfo(libraryEntry: LibraryEntry?) {
@@ -100,6 +108,18 @@ open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
         }
     }
 
+    override fun onMediaError(e: Throwable) {
+        view?.showErrorSnackbar(e.message ?: string(R.string.oops), {
+            onMediaRetryClicked()
+        })
+    }
+
+    override fun onLibraryEntryError(e: Throwable) {
+        view?.showErrorSnackbar(e.message ?: string(R.string.oops), {
+            onLibraryEntryRetryClicked()
+        })
+    }
+
     override fun onPosterClicked() {
         view?.showFullscreenPoster()
     }
@@ -136,5 +156,13 @@ open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
                 view?.showLibraryEdit()
             }
         }
+    }
+
+    override fun onMediaRetryClicked() {
+        loadMedia(mediaId)
+    }
+
+    override fun onLibraryEntryRetryClicked() {
+        loadLibraryInfo(mediaId)
     }
 }

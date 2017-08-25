@@ -34,6 +34,7 @@ class AnimePresenter : BaseMediaPresenter() {
                             }
                         },
                         { e ->
+                            setMedia(null)
                         },
                         {
                             // onComplete
@@ -41,7 +42,7 @@ class AnimePresenter : BaseMediaPresenter() {
                 )
     }
 
-    override fun setMedia(media: BaseMedia) {
+    override fun setMedia(media: BaseMedia?) {
         super.setMedia(media)
         view?.setTrailerButtonVisible(media is Anime && media.youtubeVideoId != null)
     }

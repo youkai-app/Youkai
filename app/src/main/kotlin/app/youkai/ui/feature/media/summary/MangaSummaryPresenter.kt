@@ -16,7 +16,7 @@ import app.youkai.util.ext.toTimestamp
  */
 class MangaSummaryPresenter : BaseSummaryPresenter() {
 
-    override fun load(media: BaseMedia, onTablet: Boolean) {
+    override fun load(media: BaseMedia?, onTablet: Boolean) {
         super.load(media, onTablet)
         view?.setStremersShown(false)
         view?.setCharactersShown(false)
