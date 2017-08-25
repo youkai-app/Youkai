@@ -12,8 +12,8 @@ def keystoreAlias = System.getenv('keystoreAlias') ?: project.property("signing.
 def keystorePassword = System.getenv('keystorePassword') ?: project.property("signing.upload.password")
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     playAccountConfigs {
         defaultAccountConfig {
@@ -25,7 +25,7 @@ android {
     defaultConfig {
         applicationId "app.youkai"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
