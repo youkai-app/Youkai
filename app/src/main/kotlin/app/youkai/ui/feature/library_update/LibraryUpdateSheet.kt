@@ -259,7 +259,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     private fun  setPrivateBackground(isPrivate: Boolean) {
         val animationDuration: Long = 320
 
-        if (privacyAnimator != null && privacyAnimator!!.isRunning) privacyAnimator!!.cancel()
+        if (privacyAnimator != null && privacyAnimator!!.isRunning) privacyAnimator!!.end()
 
         if (isLollipopOrGreater) {
             if (privacyRippleInset == null) privacyRippleInset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics)
@@ -277,7 +277,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         val epicentreRect = Rect()
         privacySwitch.getGlobalVisibleRect(epicentreRect)
 
-        val changeColorsWithEpicentre = TransitionSet()
+        val changeColorsWithEpicenter = TransitionSet()
                 .addTransition(CustomRecolor().setDuration(animationDuration))
                 .setEpicenterCallback(object: Transition.EpicenterCallback() {
                     override fun onGetEpicenter(transition: Transition?): Rect {
@@ -287,7 +287,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 .excludeTarget(privateBackground, true)
                 .setDuration(animationDuration)
 
-        TransitionManager.beginDelayedTransition(libraryUpdateRelativeLayout, changeColorsWithEpicentre)
+        TransitionManager.beginDelayedTransition(libraryUpdateRelativeLayout, changeColorsWithEpicenter)
 
         // set background and views to match privacy option
         if (!isPrivate) {
@@ -298,12 +298,16 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                         super.onAnimationEnd(animation)
                         privateBackground.visibility = View.INVISIBLE
                     }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+                        super.onAnimationCancel(animation)
+                        privateBackground.visibility = View.INVISIBLE
+                    }
                 })
-                applyLightColors()
             } else {
                 privateBackground.visibility = View.INVISIBLE
-                applyLightColors()
             }
+            applyLightColors()
             // set colors
         } else {
             privateBackground.visibility = View.VISIBLE
