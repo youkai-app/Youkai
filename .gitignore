@@ -44,3 +44,6 @@ captures/
 
 # p12
 *.p12
+
+# Secret Files
+secrets.tar
