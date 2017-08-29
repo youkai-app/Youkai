@@ -6,7 +6,8 @@ apply plugin: 'com.github.triplet.play'
 def versionMajor = 0
 def versionMinor = 0
 def versionPatch = 0
-def versionBuild = Integer.parseInt(System.getenv('TRAVIS_BUILD_NUMBER') ?: "1")
+// 116 Travis.com builds which were lost with the move to Travis.org
+def versionBuild = Integer.parseInt(System.getenv('TRAVIS_BUILD_NUMBER') ?: "1") + 116
 
 def keystoreAlias = System.getenv('keystoreAlias') ?: project.property("signing.upload.alias")
 def keystorePassword = System.getenv('keystorePassword') ?: project.property("signing.upload.password")
