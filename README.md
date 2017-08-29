@@ -34,7 +34,7 @@ If you don't plan on sticking around too much but want to change that one thing,
 Oh, and if anything looks scary or you think you aren't qualified enough, don't worry, we are probably bigger noobs than you. We had no idea what JSONAPI was like when we began this project, and I (xip) have no idea how RxJava works.
 
 ## Alpha testing
-The master branch is built and published on the alpha track on the Play Store automatically after every non-breaking push. If you'd like to have a taste, please join [this](https://plus.google.com/communities/113975934687482576411) Google+ Community, then register for alpha [here](https://play.google.com/apps/testing/app.youkai), and then install the app from the [listing page](https://play.google.com/store/apps/details?id=app.youkai).
+The master branch is built and published on the alpha track on the Play Store automatically after every non-breaking push. If you'd like to have a taste, please register for alpha [here](https://play.google.com/apps/testing/app.youkai) and install the app from the [listing page](https://play.google.com/store/apps/details?id=app.youkai).
 
 ## License
 ```
