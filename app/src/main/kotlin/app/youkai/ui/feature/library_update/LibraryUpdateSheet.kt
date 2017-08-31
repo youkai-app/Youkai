@@ -1,7 +1,12 @@
 package app.youkai.ui.feature.library_update
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import app.youkai.R
 import app.youkai.data.models.Anime
@@ -9,33 +14,18 @@ import app.youkai.data.models.JsonType
 import app.youkai.data.models.Manga
 import app.youkai.data.models.Status
 import app.youkai.progressview.ProgressView
+import app.youkai.ui.feature.login.LoginActivity
+import app.youkai.util.ext.getColorCompat
 import app.youkai.util.ext.removeAllAndAdd
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.itemSelections
+import com.jakewharton.rxbinding2.widget.textChangeEvents
 import kotlinx.android.synthetic.main.library_update.*
 import kotlinx.android.synthetic.main.library_update.view.*
 import kotlinx.android.synthetic.main.library_update_progress_anime.*
 import kotlinx.android.synthetic.main.library_update_progress_anime.view.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.view.*
-import android.animation.Animator
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.os.Build
-import android.util.TypedValue
-import com.jakewharton.rxbinding2.view.clicks
-import com.jakewharton.rxbinding2.widget.itemSelections
-import com.jakewharton.rxbinding2.widget.textChangeEvents
-import android.animation.AnimatorListenerAdapter
-import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Rect
-import android.support.annotation.ColorRes
-import android.view.*
-import android.widget.EditText
-import android.widget.TextView
-import app.youkai.ui.CustomRecolor
-import app.youkai.ui.feature.login.LoginActivity
-import app.youkai.util.ext.setStatefulTintWithCompat
-import com.transitionseverywhere.*
 
 /**
  * Was intended to be
@@ -53,6 +43,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     private var mediaType: JsonType? = null
     private var presenter: BaseLibraryUpdatePresenter? = null
     private var statusResolver: StatusResolver? = null
+    private var aestheticsDelegate: AestheticsDelegate? = null
 
     /**
      * Lifecycle methods
@@ -64,6 +55,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.library_update, container, false)
+        aestheticsDelegate = AestheticsDelegate(v, context, resources)
         setMediaTypeForArguments(v)
         setViewListeners(v)
         return v
@@ -71,13 +63,14 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        applyLightColors()
+        aestheticsDelegate?.applyLightColors()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         // manually calling presenter method
         presenter?.detachView(retainInstance = false)
+        aestheticsDelegate = null
     }
 
     override fun onPause() {
@@ -232,8 +225,8 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         rootView.statusSpinner.itemSelections()
                 .skipInitialValue()
                 .doOnNext {
-                    if (privacySwitch.isChecked) setSpinnerSelectedColors(itemColorDark, R.color.library_update_button_drawable_dark, R.color.dropdown_dark)
-                    else setSpinnerSelectedColors(itemColorLight, R.color.library_update_button_drawable_light, R.color.dropdown_light)
+                    if (privacySwitch.isChecked) aestheticsDelegate?.setSpinnerSelectedDark()
+                    else aestheticsDelegate?.setSpinnerSelectedLight()
                 }
                 .filter { rootView.statusSpinner.adapter != null }
                 .map { rootView.statusSpinner.adapter.getItem(it).toString() }
@@ -256,7 +249,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun setPrivate(isPrivate: Boolean) {
         privacySwitch.isChecked = isPrivate
-        setPrivateBackground(isPrivate)
+        aestheticsDelegate?.setPrivateBackground(isPrivate)
     }
 
 
@@ -278,8 +271,10 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 )
                 .create()
         dialog.show()
-        dialog.getButton(android.app.AlertDialog.BUTTON_NEUTRAL)
-                .setTextColor(getColor(R.color.text_gray_light))
+        if (aestheticsDelegate != null) {
+            dialog.getButton(android.app.AlertDialog.BUTTON_NEUTRAL)
+                    .setTextColor(context.getColorCompat(R.color.text_gray_light))
+        }
     }
 
     override fun setStatus(status: Status) {
@@ -338,171 +333,6 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
             if (progressContainer.findViewById<ProgressView>(R.id.volumesProgressView) != null) volumesProgressView.max = max
             else throw IllegalArgumentException("No volumesProgressView was inflated.")
         } else throw IllegalArgumentException("Cannot set max volumes for media type: " + mediaType!!.type)
-    }
-
-    /**
-     * View coloring and animations
-     */
-    private val isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-
-    private val titleColorLight = R.color.bottom_sheet_title_light
-    private val titleColorDark = R.color.bottom_sheet_title_dark
-    private val labelColorLight = R.color.bottom_sheet_label_light
-    private val labelColorDark = R.color.bottom_sheet_label_dark
-    private val itemColorLight = R.color.bottom_sheet_item_light
-    private val itemColorDark = R.color.bottom_sheet_item_dark
-
-    private var privacyRippleInset: Float? = null
-    private var privacyAnimator: Animator? = null
-
-    @SuppressLint("NewApi")
-    private fun  setPrivateBackground(isPrivate: Boolean) {
-        val animationDuration: Long = 320
-
-        if (privacyAnimator != null && privacyAnimator!!.isRunning) privacyAnimator!!.end()
-
-        if (isLollipopOrGreater) {
-            if (privacyRippleInset == null) privacyRippleInset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics)
-            val startX: Int = (privacySwitch.right - privacyRippleInset!!).toInt()
-            val startY: Int = (privacySwitch.bottom + privacySwitch.top).div(2)
-            val startRadius = 0
-            val endRadius = Math.hypot(privateBackground.width.toDouble(), privateBackground.height.toDouble())
-            // set animator to expand or contract depending on the resultant state
-            privacyAnimator = ViewAnimationUtils.createCircularReveal(privateBackground, startX, startY,
-                    if (isPrivate) startRadius.toFloat() else endRadius.toFloat(),
-                    if (isPrivate) endRadius.toFloat() else startRadius.toFloat())
-            privacyAnimator!!.duration = animationDuration
-        }
-
-        val epicentreRect = Rect()
-        privacySwitch.getGlobalVisibleRect(epicentreRect)
-
-        val changeColorsWithEpicenter = TransitionSet()
-                .addTransition(CustomRecolor().setDuration(animationDuration))
-                .setEpicenterCallback(object: Transition.EpicenterCallback() {
-                    override fun onGetEpicenter(transition: Transition?): Rect {
-                        return epicentreRect
-                    }
-                })
-                .excludeTarget(privateBackground, true)
-                .setDuration(animationDuration)
-
-        TransitionManager.beginDelayedTransition(libraryUpdateRelativeLayout, changeColorsWithEpicenter)
-
-        // set background and views to match privacy option
-        if (!isPrivate) {
-            // if going from private to public (circle getting smaller)
-            if (isLollipopOrGreater) {
-                privacyAnimator!!.addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        super.onAnimationEnd(animation)
-                        privateBackground.visibility = View.INVISIBLE
-                    }
-
-                    override fun onAnimationCancel(animation: Animator?) {
-                        super.onAnimationCancel(animation)
-                        privateBackground.visibility = View.INVISIBLE
-                    }
-                })
-            } else {
-                privateBackground.visibility = View.INVISIBLE
-            }
-            applyLightColors()
-            // set colors
-        } else {
-            privateBackground.visibility = View.VISIBLE
-            applyDarkColors()
-        }
-
-        // start the animation
-        if (isLollipopOrGreater) privacyAnimator!!.start()
-    }
-
-    @SuppressLint("NewApi")
-    private fun setColors(
-            @ColorRes titleColorRes: Int,
-            @ColorRes labelColorRes: Int,
-            @ColorRes itemColorRes: Int,
-            @ColorRes spinnerBackgroundColorRes: Int,
-            @ColorRes buttonDrawableColorRes: Int,
-            @ColorRes editTextBackgroundColorRes: Int) {
-        val titleColor = getColor(titleColorRes)
-        val labelColor = getColor(labelColorRes)
-        val itemColor = getColor(itemColorRes)
-
-        title.setTextColor(titleColor)
-        privacySwitch.setTextColor(labelColor)
-        status.setTextColor(labelColor)
-        setSpinnerSelectedColors(itemColorRes, buttonDrawableColorRes, spinnerBackgroundColorRes)
-        progress.setTextColor(labelColor)
-        if (progressContainer.episodesProgressView != null) {
-            setProgressViewColors(progressContainer.episodesProgressView, itemColorRes, editTextBackgroundColorRes)
-        } else if (progressContainer.chaptersProgressView != null && progressContainer.volumesProgressView != null) {
-            setProgressViewColors(progressContainer.chaptersProgressView, itemColorRes, editTextBackgroundColorRes)
-            setProgressViewColors(progressContainer.volumesProgressView, itemColorRes, editTextBackgroundColorRes)
-        }
-        reconsumed.setTextColor(labelColor)
-        setProgressViewColors(reconsumedProgressView, itemColorRes, editTextBackgroundColorRes)
-        rating.setTextColor(labelColor)
-        ratingBar.progressBackgroundTintList = ColorStateList.valueOf(titleColor)
-        ratingBar.indeterminateTintList = ColorStateList.valueOf(titleColor)
-        notes.setTextColor(labelColor)
-        notesInputEdit.setHintTextColor(titleColor)
-        notesInputEdit.setTextColor(itemColor)
-        removeButton.setTextColor(titleColor)
-        removeButton.compoundDrawables.forEach {
-            if (it != null) it.setStatefulTintWithCompat(resources, buttonDrawableColorRes)
-        }
-        notesInputEdit.background.setStatefulTintWithCompat(resources, editTextBackgroundColorRes)
-        if (progressContainer.chapters != null && progressContainer.volumes != null ) {
-            progressContainer.chapters.setTextColor(labelColor)
-            progressContainer.volumes.setTextColor(labelColor)
-        }
-    }
-
-    /**
-     * [backgroundColorRes] is currently unused as there is no easy way to set the text color on the dropdown.
-     */
-    private fun setSpinnerSelectedColors(@ColorRes textColorRes: Int, @ColorRes dropdownColorRes: Int, @ColorRes backgroundColorRes: Int) {
-        val statusText = statusSpinner.getChildAt(0) as TextView?
-        statusText?.setTextColor(getColor(textColorRes))
-        if (statusText != null) statusSpinner.background.setStatefulTintWithCompat(resources, dropdownColorRes)
-        //retintDrawable(statusSpinner.popupBackground, backgroundColorRes)
-    }
-
-    private fun setProgressViewColors(progressView: ProgressView, @ColorRes textColorRes: Int, @ColorRes editTextBackgroundColorRes: Int) {
-        val textColor = getColor(textColorRes)
-        val editText = progressView.findViewById<EditText>(R.id.progress)
-        editText?.setTextColor(textColor)
-        editText?.setHintTextColor(textColor)
-        if (editText != null) editText.background.setStatefulTintWithCompat(resources, editTextBackgroundColorRes)
-        progressView.findViewById<TextView>(R.id.max)?.setTextColor(textColor)
-    }
-
-    private fun applyLightColors() = setColors(
-            titleColorLight,
-            labelColorLight,
-            itemColorLight,
-            R.color.dropdown_light,
-            R.color.library_update_button_drawable_light,
-            R.color.library_update_edittext_light
-    )
-
-    private fun applyDarkColors() = setColors(
-            titleColorDark,
-            labelColorDark,
-            itemColorDark,
-            R.color.dropdown_dark,
-            R.color.library_update_button_drawable_dark,
-            R.color.library_update_edittext_dark
-    )
-
-    private fun getColor(@ColorRes colorRes: Int): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return resources.getColor(colorRes, context.theme)
-        } else {
-            return resources.getColor(colorRes)
-        }
     }
 
     /**
