@@ -271,10 +271,8 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 )
                 .create()
         dialog.show()
-        if (aestheticsDelegate != null) {
-            dialog.getButton(android.app.AlertDialog.BUTTON_NEUTRAL)
-                    .setTextColor(context.getColorCompat(R.color.text_gray_light))
-        }
+        dialog.getButton(android.app.AlertDialog.BUTTON_NEUTRAL)
+                .setTextColor(context.getColorCompat(R.color.text_gray_light))
     }
 
     override fun setStatus(status: Status) {
