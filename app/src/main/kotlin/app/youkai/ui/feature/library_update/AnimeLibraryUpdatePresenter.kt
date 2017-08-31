@@ -25,7 +25,6 @@ class AnimeLibraryUpdatePresenter : BaseLibraryUpdatePresenter() {
                         .get()
                         .observeOn(Schedulers.computation())
                         .map { it.get() }
-                        // TODO: handle when list is empty
                         .flatMapIterable { l -> l }
                         .take(1)
         )

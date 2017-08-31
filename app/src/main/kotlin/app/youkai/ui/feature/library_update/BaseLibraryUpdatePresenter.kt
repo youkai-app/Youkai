@@ -33,7 +33,10 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         // onNext
-                        { this.setEntryOnView(it) },
+                        {
+                            libraryEntry = it
+                            this.setEntryOnView(it)
+                        },
                         // onError
                         {
                             it.printStackTrace()
@@ -133,25 +136,27 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
              * If we don't know whether or not the entry exists, find out!
              */
             updateObservable.concatMap {
-                //TODO: fix for different media types, media ids and safe user access token usage
-                Api.libraryEntryForAnime(Credentials().accessToken!!, "1")
+                //TODO: global user object
+                val libraryEntryRequest =
+                        if (libraryEntry.anime != null) Api.libraryEntryForAnime("userid", libraryEntry.anime!!.id!!)
+                        else if (libraryEntry.manga != null) Api.libraryEntryForManga("userid", libraryEntry.manga!!.id!!)
+                        else throw IllegalArgumentException("Cannot retrieve library entry without a library entry id, anime id or manga id.")
+                libraryEntryRequest
                         .get()
-                        .doOnNext {         System.out.println("posting update1") }
                         .doOnNext { checkedForExistenceOnRemote = true }
                         .map { it.get() }
                         .map { entries ->
-                                /**
-                                 * [entries] will be empty (no items / null items) if an entry does not already exist
-                                 * Take the id from the returned library entry but nothing else (want to keep our edits)
-                                 */
-                                if (!entries.isEmpty()) libraryEntry.id = entries.first().id
-                                libraryEntry
+                            /**
+                             * [entries] will be empty (no items / null items) if an entry does not already exist
+                             * Take the id from the returned library entry but nothing else (want to keep our edits)
+                             */
+                            if (!entries.isEmpty()) libraryEntry.id = entries.first().id
+                            libraryEntry
                         }
             }
         }
 
         updateObservable
-                .doOnNext {         System.out.println("posting update") }
                 .concatMap { entry: LibraryEntry ->
                     // if the entry existed, the id would have been set by this point
                     if (libraryEntry.id == null) {
@@ -164,7 +169,6 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
                 .subscribe(
                         // onNext
                         {
-                            System.out.println("posting update2")
                             // do nothing
                         },
                         // onError
@@ -174,7 +178,6 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
                         },
                         // onComplete
                         {
-                            System.out.println("posting update3")
                             // do nothing
                         }
                 )
@@ -187,10 +190,11 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
         }
 
         Api.deleteLibraryEntry(libraryEntry.id!!, Credentials().accessToken!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         // onNext
                         {
-                            System.out.println("posting update2")
                             // do nothing
                         },
                         // onError
@@ -200,7 +204,6 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
                         },
                         // onComplete
                         {
-                            System.out.println("posting update3")
                             // do nothing
                         }
                 )

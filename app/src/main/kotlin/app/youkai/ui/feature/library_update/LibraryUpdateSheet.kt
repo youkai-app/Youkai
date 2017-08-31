@@ -356,7 +356,6 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         ratingBar.progressBackgroundTintList = ColorStateList.valueOf(titleColor)
         ratingBar.indeterminateTintList = ColorStateList.valueOf(titleColor)
         notes.setTextColor(labelColor)
-        //TODO: better colors for edit texts, remember to change xml
         notesInputEdit.setHintTextColor(titleColor)
         notesInputEdit.setTextColor(itemColor)
         removeButton.setTextColor(titleColor)
