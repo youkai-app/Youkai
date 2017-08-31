@@ -1,9 +1,15 @@
 package app.youkai.util.ext
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
+import android.support.annotation.ColorInt
+import android.support.annotation.ColorRes
 import android.view.LayoutInflater
 import android.view.View
 import android.support.annotation.LayoutRes
+import android.support.annotation.RequiresApi
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ViewFlipper
@@ -128,4 +134,28 @@ fun ViewGroup.removeAllAndAdd(childView: View) {
  */
 fun ViewGroup.removeAllAndAdd(layoutInflater: LayoutInflater, @LayoutRes childViewRes: Int) {
     this.removeAllAndAdd(layoutInflater.inflate(childViewRes, this, false))
+}
+
+/**
+  * Tints a drawable using DrawableCompat and a color state list.
+  */
+fun Drawable.setStatefulTintWithCompat(resources: Resources, @ColorRes colorStateListRes: Int) {
+    DrawableCompat.setTintList(this, resources.getColorStateList(colorStateListRes))
+}
+
+@RequiresApi(23)
+fun Drawable.setStatefulTintWithCompat(resources: Resources, @ColorRes colorStateListRes: Int, theme: Resources.Theme) {
+    DrawableCompat.setTintList(this, resources.getColorStateList(colorStateListRes, theme))
+}
+
+/**
+ * Tints a drawable using DrawableCompat and a color state list.
+ */
+fun Drawable.setTintWithCompat(resources: Resources, @ColorRes colorRes: Int) {
+    DrawableCompat.setTint(this, resources.getColor(colorRes))
+}
+
+@RequiresApi(23)
+fun Drawable.setTintWithCompat(resources: Resources, @ColorRes colorRes: Int, theme: Resources.Theme) {
+    DrawableCompat.setTint(this, resources.getColor(colorRes, theme))
 }

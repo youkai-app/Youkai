@@ -28,14 +28,13 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Rect
-import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
-import android.support.v4.graphics.drawable.DrawableCompat
 import android.view.*
 import android.widget.EditText
 import android.widget.TextView
 import app.youkai.ui.CustomRecolor
 import app.youkai.ui.feature.login.LoginActivity
+import app.youkai.util.ext.setStatefulTintWithCompat
 import com.transitionseverywhere.*
 
 /**
@@ -452,9 +451,9 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         notesInputEdit.setTextColor(itemColor)
         removeButton.setTextColor(titleColor)
         removeButton.compoundDrawables.forEach {
-            if (it != null) retintDrawable(it, buttonDrawableColorRes)
+            if (it != null) it.setStatefulTintWithCompat(resources, buttonDrawableColorRes)
         }
-        retintDrawable(notesInputEdit.background, editTextBackgroundColorRes)
+        notesInputEdit.background.setStatefulTintWithCompat(resources, editTextBackgroundColorRes)
         if (progressContainer.chapters != null && progressContainer.volumes != null ) {
             progressContainer.chapters.setTextColor(labelColor)
             progressContainer.volumes.setTextColor(labelColor)
@@ -467,7 +466,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     private fun setSpinnerSelectedColors(@ColorRes textColorRes: Int, @ColorRes dropdownColorRes: Int, @ColorRes backgroundColorRes: Int) {
         val statusText = statusSpinner.getChildAt(0) as TextView?
         statusText?.setTextColor(getColor(textColorRes))
-        if (statusText != null) retintDrawable(statusSpinner.background, dropdownColorRes)
+        if (statusText != null) statusSpinner.background.setStatefulTintWithCompat(resources, dropdownColorRes)
         //retintDrawable(statusSpinner.popupBackground, backgroundColorRes)
     }
 
@@ -476,12 +475,9 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         val editText = progressView.findViewById<EditText>(R.id.progress)
         editText?.setTextColor(textColor)
         editText?.setHintTextColor(textColor)
-        if (editText != null) retintDrawable(editText.background, editTextBackgroundColorRes)
+        if (editText != null) editText.background.setStatefulTintWithCompat(resources, editTextBackgroundColorRes)
         progressView.findViewById<TextView>(R.id.max)?.setTextColor(textColor)
     }
-
-    private fun retintDrawable(drawable: Drawable, @ColorRes colorStateListRes: Int)
-            = DrawableCompat.setTintList(drawable, resources.getColorStateList(colorStateListRes))
 
     private fun applyLightColors() = setColors(
             titleColorLight,
