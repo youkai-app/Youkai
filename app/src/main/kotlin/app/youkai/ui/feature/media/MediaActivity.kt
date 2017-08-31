@@ -12,6 +12,7 @@ import app.youkai.R
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.Titles
 import app.youkai.data.models.ext.MediaType
+import app.youkai.ui.feature.library_update.LibraryUpdateSheet
 import app.youkai.ui.feature.media.summary.SummaryFragment
 import app.youkai.util.ext.snackbar
 import app.youkai.util.ext.toVisibility
@@ -67,6 +68,7 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         when (type) {
             MediaType.ANIME -> setPresenter(AnimePresenter())
             MediaType.MANGA -> setPresenter(MangaPresenter())
+            else -> throw IllegalArgumentException("Cannot handle this media type.")
         }
         presenter.attachView(this)
 
@@ -85,7 +87,15 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
         }
 
         fab.setOnClickListener {
-            presenter
+            val libraryUpdateSheet = LibraryUpdateSheet();
+            val bundle = Bundle()
+            when (type) {
+                MediaType.ANIME -> bundle.putString(LibraryUpdateSheet.ARGUMENT_ANIME_ID, presenter.mediaId)
+                MediaType.MANGA -> bundle.putString(LibraryUpdateSheet.ARGUMENT_MANGA_ID, presenter.mediaId)
+                else -> throw IllegalArgumentException("Cannot handle this media type.")
+            }
+            libraryUpdateSheet.arguments = bundle
+            libraryUpdateSheet.show(supportFragmentManager, libraryUpdateSheet.tag)
         }
     }
 

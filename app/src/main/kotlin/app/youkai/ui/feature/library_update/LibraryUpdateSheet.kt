@@ -66,27 +66,37 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        configureForArguments()
+        setPresenterForArguments()
     }
 
-    private fun configureForArguments() {
+    private fun setPresenterForArguments() {
         if (arguments.containsKey(ARGUMENT_LIBRARY_ENTRY_ID)) {
             presenter = BaseLibraryUpdatePresenter()
             presenter!!.getEntryById(arguments.getString(ARGUMENT_LIBRARY_ENTRY_ID))
         } else if (arguments.containsKey(ARGUMENT_ANIME_ID)) {
             //TODO: mediaType
-            setMediaType(JsonType("anime"))
+            presenter = AnimeLibraryUpdatePresenter()
             (presenter as AnimeLibraryUpdatePresenter).getEntryByAnime(arguments.getString(ARGUMENT_ANIME_ID))
         } else if (arguments.containsKey(ARGUMENT_MANGA_ID)) {
-            setMediaType(JsonType("manga"))
+            presenter = MangaLibraryUpdatePresenter()
             (presenter as MangaLibraryUpdatePresenter).getEntryByManga(arguments.getString(ARGUMENT_MANGA_ID))
-        }
+        } else throw IllegalArgumentException("Cannot create a LibraryUpdateSheet without any relevant arguments.")
+        presenter!!.attachView(this)
+    }
+
+    private fun setMediaTypeForArguments(rootView: View?) {
+        if (arguments.containsKey(ARGUMENT_ANIME_ID)) {
+            //TODO: mediaType
+            setMediaType(JsonType("anime"), rootView)
+        } else if (arguments.containsKey(ARGUMENT_MANGA_ID)) {
+            setMediaType(JsonType("manga"), rootView)
+        } else throw IllegalArgumentException("Cannot create a LibraryUpdateSheet without any relevant arguments.")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.library_update, container, false)
+        setMediaTypeForArguments(v)
         setViewListeners(v)
-        //TODO: setColors
         return v
     }
 
@@ -95,35 +105,30 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         applyLightColors()
     }
 
-    private fun setViewListeners(v: View) {
-        // manually calling presenter method
-        if (presenter == null) presenter = BaseLibraryUpdatePresenter()
-
-        presenter!!.attachView(this)
-
-        v.privacySwitch.setOnCheckedChangeListener { _, isPrivate ->
+    private fun setViewListeners(rootView: View) {
+        rootView.privacySwitch.setOnCheckedChangeListener { _, isPrivate ->
             presenter!!.setPrivate(isPrivate)
             setPrivate(isPrivate)
         }
-        v.statusSpinner.itemSelections()
+        rootView.statusSpinner.itemSelections()
                 .skipInitialValue()
                 .doOnNext {
                     if (privacySwitch.isChecked) setSpinnerSelectedColors(itemColorDark, R.color.library_update_button_drawable_dark, R.color.dropdown_dark)
                     else setSpinnerSelectedColors(itemColorLight, R.color.library_update_button_drawable_light, R.color.dropdown_light)
                 }
-                .filter { v.statusSpinner.adapter != null }
-                .map { v.statusSpinner.adapter.getItem(it).toString() }
+                .filter { rootView.statusSpinner.adapter != null }
+                .map { rootView.statusSpinner.adapter.getItem(it).toString() }
                 .doOnNext { if (statusResolver == null) throw IllegalStateException("Cannot set a status without a statusResolver") }
                 .map { statusResolver!!.getItemStatus(it) }
                 .filter { presenter != null }
                 .doOnNext { presenter!!.setStatus(it) }
                 .subscribe()
         //TODO: handle rating preferences
-        v.ratingBar.setOnRatingChangeListener { _, rating -> presenter!!.setRating(rating) }
-        v.notesInputEdit.textChangeEvents()
+        rootView.ratingBar.setOnRatingChangeListener { _, rating -> presenter!!.setRating(rating) }
+        rootView.notesInputEdit.textChangeEvents()
                 .skipInitialValue()
                 .subscribe { t -> presenter!!.setNotes(t.text().toString()) }
-        v.removeButton.clicks().subscribe{ _ -> showRemovalConfirmationDialog() }
+        rootView.removeButton.clicks().subscribe{ _ -> showRemovalConfirmationDialog() }
     }
 
     override fun onDestroyView() {
@@ -147,36 +152,45 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
     }
 
     private fun mediaTypeIsAnime(mediaType: JsonType? = null): Boolean {
-        if (mediaType != null) return mediaType.type == Anime().type.type
-        else return this.mediaType!!.type == Anime().type.type
+        val type: JsonType = mediaType ?: this.mediaType ?: return false
+        return type.type == Anime().type.type
     }
 
     private fun mediaTypeIsManga(mediaType: JsonType? = null): Boolean {
-        if (mediaType != null) return mediaType.type == Manga().type.type
-        else return this.mediaType!!.type == Manga().type.type
+        val type: JsonType = mediaType ?: this.mediaType ?: return false
+        return type.type == Manga().type.type
     }
-
-    override fun setMediaType(mediaType: JsonType) {
+    /**
+     * Use directly if calling this before [LibraryUpdateSheet.onCreateView] has finished.
+     * [rootView] used
+     */
+    private fun setMediaType(mediaType: JsonType, rootView: View? = null) {
         if (!mediaTypeIsAnime(mediaType) && !mediaTypeIsManga(mediaType))
             throw IllegalArgumentException("Media type " + mediaType.type + " is unrecognised.")
-
         this.mediaType = mediaType
-        configureForMediaType()
+        setStatusResolverForMediaType(mediaType)
+        replacePresenterForMediaType()
+        configureViewForMediaType(rootView ?: view ?: throw IllegalStateException("No view to configure."))
     }
 
-    private fun configureForMediaType() {
-        replacePresenterForMediaType()
+    /**
+     * This exists so that the exposed interface remains simple and without View dependencies.
+     */
+    override fun setMediaType(mediaType: JsonType) {
+        setMediaType(mediaType, view)
+    }
+
+    private fun setStatusResolverForMediaType(mediaType: JsonType) {
         if (mediaTypeIsAnime()) {
             statusResolver = AnimeStatusResolver()
             statusResolver!!.init(context)
         } else if (mediaTypeIsManga()) {
             statusResolver = MangaStatusResolver()
             statusResolver!!.init(context)
-        }
-        configureViewForMediaType()
+        } else throw IllegalArgumentException("No status resolver for media type: " + mediaType)
     }
 
-    private fun configureViewForMediaType(v: View? = null) {
+    private fun configureViewForMediaType(v: View) {
         setProgressViewForMediaType(v)
         setStatusSpinnerForMediaType(v)
     }
@@ -186,12 +200,12 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 if (mediaTypeIsAnime()) AnimeLibraryUpdatePresenter()
                 else if (mediaTypeIsManga()) MangaLibraryUpdatePresenter()
                 else throw IllegalArgumentException("No library entry presenter for type: " + mediaType!!.type)
-
         if (presenter != null) newPresenter.libraryEntry = presenter!!.libraryEntry
         presenter = newPresenter
+        presenter!!.attachView(this)
     }
 
-    private fun setProgressViewForMediaType(v: View? = null) {
+    private fun setProgressViewForMediaType(rootView: View) {
         val layout: Int =
                 if (mediaTypeIsAnime())
                     R.layout.library_update_progress_anime
@@ -200,23 +214,19 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 else throw IllegalArgumentException("No progress layout for media type: " + mediaType!!.type)
 
         val container: ViewGroup =
-                if (v != null) v.progressContainer
-                else if (progressContainer != null) progressContainer
+                if (rootView.progressContainer != null) rootView.progressContainer
                 else throw NullPointerException("No container to inflate progress views into.")
 
         val episodes: ProgressView? =
-                if (v != null) v.episodesProgressView
-                else if (episodesProgressView != null) episodesProgressView
+                if (rootView.episodesProgressView != null) rootView.episodesProgressView
                 else null
 
         val chapters: ProgressView? =
-                if (v != null) v.chaptersProgressView
-                else if (chaptersProgressView != null) chaptersProgressView
+                if (rootView.chaptersProgressView != null) rootView.chaptersProgressView
                 else null
 
         val volumes: ProgressView? =
-                if (v != null) v.volumesProgressView
-                else if (volumesProgressView != null) volumesProgressView
+                if (rootView.volumesProgressView != null) rootView.volumesProgressView
                 else null
 
         container.removeAllAndAdd(activity.layoutInflater, layout)
@@ -230,7 +240,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
         } else throw IllegalStateException("Presenter $presenter is unsuitable.")
     }
 
-    private fun setStatusSpinnerForMediaType(v: View?) {
+    private fun setStatusSpinnerForMediaType(rootView: View) {
         val statusAdapter = ArrayAdapter.createFromResource(
                 context,
                 if (mediaTypeIsAnime()) R.array.anime_statuses
@@ -239,8 +249,7 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateView {
                 R.layout.simple_spinner_item
         )
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        if(v != null) v.statusSpinner.adapter = statusAdapter
-        else statusSpinner.adapter = statusAdapter
+        rootView.statusSpinner.adapter = statusAdapter
     }
 
     override fun setTitle(title: String) {

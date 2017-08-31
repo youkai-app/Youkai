@@ -50,43 +50,42 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
         if (entry.anime != null) {
             view?.setMediaType(JsonType(Anime().type.type))
             view?.setMaxEpisodes(entry.anime!!.episodeCount!!)
-            //TODO: title preferences
-            view?.setTitle(entry.anime!!.titles!!.en!!)
+            setViewTitles(entry.anime!!.titles!!)
             view?.setEpisodeProgress(entry.progress!!)
         } else if (entry.manga != null) {
             view?.setMediaType(JsonType(Manga().type.type))
-            //TODO: manga doesn't have chapters count any more
-            //view.setMaxChapters(entry.manga!!.chapterCount!!)
             view?.setTitle(entry.manga!!.titles!!.en!!)
             view?.setMaxChapters(entry.manga!!.chapterCount!!)
             view?.setChapterProgress(entry.progress!!)
             view?.setMaxVolumes(entry.manga!!.volumeCount!!)
             view?.setVolumeProgress(entry.volumesOwned!!)
-        }
+        } else throw IllegalArgumentException("No related media.")
         libraryEntry = entry
         //TODO: make safe!! (!!)
         view?.setPrivate(entry.private!!)
         view?.setStatus(Status(entry.status!!))
         view?.setReconsumedCount(entry.reconsumeCount!!)
         //TODO: create dedicated rating model or methods?
-        if (entry.ratingTwenty != null && entry.ratingTwenty!! >= 0) {
+        if (entry.ratingTwenty != null && entry.ratingTwenty!! >= 0)
             view?.setRating(entry.ratingTwenty!!.div(4).toFloat())
-        }
-        if (entry.notes != null) {
+        if (entry.notes != null)
             view?.setNotes(entry.notes!!)
-        }
     }
 
     fun getEntryById(entryId: String) = setEntry(
             Api.libraryEntry(entryId)
                     .include("anime", "manga")
                     .fields("anime", Anime.EPISODE_COUNT, BaseMedia.TITLES)
-                    //.fields("manga", Manga.CHAPTERS_COUNT)
                     .fields("manga", BaseMedia.TITLES, Manga.CHAPTERS_COUNT, Manga.VOLUME_COUNT)
                     .get()
                     .observeOn(Schedulers.computation())
                     .map { it.get() }
     )
+
+    fun setViewTitles(titles: Titles) {
+        //TODO: title preferences
+        view?.setTitle(titles.en ?: titles.enJp ?: titles.jaJp ?: throw IllegalArgumentException("No available title."))
+    }
 
     fun setPrivate(isPrivate: Boolean) {
         libraryEntry.private = isPrivate
