@@ -116,7 +116,7 @@ dependencies {
 
     /* JSONAPI converter
      * https://github.com/Kevinrob/jsonapi-converter */
-    compile('com.github.Kevinrob:jsonapi-converter:090d7a89426c4765ea08edb655d5c0aa7e3c7d5d') {
+    compile('com.github.dulleh:jsonapi-converter:090d7a89426c4765ea08edb655d5c0aa7e3c7d5d'){
         changing=true
     }
 
