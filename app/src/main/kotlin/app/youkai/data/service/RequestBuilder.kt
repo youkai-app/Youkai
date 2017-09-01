@@ -24,8 +24,28 @@ class RequestBuilder<T>(val id: String, val call: (String, Map<String, String>, 
         return this
     }
 
-    fun include(vararg queryParameter: String): RequestBuilder<T> {
-        queryMap.append(INCLUDE, queryParameter.joinToString(DELIMITER), DELIMITER)
+    /**
+     * Adds a query: include=relationship[1],relationship[2] ...
+     * Related documentation: @see http://jsonapi.org/format/#fetching-includes
+     * @param relationship  The names of top-level relationships.
+     *                      Note: not the type of the relationship's returned object.
+     */
+    fun include(vararg relationship: String): RequestBuilder<T> {
+        queryMap.append(INCLUDE, relationship.joinToString(DELIMITER), DELIMITER)
+        return this
+    }
+
+    /**
+     * Adds a query: include=relationship.nestedRelationship[1],relationship.nestedRelationship[2] ...
+     * Related documentation: @see http://jsonapi.org/format/#fetching-includes
+     * @param relationship  The name of the relationship top-level relationship.
+     *                      Note: not the type of the relationship's returned object.
+     * @param nestedRelationship The names of sub-relationships to [relationship]
+     */
+    fun includeNested(relationship: String, vararg nestedRelationship: String): RequestBuilder<T> {
+        if (nestedRelationship.isEmpty())
+            throw IllegalArgumentException("includeNested() should only be used when relationships of relationships are required.")
+        nestedRelationship.forEach { queryMap.append(INCLUDE, "$relationship.$it", DELIMITER) }
         return this
     }
 
