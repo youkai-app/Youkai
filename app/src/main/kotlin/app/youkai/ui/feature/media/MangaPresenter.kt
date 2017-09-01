@@ -1,6 +1,6 @@
 package app.youkai.ui.feature.media
 
-import app.youkai.data.models.Manga
+import app.youkai.data.models.*
 import app.youkai.data.models.ext.typeString
 import app.youkai.data.service.Api
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,11 +14,14 @@ class MangaPresenter : BaseMediaPresenter() {
     override fun loadMedia(mediaId: String) {
         Api.manga(mediaId)
                 .include(
-                        "categories",
+                        BaseMedia.CATEGORIES,
                         "castings.person",
                         "mediaRelationships.destination",
                         "reviews.user"
                 )
+                .includeNested(BaseMedia.CASTINGS, Casting.PERSON)
+                .includeNested(BaseMedia.REVIEWS, Review.USER)
+                .include(BaseMedia.MEDIA_RELATIONSHIPS, MediaRelationship.DESTINATION)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

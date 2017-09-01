@@ -2,8 +2,7 @@ package app.youkai.ui.feature.media
 
 import app.youkai.App.Companion.context
 import app.youkai.R
-import app.youkai.data.models.Anime
-import app.youkai.data.models.BaseMedia
+import app.youkai.data.models.*
 import app.youkai.data.models.ext.typeString
 import app.youkai.data.service.Api
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,14 +15,12 @@ class AnimePresenter : BaseMediaPresenter() {
 
     override fun loadMedia(mediaId: String) {
         Api.anime(mediaId)
-                .include(
-                        "categories",
-                        "streamingLinks.streamer",
-                        "reviews.user",
-                        "animeProductions.producer",
-                        "animeCharacters.character",
-                        "mediaRelationships.destination"
-                )
+                .include(BaseMedia.CATEGORIES)
+                .includeNested(Anime.STREAMING_LINKS, StreamingLink.STREAMER)
+                .includeNested(BaseMedia.REVIEWS, Review.USER)
+                .includeNested(Anime.PRODUCTIONS, AnimeProduction.PRODUCER)
+                .include(Anime.CHARACTERS, AnimeCharacter.CHARACTER)
+                .include(BaseMedia.MEDIA_RELATIONSHIPS, MediaRelationship.DESTINATION)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
