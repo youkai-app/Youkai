@@ -13,15 +13,10 @@ class MangaPresenter : BaseMediaPresenter() {
 
     override fun loadMedia(mediaId: String) {
         Api.manga(mediaId)
-                .include(
-                        BaseMedia.CATEGORIES,
-                        "castings.person",
-                        "mediaRelationships.destination",
-                        "reviews.user"
-                )
+                .include(BaseMedia.CATEGORIES)
                 .includeNested(BaseMedia.CASTINGS, Casting.PERSON)
                 .includeNested(BaseMedia.REVIEWS, Review.USER)
-                .include(BaseMedia.MEDIA_RELATIONSHIPS, MediaRelationship.DESTINATION)
+                .includeNested(BaseMedia.MEDIA_RELATIONSHIPS, MediaRelationship.DESTINATION)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
