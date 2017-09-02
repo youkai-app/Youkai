@@ -141,7 +141,7 @@
                         android:id="@+id/popularityIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="-5dp"
+                        android:layout_marginStart="-5dp"
                         android:tint="@color/accent_kitsu"
                         app:srcCompat="@drawable/ic_most_pupolar_black_36dp" />
 
@@ -151,8 +151,8 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/popularityText"
                         android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_toRightOf="@+id/popularityIcon"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/popularityIcon"
                         android:fontFamily="sans-serif-light"
                         android:lines="1"
                         android:textSize="26sp"
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/popularityText"
-                        android:layout_marginLeft="-5dp"
+                        android:layout_marginStart="-5dp"
                         android:layout_marginTop="16dp"
                         android:tint="@color/rating"
                         app:srcCompat="@drawable/ic_highest_rated_black_36dp" />
@@ -182,8 +182,8 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/ratingText"
                         android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_toRightOf="@+id/ratingIcon"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/ratingIcon"
                         android:fontFamily="sans-serif-light"
                         android:lines="1"
                         android:textSize="26sp"
@@ -217,9 +217,9 @@
             <TextView
                 android:id="@+id/allReviewsButton"
                 style="@style/ChevronButtonTextView"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginBottom="16dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/content_all_reviews"
                 android:visibility="gone"
                 tools:visibility="visible" />

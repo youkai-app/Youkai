@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:layout_toRightOf="@id/poster"
+                    android:layout_toEndOf="@id/poster"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -146,10 +146,10 @@
                 android:id="@+id/trailer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/ripple_dark"
-                android:drawableLeft="@drawable/ic_youtube_colored_24dp"
+                android:drawableStart="@drawable/ic_youtube_colored_24dp"
                 android:drawablePadding="16dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
@@ -172,7 +172,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_horizontal_margin"
         app:fabSize="normal"
         app:layout_behavior="@string/floating_action_button_scroll_behavior"
