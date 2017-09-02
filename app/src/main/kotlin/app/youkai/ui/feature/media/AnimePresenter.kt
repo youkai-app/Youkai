@@ -20,7 +20,6 @@ class AnimePresenter : BaseMediaPresenter() {
                 .includeNested(BaseMedia.REVIEWS, Review.USER)
                 .includeNested(Anime.PRODUCTIONS, AnimeProduction.PRODUCER)
                 .includeNested(Anime.CHARACTERS, AnimeCharacter.CHARACTER)
-                .includeNested(BaseMedia.MEDIA_RELATIONSHIPS, MediaRelationship.DESTINATION)
                 .fields(Category().type.type, Category.NSFW, Category.SLUG, Category.TITLE)
                 .fields(StreamingLink().type.type, StreamingLink.STREAMER)
                 .fields(Streamer().type.type, Streamer.SITE_NAME)
@@ -30,12 +29,25 @@ class AnimePresenter : BaseMediaPresenter() {
                 .fields(Character().type.type, Character.IMAGE)
                 .get()
                 .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .map { it.get() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext { setMedia(it) }
+                .observeOn(Schedulers.io())
+                .concatMap {
+                    Api.mediaRelationshipsForAnime(mediaId)
+                            .include(MediaRelationship.DESTINATION)
+                            .fields(MediaRelationship().type.type, MediaRelationship.ROLE, MediaRelationship.DESTINATION)
+                            .fields(Anime().type.type, BaseMedia.TITLES, BaseMedia.POSTER_IMAGE)
+                            .get()
+                }
+                .observeOn(Schedulers.computation())
+                .map { it.get() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { m ->
-                            run {
-                                setMedia(m.get())
-                            }
+                        {
+                            media?.medias = it
+                            setMedia(media)
                         },
                         { e ->
                             setMedia(null)

@@ -24,14 +24,15 @@ class MangaPresenter : BaseMediaPresenter() {
                 .fields(Character().type.type, Character.IMAGE)
                 .get()
                 .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .map { it.get() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { m ->
-                            run {
-                                setMedia(m.get())
-                            }
+                        {
+                            setMedia(it)
                         },
                         { e ->
+                            setMedia(null)
                         },
                         {
                             // onComplete
