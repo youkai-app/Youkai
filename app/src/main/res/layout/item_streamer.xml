@@ -9,4 +9,4 @@
     android:padding="16dp"
     android:scaleType="center"
     app:srcCompat="@drawable/ic_streamer_crunchyroll_white_24dp"
-    tools:tint="@color/streaming_service_crunchyroll" />
+    tools:tint="@color/streamer_crunchyroll" />
