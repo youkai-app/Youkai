@@ -91,6 +91,14 @@ object Api {
     fun episodesForAnime(animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<Episode>>>>
             = RequestBuilder(animeId, getAnimeEpisodesCall)
 
+    private val getAnimeMediaRelationshipsCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getAnimeMediaRelationships(id, h, m)
+    }
+
+    fun mediaRelationshipsForAnime(animeId: String): RequestBuilder<Observable<JSONAPIDocument<List<MediaRelationship>>>>
+            = RequestBuilder(animeId, getAnimeMediaRelationshipsCall)
+
     /**
      * Manga
      */
@@ -120,6 +128,17 @@ object Api {
 
     fun chaptersForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<Chapter>>>>
             = RequestBuilder(mangaId, getMangaChaptersCall)
+
+    private val getMangaMediaRelationshipsCall = {
+        id: String, h: Map<String, String>, m: Map<String, String> ->
+        service.getMangaMediaRelationships(id, h, m)
+    }
+
+    /**
+     * Not implemented on server.
+     */
+    fun mediaRelationshipsForManga(mangaId: String): RequestBuilder<Observable<JSONAPIDocument<List<MediaRelationship>>>>
+            = RequestBuilder(mangaId, getMangaMediaRelationshipsCall)
 
     /**
      * Library

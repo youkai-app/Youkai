@@ -67,6 +67,13 @@ interface Service {
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<List<Episode>>>
 
+    @GET("edge/anime/{id}/media-relationships")
+    fun getAnimeMediaRelationships(
+            @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<MediaRelationship>>>
+
     /**
      * Manga
      */
@@ -86,6 +93,13 @@ interface Service {
             @HeaderMap headers: Map<String, String>,
             @QueryMap queries: Map<String, String>
     ): Observable<JSONAPIDocument<List<Chapter>>>
+
+    @GET("edge/manga/{id}/media-relationships")
+    fun getMangaMediaRelationships(
+            @Path("id") id: String,
+            @HeaderMap headers: Map<String, String>,
+            @QueryMap queries: Map<String, String>
+    ): Observable<JSONAPIDocument<List<MediaRelationship>>>
 
     /**
      * Library

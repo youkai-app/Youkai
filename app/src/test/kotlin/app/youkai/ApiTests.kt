@@ -127,6 +127,16 @@ class ApiTests {
                 .assertComplete()
     }
 
+    @Test
+    fun mediaRelationshipsForAnimeTest() {
+        Api.mediaRelationshipsForAnime("1").get()
+                .map(JSONAPIDocument<List<MediaRelationship>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
     /**
      * Manga
      */
@@ -154,6 +164,16 @@ class ApiTests {
     fun chaptersForMangaTest() {
         Api.chaptersForManga("1").get()
                 .map(JSONAPIDocument<List<Chapter>>::get)
+                .flatMapIterable { l -> l }
+                .test()
+                .assertNoErrors()
+                .assertComplete()
+    }
+
+    @Test
+    fun mediaRelationshipsForMangaTest() {
+        Api.mediaRelationshipsForManga("1").get()
+                .map(JSONAPIDocument<List<MediaRelationship>>::get)
                 .flatMapIterable { l -> l }
                 .test()
                 .assertNoErrors()
