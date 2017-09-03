@@ -38,7 +38,7 @@ class AnimePresenter : BaseMediaPresenter() {
                     Api.mediaRelationshipsForAnime(mediaId)
                             .include(MediaRelationship.DESTINATION)
                             .fields(MediaRelationship().type.type, MediaRelationship.ROLE, MediaRelationship.DESTINATION)
-                            .fields(Anime().type.type, BaseMedia.TITLES, BaseMedia.POSTER_IMAGE)
+                            .fields(Anime().type.type, BaseMedia.CANONICAL_TITLE, BaseMedia.POSTER_IMAGE)
                             .get()
                 }
                 .observeOn(Schedulers.computation())
