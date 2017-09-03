@@ -3,6 +3,7 @@ package app.youkai.ui.feature.library_update
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.models.Manga
 import app.youkai.data.service.Api
+import app.youkai.ui.feature.library_update.view.MangaLibraryUpdateView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -45,8 +46,8 @@ class MangaLibraryUpdatePresenter : BaseLibraryUpdatePresenter() {
                         // onNext
                         {
                             setViewTitles(it.titles!!)
-                            view?.setMaxChapters(it.chapterCount!!)
-                            view?.setMaxVolumes(it.volumeCount!!)
+                            getViewT().setMaxChapters(it.chapterCount!!)
+                            getViewT().setMaxVolumes(it.volumeCount!!)
                         },
                         // onError
                         {
@@ -61,5 +62,8 @@ class MangaLibraryUpdatePresenter : BaseLibraryUpdatePresenter() {
     fun setVolumesProgress(progress: Int) {
         libraryEntry.volumesOwned = progress
     }
+
+    //TODO: add this to presenter interface
+    private fun getViewT() = (getViewManager()?.getViewT() as MangaLibraryUpdateView)
 
 }

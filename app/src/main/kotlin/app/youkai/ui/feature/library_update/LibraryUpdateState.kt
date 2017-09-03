@@ -1,6 +1,7 @@
 package app.youkai.ui.feature.library_update
 
 import android.os.Bundle
+import app.youkai.ui.feature.library_update.view.LibraryUpdateView
 import com.hannesdorfmann.mosby.mvp.viewstate.RestorableViewState
 
 class LibraryUpdateState : RestorableViewState<LibraryUpdateView> {

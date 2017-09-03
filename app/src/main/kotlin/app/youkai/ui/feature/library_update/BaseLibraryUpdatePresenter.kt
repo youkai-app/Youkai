@@ -1,28 +1,37 @@
 package app.youkai.ui.feature.library_update
 
 import app.youkai.data.models.*
+import app.youkai.data.models.ext.MediaType
 import app.youkai.data.service.Api
+import app.youkai.ui.feature.library_update.view.AnimeLibraryUpdateView
+import app.youkai.ui.feature.library_update.view.LibraryUpdateViewManager
+import app.youkai.ui.feature.library_update.view.MangaLibraryUpdateView
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
+open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewManager>() {
 
     private val subscriptions: CompositeDisposable = CompositeDisposable()
     // TODO: persist across changes
     var libraryEntry: LibraryEntry = LibraryEntry()
     private var checkedForExistenceOnRemote: Boolean = false
 
-    override fun attachView(view: LibraryUpdateView?) {
-        super.attachView(view)
+    override fun attachView(viewManager: LibraryUpdateViewManager?) {
+        super.attachView(viewManager)
     }
 
     override fun detachView(retainInstance: Boolean) {
         super.detachView(retainInstance)
         if (!retainInstance) subscriptions.dispose()
     }
+
+    /**
+     * "renaming" [view] to [viewManager] in an attempt to make the code in here easier to read.
+     */
+    protected fun getViewManager() = view
 
     /**
      * Must have a media item set (anime or manga) by including it in the call
@@ -51,28 +60,34 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
 
     private fun setEntryOnView(entry: LibraryEntry) {
         if (entry.anime != null) {
-            view?.setMediaType(JsonType(Anime().type.type))
-            view?.setMaxEpisodes(entry.anime!!.episodeCount!!)
+            getViewManager()?.setMediaType(MediaType.ANIME)
+            (getViewManager()?.getViewT() as AnimeLibraryUpdateView).apply {
+                setMaxEpisodes(entry.anime!!.episodeCount!!)
+                setEpisodeProgress(entry.progress!!)
+            }
             setViewTitles(entry.anime!!.titles!!)
-            view?.setEpisodeProgress(entry.progress!!)
         } else if (entry.manga != null) {
-            view?.setMediaType(JsonType(Manga().type.type))
-            view?.setTitle(entry.manga!!.titles!!.en!!)
-            view?.setMaxChapters(entry.manga!!.chapterCount!!)
-            view?.setChapterProgress(entry.progress!!)
-            view?.setMaxVolumes(entry.manga!!.volumeCount!!)
-            view?.setVolumeProgress(entry.volumesOwned!!)
+            getViewManager()?.setMediaType(MediaType.MANGA)
+            (getViewManager()?.getViewT() as MangaLibraryUpdateView).apply {
+                setTitle(entry.manga!!.titles!!.en!!)
+                setMaxChapters(entry.manga!!.chapterCount!!)
+                setChapterProgress(entry.progress!!)
+                setMaxVolumes(entry.manga!!.volumeCount!!)
+                setVolumeProgress(entry.volumesOwned!!)
+            }
         } else throw IllegalArgumentException("No related media.")
         libraryEntry = entry
         //TODO: make safe!! (!!)
-        view?.setPrivate(entry.private!!)
-        view?.setStatus(Status(entry.status!!))
-        view?.setReconsumedCount(entry.reconsumeCount!!)
-        //TODO: create dedicated rating model or methods?
-        if (entry.ratingTwenty != null && entry.ratingTwenty!! >= 0)
-            view?.setRating(entry.ratingTwenty!!.div(4).toFloat())
-        if (entry.notes != null)
-            view?.setNotes(entry.notes!!)
+        getViewManager()?.getViewT()?.apply {
+            setPrivate(entry.private!!)
+            setStatus(Status(entry.status!!))
+            setReconsumedCount(entry.reconsumeCount!!)
+            //TODO: create dedicated rating model or methods?
+            if (entry.ratingTwenty != null && entry.ratingTwenty!! >= 0)
+                setRating(entry.ratingTwenty!!.div(4).toFloat())
+            if (entry.notes != null)
+                setNotes(entry.notes!!)
+        }
     }
 
     fun getEntryById(entryId: String) = setEntry(
@@ -87,7 +102,7 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
 
     fun setViewTitles(titles: Titles) {
         //TODO: title preferences
-        view?.setTitle(titles.en ?: titles.enJp ?: titles.jaJp ?: throw IllegalArgumentException("No available title."))
+        getViewManager()?.getViewT()?.setTitle(titles.en ?: titles.enJp ?: titles.jaJp ?: throw IllegalArgumentException("No available title."))
     }
 
     fun setPrivate(isPrivate: Boolean) {
@@ -218,3 +233,4 @@ open class BaseLibraryUpdatePresenter : MvpBasePresenter<LibraryUpdateView>() {
     }
 
 }
+

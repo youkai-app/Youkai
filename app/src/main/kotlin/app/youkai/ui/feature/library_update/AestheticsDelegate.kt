@@ -26,8 +26,10 @@ import kotlinx.android.synthetic.main.library_update.view.*
 import kotlinx.android.synthetic.main.library_update_progress_anime.view.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.view.*
 
-class AestheticsDelegate(val rootView: View, val context: Context, val resources: Resources) {
+class AestheticsDelegate(private val rootView: View, private val context: Context) {
     private val isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+
+    private val resources: Resources = context.resources
 
     private val titleColorLight = R.color.bottom_sheet_title_light
     private val titleColorDark = R.color.bottom_sheet_title_dark
@@ -38,7 +40,7 @@ class AestheticsDelegate(val rootView: View, val context: Context, val resources
 
     private var privacyRippleInset: Float? = null
     private var privacyAnimator: Animator? = null
-    val animationDuration: Long = 320
+    private val animationDuration: Long = 320
 
     @SuppressLint("NewApi")
     fun  setPrivateBackground(isPrivate: Boolean) {
@@ -105,7 +107,7 @@ class AestheticsDelegate(val rootView: View, val context: Context, val resources
     }
 
     @SuppressLint("NewApi")
-    fun setColors(
+    private fun setColors(
             @ColorRes titleColorRes: Int,
             @ColorRes labelColorRes: Int,
             @ColorRes itemColorRes: Int,
@@ -187,7 +189,7 @@ class AestheticsDelegate(val rootView: View, val context: Context, val resources
             R.color.library_update_edittext_dark
     )
 
-    fun getColor(@ColorRes colorRes: Int): Int {
+    private fun getColor(@ColorRes colorRes: Int): Int {
         return context.getColorCompat(colorRes)
     }
 

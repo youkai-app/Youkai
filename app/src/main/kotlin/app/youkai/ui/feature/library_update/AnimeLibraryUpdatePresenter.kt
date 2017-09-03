@@ -3,6 +3,7 @@ package app.youkai.ui.feature.library_update
 import app.youkai.data.models.Anime
 import app.youkai.data.models.BaseMedia
 import app.youkai.data.service.Api
+import app.youkai.ui.feature.library_update.view.AnimeLibraryUpdateView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -33,7 +34,7 @@ class AnimeLibraryUpdatePresenter : BaseLibraryUpdatePresenter() {
     /**
      * Fetches and displays the title and no. of episodes.
      */
-    fun loadBasics(animeId: String) {
+    private fun loadBasics(animeId: String) {
         Api.anime(animeId)
                 .fields(Anime().type.type, BaseMedia.TITLES, Anime.EPISODE_COUNT)
                 .get()
@@ -45,7 +46,7 @@ class AnimeLibraryUpdatePresenter : BaseLibraryUpdatePresenter() {
                         // onNext
                         {
                             setViewTitles(it.titles!!)
-                            view?.setMaxEpisodes(it.episodeCount!!)
+                            getViewT().setMaxEpisodes(it.episodeCount!!)
                         },
                         // onError
                         {
@@ -56,5 +57,7 @@ class AnimeLibraryUpdatePresenter : BaseLibraryUpdatePresenter() {
                         {}
                 )
     }
+
+    private fun getViewT() = (getViewManager()?.getViewT() as AnimeLibraryUpdateView)
 
 }
