@@ -10,7 +10,8 @@ import com.github.jasminb.jsonapi.annotations.Type
 class Manga : BaseMedia(JsonType("manga")) {
 
     companion object FieldNames {
-        val CHAPTERS_COUNT = "chaptersCount"
+        //TODO: chapters count no longer exists
+        val CHAPTERS_COUNT = "chapterCount"
         val VOLUME_COUNT = "volumeCount"
         val SERIALIZATION = "serialization"
         val MANGA_TYPE = "mangaType"

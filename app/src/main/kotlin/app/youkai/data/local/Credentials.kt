@@ -23,15 +23,15 @@ object Credentials {
     }
 
     var username: String?
-        set(value) = prefs.edit().putString(KEY_USERNAME, value).commit().unitify()
+        set(value) = prefs.edit().putString(KEY_USERNAME, value).apply().unitify()
         get() = prefs.getString(KEY_USERNAME, null)
 
     var authToken: String?
-        set(value) = prefs.edit().putString(KEY_AUTH_TOKEN, value).commit().unitify()
+        set(value) = prefs.edit().putString(KEY_AUTH_TOKEN, value).apply().unitify()
         get() = prefs.getString(KEY_AUTH_TOKEN, null)
 
     var refreshToken: String?
-        set(value) = prefs.edit().putString(KEY_REFRESH_TOKEN, value).commit().unitify()
+        set(value) = prefs.edit().putString(KEY_REFRESH_TOKEN, value).apply().unitify()
         get() = prefs.getString(KEY_REFRESH_TOKEN, null)
 
     var userId: String?

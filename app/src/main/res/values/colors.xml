@@ -3,7 +3,7 @@
     <color name="primary">#402F3F</color>
     <color name="primary_dark">#2B1F2A</color>
     <color name="accent">#FF3D00</color>
-
+    <color name="primary_light">#6a5869</color>
     <!--
     This is the orange used in Kitsu. It's too desaturated to be used as accent in
     Material Design. We use it to color some non-link UI elements.
@@ -50,4 +50,19 @@
     <color name="media_review_rating_background">#BDBDBD</color>
 
     <color name="youtube">#FF1744</color>
+
+    <color name="bottom_sheet_title_light">#58000000</color>
+    <color name="bottom_sheet_label_light">#8a000000</color>
+    <color name="bottom_sheet_item_light">@android:color/black</color>
+
+    <color name="bottom_sheet_title_dark">#58ffffff</color>
+    <color name="bottom_sheet_label_dark">#96ffffff</color>
+    <color name="bottom_sheet_item_dark">#cdffffff</color>
+
+    <color name="dropdown_light">#fff</color>
+    <color name="dropdown_dark">@color/primary_light</color>
+
+    <color name="text_gray_light">#8a000000</color>
+    <color name="text_gray_dark">#8affffff</color>
+
 </resources>

@@ -102,6 +102,9 @@ dependencies {
      * https://github.com/xiprox/ErrorView */
     compile 'tr.xip.errorview:library:3.0.0'
 
+    /* Mosby / MVP */
+    compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
+
     /* Facebook's Fresco
      * Image loading
      * https://github.com/facebook/fresco */
@@ -170,6 +173,12 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.3'
     compile 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
 
+    /* ProgressView */
+    compile 'app.youkai.progressview:library:1.1.1'
+
+    /* Transitions */
+    compile "com.andkulikov:transitionseverywhere:1.7.5"
+    
     /* Testing */
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -181,6 +190,7 @@ repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
     maven { url "https://dl.bintray.com/youkai/maven" }
+    jcenter()
 }
 
 configurations.all {

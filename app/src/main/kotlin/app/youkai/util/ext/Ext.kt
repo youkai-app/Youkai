@@ -1,8 +1,16 @@
 package app.youkai.util.ext
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
+import android.support.annotation.ColorRes
 import android.view.LayoutInflater
 import android.view.View
+import android.support.annotation.LayoutRes
+import android.support.annotation.RequiresApi
+import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ViewFlipper
 import java.text.NumberFormat
@@ -108,4 +116,54 @@ fun ViewFlipper.setDisplayedChildSafe(index: Int) {
  */
 inline fun <T:Any, R> whenNotNull(input: T?, callback: (T)->R): R? {
     return input?.let(callback)
+}
+
+/** Empties the ViewGroup and adds the child view.
+ * @param layoutInflater The layout inflater to use to inflate the childView.
+ * @param childView The new view to add to this ViewGroup.
+ */
+fun ViewGroup.removeAllAndAdd(childView: View) {
+    this.removeAllViews()
+    this.addView(childView)
+}
+
+/**
+ * Empties the ViewGroup and adds the child view.
+ * @param layoutInflater The layout inflater to use to inflate the childView.
+ * @param childView The layout resource for the new view to add to this ViewGroup.
+ */
+fun ViewGroup.removeAllAndAdd(layoutInflater: LayoutInflater, @LayoutRes childViewRes: Int) {
+    this.removeAllAndAdd(layoutInflater.inflate(childViewRes, this, false))
+}
+
+/**
+  * Tints a drawable using DrawableCompat and a color state list.
+  */
+fun Drawable.setStatefulTintCompat(resources: Resources, @ColorRes colorStateListRes: Int) {
+    DrawableCompat.setTintList(this, resources.getColorStateList(colorStateListRes))
+}
+
+@RequiresApi(23)
+fun Drawable.setStatefulTintCompat(resources: Resources, @ColorRes colorStateListRes: Int, theme: Resources.Theme) {
+    DrawableCompat.setTintList(this, resources.getColorStateList(colorStateListRes, theme))
+}
+
+/**
+ * Tints a drawable using DrawableCompat and a color state list.
+ */
+fun Drawable.setTintCompat(resources: Resources, @ColorRes colorRes: Int) {
+    DrawableCompat.setTint(this, resources.getColor(colorRes))
+}
+
+@RequiresApi(23)
+fun Drawable.setTintCompat(resources: Resources, @ColorRes colorRes: Int, theme: Resources.Theme) {
+    DrawableCompat.setTint(this, resources.getColor(colorRes, theme))
+}
+
+
+/**
+ *
+ */
+fun Context.getColorCompat(@ColorRes colorRes: Int): Int {
+    return ContextCompat.getColor(this, colorRes)
 }

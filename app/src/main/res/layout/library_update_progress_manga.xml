@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme" >
+
+    <app.youkai.progressview.ProgressView
+        android:id="@+id/chaptersProgressView"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:pv_showMax="true" />
+
+    <TextView
+        android:id="@+id/chapters"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/chapters"
+        android:textColor="@color/bottom_sheet_label_light"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintEnd_toStartOf="@id/chaptersProgressView" />
+
+    <app.youkai.progressview.ProgressView
+        android:id="@+id/volumesProgressView"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@id/chaptersProgressView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:pv_showMax="true" />
+
+    <TextView
+        android:id="@+id/volumes"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/volumes"
+        android:textColor="@color/bottom_sheet_label_light"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/chaptersProgressView"
+        app:layout_constraintStart_toStartOf="@id/chapters"
+        app:layout_constraintEnd_toStartOf="@id/volumesProgressView"
+        app:layout_constraintHorizontal_bias="0" />
+
+</android.support.constraint.ConstraintLayout>

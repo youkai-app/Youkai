@@ -49,7 +49,7 @@ class ApiTests {
 
     @Test
     fun fullAnimeTest() {
-        Api.anime("1")
+        Api.anime("3919")
                 .include(
                         BaseMedia.GENRES,
                         BaseMedia.CASTINGS,
@@ -484,7 +484,6 @@ class ApiTests {
                 .assertNoErrors()
                 .assertComplete()
     }
-
 
     /**
      * Reactions

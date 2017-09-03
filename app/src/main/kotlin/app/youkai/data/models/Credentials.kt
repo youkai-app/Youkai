@@ -2,6 +2,7 @@ package app.youkai.data.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
+//TODO: fun isAuthed, fun hasExpired
 class Credentials {
 
     @JsonProperty("access_token")

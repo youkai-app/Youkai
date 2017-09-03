@@ -5,6 +5,9 @@
 
     <string name="title_alternative_titles">Alternative Titles</string>
 
+    <!--
+        Login
+    -->
     <string name="content_username">Username</string>
     <string name="content_password">Password</string>
     <string name="content_forgot_password_signup">Forgot your password? <a href="https://kitsu.io/password-reset">Reset</a>\nNew here? <a href="https://kitsu.io">Sign up</a></string>
@@ -179,4 +182,53 @@
     <string name="ok">OK</string>
 
     <string name="floating_action_button_scroll_behavior">app.youkai.ui.common.view.ScrollAwareFabBehavior</string>
+
+    <!--
+        Library Update
+    -->
+    <string name="remove_from_library">Remove from library</string>
+    <string name="tap_again_to_remove">Tap again to remove</string>
+    <string name="delete_confirmation_title">Delete library entry</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete this entry? You cannot undo this change.</string>
+    <string name="delete_confirmation_positive">DELETE</string>
+
+    <string name="private_text">Private</string>
+    <string name="status">Status</string>
+    <string name="progress">Progress</string>
+    <string name="rating">Rating</string>
+    <string name="personal_notes">Personal notes</string>
+    <string name="edit_notes">Edit notes</string>
+
+    <string name="rewatched">Rewatched</string>
+    <string name="reread">Reread</string>
+
+    <string name="chapters">Chapters</string>
+    <string name="volumes">Volumes</string>
+
+    <string name="completed">Completed</string>
+    <string name="on_hold">On Hold</string>
+    <string name="dropped">Dropped</string>
+
+    <string name="currently_watching">Currently Watching</string>
+    <string name="want_to_watch">Want to Watch</string>
+
+    <string-array name="anime_statuses">
+        <item>@string/currently_watching</item>
+        <item>@string/want_to_watch</item>
+        <item>@string/completed</item>
+        <item>@string/on_hold</item>
+        <item>@string/dropped</item>
+    </string-array>
+
+    <string name="currently_reading">Currently Reading</string>
+    <string name="want_to_read">Want to Read</string>
+
+    <string-array name="manga_statuses">
+        <item>@string/currently_reading</item>
+        <item>@string/want_to_read</item>
+        <item>@string/completed</item>
+        <item>@string/on_hold</item>
+        <item>@string/dropped</item>
+    </string-array>
+
 </resources>

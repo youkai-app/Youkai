@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import app.youkai.MainActivity
@@ -12,7 +11,6 @@ import app.youkai.R
 import app.youkai.util.ext.inputString
 import app.youkai.util.ext.snackbar
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateActivity
-import com.hannesdorfmann.mosby.mvp.viewstate.ViewState
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import com.jakewharton.rxbinding2.widget.afterTextChangeEvents
 import io.reactivex.functions.Consumer
@@ -20,9 +18,14 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginView {
 
+    companion object {
+        val START_FOR_ACCESS_TOKEN = 1
+        val RESULT_OK = 1
+    }
+
     override fun createPresenter(): LoginPresenter = LoginPresenter()
 
-    override fun createViewState(): ViewState<LoginView> = LoginState()
+    override fun createViewState() = LoginState()
 
     override fun onNewViewStateInstance() {
         /* do nothing */
@@ -35,7 +38,7 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         go.setOnClickListener { doLogin() }
 
         // Allows for HTML-formatted links in the text to be clickable.
-        bottomLinks.movementMethod = LinkMovementMethod() as MovementMethod
+        bottomLinks.movementMethod = LinkMovementMethod()
 
         val inputConsumer: Consumer<TextViewAfterTextChangeEvent> = Consumer({
             enableButton(
@@ -87,14 +90,13 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         getState().isLoading = isLoading
     }
 
-    override fun doLogin() {
-        presenter.doLogin(username.inputString(), password.inputString())
-    }
+    override fun doLogin() = presenter.doLogin(username.inputString(), password.inputString())
 
     override fun completeLogin() {
+        setResult(RESULT_OK)
         finish()
-        startActivity(Intent(this, MainActivity::class.java))
+        if (callingActivity == null) startActivity(Intent(this, MainActivity::class.java))
     }
 
-    private fun getState(): LoginState = viewState as LoginState
+    private fun getState(): LoginState = getViewState() as LoginState
 }

@@ -155,6 +155,7 @@ open class BaseMediaPresenter : MvpBasePresenter<MediaView>(), MediaPresenter {
             MediaView.FabState.EDIT -> {
                 view?.showLibraryEdit()
             }
+            else -> throw IllegalStateException("FAB state is indeterminate.")
         }
     }
 

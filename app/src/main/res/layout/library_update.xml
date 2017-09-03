@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/libraryUpdateRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:theme="@style/AppTheme" >
+
+    <View
+        android:id="@+id/privateBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:visibility="invisible"
+        android:layout_alignTop="@+id/libraryUpdateContent"
+        android:layout_alignBottom="@+id/end_padding" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@id/libraryUpdateContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="16dp"
+        android:animateLayoutChanges="true" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/bottom_sheet_title_light"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <Switch
+            android:id="@+id/privacySwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:switchPadding="12dp"
+            android:text="@string/private_text"
+            android:textColor="@color/bottom_sheet_label_light"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/title" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/status"
+            android:textColor="@color/bottom_sheet_label_light"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <Spinner
+            android:id="@+id/statusSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBaseline_toBaselineOf="@id/status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/status" />
+
+        <TextView
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/progress"
+            android:textColor="@color/bottom_sheet_label_light"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintTop_toBottomOf="@id/status" />
+
+        <FrameLayout
+            android:id="@+id/progressContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/progress"
+            app:layout_constraintTop_toTopOf="@id/progress" />
+
+        <TextView
+            android:id="@+id/reconsumed"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/rewatched"
+            android:textColor="@color/bottom_sheet_label_light"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintTop_toBottomOf="@id/progressContainer" />
+
+        <app.youkai.progressview.ProgressView
+            android:id="@+id/reconsumedProgressView"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/reconsumed"
+            app:layout_constraintTop_toTopOf="@id/reconsumed"
+            app:pv_showMax="false" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/rating"
+            android:textColor="@color/bottom_sheet_label_light"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintTop_toBottomOf="@id/reconsumed" />
+
+        <!--
+            The secondaryProgressTint is currently incorrect because the rating bar library does not handle transparency in
+            star colouring properly (draws the indeterminate color over the progressBackgroundTint) so it ends up too dark
+            in half stars.
+        -->
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/rating"
+            app:layout_constraintTop_toBottomOf="@id/reconsumed"
+            app:layout_constraintTop_toTopOf="@id/rating"
+            app:mrb_indeterminateTint="@color/bottom_sheet_title_light"
+            app:mrb_progressBackgroundTint="@color/bottom_sheet_title_light"
+            app:mrb_progressTint="#fecb20"
+            app:mrb_secondaryProgressTint="#fecb20" />
+
+        <TextView
+            android:id="@+id/notes"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/personal_notes"
+            android:textColor="@color/bottom_sheet_label_light"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintTop_toBottomOf="@id/rating" />
+
+        <EditText
+            android:id="@+id/notesInputEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_notes"
+            android:paddingTop="0dp"
+            android:textColor="@color/bottom_sheet_item_light"
+            android:textColorHint="@color/bottom_sheet_title_light"
+            android:backgroundTint="@color/bottom_sheet_title_light"
+            app:layout_constraintTop_toBottomOf="@id/notes" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:layout_below="@id/libraryUpdateContent"
+        android:text="@string/remove_from_library"
+        android:textColor="@color/bottom_sheet_title_light"
+        android:drawableLeft="@drawable/ic_delete_black_24dp"
+        android:drawableStart="@drawable/ic_delete_black_24dp"
+        android:drawableTint="@color/bottom_sheet_title_light"
+        android:drawablePadding="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
+
+    <Space
+        android:id="@id/end_padding"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_below="@id/removeButton" />
+
+</RelativeLayout>

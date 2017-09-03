@@ -33,4 +33,16 @@
     <style name="AppThemeErrorView">
         <item name="ev_retryColor">@color/accent</item>
     </style>
+
+    <style name="library_update_sheet"></style>
+
+    <style name="MaterialDialogSheet" parent="@style/AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="LibraryUpdateDialog" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
 </resources>

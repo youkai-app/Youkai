@@ -30,5 +30,7 @@ class MainActivity : AppCompatActivity() {
             val type = MediaType.fromString(mediaType.text.toString())
             startActivity(MediaActivity.new(this, id, type))
         }
+
     }
+
 }
