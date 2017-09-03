@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(MediaActivity.new(this, id, type))
         }
 
-        // Temporary for testing. TODO: Replace with real auth check.
-        //startActivity(Intent(this, LoginActivity::class.java))
     }
 
 }
