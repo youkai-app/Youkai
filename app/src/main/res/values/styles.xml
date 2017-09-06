@@ -1,20 +1,8 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="ReadMoreActionTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:text">@string/action_read_more</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/accent</item>
-    </style>
-
-    <style name="MediaCharImageView">
-        <item name="android:scaleType">centerCrop</item>
-    </style>
-
-    <style name="MediaSectionLabelTextView">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <style name="AppThemeErrorView">
+        <item name="ev_retryColor">@color/accent</item>
     </style>
 
     <style name="ChevronButtonTextView">
@@ -30,7 +18,89 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="AppThemeErrorView">
-        <item name="ev_retryColor">@color/accent</item>
+    <style name="Divider">
+        <item name="android:background">@color/divider</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
+
+    <style name="MediaCharImageView">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="MediaSectionLabelTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="PreferenceView">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">@dimen/list_item_height</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin_half</item>
+        <item name="android:paddingEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin_half</item>
+    </style>
+
+    <style name="PreferenceViewCheckableView">
+        <item name="android:background">@null</item>
+        <item name="android:clickable">false</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin_half</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_margin_quarter</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="PreferenceViewDescription">
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_alignWithParentIfMissing">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="PreferenceViewTitle">
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_alignWithParentIfMissing">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="ReadMoreActionTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:text">@string/action_read_more</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <style name="SettingsHeader">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">@dimen/header_min_height</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin_quarter</item>
+        <item name="android:paddingEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/toolbar_elevation</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:theme">@style/ToolbarTheme</item>
+    </style>
+
 </resources>

@@ -28,4 +28,9 @@
     <style name="AppTheme.AccentWhite" parent="@style/AppTheme">
         <item name="colorAccent">@android:color/white</item>
     </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </style>
+
 </resources>

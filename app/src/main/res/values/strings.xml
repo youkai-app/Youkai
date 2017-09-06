@@ -1,7 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Youkai</string>
 
     <string name="title_characters">Characters</string>
+    <string name="title_home">Home</string>
+    <string name="title_settings">Settings</string>
 
     <string name="title_alternative_titles">Alternative Titles</string>
 
@@ -173,8 +176,15 @@
 
     <string name="action_read_more">Read More</string>
 
+    <string name="account">Account</string>
+    <string name="general">General</string>
+    <string name="logout">Logout</string>
+    <string name="miscellaneous">Miscellaneous</string>
     <string name="oops">Oops</string>
     <string name="retry">Retry</string>
+    <string name="version_information">Version information</string>
+    <string name="version_information_format">%1$s (%2$d)</string>
+    <string name="you_are_logged_in_as_x">You are logged in as %1$s</string>
 
     <string name="ok">OK</string>
 
