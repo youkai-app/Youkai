@@ -1,5 +1,6 @@
 package app.youkai.ui.feature.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -93,8 +94,13 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
 
     override fun completeLogin() {
         finish()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(MainActivity.getLaunchIntent(this))
     }
 
     private fun getState(): LoginState = viewState as LoginState
+
+    companion object {
+        fun getLaunchIntent(context: Context) = Intent(context, LoginActivity::class.java)
+    }
+
 }

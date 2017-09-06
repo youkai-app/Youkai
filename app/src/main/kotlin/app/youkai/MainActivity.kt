@@ -1,5 +1,6 @@
 package app.youkai
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (!Credentials.isAuthenticated) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(LoginActivity.getLaunchIntent(this))
             finish()
         }
 
@@ -28,7 +29,12 @@ class MainActivity : AppCompatActivity() {
         go.setOnClickListener {
             val id = mediaId.text.toString()
             val type = MediaType.fromString(mediaType.text.toString())
-            startActivity(MediaActivity.new(this, id, type))
+            startActivity(MediaActivity.getLaunchIntent(this, id, type))
         }
     }
+
+    companion object {
+        fun getLaunchIntent(context: Context) = Intent(context, MainActivity::class.java)
+    }
+
 }

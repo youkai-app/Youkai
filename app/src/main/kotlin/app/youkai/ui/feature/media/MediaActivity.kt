@@ -198,11 +198,10 @@ class MediaActivity : MvpViewStateActivity<MediaView, BaseMediaPresenter>(), Med
     }
 
     companion object {
-        val ARG_TYPE = "type"
+        private const val ARG_ID = "id"
+        private const val ARG_TYPE = "type"
 
-        val ARG_ID = "id"
-
-        fun new(context: Context, id: String?, type: MediaType): Intent {
+        fun getLaunchIntent(context: Context, id: String?, type: MediaType): Intent {
             val intent = Intent(context, MediaActivity::class.java)
             intent.putExtra(ARG_ID, id ?: "-1")
             intent.putExtra(ARG_TYPE, type.toString())
