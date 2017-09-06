@@ -36,14 +36,13 @@
 
     <style name="PreferenceView">
         <item name="android:background">?attr/selectableItemBackground</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:minHeight">@dimen/list_item_height</item>
-        <item name="android:paddingBottom">@dimen/activity_vertical_margin_half</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
         <item name="android:paddingEnd">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingStart">@dimen/activity_horizontal_margin</item>
-        <item name="android:paddingTop">@dimen/activity_vertical_margin_half</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
     </style>
 
     <style name="PreferenceViewCheckableView">
@@ -51,9 +50,9 @@
         <item name="android:clickable">false</item>
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin_half</item>
-        <item name="android:layout_marginTop">@dimen/activity_vertical_margin_quarter</item>
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="PreferenceViewDescription">
@@ -62,7 +61,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>
-        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
     <style name="PreferenceViewTitle">
@@ -82,17 +81,18 @@
     </style>
 
     <style name="SettingsHeader">
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:minHeight">@dimen/header_min_height</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin_half</item>
         <item name="android:paddingBottom">@dimen/activity_vertical_margin_quarter</item>
         <item name="android:paddingEnd">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingStart">@dimen/activity_horizontal_margin</item>
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
-        <item name="android:textSize">@dimen/text_size_large</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
     <style name="Toolbar">
