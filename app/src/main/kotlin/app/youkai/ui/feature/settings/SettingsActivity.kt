@@ -3,7 +3,6 @@ package app.youkai.ui.feature.settings
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import app.youkai.BuildConfig
 import app.youkai.R
 import app.youkai.data.local.Credentials
