@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <CheckBox
+        android:id="@+id/checkableView"
+        style="@style/PreferenceViewCheckableView" />
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_toStartOf="@id/checkableView"
+        tools:text="Night Theme"
+        style="@style/PreferenceViewTitle" />
+
+    <TextView
+        android:id="@+id/descriptionView"
+        android:layout_below="@id/titleView"
+        android:layout_toStartOf="@id/checkableView"
+        tools:text="The app will use a dark theme"
+        style="@style/PreferenceViewDescription" />
+
+</merge>

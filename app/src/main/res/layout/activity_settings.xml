@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context="app.youkai.ui.feature.settings.SettingsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar" />
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.Space
+                android:layout_height="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent" />
+
+            <TextView
+                android:text="@string/general"
+                style="@style/SettingsHeader" />
+
+            <app.youkai.ui.feature.settings.view.PreferenceView
+                android:id="@+id/checkPreferenceView"
+                app:preferenceCheckableType="check_box"
+                app:preferenceDescriptionText="Some enabled description text"
+                app:preferenceDisabledDescriptionText="A different disabled description text"
+                app:preferenceTitleText="Checkbox preference"
+                style="@style/PreferenceView" />
+
+            <app.youkai.ui.feature.settings.view.PreferenceView
+                android:id="@+id/switchPreferenceView"
+                app:preferenceCheckableType="switch_compat"
+                app:preferenceDescriptionText="Something will happen because this is on"
+                app:preferenceDisabledDescriptionText="This is off so nothing will happen most likely I think but you know it's probably worth testing"
+                app:preferenceTitleText="Switch preference"
+                style="@style/PreferenceView" />
+
+            <View
+                style="@style/Divider" />
+
+            <android.support.v4.widget.Space
+                android:layout_height="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent" />
+
+            <TextView
+                android:text="@string/account"
+                style="@style/SettingsHeader" />
+
+            <app.youkai.ui.feature.settings.view.PreferenceView
+                android:id="@+id/logout"
+                app:preferenceDescriptionText="@string/you_are_logged_in_as_x"
+                app:preferenceTitleText="@string/logout"
+                style="@style/PreferenceView" />
+
+            <View
+                style="@style/Divider" />
+
+            <android.support.v4.widget.Space
+                android:layout_height="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent" />
+
+            <TextView
+                android:text="@string/miscellaneous"
+                style="@style/SettingsHeader" />
+
+            <app.youkai.ui.feature.settings.view.PreferenceView
+                android:id="@+id/versionInfo"
+                app:preferenceDescriptionText="@string/version_information_format"
+                app:preferenceStartEnabled="false"
+                app:preferenceTitleText="@string/version_information"
+                style="@style/PreferenceView" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

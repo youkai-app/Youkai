@@ -7,7 +7,7 @@ buildscript {
     ext.leak_canary_version = '1.5.2'
     ext.okhttp_version = '3.8.1'
     ext.retrofit_version = '2.3.0'
-    ext.support_lib_version = '26.0.1'
+    ext.support_lib_version = '26.0.2'
 
     repositories {
         jcenter()

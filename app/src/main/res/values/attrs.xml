@@ -6,4 +6,17 @@
         <attr name="biv_icon" format="reference" />
         <attr name="biv_roundedCorners" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="PreferenceView">
+        <attr name="preferenceCheckableType" format="enum">
+            <enum name="check_box" value="0" />
+            <enum name="switch_compat" value="1" />
+        </attr>
+        <attr name="preferenceDisabledDescriptionText" format="string" />
+        <attr name="preferenceEnabledTitleText" format="string" />
+        <attr name="preferenceDescriptionText" format="string" />
+        <attr name="preferenceStartEnabled" format="boolean" />
+        <attr name="preferenceTitleText" format="string" />
+    </declare-styleable>
+
 </resources>
