@@ -72,11 +72,11 @@ class PreferenceView : RelativeLayout {
                     R.layout.view_checkbox_preference_with_description
                 }
             }
-            CHECKABLE_TYPE_SWITCH_COMPAT -> {
+            CHECKABLE_TYPE_SWITCH -> {
                 if (initialDescriptionText.isNullOrBlank()) {
-                    R.layout.view_switchcompat_preference
+                    R.layout.view_switch_preference
                 } else {
-                    R.layout.view_switchcompat_preference_with_description
+                    R.layout.view_switch_preference_with_description
                 }
             }
             else -> {
@@ -89,9 +89,12 @@ class PreferenceView : RelativeLayout {
         descriptionView = findViewById(R.id.descriptionView)
         titleView = findViewById(R.id.titleView)
 
+        description = if (initialDisabledDescriptionText.isNullOrBlank()) {
+            initialDescriptionText
+        } else {
+            initialDisabledDescriptionText
+        }
         title = initialTitleText
-        description = if (initialDisabledDescriptionText.isNullOrBlank())
-            initialDescriptionText else initialDisabledDescriptionText
         isEnabled = startEnabled
     }
 
@@ -132,7 +135,7 @@ class PreferenceView : RelativeLayout {
     companion object {
         private const val CHECKABLE_TYPE_NONE = -1
         private const val CHECKABLE_TYPE_CHECK_BOX = 0
-        private const val CHECKABLE_TYPE_SWITCH_COMPAT = 1
+        private const val CHECKABLE_TYPE_SWITCH = 1
     }
 
 }
