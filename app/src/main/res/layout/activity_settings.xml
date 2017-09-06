@@ -30,7 +30,7 @@
                 android:text="@string/general"
                 style="@style/SettingsHeader" />
 
-            <app.youkai.ui.feature.settings.view.PreferenceView
+            <app.youkai.ui.feature.settings.widget.PreferenceView
                 android:id="@+id/checkPreferenceView"
                 app:preferenceCheckableType="check_box"
                 app:preferenceDescriptionText="Some enabled description text"
@@ -38,7 +38,7 @@
                 app:preferenceTitleText="Checkbox preference"
                 style="@style/PreferenceView" />
 
-            <app.youkai.ui.feature.settings.view.PreferenceView
+            <app.youkai.ui.feature.settings.widget.PreferenceView
                 android:id="@+id/switchPreferenceView"
                 app:preferenceCheckableType="switch_compat"
                 app:preferenceDescriptionText="Something will happen because this is on"
@@ -57,7 +57,7 @@
                 android:text="@string/account"
                 style="@style/SettingsHeader" />
 
-            <app.youkai.ui.feature.settings.view.PreferenceView
+            <app.youkai.ui.feature.settings.widget.PreferenceView
                 android:id="@+id/logout"
                 app:preferenceDescriptionText="@string/you_are_logged_in_as_x"
                 app:preferenceTitleText="@string/logout"
@@ -74,7 +74,7 @@
                 android:text="@string/miscellaneous"
                 style="@style/SettingsHeader" />
 
-            <app.youkai.ui.feature.settings.view.PreferenceView
+            <app.youkai.ui.feature.settings.widget.PreferenceView
                 android:id="@+id/versionInfo"
                 app:preferenceDescriptionText="@string/version_information_format"
                 app:preferenceStartEnabled="false"

@@ -1,4 +1,4 @@
-package app.youkai.ui.feature.settings.view
+package app.youkai.ui.feature.settings.widget
 
 import android.annotation.TargetApi
 import android.content.Context
