@@ -20,11 +20,8 @@
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:paddingTop="@dimen/activity_vertical_margin"
             android:orientation="vertical">
-
-            <android.support.v4.widget.Space
-                android:layout_height="@dimen/activity_vertical_margin"
-                android:layout_width="match_parent" />
 
             <TextView
                 android:text="@string/general"
@@ -38,6 +35,9 @@
                 app:preferenceTitleText="Checkbox preference"
                 style="@style/PreferenceView" />
 
+            <View
+                style="@style/Divider" />
+
             <app.youkai.ui.feature.settings.widget.PreferenceView
                 android:id="@+id/switchPreferenceView"
                 app:preferenceCheckableType="switch_compat"
@@ -45,13 +45,6 @@
                 app:preferenceDisabledDescriptionText="This is off so nothing will happen most likely I think but you know it's probably worth testing"
                 app:preferenceTitleText="Switch preference"
                 style="@style/PreferenceView" />
-
-            <View
-                style="@style/Divider" />
-
-            <android.support.v4.widget.Space
-                android:layout_height="@dimen/activity_vertical_margin"
-                android:layout_width="match_parent" />
 
             <TextView
                 android:text="@string/account"
@@ -62,13 +55,6 @@
                 app:preferenceDescriptionText="@string/you_are_logged_in_as_x"
                 app:preferenceTitleText="@string/logout"
                 style="@style/PreferenceView" />
-
-            <View
-                style="@style/Divider" />
-
-            <android.support.v4.widget.Space
-                android:layout_height="@dimen/activity_vertical_margin"
-                android:layout_width="match_parent" />
 
             <TextView
                 android:text="@string/miscellaneous"
