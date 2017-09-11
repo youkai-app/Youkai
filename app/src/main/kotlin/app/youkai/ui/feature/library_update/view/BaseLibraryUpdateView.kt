@@ -14,6 +14,7 @@ import app.youkai.ui.feature.library_update.BaseLibraryUpdatePresenter
 import app.youkai.ui.feature.library_update.StatusResolver
 import app.youkai.util.ext.getColorCompat
 import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.checkedChanges
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.jakewharton.rxbinding2.widget.textChangeEvents
 import kotlinx.android.synthetic.main.library_update.view.*
@@ -72,16 +73,29 @@ abstract class BaseLibraryUpdateView(
      * Needs to be called in init
      */
     private fun setViewListeners() {
-        rootView.privacySwitch.setOnCheckedChangeListener { _, isPrivate ->
-            presenter.setPrivate(isPrivate)
-            setPrivate(isPrivate)
-        }
+        rootView.privacySwitch.checkedChanges()
+                .skipInitialValue()
+                .subscribe { isPrivate ->
+                    presenter.setPrivate(isPrivate)
+                    presenter.postUpdate()
+                    setPrivate(isPrivate)
+                }
         //TODO: handle rating preferences
-        rootView.ratingBar.setOnRatingChangeListener { _, rating -> presenter.setRating(rating) }
+        rootView.ratingBar.setOnRatingChangeListener { _, rating ->
+            presenter.setRating(rating)
+            presenter.postUpdate()
+        }
         rootView.notesInputEdit.textChangeEvents()
                 .skipInitialValue()
-                .subscribe { t -> presenter.setNotes(t.text().toString()) }
-        rootView.removeButton.clicks().subscribe{ _ -> showRemovalConfirmationDialog() }
+                .subscribe { t ->
+                    presenter.setNotes(t.text().toString())
+                    presenter.postUpdate()
+                }
+        rootView.removeButton.clicks()
+                .subscribe { _ ->
+                    showRemovalConfirmationDialog()
+                    presenter.postUpdate()
+                }
     }
 
     abstract protected fun setProgressViews()
@@ -99,7 +113,18 @@ abstract class BaseLibraryUpdateView(
                 .filter { rootView.statusSpinner.adapter != null }
                 .map { rootView.statusSpinner.adapter.getItem(it).toString() }
                 .map { statusResolver.getItemStatus(it) }
-                .doOnNext { presenter.setStatus(it) }
+                // filter out any updates that aren't any different from the current status
+                .filter {
+                    if (presenter.libraryEntry.status != null) {
+                        it != statusResolver.getItemStatus(presenter.libraryEntry.status!!)
+                    }
+                    // if the status hasn't been set in the presenter, we want to handle the change
+                    else true
+                }
+                .doOnNext {
+                    presenter.setStatus(it)
+                    presenter.postUpdate()
+                }
                 .subscribe()
     }
 

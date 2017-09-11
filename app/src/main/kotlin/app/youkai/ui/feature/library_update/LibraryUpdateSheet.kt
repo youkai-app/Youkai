@@ -54,16 +54,6 @@ class LibraryUpdateSheet : BottomSheetDialogFragment(), LibraryUpdateViewManager
     }
 
     override fun onPause() {
-        /**
-         * TODO: change behaviour
-         * Save when:
-         *  - dismissed
-         *  - screen off
-         *  - switched app
-         *  -
-         */
-        presenter?.postUpdate()
-
         super.onPause()
     }
 

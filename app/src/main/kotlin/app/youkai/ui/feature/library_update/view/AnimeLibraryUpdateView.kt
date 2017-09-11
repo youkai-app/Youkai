@@ -7,7 +7,9 @@ import app.youkai.progressview.ProgressView
 import app.youkai.ui.feature.library_update.AnimeLibraryUpdatePresenter
 import app.youkai.ui.feature.library_update.AnimeStatusResolver
 import app.youkai.ui.feature.library_update.BaseLibraryUpdatePresenter
+import app.youkai.util.ext.editText
 import app.youkai.util.ext.removeAllAndAdd
+import com.jakewharton.rxbinding2.widget.textChanges
 import kotlinx.android.synthetic.main.library_update.view.*
 import kotlinx.android.synthetic.main.library_update_progress_anime.view.*
 
@@ -32,10 +34,19 @@ class AnimeLibraryUpdateView(presenter: BaseLibraryUpdatePresenter, rootView: Vi
 
     override fun setProgressViews() {
         val layout: Int = R.layout.library_update_progress_anime
-        val episodes: ProgressView? = rootView.episodesProgressView
         container.removeAllAndAdd(layoutInflater, layout)
+        val episodes: ProgressView = rootView.episodesProgressView
         // set listeners
-        if (presenter is AnimeLibraryUpdatePresenter) episodes?.setListener { presenter.setProgress(episodes.progress) }
+        if (presenter is AnimeLibraryUpdatePresenter) {
+            episodes.editText()
+                    .textChanges()
+                    .skipInitialValue()
+                    .subscribe {
+                        presenter.setProgress(episodes.progress)
+                        presenter.postUpdate()
+                        System.out.println("episodes")
+                    }
+        }
     }
 
 }

@@ -7,7 +7,9 @@ import app.youkai.progressview.ProgressView
 import app.youkai.ui.feature.library_update.BaseLibraryUpdatePresenter
 import app.youkai.ui.feature.library_update.MangaLibraryUpdatePresenter
 import app.youkai.ui.feature.library_update.MangaStatusResolver
+import app.youkai.util.ext.editText
 import app.youkai.util.ext.removeAllAndAdd
+import com.jakewharton.rxbinding2.widget.textChanges
 import kotlinx.android.synthetic.main.library_update.view.*
 import kotlinx.android.synthetic.main.library_update_progress_manga.view.*
 
@@ -42,13 +44,25 @@ class MangaLibraryUpdateView(presenter: BaseLibraryUpdatePresenter, rootView: Vi
 
     override fun setProgressViews() {
         val layout: Int = R.layout.library_update_progress_manga
-        val chapters: ProgressView? = rootView.chaptersProgressView
-        val volumes: ProgressView? = rootView.volumesProgressView
         container.removeAllAndAdd(layoutInflater, layout)
+        val chapters: ProgressView = rootView.chaptersProgressView
+        val volumes: ProgressView = rootView.volumesProgressView
         // set listeners
         if (presenter is MangaLibraryUpdatePresenter) {
-            chapters?.setListener { presenter.setProgress(chapters.progress) }
-            volumes?.setListener { presenter.setVolumesProgress(volumes.progress) }
+            chapters.editText()
+                    .textChanges()
+                    .skipInitialValue()
+                    .subscribe {
+                        presenter.setProgress(chapters.progress)
+                        presenter.postUpdate()
+                    }
+            volumes.editText()
+                    .textChanges()
+                    .skipInitialValue()
+                    .subscribe {
+                        presenter.setVolumesProgress(volumes.progress)
+                        presenter.postUpdate()
+                    }
         }
     }
 

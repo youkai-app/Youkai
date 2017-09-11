@@ -11,12 +11,16 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Callable
+import java.util.concurrent.TimeUnit
 
 open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewManager>() {
 
     private val subscriptions: CompositeDisposable = CompositeDisposable()
     // TODO: persist across changes
     var libraryEntry: LibraryEntry = LibraryEntry()
+    private val libaryEntryCallable: Callable<LibraryEntry> = Callable { libraryEntry }
+    private var updateObservable: Observable<LibraryEntry>? = null
     private var checkedForExistenceOnRemote: Boolean = false
 
     override fun attachView(viewManager: LibraryUpdateViewManager?) {
@@ -37,7 +41,7 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
      * Must have a media item set (anime or manga) by including it in the call
      */
      protected fun setEntry(entryStream: Observable<LibraryEntry>) {
-        entryStream
+        val sub = entryStream
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -56,6 +60,7 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
                             // do nothing
                         }
                 )
+        subscriptions.add(sub)
     }
 
     private fun setEntryOnView(entry: LibraryEntry) {
@@ -134,23 +139,16 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
         libraryEntry.notes = notes
     }
 
-    /**
-     * Posts any changes to the server.
-     */
-    fun postUpdate() {
-        if (!isAuthed()) {
-            sendToLogin()
-            return
-        }
-
-        val updateObservable = Observable.just(libraryEntry)
+    private fun createUpdateObservable() {
+        updateObservable = Observable.fromCallable(libaryEntryCallable)
+                .debounce(1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
 
         if (libraryEntry.id == null && !checkedForExistenceOnRemote) {
             /**
              * If we don't know whether or not the entry exists, find out!
              */
-            updateObservable.concatMap {
+            updateObservable!!.concatMap {
                 //TODO: global user object
                 val libraryEntryRequest =
                         if (libraryEntry.anime != null) Api.libraryEntryForAnime("userid", libraryEntry.anime!!.id!!)
@@ -171,8 +169,7 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
                         }
             }
         }
-
-        updateObservable
+        updateObservable!!
                 .observeOn(Schedulers.io())
                 .concatMap { entry: LibraryEntry ->
                     // if the entry existed, the id would have been set by this point
@@ -198,6 +195,18 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
                             // do nothing
                         }
                 )
+    }
+
+    /**
+     * Posts any changes to the server.
+     */
+    fun postUpdate() {
+        if (!isAuthed()) {
+            sendToLogin()
+            return
+        }
+        if (updateObservable == null) createUpdateObservable()
+        libaryEntryCallable.call()
     }
 
     fun removeLibraryEntry() {
