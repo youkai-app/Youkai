@@ -100,7 +100,7 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
                     .map { it.get() }
     )
 
-    fun setViewTitles(titles: Titles) {
+    protected fun setViewTitles(titles: Titles) {
         //TODO: title preferences
         getViewManager()?.getViewT()?.setTitle(titles.en ?: titles.enJp ?: titles.jaJp ?: throw IllegalArgumentException("No available title."))
     }
@@ -224,9 +224,7 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
                 )
     }
 
-    private fun isAuthed(): Boolean {
-        return Credentials().accessToken != null
-    }
+    protected fun isAuthed(): Boolean = Credentials().accessToken != null
 
     private fun sendToLogin() {
         view?.sendToLogin()
