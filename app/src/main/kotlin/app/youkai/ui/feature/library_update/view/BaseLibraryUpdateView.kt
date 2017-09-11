@@ -38,6 +38,7 @@ abstract class BaseLibraryUpdateView(
             else throw NullPointerException("No container to inflate progress views into.")
 
     init {
+        setProgressViews()
         setViewListeners()
         aestheticsDelegate.applyLightColors()
     }
