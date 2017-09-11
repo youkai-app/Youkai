@@ -12,7 +12,6 @@ import android.support.annotation.ColorRes
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewAnimationUtils
-import android.widget.EditText
 import android.widget.TextView
 import app.youkai.R
 import app.youkai.progressview.ProgressView
@@ -191,8 +190,6 @@ class AestheticsDelegate(private val rootView: View, private val context: Contex
             R.color.library_update_edittext_dark
     )
 
-    private fun getColor(@ColorRes colorRes: Int): Int {
-        return context.getColorCompat(colorRes)
-    }
+    private fun getColor(@ColorRes colorRes: Int) = context.getColorCompat(colorRes)
 
 }
