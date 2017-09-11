@@ -3,6 +3,7 @@ package app.youkai.ui.feature.library_update.view
 import android.app.AlertDialog
 import android.content.Context
 import android.support.annotation.ArrayRes
+import android.support.annotation.StringRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -132,6 +133,10 @@ abstract class BaseLibraryUpdateView(
         val statusAdapter = ArrayAdapter.createFromResource(context, arrayRes, R.layout.simple_spinner_item)
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         rootView.statusSpinner.adapter = statusAdapter
+    }
+
+    protected fun setReconsumedLabel(@StringRes labelTextRes: Int) {
+        rootView.reconsumed.setText(labelTextRes)
     }
 
     private fun showRemovalConfirmationDialog() {

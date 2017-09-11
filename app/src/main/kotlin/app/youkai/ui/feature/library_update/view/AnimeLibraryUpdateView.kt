@@ -20,6 +20,7 @@ class AnimeLibraryUpdateView(presenter: BaseLibraryUpdatePresenter, rootView: Vi
         statusResolver = AnimeStatusResolver(context)
         setStatusSpinner(R.array.anime_statuses)
         setStatusSpinnerListener(statusResolver)
+        setReconsumedLabel(R.string.rewatched)
     }
 
     fun setEpisodeProgress(progress: Int) {

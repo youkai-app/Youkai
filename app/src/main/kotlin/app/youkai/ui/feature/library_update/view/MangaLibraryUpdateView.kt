@@ -20,6 +20,7 @@ class MangaLibraryUpdateView(presenter: BaseLibraryUpdatePresenter, rootView: Vi
         statusResolver = MangaStatusResolver(context)
         setStatusSpinner(R.array.manga_statuses)
         setStatusSpinnerListener(statusResolver)
+        setReconsumedLabel(R.string.reread)
     }
 
     fun setChapterProgress(progress: Int) {
