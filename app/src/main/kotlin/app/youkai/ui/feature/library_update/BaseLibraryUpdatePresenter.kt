@@ -159,6 +159,7 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
                 libraryEntryRequest
                         .get()
                         .doOnNext { checkedForExistenceOnRemote = true }
+                        .observeOn(Schedulers.computation())
                         .map { it.get() }
                         .map { entries ->
                             /**
@@ -172,6 +173,7 @@ open class BaseLibraryUpdatePresenter() : MvpBasePresenter<LibraryUpdateViewMana
         }
 
         updateObservable
+                .observeOn(Schedulers.io())
                 .concatMap { entry: LibraryEntry ->
                     // if the entry existed, the id would have been set by this point
                     if (libraryEntry.id == null) {
