@@ -12,7 +12,10 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.ViewFlipper
+import app.youkai.R
+import app.youkai.progressview.ProgressView
 import java.text.NumberFormat
 import java.util.*
 
@@ -167,3 +170,13 @@ fun Drawable.setTintCompat(resources: Resources, @ColorRes colorRes: Int, theme:
 fun Context.getColorCompat(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(this, colorRes)
 }
+
+/**
+  * Gets the EditText inside a ProgressView
+  */
+fun ProgressView.editText() = this.findViewById<EditText>(R.id.progress)
+
+/**
+ * Gets the TextView that displays the max value inside a ProgressView
+ */
+fun ProgressView.maxView() = this.findViewById<TextView>(R.id.max)

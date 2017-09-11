@@ -17,7 +17,9 @@ import android.widget.TextView
 import app.youkai.R
 import app.youkai.progressview.ProgressView
 import app.youkai.ui.CustomRecolor
+import app.youkai.util.ext.editText
 import app.youkai.util.ext.getColorCompat
+import app.youkai.util.ext.maxView
 import app.youkai.util.ext.setStatefulTintCompat
 import com.transitionseverywhere.Transition
 import com.transitionseverywhere.TransitionManager
@@ -164,11 +166,11 @@ class AestheticsDelegate(private val rootView: View, private val context: Contex
 
     fun setProgressViewColors(progressView: ProgressView, @ColorRes textColorRes: Int, @ColorRes editTextBackgroundColorRes: Int) {
         val textColor = getColor(textColorRes)
-        val editText = progressView.findViewById<EditText>(R.id.progress)
+        val editText = progressView.editText()
         editText?.setTextColor(textColor)
         editText?.setHintTextColor(textColor)
         editText?.background?.setStatefulTintCompat(resources, editTextBackgroundColorRes)
-        progressView.findViewById<TextView>(R.id.max)?.setTextColor(textColor)
+        progressView.maxView()?.setTextColor(textColor)
     }
 
     fun applyLightColors() = setColors(
