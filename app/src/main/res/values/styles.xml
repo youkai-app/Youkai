@@ -45,4 +45,14 @@
         <item name="colorAccent">@color/accent</item>
     </style>
 
+    <style name="LibraryUpdateLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/bottom_sheet_label_light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

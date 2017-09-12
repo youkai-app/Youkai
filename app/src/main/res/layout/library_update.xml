@@ -53,14 +53,8 @@
 
         <TextView
             android:id="@+id/statusLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:maxLines="1"
+            style="@style/LibraryUpdateLabel"
             android:text="@string/status"
-            android:textColor="@color/bottom_sheet_label_light"
-            android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <Spinner
@@ -75,14 +69,8 @@
 
         <TextView
             android:id="@+id/progressLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:maxLines="1"
+            style="@style/LibraryUpdateLabel"
             android:text="@string/progress"
-            android:textColor="@color/bottom_sheet_label_light"
-            android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/statusLabel" />
 
         <FrameLayout
@@ -95,14 +83,8 @@
 
         <TextView
             android:id="@+id/reconsumedLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:maxLines="1"
+            style="@style/LibraryUpdateLabel"
             android:text="@string/rewatched"
-            android:textColor="@color/bottom_sheet_label_light"
-            android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/progressContainer" />
 
         <app.youkai.progressview.ProgressView
@@ -117,14 +99,8 @@
 
         <TextView
             android:id="@+id/ratingLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:maxLines="1"
+            style="@style/LibraryUpdateLabel"
             android:text="@string/rating"
-            android:textColor="@color/bottom_sheet_label_light"
-            android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/reconsumedLabel" />
 
         <!--
@@ -148,14 +124,8 @@
 
         <TextView
             android:id="@+id/notesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:maxLines="1"
+            style="@style/LibraryUpdateLabel"
             android:text="@string/personal_notes"
-            android:textColor="@color/bottom_sheet_label_light"
-            android:textSize="16sp"
-            android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@id/ratingLabel" />
 
         <EditText
