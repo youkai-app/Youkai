@@ -136,7 +136,7 @@ abstract class BaseLibraryUpdateView(
     }
 
     protected fun setReconsumedLabel(@StringRes labelTextRes: Int) {
-        rootView.reconsumed.setText(labelTextRes)
+        rootView.reconsumedLabel.setText(labelTextRes)
     }
 
     private fun showRemovalConfirmationDialog() {

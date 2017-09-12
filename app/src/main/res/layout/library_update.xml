@@ -52,7 +52,7 @@
             app:layout_constraintStart_toEndOf="@id/title" />
 
         <TextView
-            android:id="@+id/status"
+            android:id="@+id/statusLabel"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:gravity="center_vertical"
@@ -68,13 +68,13 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:spinnerMode="dropdown"
-            app:layout_constraintBaseline_toBaselineOf="@id/status"
+            app:layout_constraintBaseline_toBaselineOf="@id/statusLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@id/status" />
+            app:layout_constraintStart_toEndOf="@id/statusLabel" />
 
         <TextView
-            android:id="@+id/progress"
+            android:id="@+id/progressLabel"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:gravity="center_vertical"
@@ -83,18 +83,18 @@
             android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
-            app:layout_constraintTop_toBottomOf="@id/status" />
+            app:layout_constraintTop_toBottomOf="@id/statusLabel" />
 
         <FrameLayout
             android:id="@+id/progressContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/progress"
-            app:layout_constraintTop_toTopOf="@id/progress" />
+            app:layout_constraintStart_toEndOf="@id/progressLabel"
+            app:layout_constraintTop_toTopOf="@id/progressLabel" />
 
         <TextView
-            android:id="@+id/reconsumed"
+            android:id="@+id/reconsumedLabel"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:gravity="center_vertical"
@@ -111,12 +111,12 @@
             android:layout_height="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@id/reconsumed"
-            app:layout_constraintTop_toTopOf="@id/reconsumed"
+            app:layout_constraintStart_toEndOf="@id/reconsumedLabel"
+            app:layout_constraintTop_toTopOf="@id/reconsumedLabel"
             app:pv_showMax="false" />
 
         <TextView
-            android:id="@+id/rating"
+            android:id="@+id/ratingLabel"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:gravity="center_vertical"
@@ -125,7 +125,7 @@
             android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
-            app:layout_constraintTop_toBottomOf="@id/reconsumed" />
+            app:layout_constraintTop_toBottomOf="@id/reconsumedLabel" />
 
         <!--
             The secondaryProgressTint is currently incorrect because the rating bar library does not handle transparency in
@@ -138,16 +138,16 @@
             android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@id/rating"
-            app:layout_constraintTop_toBottomOf="@id/reconsumed"
-            app:layout_constraintTop_toTopOf="@id/rating"
+            app:layout_constraintStart_toEndOf="@id/ratingLabel"
+            app:layout_constraintTop_toBottomOf="@id/reconsumedLabel"
+            app:layout_constraintTop_toTopOf="@id/ratingLabel"
             app:mrb_indeterminateTint="@color/bottom_sheet_title_light"
             app:mrb_progressBackgroundTint="@color/bottom_sheet_title_light"
             app:mrb_progressTint="#fecb20"
             app:mrb_secondaryProgressTint="#fecb20" />
 
         <TextView
-            android:id="@+id/notes"
+            android:id="@+id/notesLabel"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:gravity="center_vertical"
@@ -156,7 +156,7 @@
             android:textColor="@color/bottom_sheet_label_light"
             android:textSize="16sp"
             android:textStyle="normal"
-            app:layout_constraintTop_toBottomOf="@id/rating" />
+            app:layout_constraintTop_toBottomOf="@id/ratingLabel" />
 
         <EditText
             android:id="@+id/notesInputEdit"
@@ -167,7 +167,7 @@
             android:textColor="@color/bottom_sheet_item_light"
             android:textColorHint="@color/bottom_sheet_title_light"
             android:backgroundTint="@color/bottom_sheet_title_light"
-            app:layout_constraintTop_toBottomOf="@id/notes" />
+            app:layout_constraintTop_toBottomOf="@id/notesLabel" />
 
     </android.support.constraint.ConstraintLayout>
 

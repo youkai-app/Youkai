@@ -121,21 +121,21 @@ class AestheticsDelegate(private val rootView: View, private val context: Contex
 
         rootView.title.setTextColor(titleColor)
         rootView.privacySwitch.setTextColor(labelColor)
-        rootView.status.setTextColor(labelColor)
+        rootView.statusLabel.setTextColor(labelColor)
         setSpinnerSelectedColors(itemColorRes, buttonDrawableColorRes, spinnerBackgroundColorRes)
-        rootView.progress.setTextColor(labelColor)
+        rootView.progressLabel.setTextColor(labelColor)
         if (rootView.progressContainer.episodesProgressView != null) {
             setProgressViewColors(rootView.progressContainer.episodesProgressView, itemColorRes, editTextBackgroundColorRes)
         } else if (rootView.progressContainer.chaptersProgressView != null && rootView.progressContainer.volumesProgressView != null) {
             setProgressViewColors(rootView.progressContainer.chaptersProgressView, itemColorRes, editTextBackgroundColorRes)
             setProgressViewColors(rootView.progressContainer.volumesProgressView, itemColorRes, editTextBackgroundColorRes)
         }
-        rootView.reconsumed.setTextColor(labelColor)
+        rootView.reconsumedLabel.setTextColor(labelColor)
         setProgressViewColors(rootView.reconsumedProgressView, itemColorRes, editTextBackgroundColorRes)
-        rootView.rating.setTextColor(labelColor)
+        rootView.ratingLabel.setTextColor(labelColor)
         rootView.ratingBar.progressBackgroundTintList = ColorStateList.valueOf(titleColor)
         rootView.ratingBar.indeterminateTintList = ColorStateList.valueOf(titleColor)
-        rootView.notes.setTextColor(labelColor)
+        rootView.notesLabel.setTextColor(labelColor)
         rootView.notesInputEdit.setHintTextColor(titleColor)
         rootView.notesInputEdit.setTextColor(itemColor)
         rootView.removeButton.setTextColor(titleColor)
