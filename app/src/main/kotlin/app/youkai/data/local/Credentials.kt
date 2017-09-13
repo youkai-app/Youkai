@@ -42,10 +42,7 @@ object Credentials {
         get() = username != null && authToken != null
 
     fun logout() {
-        authToken = null
-        username = null
-        refreshToken = null
-        userId = null
+        prefs.edit().clear().apply()
     }
 
 }
