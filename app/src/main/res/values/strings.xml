@@ -177,8 +177,10 @@
     <string name="action_read_more">Read More</string>
 
     <string name="account">Account</string>
+    <string name="cancel">Cancel</string>
     <string name="general">General</string>
     <string name="logout">Logout</string>
+    <string name="logout_confirmation">Are you sure you want to logout?</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="oops">Oops</string>
     <string name="retry">Retry</string>

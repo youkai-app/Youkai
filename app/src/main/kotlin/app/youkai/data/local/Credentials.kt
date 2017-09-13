@@ -16,7 +16,7 @@ object Credentials {
     private val KEY_REFRESH_TOKEN = "refresh_token"
     private val KEY_USER_ID = "user_id"
 
-    private var prefs: SharedPreferences
+    private val prefs: SharedPreferences
 
     init {
         prefs = App.context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
@@ -40,4 +40,12 @@ object Credentials {
 
     val isAuthenticated: Boolean
         get() = username != null && authToken != null
+
+    fun logout() {
+        authToken = null
+        username = null
+        refreshToken = null
+        userId = null
+    }
+
 }
