@@ -59,12 +59,9 @@
 
         <Spinner
             android:id="@+id/statusSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            style="@style/LibraryUpdateEditable"
             android:spinnerMode="dropdown"
             app:layout_constraintBaseline_toBaselineOf="@id/statusLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toEndOf="@id/statusLabel" />
 
         <TextView
@@ -89,13 +86,10 @@
 
         <app.youkai.progressview.ProgressView
             android:id="@+id/reconsumedProgressView"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
+            style="@style/LibraryUpdateEditable"
+            app:pv_showMax="false"
             app:layout_constraintStart_toEndOf="@id/reconsumedLabel"
-            app:layout_constraintTop_toTopOf="@id/reconsumedLabel"
-            app:pv_showMax="false" />
+            app:layout_constraintTop_toTopOf="@id/reconsumedLabel" />
 
         <TextView
             android:id="@+id/ratingLabel"
@@ -110,17 +104,15 @@
         -->
         <me.zhanghai.android.materialratingbar.MaterialRatingBar
             android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
+            style="@style/LibraryUpdateEditable"
             android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@id/ratingLabel"
-            app:layout_constraintTop_toBottomOf="@id/reconsumedLabel"
-            app:layout_constraintTop_toTopOf="@id/ratingLabel"
             app:mrb_indeterminateTint="@color/bottom_sheet_title_light"
             app:mrb_progressBackgroundTint="@color/bottom_sheet_title_light"
             app:mrb_progressTint="#fecb20"
-            app:mrb_secondaryProgressTint="#fecb20" />
+            app:mrb_secondaryProgressTint="#fecb20"
+            app:layout_constraintStart_toEndOf="@id/ratingLabel"
+            app:layout_constraintTop_toBottomOf="@id/reconsumedLabel"
+            app:layout_constraintTop_toTopOf="@id/ratingLabel" />
 
         <TextView
             android:id="@+id/notesLabel"
