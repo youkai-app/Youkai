@@ -22,8 +22,8 @@
         android:id="@id/libraryUpdateContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="16dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="16dp"
         android:animateLayoutChanges="true" >
 
         <TextView
@@ -149,11 +149,9 @@
         android:layout_below="@id/libraryUpdateContent"
         android:text="@string/remove_from_library"
         android:textColor="@color/bottom_sheet_title_light"
-        android:drawableLeft="@drawable/ic_delete_black_24dp"
         android:drawableStart="@drawable/ic_delete_black_24dp"
         android:drawableTint="@color/bottom_sheet_title_light"
         android:drawablePadding="8dp"
-        android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored" />
 
