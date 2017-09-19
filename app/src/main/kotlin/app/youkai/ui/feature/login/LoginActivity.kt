@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.inputmethod.EditorInfo
 import app.youkai.MainActivity
 import app.youkai.R
 import app.youkai.util.ext.inputString
@@ -33,10 +33,18 @@ class LoginActivity : MvpViewStateActivity<LoginView, LoginPresenter>(), LoginVi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        password.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_GO && go.isEnabled) {
+                doLogin()
+            }
+
+            false
+        }
+
         go.setOnClickListener { doLogin() }
 
         // Allows for HTML-formatted links in the text to be clickable.
-        bottomLinks.movementMethod = LinkMovementMethod() as MovementMethod
+        bottomLinks.movementMethod = LinkMovementMethod()
 
         val inputConsumer: Consumer<TextViewAfterTextChangeEvent> = Consumer({
             enableButton(
