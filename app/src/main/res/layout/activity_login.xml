@@ -16,12 +16,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
+            android:importantForAccessibility="no"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:src="@mipmap/ic_launcher" />
@@ -30,32 +31,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
             android:text="@string/app_name"
-            android:textSize="22sp"
-            tools:ignore="RtlHardcoded" />
+            android:textSize="22sp" />
+
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="0dp"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/usernameContainer"
         android:layout_height="wrap_content"
-        android:hint="@string/content_username"
-        android:inputType="text"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintRight_toLeftOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <EditText
-        android:id="@+id/password"
         android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline6">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="@string/content_username"
+            android:id="@+id/username"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:maxLines="1" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/passwordContainer"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="@string/content_password"
-        android:inputType="textPassword"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintRight_toLeftOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/usernameContainer">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="@string/content_password"
+            android:id="@+id/password"
+            android:imeOptions="actionGo"
+            android:inputType="textPassword"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:maxLines="1" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <ProgressBar
         android:id="@+id/progress"
@@ -68,8 +87,8 @@
         android:indeterminate="true"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/bottomLinks"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintRight_toLeftOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/go"
         tools:visibility="visible" />
 
@@ -79,9 +98,9 @@
         android:layout_height="62dp"
         android:layout_gravity="center"
         android:scaleType="center"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintRight_toLeftOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
         app:rippleColor="@android:color/white"
         app:srcCompat="@drawable/ic_arrow_forward_white_24dp" />
 
@@ -92,12 +111,12 @@
         android:gravity="center"
         android:text="@string/content_forgot_password_signup"
         android:textColorLink="@color/accent"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintRight_toLeftOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
+        android:id="@id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -106,7 +125,7 @@
         tools:layout_editor_absoluteY="0dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
+        android:id="@id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -115,7 +134,7 @@
         tools:layout_editor_absoluteY="0dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline"
+        android:id="@id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -124,7 +143,7 @@
         tools:layout_editor_absoluteY="99dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
+        android:id="@id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -133,7 +152,7 @@
         tools:layout_editor_absoluteY="562dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline7"
+        android:id="@id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -142,7 +161,7 @@
         tools:layout_editor_absoluteY="400dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
+        android:id="@id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

@@ -3,7 +3,7 @@ package app.youkai.util.ext
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
+import android.widget.TextView
 import android.widget.ViewFlipper
 import java.text.NumberFormat
 import java.util.*
@@ -65,7 +65,7 @@ fun MutableMap<String, String>.append(key: String, other: String, delimiter: Str
 /**
  * Returns the input as a string.
  */
-fun EditText.inputString(): String = text.toString()
+fun TextView.inputString(): String = text.toString()
 
 /**
  * Formats itself with appropriate commas and dots and returns the resulting String.
