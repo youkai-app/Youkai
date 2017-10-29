@@ -36,18 +36,7 @@ class Episode : BaseJsonModel(JsonType("episodes")) {
 
     var length: Int? = null
 
-    /*
-     * Thumbnail is an object with a single field ("original") in the api.
-     * This method prevents the need for creating a new object for this one property.
-     * If the thumbnail object one day includes new properties (pretty much guaranteed to be strings)
-     * this method should still work as expected.
-     */
-    var thumbnail: String? = null
-
-    @JsonProperty("thumbnail")
-    fun setThumbnail(m: Map<String, String>?) {
-        if (m != null) thumbnail = m["original"]
-    }
+    var thumbnail: Image? = null
 
     @Relationship("media")
     var media: BaseMedia? = null

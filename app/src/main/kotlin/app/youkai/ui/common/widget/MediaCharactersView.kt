@@ -82,11 +82,11 @@ class MediaCharactersView : LinearLayout {
     fun setCharacters(chars: List<Character?>) {
         for (i in chars.indices) {
             when (i) {
-                0 -> char1.setImageURI(chars[i]?.image ?: "")
-                1 -> char2.setImageURI(chars[i]?.image ?: "")
-                2 -> char3.setImageURI(chars[i]?.image ?: "")
-                3 -> char4.setImageURI(chars[i]?.image ?: "")
-                4 -> char5.setImageURI(chars[i]?.image ?: "")
+                0 -> char1.setImageURI(chars[i]?.image?.original ?: "")
+                1 -> char2.setImageURI(chars[i]?.image?.original ?: "")
+                2 -> char3.setImageURI(chars[i]?.image?.original ?: "")
+                3 -> char4.setImageURI(chars[i]?.image?.original ?: "")
+                4 -> char5.setImageURI(chars[i]?.image?.original ?: "")
             }
         }
     }

@@ -27,18 +27,7 @@ class Character : BaseJsonModel(JsonType("characters")) {
 
     var description: String? = null
 
-    /*
-     * Image is an object with a single field ("original") in the api.
-     * This method prevents the need for creating a new object for this one property.
-     * If the image object one day includes new properties (pretty much guaranteed to be strings)
-     * this method should still work as expected.
-    */
-    var image: String? = null
-
-    @JsonProperty("image")
-    fun setImage(m: Map<String, String>?) {
-        image = m?.get("original")
-    }
+    var image: Image? = null
 
     @Relationship("castings")
     var casting: Casting? = null

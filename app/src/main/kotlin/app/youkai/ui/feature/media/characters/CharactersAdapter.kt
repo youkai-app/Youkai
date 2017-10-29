@@ -24,7 +24,7 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
         val item = dataset[position]
 
         v.name.text = item.character?.name ?: "?"
-        v.image.setImageURI(item.character?.image)
+        v.image.setImageURI(item.character?.image?.original)
         v.castingName.text = item.person?.name ?: "?"
         v.castingImage.setImageURI(item.person?.image)
     }

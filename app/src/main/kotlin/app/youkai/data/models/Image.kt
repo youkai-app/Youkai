@@ -12,6 +12,7 @@ open class Image(type: JsonType = JsonType("image")) : BaseJsonModel(type) {
         val MEDIUM = "medium"
         val LARGE = "large"
         val ORIGINAL = "original"
+        val META = "meta"
     }
 
     var tiny: String? = null
@@ -24,4 +25,5 @@ open class Image(type: JsonType = JsonType("image")) : BaseJsonModel(type) {
 
     var original: String? = null
 
+    var meta: ImageMeta? = null
 }
