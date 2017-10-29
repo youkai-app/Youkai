@@ -1,5 +1,6 @@
 package app.youkai.ui.feature.media.summary
 
+import android.support.annotation.DrawableRes
 import android.support.annotation.IntegerRes
 import app.youkai.data.models.*
 import app.youkai.data.models.ext.MediaType
@@ -12,9 +13,9 @@ interface SummaryView : MvpView {
     fun setCategories(categories: List<Category>)
     fun setNoCategories()
     fun setLength(firstLine: String, secondLine: String, makeLink: Boolean)
-    fun setLengthIcon(@IntegerRes res: Int)
+    fun setLengthIcon(@DrawableRes res: Int)
     fun setStreamers(streamers: List<StreamingLink>)
-    fun setStremersShown(show: Boolean = true)
+    fun setStreamersShown(show: Boolean = true)
     fun setNoStreamingServices()
     fun setReleaseInfo(firstLine: String, secondLine: String, makeLink: Boolean)
     fun setCommunityRating(rating: Float)
@@ -25,7 +26,7 @@ interface SummaryView : MvpView {
     fun setReviews(reviews: List<Review>)
     fun setNoReviews()
     fun setProducers(producers: String)
-    fun setProducersIcon(@IntegerRes res: Int)
+    fun setProducersIcon(@DrawableRes res: Int)
     fun setCharacters(characters: List<Character?>)
     fun setCharactersShown(show: Boolean = true)
     fun setMoreCharactersCount(count: Int)

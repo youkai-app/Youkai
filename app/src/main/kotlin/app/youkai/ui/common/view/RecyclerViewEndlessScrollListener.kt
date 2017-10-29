@@ -20,8 +20,8 @@ class RecyclerViewEndlessScrollListener(
         super.onScrolled(recyclerView, dx, dy)
 
         if (dy > 0) {
-            visibleItemCount = layoutManager.childCount;
-            totalItemCount = layoutManager.itemCount;
+            visibleItemCount = layoutManager.childCount
+            totalItemCount = layoutManager.itemCount
             firstVisibleItemPosition = when (layoutManager) {
                 is LinearLayoutManager -> layoutManager.findFirstVisibleItemPosition()
                 is GridLayoutManager -> layoutManager.findFirstVisibleItemPosition()

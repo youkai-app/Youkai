@@ -18,7 +18,7 @@ class MangaSummaryPresenter : BaseSummaryPresenter() {
 
     override fun load(media: BaseMedia?, onTablet: Boolean) {
         super.load(media, onTablet)
-        view?.setStremersShown(false)
+        view?.setStreamersShown(false)
         view?.setCharactersShown(false)
     }
 

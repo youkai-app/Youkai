@@ -9,12 +9,12 @@ import app.youkai.util.ext.unitify
  * A SharedPreferences manager object that takes care of storing user credentials.
  */
 object Credentials {
-    private val NAME = "credentials_storage"
+    private const val NAME = "credentials_storage"
 
-    private val KEY_USERNAME = "username"
-    private val KEY_AUTH_TOKEN = "auth_token"
-    private val KEY_REFRESH_TOKEN = "refresh_token"
-    private val KEY_USER_ID = "user_id"
+    private const val KEY_USERNAME = "username"
+    private const val KEY_AUTH_TOKEN = "auth_token"
+    private const val KEY_REFRESH_TOKEN = "refresh_token"
+    private const val KEY_USER_ID = "user_id"
 
     private val prefs: SharedPreferences
 
