@@ -2,6 +2,7 @@ package app.youkai.ui.feature.media.characters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -80,16 +81,17 @@ class CharactersActivity : FragmentContainerActivity<CharactersActivityView, Cha
     }
 
     companion object {
-        val ARG_MEDIA_ID = "media_id"
-        val ARG_MEDIA_TYPE = "media_type"
-        val ARG_MEDIA_TITLE = "media_title"
+        const val ARG_MEDIA_ID = "media_id"
+        const val ARG_MEDIA_TYPE = "media_type"
+        const val ARG_MEDIA_TITLE = "media_title"
 
-        fun start(activity: Activity, mediaId: String, mediaType: MediaType, mediaTitle: String) {
-            val intent = Intent(activity, CharactersActivity::class.java)
+        fun getLaunchIntent(context: Context, mediaId: String, mediaType: MediaType,
+                mediaTitle: String): Intent {
+            val intent = Intent(context, CharactersActivity::class.java)
             intent.putExtra(ARG_MEDIA_ID, mediaId)
             intent.putExtra(ARG_MEDIA_TYPE, mediaType.value)
             intent.putExtra(ARG_MEDIA_TITLE, mediaTitle)
-            activity.startActivity(intent)
+            return intent
         }
     }
 }

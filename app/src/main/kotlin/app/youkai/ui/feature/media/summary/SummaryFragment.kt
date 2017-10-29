@@ -3,6 +3,7 @@ package app.youkai.ui.feature.media.summary
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -40,7 +41,7 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
         return inflater.inflate(R.layout.fragment_media_summary, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         synopsisContainer.setOnClickListener {
@@ -101,8 +102,8 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
     override fun setLength(firstLine: String, secondLine: String, makeLink: Boolean) {
         val text = "$firstLine\n$secondLine"
         if (makeLink) {
-            length.setText(coloredSpannableString(text, resources.getColor(R.color.accent), 0,
-                    firstLine.length))
+            length.setText(coloredSpannableString(text,
+                    ContextCompat.getColor(context!!, R.color.accent), 0, firstLine.length))
         } else {
             length.setText(text)
         }
@@ -123,7 +124,7 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
         }
     }
 
-    override fun setStremersShown(show: Boolean) {
+    override fun setStreamersShown(show: Boolean) {
         streamingServicesContainer.visibility = show.toVisibility()
     }
 
@@ -147,7 +148,7 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
     }
 
     override fun setRatingsCount(count: Int) {
-        ratingsCount.text = context.resources.getQuantityString(
+        ratingsCount.text = context?.resources?.getQuantityString(
                 R.plurals.x_ratings,
                 count,
                 count.formatForDisplay()
@@ -155,7 +156,7 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
     }
 
     override fun setFavoritesCount(count: Int) {
-        favoritesCount.text = context.resources.getQuantityString(
+        favoritesCount.text = context?.resources?.getQuantityString(
                 R.plurals.x_favorites,
                 count,
                 count.formatForDisplay()
@@ -287,12 +288,14 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
     }
 
     override fun startRelatedMediaActivity(id: String, type: MediaType) {
-        activity?.startActivity(MediaActivity.getLaunchIntent(context, id, type))
+        context?.let {
+            it.startActivity(MediaActivity.getLaunchIntent(it, id, type))
+        }
     }
 
     override fun startCharactersActivity(mediaId: String, mediaType: MediaType, mediaTitle: String) {
-        whenNotNull(activity) {
-            CharactersActivity.start(it, mediaId, mediaType, mediaTitle)
+        context?.let {
+            it.startActivity(CharactersActivity.getLaunchIntent(it, mediaId, mediaType, mediaTitle))
         }
     }
 
@@ -305,7 +308,7 @@ class SummaryFragment : MvpFragment<SummaryView, BaseSummaryPresenter>(), Summar
     }
 
     companion object {
-        private val FLIPPER_CONTENT = 0
-        private val FLIPPER_EMPTY_STATE = 1
+        private const val FLIPPER_CONTENT = 0
+        private const val FLIPPER_EMPTY_STATE = 1
     }
 }

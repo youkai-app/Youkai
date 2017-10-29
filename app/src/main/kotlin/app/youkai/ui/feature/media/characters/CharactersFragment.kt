@@ -11,14 +11,14 @@ import app.youkai.R
 import app.youkai.data.models.Casting
 import app.youkai.data.models.ext.MediaType
 import app.youkai.ui.common.mvp.MvpLceFragment
-import kotlinx.android.synthetic.main.fragment_characters.*
-import tr.xip.errorview.ErrorView
-import kotlinx.android.synthetic.main.fragment_characters.view.*
 import app.youkai.ui.common.view.GridSpacingItemDecoration
 import app.youkai.ui.common.view.RecyclerViewEndlessScrollListener
 import app.youkai.util.ext.toPx
 import app.youkai.util.ext.toVisibility
 import app.youkai.util.ext.whenNotNull
+import kotlinx.android.synthetic.main.fragment_characters.*
+import kotlinx.android.synthetic.main.fragment_characters.view.*
+import tr.xip.errorview.ErrorView
 
 class CharactersFragment : MvpLceFragment<CharactersView, CharactersPresenter>(), CharactersView {
 
@@ -41,12 +41,13 @@ class CharactersFragment : MvpLceFragment<CharactersView, CharactersPresenter>()
         return inflater.inflate(R.layout.fragment_characters, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mediaId = arguments.getString(ARG_MEDIA_ID)
-        val mediaType = MediaType.fromString(arguments.getString(ARG_MEDIA_TYPE))
-        val mediaTitle = arguments.getString(ARG_MEDIA_TITLE)
+        val args = arguments ?: throw IllegalStateException("arguments are null!")
+        val mediaId = args.getString(ARG_MEDIA_ID)
+        val mediaType = MediaType.fromString(args.getString(ARG_MEDIA_TYPE))
+        val mediaTitle = args.getString(ARG_MEDIA_TITLE)
 
         setUpRecyclerView()
 
@@ -75,7 +76,7 @@ class CharactersFragment : MvpLceFragment<CharactersView, CharactersPresenter>()
     private fun setUpRecyclerView() {
         val columnsCount = maximumTilesCount()
         recycler.layoutManager = GridLayoutManager(context, columnsCount)
-        recycler.addItemDecoration(GridSpacingItemDecoration(columnsCount, 4.toPx(context), true))
+        recycler.addItemDecoration(GridSpacingItemDecoration(columnsCount, 4.toPx(context!!), true))
         recycler.addOnScrollListener(RecyclerViewEndlessScrollListener(recycler.layoutManager) {
             presenter.onScrollEndReached()
         })
@@ -92,9 +93,9 @@ class CharactersFragment : MvpLceFragment<CharactersView, CharactersPresenter>()
 
 
     companion object {
-        val ARG_MEDIA_ID = "media_id"
-        val ARG_MEDIA_TYPE = "media_type"
-        val ARG_MEDIA_TITLE = "media_title"
+        const val ARG_MEDIA_ID = "media_id"
+        const val ARG_MEDIA_TYPE = "media_type"
+        const val ARG_MEDIA_TITLE = "media_title"
 
         fun new(mediaId: String, mediaType: MediaType, mediaTitle: String): CharactersFragment {
             val fragment = CharactersFragment()
