@@ -14,7 +14,7 @@ def keystorePassword = System.getenv('keystorePassword') ?: project.property("si
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.0'
+    buildToolsVersion '27.0.3'
 
     playAccountConfigs {
         defaultAccountConfig {
@@ -121,7 +121,7 @@ dependencies {
     /* JSONAPI converter
      * https://github.com/Kevinrob/jsonapi-converter */
     compile('com.github.dulleh:jsonapi-converter:090d7a89426c4765ea08edb655d5c0aa7e3c7d5d'){
-        changing=true
+        changing = true
     }
 
     /* Kotlin
