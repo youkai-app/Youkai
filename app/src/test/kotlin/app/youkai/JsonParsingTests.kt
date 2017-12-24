@@ -235,7 +235,7 @@ class JsonParsingTests {
         assertEquals("something something Envy, Greed, spoilers, Rosé and Hohenheim.", first.synopsis)
         assertEquals("2010-02-07", first.airdate)
         assertEquals(null, first.length)
-        assertEquals("https://media.kitsu.io/episodes/thumbnails/66105/original.jpg?1416321163", first.thumbnail)
+        assertEquals("https://media.kitsu.io/episodes/thumbnails/66105/original.jpg?1416321163", first.thumbnail!!.original)
         assertEquals("https://kitsu.io/api/edge/episodes/66105", first.links!!.self.href)
 
         assertEquals("https://kitsu.io/api/edge/episodes/66105/relationships/media", first.mediaLinks!!.self.href)
@@ -322,7 +322,7 @@ class JsonParsingTests {
         assertEquals("Mikasa Ackerman", character.name)
         assertEquals(40881, character.malId)
         assertEquals("Age: 15<br/>BirthHeight: 17 metres! WOW! WHAT A TALL GIRL...are inseparable.</span>", character.description)
-        assertEquals("https://media.kitsu.io/characters/images/38505/original.jpg?1483096805", character.image)
+        assertEquals("https://media.kitsu.io/characters/images/38505/original.jpg?1483096805", character.image!!.original)
         assertEquals("https://kitsu.io/api/edge/characters/38505", character.links!!.self.href)
         assertNull(character.casting)
         assertEquals("https://kitsu.io/api/edge/characters/38505/relationships/castings", character.castingLinks!!.self.href)
